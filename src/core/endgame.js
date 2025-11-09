@@ -545,6 +545,7 @@ export const Endgame = {
     player.records.bestReality.speedSet = [];
     player.records.bestReality.iMCapSet = [];
     player.records.bestReality.laitelaSet = [];
+    Glyphs.refreshActive();
     if (EndgameMastery(112).isBought) {
       Achievement(146).unlock();
     }
