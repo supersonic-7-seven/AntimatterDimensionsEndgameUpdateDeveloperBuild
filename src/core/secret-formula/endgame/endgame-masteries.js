@@ -15,7 +15,7 @@ export const endgameMasteries = [
     cost: 2,
     requirement: [11],
     reqType: EM_REQUIREMENT_TYPE.AT_LEAST_ONE,
-    description: () => `Automator Speed goes up by ${formatPercents(0.06)} rather than ${formatPercents(0.006)}`
+    description: () => `Automator Speed goes up by ${formatPercents(0.06)} rather than ${formatPercents(0.006, 2, 1)}`
   },
   {
     id: 22,
