@@ -67,7 +67,7 @@ export default {
         : null;
     },
     increaseTooltip() {
-      return this.singularityCapIncreases >= 135
+      return this.singularityCapIncreases >= 1000
         ? "You cannot increase the cap any further!"
         : null;
     }
@@ -153,7 +153,7 @@ export default {
         </button>
         <button
           class="c-laitela-singularity__cap-control"
-          :class="{ 'c-laitela-singularity__cap-control--available' : singularityCapIncreases < 100 }"
+          :class="{ 'c-laitela-singularity__cap-control--available' : singularityCapIncreases < 1000 }"
           :ach-tooltip="increaseTooltip"
           @click="increaseCap"
         >
