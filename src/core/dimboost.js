@@ -272,7 +272,7 @@ function maxBuyDimBoosts() {
   if (EternityChallenge(5).isRunning) {
     let estimateTotalAmount = Decimal.floor(Decimal.cbrt(ad)).add(1);
     const listedCost = estimateTotalAmount.lt(NormalChallenge(10).isRunning ? 2 : 4) ? new Decimal(0) : Decimal.pow(estimateTotalAmount, 3).add(estimateTotalAmount).add((estimateTotalAmount.sub(NormalChallenge(10).isRunning ? 2 : 4)).times(multiplierPerDB).add(amount));
-    if (listedCost.gt(0) {
+    if (listedCost.gt(0)) {
       while (listedCost.lt(ad)) {
         estimateTotalAmount = estimateTotalAmount.add(1);
       }
