@@ -106,7 +106,7 @@ export const imaginaryUpgrades = [
     description: () => `Increase Singularity gain`,
     effect: 1,
     scaleStart: 2,
-    formatEffect: value => `${formatX(EndgameMastery(131).isBought ? Math.pow(1 + value, value) : 1 + value, 2)}`
+    formatEffect: value => `${formatX(EndgameMastery(131).isBought ? Decimal.pow(1 + value, value) : new Decimal(1 + value), 2)}`
   }),
   {
     name: "Suspicion of Interference",
@@ -202,8 +202,8 @@ export const imaginaryUpgrades = [
     cost: 6e9,
     requirement: () => `Automatically condense at least ${formatInt(20)} Singularities at once`,
     hasFailed: () => false,
-    checkRequirement: () => Singularity.singularitiesGained >= 20 &&
-      Currency.darkEnergy.gte(Singularity.cap * SingularityMilestone.autoCondense.effectOrDefault(Infinity)),
+    checkRequirement: () => Singularity.singularitiesGained.gte(20) &&
+      Currency.darkEnergy.gte(Singularity.cap.times(SingularityMilestone.autoCondense.effectOrDefault(Infinity))),
     checkEvent: GAME_EVENT.SINGULARITY_RESET_BEFORE,
     description: "Unlock the 3rd Dark Matter Dimension",
   },
@@ -336,7 +336,7 @@ export const imaginaryUpgrades = [
     cost: 1e50,
     requirement: () => `Reach ${format(DC.E100, 2)} Singularities`,
     hasFailed: () => false,
-    checkRequirement: () => Currency.singularities.value >= 1e100,
+    checkRequirement: () => Currency.singularities.value.gte(1e100),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Unlock the 5th Dark Matter Dimension, raise Dark Matter cap to 1e1000",
   },
