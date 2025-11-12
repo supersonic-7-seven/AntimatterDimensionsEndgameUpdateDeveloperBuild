@@ -276,7 +276,7 @@ function maxBuyDimBoosts() {
     const divisor2 = Effects.sum(TimeStudy(211), TimeStudy(222));
     const extraEffect = InfinityChallenge(5).isCompleted ? new Decimal(1) : new Decimal(0);
     const cubicSum = DC.D20.add(estimateTotalAmount.sub(freeBoost.add(1)).mul(divisor1.sub(divisor2)));
-    const listedCost = (estimateTotalAmount.lt(freeBoost) ? new Decimal(0) : Decimal.pow(estimateTotalAmount.sub(1), 3).add(estimateTotalAmount).add(cubicSum).sub(1).sub(Effects.sum(InfinityUpgrade.resetBoost)).sub(extraEffect)).times(InfinityUpgrade.resetBoost.chargedEffect.effectOrDefault(1));
+    const listedCost = estimateTotalAmount.lt(freeBoost) ? new Decimal(0) : (Decimal.pow(estimateTotalAmount.sub(1), 3).add(estimateTotalAmount).add(cubicSum).sub(1).sub(Effects.sum(InfinityUpgrade.resetBoost)).sub(extraEffect)).times(InfinityUpgrade.resetBoost.chargedEffect.effectOrDefault(1));
     if (listedCost.gt(0)) {
       while (listedCost.lt(ad)) {
         estimateTotalAmount = estimateTotalAmount.add(1);
