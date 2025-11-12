@@ -467,9 +467,12 @@ Currency.darkMatter = new class extends DecimalCurrency {
   set max(value) { player.celestials.laitela.maxDarkMatter = value; }
 }();
 
-Currency.darkEnergy = new class extends NumberCurrency {
+Currency.darkEnergy = new class extends DecimalCurrency {
   get value() { return player.celestials.laitela.darkEnergy; }
-  set value(value) { player.celestials.laitela.darkEnergy = value; }
+  set value(value) {
+    const newValue = new Decimal(value);
+    player.celestials.laitela.darkEnergy = newValue;
+  }
 
   get productionPerSecond() {
     return DarkMatterDimensions.all
@@ -478,9 +481,12 @@ Currency.darkEnergy = new class extends NumberCurrency {
   }
 }();
 
-Currency.singularities = new class extends NumberCurrency {
+Currency.singularities = new class extends DecimalCurrency {
   get value() { return player.celestials.laitela.singularities; }
-  set value(value) { player.celestials.laitela.singularities = value; }
+  set value(value) {
+    const newValue = new Decimal(value);
+    player.celestials.laitela.singularities = newValue;
+  }
 }();
 
 Currency.remnants = new class extends NumberCurrency {
