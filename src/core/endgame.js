@@ -344,11 +344,11 @@ export const Endgame = {
     player.celestials.laitela.dimensions = Array.range(0, 8).map(() =>
       ({
         amount: DC.D0,
-        intervalUpgrades: 0,
-        powerDMUpgrades: 0,
-        powerDEUpgrades: 0,
+        intervalUpgrades: DC.D0,
+        powerDMUpgrades: DC.D0,
+        powerDEUpgrades: DC.D0,
         timeSinceLastUpdate: 0,
-        ascensionCount: 0
+        ascensionCount: DC.D0
       }));
     player.celestials.laitela.entropy = 0;
     player.celestials.laitela.thisCompletion = 3600;
