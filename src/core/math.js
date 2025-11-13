@@ -17,6 +17,23 @@ Math.PI_2 = Math.PI * 2;
  */
 
 /**
+ * @param {Decimal|Number} a Variable before x^2 in ax^2 + bx + c = 0
+ * @param {Decimal|Number} a Variable before x in ax^2 + bx + c = 0
+ * @param {Decimal|Number} c Variable after x in ax^2 + bx + c = 0
+ * @param {Boolean} n Should the root be subtracted to -b?
+ * @returns {Decimal}
+*/
+window.decimalQuadraticSolution = function decimalQuadraticSolution(a, b, c, n = false) {
+  const divsr = a.times(2);
+  const nb = b.neg();
+  const lroot = b.pow(2);
+  const rroot = a.times(c).times(4);
+  const froot = lroot.sub(rroot).sqrt();
+  const top = n ? nb.sub(froot) : nb.add(froot);
+  return top.div(divsr);
+};
+
+/**
  * @param {Decimal|Number} a Variable before x^3 in ax^3 + bx^2 + cx + d = 0
  * @param {Decimal|Number} b Variable before x^2 in ax^3 + bx^2 + cx + d = 0
  * @param {Decimal|Number} c Variable before x in ax^3 +  bx^2 + cx + d = 0
@@ -475,6 +492,61 @@ window.ExponentialCostScaling = class ExponentialCostScaling {
       logPrice = (newPurchases - 1) * logMult + logBase + 0.5 * pExcess * (pExcess - 1) * this._logCostScale;
     }
     return { quantity: newPurchases - currentPurchases, logPrice: logPrice + Math.log10(numberPerSet) };
+  }
+
+  decimalGetMaxBought(currentPurchases, currency, purchasesPerIncrease, roundDown = true) {
+    // Copypaste
+    const base = this.log._baseCost;
+    const inc = this.log._baseIncrease;
+    const scale = this.log._costScale;
+    const purchases = this._purchasesBeforeScaling;
+    const ppIlog = new Decimal(purchasesPerIncrease.log10());
+    let logMoney = new Decimal(currency.log10()).sub(ppIlog);
+    // A console.log(logMoney);
+    // First, is the currency before the cost of Exponential? If so we solve it here and return
+    if (logMoney.lte(base.add(inc.times(purchases.floor())))) {
+      let purchaseAmount = logMoney.sub(base).div(inc).add(1);
+      // A console.log(purchaseAmount);
+      // Round value DOWN
+      if (roundDown) purchaseAmount = purchaseAmount.floor();
+      // Return null if its less than the purchases we already have
+      if (purchaseAmount.lte(currentPurchases)) return null;
+      const cost = new Decimal(this.calculateCost(purchaseAmount).log10()).add(ppIlog);
+      purchaseAmount = purchaseAmount.sub(currentPurchases);
+      purchaseAmount = purchaseAmount.times(purchasesPerIncrease);
+      return { quantity: purchaseAmount,
+        logPrice: cost };
+      // We invert the calc after the floor to find the highest cost
+    }
+    
+    // Deduct the cost up to the linear limit
+    let purchaseAmount = purchases;
+    logMoney = logMoney.sub(base.add(inc.times(purchases)));
+
+    // Where does this equation come from?
+    // Well it comes from the fact that if we subtract all preScaling costs, the cost is equal to:
+    // 0.5s(p^2 + p) + ip (i = log(inc), s = log(scale), p = purchases)
+    // Solving for p there gives us a quadratic with -0.5s as a, (-0.5s - i) as b and cost as c
+    // Put that into the quadratic (-b - sqrt(b^2 - 4ac))/2a and you get purchases
+
+    logMoney = logMoney.sub(ppIlog);
+    const a = new Decimal(0).sub(scale).div(2);
+    const b = a.sub(inc);
+    const c = logMoney;
+
+    purchaseAmount = purchaseAmount.add(decimalQuadraticSolution(a, b, c, true));
+
+    // Technically this only buys up to the nearest set, but post exponential thats a minor flaw at most (and correct?)
+    if (roundDown) purchaseAmount = purchaseAmount.floor();
+
+    if (purchaseAmount.lte(currentPurchases)) return null;
+
+    const purchaseCost = this.calculateCost(purchaseAmount).log10().add(ppIlog);
+    purchaseAmount = purchaseAmount.sub(currentPurchases);
+    if (roundDown) purchaseAmount = purchaseAmount.floor();
+
+    purchaseAmount = purchaseAmount.times(purchasesPerIncrease);
+    return { quantity: purchaseAmount, logPrice: purchaseCost };
   }
 
   /**
