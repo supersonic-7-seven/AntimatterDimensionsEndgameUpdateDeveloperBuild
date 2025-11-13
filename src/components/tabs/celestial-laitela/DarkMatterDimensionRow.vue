@@ -24,8 +24,8 @@ export default {
       canBuyPowerDM: false,
       canBuyPowerDE: false,
       isIntervalCapped: false,
-      timer: new Decimal(0),
-      timerPecent: new Decimal(0),
+      timer: 0,
+      timerPercent: new Decimal(0),
       intervalAscensionBump: new Decimal(10000),
       intervalAfterAscension: new Decimal(0),
       darkEnergyPerSecond: new Decimal(0),
@@ -118,8 +118,8 @@ export default {
       this.canBuyPowerDM = dim.canBuyPowerDM;
       this.canBuyPowerDE = dim.canBuyPowerDE;
       this.isIntervalCapped = dim.interval.lte(dim.intervalPurchaseCap);
-      this.timer.copyFrom(dim.timeSinceLastUpdate);
-      this.timerPercent.copyFrom(this.timer.div(this.interval));
+      this.timer = dim.timeSinceLastUpdate;
+      this.timerPercent = new Decimal(this.timer).div(this.interval).toNumber();
       this.intervalAscensionBump.copyFrom(SingularityMilestone.ascensionIntervalScaling.effectOrDefault(new Decimal(1200)));
       this.intervalAfterAscension.copyFrom(dim.intervalAfterAscension);
       this.darkEnergyPerSecond.copyFrom(dim.productionPerSecond);
