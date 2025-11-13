@@ -683,11 +683,11 @@ export function gameLoop(passedDiff, options = {}) {
     player.celestials.laitela.dimensions = Array.range(0, 8).map(() =>
       ({
         amount: new Decimal(0),
-        intervalUpgrades: 0,
-        powerDMUpgrades: 0,
-        powerDEUpgrades: 0,
+        intervalUpgrades: DC.D0,
+        powerDMUpgrades: DC.D0,
+        powerDEUpgrades: DC.D0,
         timeSinceLastUpdate: 0,
-        ascensionCount: 0
+        ascensionCount: DC.D0
       }));
     if (ImaginaryUpgrade(15).isBought) DarkMatterDimension(1).amount = new Decimal(1);
     if (ImaginaryUpgrade(16).isBought) DarkMatterDimension(2).amount = new Decimal(1);
