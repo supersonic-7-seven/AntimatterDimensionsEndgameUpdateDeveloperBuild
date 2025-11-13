@@ -220,7 +220,7 @@ export const Singularity = {
   },
 
   get gainPerCapIncrease() {
-    return SingularityMilestone.improvedSingularityCap.effectOrDefault(new Decimal(11)).add(Effects.sum(EndgameMastery(161)));
+    return SingularityMilestone.improvedSingularityCap.effectOrDefault(new Decimal(11)).plusEffectsOf(EndgameMastery(161));
   },
 
   get singularitiesGained() {
