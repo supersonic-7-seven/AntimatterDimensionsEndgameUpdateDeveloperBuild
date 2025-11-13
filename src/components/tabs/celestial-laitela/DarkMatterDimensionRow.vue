@@ -105,7 +105,7 @@ export default {
       const dim = DarkMatterDimension(this.tier);
       this.isUnlocked = dim.isUnlocked;
       this.ascension.copyFrom(dim.ascensions);
-      this.hasAscended = this.ascension > 0;
+      this.hasAscended = this.ascension.gt(0);
       this.powerDMPerAscension.copyFrom(dim.powerDMPerAscension);
       this.interval.copyFrom(dim.interval);
       this.powerDM.copyFrom(dim.powerDM);
