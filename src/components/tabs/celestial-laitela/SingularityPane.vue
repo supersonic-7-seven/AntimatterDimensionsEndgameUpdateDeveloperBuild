@@ -174,14 +174,14 @@ export default {
       <br>
       Total time to <span v-if="hasAutoSingularity">(auto-)</span>condense:
       {{ baseSingularityTime }}
-      <span v-if="hasAutoSingularity && autoSingularityFactor.neq(1)">
+      <span v-if="hasAutoSingularity && autoSingularityFactor !== 1">
         (+{{ additionalSingularityTime }})
       </span>
       <br>
-      <span v-if="hasAutoSingularity && autoSingularityFactor.neq(1)">Manual </span>
+      <span v-if="hasAutoSingularity && autoSingularityFactor !== 1">Manual </span>
       Singularity gain rate: {{ manualSingularityRate }}
       <br>
-      <span v-if="hasAutoSingularity && autoSingularityFactor.neq(1)">
+      <span v-if="hasAutoSingularity && autoSingularityFactor !== 1">
         Automatic Singularity gain rate: {{ autoSingularityRate }}
       </span>
     </div>
