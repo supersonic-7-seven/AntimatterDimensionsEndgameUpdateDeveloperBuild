@@ -302,7 +302,7 @@ export const DarkMatterDimensions = {
       if (!dim.isUnlocked) continue;
       dim.timeSinceLastUpdate += realDiff;
       if (dim.interval.lt(dim.timeSinceLastUpdate)) {
-        const ticks = Math.floor(dim.timeSinceLastUpdate / dim.interval.toNumber());
+        const ticks = Decimal.floor(new Decimal(dim.timeSinceLastUpdate).div(dim.interval));
         const productionDM = dim.amount.times(ticks).times(dim.powerDM);
         if (tier === 1) {
           Currency.darkMatter.add(productionDM);
