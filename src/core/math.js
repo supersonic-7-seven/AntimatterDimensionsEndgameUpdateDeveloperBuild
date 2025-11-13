@@ -419,7 +419,7 @@ window.ExponentialCostScaling = class ExponentialCostScaling {
 
     // If it never becomes exponential cost, just return linear and stop
     if (currentPurchases.lte(purchases)) {
-      return Decimal.pow10(base.add(inc.times(currentPurchases)));
+      return DC.E1.pow(base.add(inc.times(currentPurchases)));
     }
 
     // Calculate linear cost
