@@ -371,9 +371,9 @@ window.ExponentialCostScaling = class ExponentialCostScaling {
     } else throw new Error("Must specify either scalingCostThreshold or purchasesBeforeScaling");
     this.updateCostScale();
     this.log = {
-      _baseCost: new Decimal(param.baseCost.log10()),
-      _baseIncrease: new Decimal(param.baseIncrease.log10()),
-      _costScale: new Decimal(param.costScale.log10()),
+      _baseCost: new Decimal(Decimal.log10(param.baseCost)),
+      _baseIncrease: new Decimal(Math.log10(param.baseIncrease)),
+      _costScale: new Decimal(Math.log10(param.costScale)),
     };
   }
 
