@@ -191,24 +191,30 @@ export class DarkMatterDimensionState extends DimensionState {
     const cost = this.rawIntervalCost.times(
       Decimal.pow(this.intervalCostIncrease, x).minus(1)).div(this.intervalCostIncrease.sub(1)).floor();
     if (!Currency.darkMatter.purchase(cost)) return false;
-    this.data.intervalUpgrades = this.data.intervalUpgrades.add(x);
-    return true;
+    if (Currency.darkMatter.purchase(cost)) {
+      this.data.intervalUpgrades = this.data.intervalUpgrades.add(x);
+      return true;
+    }
   }
 
   buyManyPowerDM(x) {
     const cost = this.rawPowerDMCost.times(
       Decimal.pow(this.powerDMCostIncrease, x).minus(1)).div(this.powerDMCostIncrease.sub(1)).floor();
     if (!Currency.darkMatter.purchase(cost)) return false;
-    this.data.powerDMUpgrades = this.data.powerDMUpgrades.add(x);
-    return true;
+    if (Currency.darkMatter.purchase(cost)) {
+      this.data.powerDMUpgrades = this.data.powerDMUpgrades.add(x);
+      return true;
+    }
   }
 
   buyManyPowerDE(x) {
     const cost = this.rawPowerDECost.times(
       Decimal.pow(this.powerDECostIncrease, x).minus(1)).div(this.powerDECostIncrease.sub(1)).floor();
     if (!Currency.darkMatter.purchase(cost)) return false;
-    this.data.powerDEUpgrades = this.data.powerDEUpgrades.add(x);
-    return true;
+    if (Currency.darkMatter.purchase(cost)) {
+      this.data.powerDEUpgrades = this.data.powerDEUpgrades.add(x);
+      return true;
+    }
   }
 
   buyInterval() {
