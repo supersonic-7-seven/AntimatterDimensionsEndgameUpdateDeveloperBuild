@@ -541,7 +541,7 @@ window.ExponentialCostScaling = class ExponentialCostScaling {
 
     if (purchaseAmount.lte(currentPurchases)) return null;
 
-    const purchaseCost = this.decimalCalculateCost(purchaseAmount).log10().add(ppIlog);
+    const purchaseCost = new Decimal(this.decimalCalculateCost(purchaseAmount).log10()).add(ppIlog);
     purchaseAmount = purchaseAmount.sub(currentPurchases);
     if (roundDown) purchaseAmount = purchaseAmount.floor();
 
