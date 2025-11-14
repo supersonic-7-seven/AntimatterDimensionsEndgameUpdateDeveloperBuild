@@ -202,7 +202,7 @@ export default {
       Tick: {{ formatInt(timer) }} ms ({{ formatPercents(timerPercent, 1) }})
     </div>
     <div v-else>
-      {{ format(new Decimal(1000).div(interval), 2, 2) }} ticks / sec
+      {{ format(interval.div(1000).recip(), 2, 2) }} ticks / sec
     </div>
     <div>
       Dark Energy: {{ format(darkEnergyPerSecond, 2, 4) }}/s ({{ formatPercents(portionDE, 1) }} of total)
