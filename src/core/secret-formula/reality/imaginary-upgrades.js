@@ -379,7 +379,7 @@ export const imaginaryUpgrades = [
     requirement: () => `Have a total of 1e80 Galaxies`,
     hasFailed: () => false,
     checkRequirement: () => Replicanti.galaxies.total + player.galaxies + 
-      player.dilation.totalTachyonGalaxies >= 1e80,
+      player.dilation.totalTachyonGalaxies + GalaxyGenerator.generatedGalaxies >= 1e80,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Unlock the 8th Dark Matter Dimension, raise Dark Matter cap to 1e100000",
   },
