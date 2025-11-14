@@ -105,7 +105,7 @@ export const Laitela = {
     const buy = function(upgrade, purchases) {
       upgrade[3](purchases);
       upgrade[0] = upgrade[0].times(Decimal.pow(upgrade[1], purchases));
-      upgrade[2] -= purchases.toNumber();
+      upgrade[2] -= new Decimal(purchases).toNumber();
     };
     // Buy everything costing less than 0.02 of initial matter.
     const darkMatter = Currency.darkMatter.value;
