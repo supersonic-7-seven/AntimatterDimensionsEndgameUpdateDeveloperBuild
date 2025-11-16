@@ -114,7 +114,7 @@ export const Laitela = {
       buy(upgrade, purchases);
     }
     while (upgradeInfo.some(upgrade => upgrade[0].lte(darkMatter) && upgrade[2].gt(0))) {
-      const cheapestUpgrade = upgradeInfo.filter(upgrade => upgrade[2].gt(0)).sort((a, b) => a[0].minus(b[0]).sign())[0];
+      const cheapestUpgrade = upgradeInfo.filter(upgrade => upgrade[2].gt(0)).sort((a, b) => Decimal.compare(a[0], b[0]).sign())[0];
       buy(cheapestUpgrade, DC.D1);
     }
   },
