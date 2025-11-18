@@ -169,7 +169,7 @@ export const V = {
       if (this.spaceTheorems >= 36) SpeedrunMilestones(22).tryComplete();
     }
 
-    if (VUnlocks.raUnlock.canBeApplied && !Ra.unlocks.autoTP.canBeApplied) {
+    if ((VUnlocks.raUnlock.canBeApplied || EndgameMilestone.celestialEarlyUnlock.isReached) && !Ra.unlocks.autoTP.canBeApplied) {
       Ra.checkForUnlocks();
     }
   },
