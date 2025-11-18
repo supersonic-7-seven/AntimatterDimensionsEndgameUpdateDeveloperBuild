@@ -2,13 +2,15 @@
 import CostDisplay from "@/components/CostDisplay";
 import DescriptionDisplay from "@/components/DescriptionDisplay";
 import EffectDisplay from "@/components/EffectDisplay";
+import HintText from "@/components/HintText";
 
 export default {
   name: "BreakEternityUpgradeButton",
   components: {
     DescriptionDisplay,
     EffectDisplay,
-    CostDisplay
+    CostDisplay,
+    HintText
   },
   props: {
     upgrade: {
@@ -50,6 +52,12 @@ export default {
     :class="classObject"
     @click="upgrade.purchase()"
   >
+    <HintText
+      type="realityUpgrades"
+      class="l-hint-text--reality-upgrade c-hint-text--reality-upgrade"
+    >
+      {{ config.name }}
+    </HintText>
     <DescriptionDisplay :config="upgrade.config" />
     <EffectDisplay
       br
