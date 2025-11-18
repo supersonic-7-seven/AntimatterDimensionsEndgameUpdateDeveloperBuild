@@ -1,6 +1,10 @@
 import { RebuyableMechanicState, SetPurchasableMechanicState } from "./game-mechanics";
 
 export class BreakEternityUpgradeState extends SetPurchasableMechanicState {
+  get name() {
+    return this.config.name;
+  }
+  
   get currency() {
     return Currency.antimatter;
   }
@@ -19,6 +23,10 @@ export class BreakEternityUpgradeState extends SetPurchasableMechanicState {
 }
 
 class RebuyableBreakEternityUpgradeState extends RebuyableMechanicState {
+  get name() {
+    return this.config.name;
+  }
+  
   get currency() {
     return Currency.antimatter;
   }
