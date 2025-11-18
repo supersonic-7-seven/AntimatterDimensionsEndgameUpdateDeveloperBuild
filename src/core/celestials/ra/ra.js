@@ -304,7 +304,7 @@ export const Ra = {
     return this.levelCap * this.pets.all.length;
   },
   checkForUnlocks() {
-    if (!VUnlocks.raUnlock.canBeApplied) return;
+    if (!VUnlocks.raUnlock.canBeApplied && !EndgameMilestone.celestialEarlyUnlock.isReached) return;
     for (const unl of Ra.unlocks.all) {
       unl.unlock();
     }
