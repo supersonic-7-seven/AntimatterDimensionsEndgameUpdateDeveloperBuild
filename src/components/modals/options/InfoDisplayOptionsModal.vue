@@ -27,6 +27,7 @@ export default {
       alchemy: false,
       masteries: false,
       breakEternityUpgrades: false,
+      endgameUpgrades: false,
     };
   },
   computed: {
@@ -68,6 +69,9 @@ export default {
     breakEternityUpgrades(newValue) {
       player.options.showHintText.breakEternityUpgrades = newValue;
     },
+    endgameUpgrades(newValue) {
+      player.options.showHintText.endgameUpgrades = newValue;
+    },
   },
   methods: {
     update() {
@@ -90,6 +94,7 @@ export default {
       this.alchemy = options.alchemy;
       this.masteries = options.masteries;
       this.breakEternityUpgrades = options.breakEternityUpgrades;
+      this.endgameUpgrades = options.endgameUpgrades;
     }
   },
 };
@@ -152,6 +157,11 @@ export default {
         v-if="endgameUnlocked"
         v-model="breakEternityUpgrades"
         text="Break Eternity Upgrade names:"
+      />
+      <ModalOptionsToggleButton
+        v-if="endgameUnlocked"
+        v-model="endgameUpgrades"
+        text="Endgame Upgrade names:"
       />
     </div>
     Note: All types of additional info above will always display when holding shift.
