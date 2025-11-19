@@ -183,8 +183,58 @@ export const endgameUpgrades = [
     formatEffect: value => formatPow(value, 2, 3)
   },
   {
-    name: "Infinite Improvements",
+    name: "Currency Collections",
     id: 16,
+    cost: new Decimal(1e55),
+    requirement: () => `Have ${format(1e10)} Galactic Power`,
+    checkRequirement: () => Currency.galacticPower.gte(1e10),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    description: "You can equip a second Currency Path in Endgame Masteries",
+    effect: 2
+  },
+  {
+    name: "Compression Calculations",
+    id: 17,
+    cost: new Decimal(1e65),
+    requirement: () => `Have ${format(1e20)} Galactic Power`,
+    checkRequirement: () => Currency.galacticPower.gte(1e20),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    description: "You can equip a second Compression Path in Endgame Masteries",
+    effect: 2
+  },
+  {
+    name: "Money Multiplication",
+    id: 18,
+    cost: new Decimal(1e75),
+    requirement: () => `Have ${format(1e30)} Galactic Power`,
+    checkRequirement: () => Currency.galacticPower.gte(1e30),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    description: "You can equip a third Currency Path in Endgame Masteries",
+    effect: 3
+  },
+  {
+    name: "Dimensional Distension",
+    id: 19,
+    cost: new Decimal(1e85),
+    requirement: () => `Have ${format(1e40)} Galactic Power`,
+    checkRequirement: () => Currency.galacticPower.gte(1e40),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    description: "You can equip a third Compression Path in Endgame Masteries",
+    effect: 3
+  },
+  {
+    name: "Omnipotent Opulence",
+    id: 20,
+    cost: new Decimal(1e95),
+    requirement: () => `Have ${format(1e50)} Galactic Power`,
+    checkRequirement: () => Currency.galacticPower.gte(1e50),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    description: "You can equip a fourth Compression and Currency Path in Endgame Masteries",
+    effect: 4
+  },
+  {
+    name: "Infinite Improvements",
+    id: 21,
     cost: new Decimal(1e80),
     requirement: "Have Increased Infinity Purchased",
     hasFailed: () => !BreakEternityUpgrade.doubleIPUncap.isBought,
@@ -194,7 +244,7 @@ export const endgameUpgrades = [
   },
   {
     name: "Tachyon Transcendence",
-    id: 17,
+    id: 22,
     cost: new Decimal(1e140),
     requirement: "Have Galactic Growth Purchased",
     hasFailed: () => !BreakEternityUpgrade.tgThresholdUncap.isBought,
@@ -206,7 +256,7 @@ export const endgameUpgrades = [
   },
   {
     name: "Quaternary Quantification",
-    id: 18,
+    id: 23,
     cost: new Decimal(1e220),
     requirement: "Have Tesseract Traversement Purchased",
     hasFailed: () => !BreakEternityUpgrade.tesseractMultiplier.isBought,
@@ -218,7 +268,7 @@ export const endgameUpgrades = [
   },
   {
     name: "Sacrificial Supercharger",
-    id: 19,
+    id: 24,
     cost: new Decimal(1e320),
     requirement: () => `Have Sacrifice Supplimentation Purchased`,
     hasFailed: () => !BreakEternityUpgrade.glyphSacrificeUncap.isBought,
@@ -230,7 +280,7 @@ export const endgameUpgrades = [
   },
   {
     name: "Supremacy Surge",
-    id: 20,
+    id: 25,
     cost: new Decimal(1e440),
     requirement: () => `Have Sacrifice Supplimentation Purchased`,
     hasFailed: () => !BreakEternityUpgrade.glyphSacrificeUncap.isBought,
@@ -239,55 +289,5 @@ export const endgameUpgrades = [
     description: "Glyph Level gains a multiplier based on Antimatter which applies after Instability",
     effect: () => Math.min(Math.pow(Math.max(Math.log10(Decimal.log10(player.antimatter)) / 100, 1), 0.05), 1.2),
     formatEffect: value => formatX(value, 2, 2)
-  },
-  {
-    name: "Currency Collections",
-    id: 21,
-    cost: new Decimal(1e55),
-    requirement: () => `Have ${format(1e10)} Galactic Power`,
-    checkRequirement: () => Currency.galacticPower.gte(1e10),
-    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    description: "You can equip a second Currency Path in Endgame Masteries",
-    effect: 2
-  },
-  {
-    name: "Compression Calculations",
-    id: 22,
-    cost: new Decimal(1e65),
-    requirement: () => `Have ${format(1e20)} Galactic Power`,
-    checkRequirement: () => Currency.galacticPower.gte(1e20),
-    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    description: "You can equip a second Compression Path in Endgame Masteries",
-    effect: 2
-  },
-  {
-    name: "Money Multiplication",
-    id: 23,
-    cost: new Decimal(1e75),
-    requirement: () => `Have ${format(1e30)} Galactic Power`,
-    checkRequirement: () => Currency.galacticPower.gte(1e30),
-    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    description: "You can equip a third Currency Path in Endgame Masteries",
-    effect: 3
-  },
-  {
-    name: "Dimensional Distension",
-    id: 24,
-    cost: new Decimal(1e85),
-    requirement: () => `Have ${format(1e40)} Galactic Power`,
-    checkRequirement: () => Currency.galacticPower.gte(1e40),
-    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    description: "You can equip a third Compression Path in Endgame Masteries",
-    effect: 3
-  },
-  {
-    name: "Omnipotent Opulence",
-    id: 25,
-    cost: new Decimal(1e95),
-    requirement: () => `Have ${format(1e50)} Galactic Power`,
-    checkRequirement: () => Currency.galacticPower.gte(1e50),
-    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    description: "You can equip a fourth Compression and Currency Path in Endgame Masteries",
-    effect: 4
   },
 ];
