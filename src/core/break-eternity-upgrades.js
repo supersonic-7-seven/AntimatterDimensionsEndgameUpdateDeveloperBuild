@@ -53,7 +53,7 @@ class RebuyableBreakEternityUpgradeState extends RebuyableMechanicState {
 }
 
 export const BreakEternityUpgrade = mapGameDataToObject(
-  GameDatabase.endgame.upgrades,
+  GameDatabase.endgame.breakUpgrades,
   config => (config.rebuyable
     ? new RebuyableBreakEternityUpgradeState(config)
     : new BreakEternityUpgradeState(config))
