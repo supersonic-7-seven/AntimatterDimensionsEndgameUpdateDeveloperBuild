@@ -932,6 +932,7 @@ window.player = {
       showGlyphInfoByDefault: false,
       masteries: true,
       breakEternityUpgrades: true,
+      endgameUpgrades: true,
     },
     animations: {
       bigCrunch: true,
