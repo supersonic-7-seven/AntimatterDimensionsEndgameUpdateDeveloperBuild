@@ -80,7 +80,7 @@ export const endgameUpgrades = [
     name: "Catastrophic Clocking",
     id: 7,
     cost: new Decimal(1e52),
-    requirement: () => `Play for ${format(new Decimal(1e666))} Years`,
+    requirement: () => `Play for ${formatPostBreak("1e666")} Years`,
     checkRequirement: () => Time.totalTimePlayed.totalYears.gt(1e666),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Outside of Celestial Realities, Game Speed is equal to maximum Game Speed this Endgame"
