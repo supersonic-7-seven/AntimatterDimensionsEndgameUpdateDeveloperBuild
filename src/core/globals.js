@@ -82,6 +82,7 @@ export * from "./time-theorems";
 export * from "./endgame-skills";
 export * from "./reality-upgrades";
 export * from "./imaginary-upgrades";
+export * from "./endgame-upgrades";
 export * from "./perks";
 export * from "./dilation";
 export * from "./black-hole";
