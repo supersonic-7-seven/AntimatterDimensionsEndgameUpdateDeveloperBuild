@@ -13,7 +13,7 @@ const rebuyable = props => {
   );
   const { effect } = props;
   props.effect = () => Decimal.pow(effect, player.endgame.rebuyables[props.id]);
-  props.description = () => props.textTemplate.replace("{value}", formatInt(effect));
+  props.description = () => props.textTemplate.replace("{value}", effect >= 1e6 ? format(effect, 2, 2) : formatInt(effect));
   props.formatEffect = value => formatX(value, 2, 0);
   props.formatCost = value => format(value, 2, 0);
   return props;
