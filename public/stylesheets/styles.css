@@ -5625,6 +5625,16 @@ properly on certain themes. */
 
 /* #region Break Eternity Upgrades */
 
+.l-break-eternity-upgrade-btn {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin: 1.2rem;
+  padding: 0 0.5rem;
+}
+
 /* #region o-break-eternity-upgrade-btn */
 
 .o-break-eternity-upgrade-btn {
@@ -5649,6 +5659,8 @@ properly on certain themes. */
 .o-break-eternity-upgrade-btn:hover {
   color: var(--color-text-inverted);
 }
+
+/* #endregion o-break-eternity-upgrade-btn */
 
 /* #region o-infinity-upgrade-btn--available */
 
