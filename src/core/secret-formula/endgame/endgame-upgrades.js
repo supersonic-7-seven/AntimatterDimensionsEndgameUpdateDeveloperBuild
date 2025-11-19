@@ -99,7 +99,7 @@ export const endgameUpgrades = [
       if (new Decimal(value).gte(Decimal.MAX_VALUE)) return "No Endgame generation";
       let endgames = 1;
       const timeStr = Time.bestEndgameRealTime.totalMilliseconds.lte(100)
-        ? `${TimeSpan.fromMilliseconds(1000).toStringShort()} (capped)`
+        ? `${TimeSpan.fromMilliseconds(new Decimal(1000)).toStringShort()} (capped)`
         : `${Time.bestEndgame.times(10).toStringShort()}`;
       return `${quantify("Endgame", endgames)} every ${timeStr}`;
     }
@@ -213,7 +213,7 @@ export const endgameUpgrades = [
     checkRequirement: () => BreakEternityUpgrade.tesseractMultiplier.isBought,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Celestial Points delay the Free Tesseract Softcap",
-    effect: () => Math.pow(1 + Math.log10(Math.max(Decimal.log10(Currency.celestialPoints) / 200, 1)), 2),
+    effect: () => Math.pow(1 + Math.log10(Math.max(Decimal.log10(player.endgame.celestialPoints) / 200, 1)), 2),
     formatEffect: value => formatX(value, 2, 2)
   },
   {
@@ -225,7 +225,7 @@ export const endgameUpgrades = [
     checkRequirement: () => BreakEternityUpgrade.glyphSacrificeUncap.isBought,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "All Glyph Sacrifice Values are increased based on Celestial Matter",
-    effect: () => Math.pow(Math.max(Math.log10(Decimal.log10(Currency.celestialMatter)) / 2, 1), 1.5),
+    effect: () => Math.pow(Math.max(Math.log10(Decimal.log10(player.endgame.celestialMatter)) / 2, 1), 1.5),
     formatEffect: value => formatPow(value, 2, 3)
   },
   {
@@ -237,7 +237,7 @@ export const endgameUpgrades = [
     checkRequirement: () => BreakEternityUpgrade.glyphSacrificeUncap.isBought,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Glyph Level gains a multiplier based on Antimatter which applies after Instability",
-    effect: () => Math.min(Math.pow(Math.max(Math.log10(Decimal.log10(Currency.antimatter)) / 100, 1), 0.05), 1.2),
+    effect: () => Math.min(Math.pow(Math.max(Math.log10(Decimal.log10(player.antimatter)) / 100, 1), 0.05), 1.2),
     formatEffect: value => formatX(value, 2, 2)
   },
   {
