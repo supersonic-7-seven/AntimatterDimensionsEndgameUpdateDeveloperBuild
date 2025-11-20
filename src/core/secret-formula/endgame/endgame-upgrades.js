@@ -216,7 +216,8 @@ export const endgameUpgrades = [
     id: 18,
     cost: new Decimal(1e75),
     requirement: () => `Have ${format(1e30)} Galactic Power`,
-    checkRequirement: () => Currency.galacticPower.gte(1e30),
+    hasFailed: () => !EndgameUpgrade(16).isBought,
+    checkRequirement: () => Currency.galacticPower.gte(1e30) && EndgameUpgrade(16).isBought,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "You can equip a third Currency Path in Endgame Masteries",
     effect: 3
@@ -226,7 +227,8 @@ export const endgameUpgrades = [
     id: 19,
     cost: new Decimal(1e85),
     requirement: () => `Have ${format(1e40)} Galactic Power`,
-    checkRequirement: () => Currency.galacticPower.gte(1e40),
+    hasFailed: () => !EndgameUpgrade(17).isBought,
+    checkRequirement: () => Currency.galacticPower.gte(1e40) && EndgameUpgrade(17).isBought,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "You can equip a third Compression Path in Endgame Masteries",
     effect: 3
@@ -236,7 +238,8 @@ export const endgameUpgrades = [
     id: 20,
     cost: new Decimal(1e95),
     requirement: () => `Have ${format(1e50)} Galactic Power`,
-    checkRequirement: () => Currency.galacticPower.gte(1e50),
+    hasFailed: () => !(EndgameUpgrade(18).isBought && EndgameUpgrade(19).isBought),
+    checkRequirement: () => Currency.galacticPower.gte(1e50) && EndgameUpgrade(18).isBought && EndgameUpgrade(19).isBought,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "You can equip a fourth Compression and Currency Path in Endgame Masteries",
     effect: 4
