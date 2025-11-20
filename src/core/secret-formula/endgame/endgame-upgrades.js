@@ -141,7 +141,9 @@ export const endgameUpgrades = [
     requirement: () => `Reach ${format(1e50)} Celestial Matter`,
     checkRequirement: () => Currency.celestialMatter.exponent >= 50,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    description: () => `Delay the Infinity Challenge 8 Reward Hardcap by ${formatPow(9)}`,
+    description: () =>
+      `Delay the Infinity Challenge 8 Reward Hardcap by ${formatPow(9)},
+      and multiply all Celestial Dimensions by ${formatX(9)}`,
     effect: 9
   },
   {
