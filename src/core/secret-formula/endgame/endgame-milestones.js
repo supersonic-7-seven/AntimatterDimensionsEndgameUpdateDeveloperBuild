@@ -22,7 +22,7 @@ export const endgameMilestones = {
     reward: () => {
       return `Galaxy Generator Animations are ${formatX(1.2, 0, 1)} faster every ${formatInt(5)} Endgames, capping after ${formatInt(100)} Endgames ` + 
         (player.endgames >= 5
-         ? (player.endgames >= 100 ? "(Capped: " : "(Currently: ") + `${formatX(Math.pow(1.2, Math.floor(Currency.endgames.value / 5)), 2, 2)})`
+         ? (player.endgames >= 100 ? "(Capped: " : "(Currently: ") + `${formatX(Math.pow(1.2, Math.floor(Math.min(Currency.endgames.value, 100) / 5)), 2, 2)})`
          : "(You have not yet reached this milestone)");
     }
   },
