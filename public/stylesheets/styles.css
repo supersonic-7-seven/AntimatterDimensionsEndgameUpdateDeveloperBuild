@@ -9574,7 +9574,7 @@ kbd {
 }
 
 .s-base--dark .c-endgame-upgrade-btn {
-  color: var(--color-endgame);
+  color: var(--color-celestials);
 }
 
 .c-endgame-upgrade-btn__requirement {
