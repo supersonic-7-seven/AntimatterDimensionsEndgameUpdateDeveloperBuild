@@ -48,7 +48,8 @@ export const GalaxyGenerator = {
   get harshGalGenInstability() {
     const currGalaxies = player.galaxies + GalaxyGenerator.galaxies;
     const startingThreshold = 1e60;
-    return Math.pow(1.03, Math.log10(Math.max(currGalaxies / startingThreshold, 1)));
+    const power = 0.03 * Effects.product(EndgameUpgrade(14));
+    return Math.pow(1 + power, Math.log10(Math.max(currGalaxies / startingThreshold, 1)));
   },
 
   get gainPerSecondPostCap() {
