@@ -9670,7 +9670,7 @@ kbd {
 
 .t-s6.c-endgame-upgrade-btn--bought:hover,
 .t-s10.c-endgame-upgrade-btn--bought:hover {
-  color: var(--color-endgame);
+  color: var(--color-celestials);
   background-color: var(--color-endgame);
 }
 
