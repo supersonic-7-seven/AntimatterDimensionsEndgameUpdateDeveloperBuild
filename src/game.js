@@ -563,7 +563,7 @@ export function gameLoop(passedDiff, options = {}) {
     Enslaved.currentBlackHoleStoreAmountPerMs = DC.D0;
   }
   player.celestials.ra.peakGamespeed = Decimal.max(player.celestials.ra.peakGamespeed, getGameSpeedupFactor());
-  player.records.thisEndgame.peakGamespeed = Decimal.max(player.records.thisEndgame.peakGamespeed, getGameSpeedupFactor());
+  player.records.thisEndgame.peakGameSpeed = Decimal.max(player.records.thisEndgame.peakGameSpeed, getGameSpeedupFactor());
   Enslaved.isReleaseTick = false;
 
   // These need to all be done consecutively in order to minimize the chance of a reset occurring between real time
