@@ -237,7 +237,7 @@ export const endgameUpgrades = [
   {
     name: "Infinite Improvements",
     id: 21,
-    cost: new Decimal(1e80),
+    cost: Decimal.pow(10, 80),
     requirement: "Have Increased Infinity Purchased",
     hasFailed: () => !BreakEternityUpgrade.doubleIPUncap.isBought,
     checkRequirement: () => BreakEternityUpgrade.doubleIPUncap.isBought,
@@ -247,7 +247,7 @@ export const endgameUpgrades = [
   {
     name: "Tachyon Transcendence",
     id: 22,
-    cost: new Decimal(1e140),
+    cost: Decimal.pow(10, 140),
     requirement: "Have Galactic Growth Purchased",
     hasFailed: () => !BreakEternityUpgrade.tgThresholdUncap.isBought,
     checkRequirement: () => BreakEternityUpgrade.tgThresholdUncap.isBought,
@@ -259,7 +259,7 @@ export const endgameUpgrades = [
   {
     name: "Quaternary Quantification",
     id: 23,
-    cost: new Decimal(1e220),
+    cost: Decimal.pow(10, 220),
     requirement: "Have Tesseract Traversement Purchased",
     hasFailed: () => !BreakEternityUpgrade.tesseractMultiplier.isBought,
     checkRequirement: () => BreakEternityUpgrade.tesseractMultiplier.isBought,
@@ -271,7 +271,7 @@ export const endgameUpgrades = [
   {
     name: "Sacrificial Supercharger",
     id: 24,
-    cost: new Decimal(1e320),
+    cost: Decimal.pow(10, 320),
     requirement: () => `Have Sacrifice Supplimentation Purchased`,
     hasFailed: () => !BreakEternityUpgrade.glyphSacrificeUncap.isBought,
     checkRequirement: () => BreakEternityUpgrade.glyphSacrificeUncap.isBought,
@@ -283,7 +283,7 @@ export const endgameUpgrades = [
   {
     name: "Supremacy Surge",
     id: 25,
-    cost: new Decimal(1e440),
+    cost: Decimal.pow(10, 440),
     requirement: () => `Have Sacrifice Supplimentation Purchased`,
     hasFailed: () => !BreakEternityUpgrade.glyphSacrificeUncap.isBought,
     checkRequirement: () => BreakEternityUpgrade.glyphSacrificeUncap.isBought,
