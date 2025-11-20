@@ -611,7 +611,7 @@ class AntimatterDimensionState extends DimensionState {
         const log10 = production.log10();
         const endgameMult = Pelle.isDoomed ? 1 + (Math.log10(Currency.endgames.value + 1) / 80) : 1 + (Math.log10(Currency.endgames.value + 1) / 200);
         production = Decimal.pow10(Math.pow(log10, getAdjustedGlyphEffect("effarigantimatter")));
-        production = Decimal.pow10(Math.pow(log10, Effects.product(EndgameMastery(101))));
+        production = Decimal.pow10(Math.pow(log10, Effects.product(EndgameMastery(101), EndgameUpgrade(15))));
         if (EndgameMilestone.endgameAntimatter.isReached) production = Decimal.pow10(Math.pow(log10, endgameMult));
       }
     }
