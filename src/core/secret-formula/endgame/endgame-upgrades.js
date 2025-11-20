@@ -124,7 +124,7 @@ export const endgameUpgrades = [
   {
     name: "Celestial Chaos",
     id: 10,
-    cost: new Decimal(1e85),
+    cost: new Decimal(1e83),
     requirement: () => "Complete Effarig, Nameless, V and Ra before pouring anything into Teresa",
     hasFailed: () => player.celestials.teresa.pouredAmount.gt(0),
     checkRequirement: () => player.celestials.teresa.pouredAmount.eq(0) &&
@@ -147,7 +147,7 @@ export const endgameUpgrades = [
   {
     name: "Unstable Undermining",
     id: 12,
-    cost: new Decimal(1e56),
+    cost: new Decimal(1e67),
     requirement: "Reach the second Galaxy Generator softcap",
     checkRequirement: () => GalaxyGenerator.galaxies >= 1e60,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
@@ -157,7 +157,7 @@ export const endgameUpgrades = [
   {
     name: "Barrier Breaching",
     id: 13,
-    cost: new Decimal(1e66),
+    cost: new Decimal(1e78),
     requirement: () => `Reach a Glyph Level of ${formatInt(76543)}`,
     checkRequirement: () => player.records.bestEndgame.glyphLevel >= 76543,
     checkEvent: GAME_EVENT.REALITY_RESET_AFTER,
