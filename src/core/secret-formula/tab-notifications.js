@@ -278,7 +278,7 @@ export const tabNotifications = {
         tab: "expansion-packs"
       }
     ],
-    condition: () => PlayerProgress.endgameUnlocked() && GalaxyGenerator.generatedGalaxies >= Math.pow(2, 64),
+    condition: () => PlayerProgress.endgameUnlocked() && GalaxyGenerator.galaxies >= Math.pow(2, 64),
     events: [GAME_EVENT.GAME_TICK_AFTER]
   },
   endgameUpgrades: {
