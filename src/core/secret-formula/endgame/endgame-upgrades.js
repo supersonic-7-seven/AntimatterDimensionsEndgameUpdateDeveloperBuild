@@ -77,7 +77,7 @@ export const endgameUpgrades = [
     canLock: true,
     lockEvent: "purchase the 6th Galaxy Generator Upgrade",
     description: () =>
-      `Start with ${formatInt(1e7)} Perk Points, ${formatInt(1000)} Realities, Permanent Black Holes,
+      `Start with ${format(1e7)} Perk Points, ${formatInt(1000)} Realities, Permanent Black Holes,
       ${format(1e12)} Relic Shards, and both Nameless upgrades unlocked`
   },
   {
