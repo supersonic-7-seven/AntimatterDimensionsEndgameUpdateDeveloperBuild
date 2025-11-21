@@ -386,18 +386,18 @@ export const Ra = {
 export const GlyphAlteration = {
   // Adding a secondary effect to some effects
   get additionThreshold() {
-    return 1e36;
+    return new Decimal(1e36);
   },
   // One-time massive boost of a single effect
   get empowermentThreshold() {
-    return 1e43;
+    return new Decimal(1e43);
   },
   // Scaling boost from sacrifice quantity
   get boostingThreshold() {
-    return 1e60;
+    return new Decimal(1e60);
   },
   getSacrificePower(type) {
-    if (Pelle.isDisabled("alteration")) return 0;
+    if (Pelle.isDisabled("alteration")) return new Decimal(0);
     const sacPower = player.reality.glyphs.sac[type];
     if (sacPower === undefined) {
       throw new Error("Unknown sacrifice type");
@@ -409,17 +409,17 @@ export const GlyphAlteration = {
     return Ra.unlocks.alteredGlyphs.canBeApplied;
   },
   isAdded(type) {
-    return this.isUnlocked && this.getSacrificePower(type) >= this.additionThreshold;
+    return this.isUnlocked && this.getSacrificePower(type).gte(this.additionThreshold);
   },
   isEmpowered(type) {
-    return this.isUnlocked && this.getSacrificePower(type) >= this.empowermentThreshold;
+    return this.isUnlocked && this.getSacrificePower(type).gte(this.empowermentThreshold);
   },
   isBoosted(type) {
-    return this.isUnlocked && this.getSacrificePower(type) >= this.boostingThreshold;
+    return this.isUnlocked && this.getSacrificePower(type).gte(this.boostingThreshold);
   },
   sacrificeBoost(type) {
-    const capped = Math.clampMax(this.getSacrificePower(type), GlyphSacrificeHandler.maxSacrificeForEffects);
-    return Math.log10(Math.clampMin(capped / this.boostingThreshold, 1)) / 2;
+    const capped = Decimal.clampMax(this.getSacrificePower(type), GlyphSacrificeHandler.maxSacrificeForEffects);
+    return Decimal.log10(Decimal.clampMin(capped.div(this.boostingThreshold), 1)) / 2;
   },
   baseAdditionColor(isDark = Theme.current().isDark()) {
     return isDark ? "#CCCCCC" : "black";
