@@ -22,7 +22,7 @@ export default {
     return {
       laitelaFastest: 3600,
       teresaBestAM: new Decimal(),
-      teresaRunMult: 0,
+      teresaRunMult: new Decimal(0),
       effarigDone: false,
       effarigLayer: "",
       enslavedDone: false,
@@ -71,7 +71,7 @@ export default {
   methods: {
     update() {
       this.teresaBestAM.copyFrom(player.celestials.teresa.bestRunAM);
-      this.teresaRunMult = Teresa.runRewardMultiplier;
+      this.teresaRunMult.copyFrom(Teresa.runRewardMultiplier);
       const effarigStage = Effarig.currentStage;
       this.effarigDone = effarigStage === EFFARIG_STAGES.COMPLETED;
       this.effarigLayer = [null, "Infinity", "Eternity", "Reality"][effarigStage];
