@@ -80,7 +80,7 @@ export const glyphSacrifice = {
       const capped = Decimal.clampMax(sac, 1e70);
       return new Decimal(Decimal.log10(capped.div(1e20).add(1))).times(2);
     },
-    description: amount => `+${formatPercents(amount.div(100), 2)} additional Glyph rarity`,
+    description: amount => `+${formatPercents(amount.div(100).toNumber(), 2)} additional Glyph rarity`,
     cap: () => new Decimal(1e70)
   },
   "reality": {
