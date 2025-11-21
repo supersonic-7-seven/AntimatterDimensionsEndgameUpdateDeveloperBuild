@@ -446,11 +446,11 @@ export const ReplicantiUpgrade = {
     set baseCost(value) { player.replicanti.galCost = value; }
 
     get distantRGStart() {
-      return (100 + Effects.sum(GlyphSacrifice.replication)) * Effects.product(BreakEternityUpgrade.replicantiGalaxyPower);
+      return (100 + GlyphSacrifice.replication.effectValue.toNumber()) * Effects.product(BreakEternityUpgrade.replicantiGalaxyPower);
     }
 
     get remoteRGStart() {
-      return (1000 + Effects.sum(GlyphSacrifice.replication)) * Effects.product(BreakEternityUpgrade.replicantiGalaxyPower);
+      return (1000 + GlyphSacrifice.replication.effectValue.toNumber()) * Effects.product(BreakEternityUpgrade.replicantiGalaxyPower);
     }
 
     get contingentRGStart() {
@@ -499,8 +499,8 @@ export const ReplicantiUpgrade = {
       const logBase = 170;
       const logBaseIncrease = EternityChallenge(6).isRunning ? 2 : 25;
       const logCostScaling = EternityChallenge(6).isRunning ? 2 : 5;
-      const distantReplicatedGalaxyStart = (100 + Effects.sum(GlyphSacrifice.replication)) * Effects.product(BreakEternityUpgrade.replicantiGalaxyPower);
-      const remoteReplicatedGalaxyStart = (1000 + Effects.sum(GlyphSacrifice.replication)) * Effects.product(BreakEternityUpgrade.replicantiGalaxyPower);
+      const distantReplicatedGalaxyStart = (100 + GlyphSacrifice.replication.effectValue.toNumber()) * Effects.product(BreakEternityUpgrade.replicantiGalaxyPower);
+      const remoteReplicatedGalaxyStart = (1000 + GlyphSacrifice.replication.effectValue.toNumber()) * Effects.product(BreakEternityUpgrade.replicantiGalaxyPower);
       const contingentReplicatedGalaxyStart = 1000000;
       let logCost = logBase + count * logBaseIncrease + (count * (count - 1) / 2) * logCostScaling;
       if (count > distantReplicatedGalaxyStart) {
