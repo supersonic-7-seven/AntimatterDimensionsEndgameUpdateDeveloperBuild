@@ -45,19 +45,19 @@ export const MachineHandler = {
 
   get baseIMCap() {
     if (Pelle.isDoomed) return 1.6e15;
-    return ((Math.pow(Math.clampMin(this.uncappedRM.log10() - 1000, 0), 2)) *
+    return Math.min(((Math.pow(Math.clampMin(this.uncappedRM.log10() - 1000, 0), 2)) *
       (Math.pow(Math.clampMin(this.uncappedRM.log10() - 100000, 1), 0.2)) *
       (Math.pow(Math.clampMin(this.uncappedRM.log10() / 1000000000, 1), Math.log10(this.uncappedRM.log10()) / 7.5))) **
-      Effects.product(EndgameMastery(144));
+      Effects.product(EndgameMastery(144)),1e308);
   },
 
   get currentIMCap() {
-    return player.reality.iMCap * ImaginaryUpgrade(13).effectOrDefault(1);
+    return Math.min(player.reality.iMCap * ImaginaryUpgrade(13).effectOrDefault(1),1e308);
   },
 
   // This is iM cap based on in-game values at that instant, may be lower than the actual cap
   get projectedIMCap() {
-    return this.baseIMCap * ImaginaryUpgrade(13).effectOrDefault(1);
+    return Math.min(this.baseIMCap * ImaginaryUpgrade(13).effectOrDefault(1),1e308);
   },
 
   // Use iMCap to store the base cap; applying multipliers separately avoids some design issues the 3xTP upgrade has
