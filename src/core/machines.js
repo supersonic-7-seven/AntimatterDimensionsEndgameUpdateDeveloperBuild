@@ -65,7 +65,7 @@ export const MachineHandler = {
     if (this.uncappedRM.gte(this.baseRMCap)) {
       if (this.baseIMCap > player.reality.iMCap) {
         player.records.bestReality.iMCapSet = Glyphs.copyForRecords(Glyphs.active.filter(g => g !== null));
-        player.reality.iMCap = this.baseIMCap;
+        player.reality.iMCap = Math.min(this.baseIMCap,1e308);
       }
     }
   },
