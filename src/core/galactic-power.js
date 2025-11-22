@@ -3,6 +3,10 @@ export class GalacticPowerState {
     this.config = config;
   }
 
+  get id() {
+    return this.config.id;
+  }
+
   get unlockGP() {
     return this.config.galacticPower;
   }
