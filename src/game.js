@@ -667,7 +667,7 @@ export function gameLoop(passedDiff, options = {}) {
   }
 
   if (GalacticPower.isUnlocked) {
-    Currency.galacticPower.add(getGalacticPowerGainPerSecond().times(diff).div(1000));
+    Currency.galacticPower.add(getGalacticPowerGainPerSecond().times(realDiff).div(1000));
   }
 
   if (Enslaved.canTickHintTimer) {
