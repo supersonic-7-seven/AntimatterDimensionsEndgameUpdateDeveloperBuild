@@ -666,6 +666,10 @@ export function gameLoop(passedDiff, options = {}) {
     player.reality.imaginaryMachines = MachineHandler.currentIMCap;
   }
 
+  if (GalacticPower.isUnlocked) {
+    Currency.galacticPower.add(getGalacticPowerGainPerSecond().times(diff).div(1000));
+  }
+
   if (Enslaved.canTickHintTimer) {
     player.celestials.enslaved.hintUnlockProgress += Enslaved.isRunning ? realDiff : (realDiff * 0.4);
     if (player.celestials.enslaved.hintUnlockProgress > (TimeSpan.fromHours(new Decimal(5)).totalMilliseconds.toNumber())) {
