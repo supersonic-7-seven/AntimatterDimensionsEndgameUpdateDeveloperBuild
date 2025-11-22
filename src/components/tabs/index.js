@@ -19,6 +19,7 @@ import EternityChallengesTab from "./eternity-challenges/EternityChallengesTab";
 import EternityMilestonesTab from "./eternity-milestones/EternityMilestonesTab";
 import EternityUpgradesTab from "./eternity-upgrades/EternityUpgradesTab";
 import ExpansionPacksTab from "./endgame/ExpansionPacksTab";
+import GalacticPowerTab from "./galactic-power/GalacticPowerTab";
 import GlyphSetRecordsTab from "./glyph-set-records/GlyphSetRecordsTab";
 import GlyphsTab from "./glyphs/GlyphsTab";
 import ImaginaryUpgradesTab from "./imaginary-upgrades/ImaginaryUpgradesTab";
@@ -99,6 +100,7 @@ const TabComponents = {
   EndgameMasteriesTab,
   EndgameMilestonesTab,
   EndgameUpgradesTab,
+  GalacticPowerTab,
   ShopTab,
   MultiplierBreakdownTab
 };
