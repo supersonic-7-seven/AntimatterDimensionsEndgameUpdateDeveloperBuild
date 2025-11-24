@@ -96,8 +96,9 @@ export function gainedInfinityPoints() {
   const div = Effects.min(
     308,
     Achievement(103),
-    TimeStudy(111)
-  ) / Effects.product(EndgameMastery(151));
+    TimeStudy(111),
+    EndgameMastery(151)
+  );
   if (Pelle.isDisabled("IPMults")) {
     return Decimal.pow10(player.records.thisInfinity.maxAM.log10() / div - 0.75)
       .timesEffectsOf(PelleRifts.vacuum)
