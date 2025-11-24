@@ -4,7 +4,7 @@ export const galacticPowerRewards = {
     galacticPower: 0,
     reward: "Increase Galaxy Strength",
     effect: () => 1 + Math.pow(Decimal.log10(Currency.galacticPower.value.add(1)) / 10, 3),
-    formatEffect: value => `Galaxies are ${value >= 11 ? formatX(value, 2, 2) : formatPercents(value, 2, 2)} stronger`
+    formatEffect: value => `Galaxies are ${value >= 11 ? formatX(value, 2, 2) : formatPercents(value - 1, 2, 2)} stronger`
   },
   remoteGalaxyScale: {
     id: 2,
