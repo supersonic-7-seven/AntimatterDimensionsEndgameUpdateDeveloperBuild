@@ -96,7 +96,7 @@ export const endgameUpgrades = [
     requirement: () => `Manually Endgame in under ${formatInt(10)} minutes (real time)`,
     hasFailed: () => Time.thisEndgameRealTime.totalMinutes.gte(10),
     checkRequirement: () => Time.bestEndgameRealTime.totalMinutes.lt(10),
-    checkEvent: GAME_EVENT.ENDGAME_RESET_BEFORE,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: () => `Generate Endgames ${formatInt(10)} times slower than your fastest Endgame (real time)`,
     effect: () => new Decimal(player.records.bestEndgame.realTime * 10),
     formatEffect: value => {
