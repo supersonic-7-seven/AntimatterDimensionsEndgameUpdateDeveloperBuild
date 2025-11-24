@@ -567,14 +567,17 @@ export const Replicanti = {
   },
   galaxies: {
     isPlayerHoldingR: false,
+    get multiplication() {
+      return GalacticPowers.replicantiGalaxies.isUnlocked ? GalacticPowers.replicantiGalaxies.reward : 1;
+    },
     get bought() {
       return player.replicanti.galaxies;
     },
     get extra() {
-      return Math.floor((Effects.sum(
+      return Math.floor(((Effects.sum(
         TimeStudy(225),
         TimeStudy(226)
-      ) + Effarig.bonusRG) * TimeStudy(303).effectOrDefault(1));
+      ) + Effarig.bonusRG) * TimeStudy(303).effectOrDefault(1) * this.multiplication) + (this.bought * (this.multiplication - 1)));
     },
     get total() {
       return this.bought + this.extra;
