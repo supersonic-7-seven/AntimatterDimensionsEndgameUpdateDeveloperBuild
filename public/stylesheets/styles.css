@@ -9676,7 +9676,7 @@ kbd {
 
 @keyframes a-galactic-power-amount-cycle {
   0% {
-    color: #ff0000
+    color: #ff0000;
     text-shadow: #ff0000 0 0 3px;
   }
 
