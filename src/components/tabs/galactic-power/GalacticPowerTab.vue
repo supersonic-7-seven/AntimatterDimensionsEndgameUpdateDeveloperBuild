@@ -9,7 +9,9 @@ export default {
   data() {
     return {
       galacticPower: new Decimal(),
-      nextPow: 0
+      galacticPowerPerSecond: new Decimal(),
+      nextPow: 0,
+      isDoomed: false
     };
   },
   computed: {
@@ -41,7 +43,9 @@ export default {
   methods: {
     update() {
       this.galacticPower.copyFrom(Currency.galacticPower.value.floor());
+      this.galacticPowerPerSecond.copyFrom(getGalacticPowerGainPerSecond());
       this.nextPow = GalacticPower.nextPower;
+      this.isDoomed = Pelle.isDoomed;
     },
     getPower(row, column) {
       return () => this.powers[(row - 1) + column - 1];
@@ -55,7 +59,19 @@ export default {
     <div>
       <span class="c-galactic-power-description-text">You have </span>
       <span :style="galacticPowerAmountStyle">{{ format(galacticPower, 2, 2) }}</span>
-      <span class="c-galactic-power-description-text"> Galactic Power.</span>
+      <span class="c-galactic-power-description-text"> Galactic Power. </span>
+      <span :style="galacticPowerAmountStyle">+{{ format(galacticPowerPerSecond, 2, 2) }}/s</span>
+    </div>
+    <div>
+      <span class="c-galactic-power-description-text">
+        Galactic Power income is significantly based on total Galaxies,
+        but is also increased based on current Celestial Matter and Imaginary Machine amounts.
+      </span>
+    </div>
+    <div v-if="isDoomed">
+      <span class="c-galactic-power-description-text">
+        Pelle has restricted you from producing Galactic Power while Doomed!
+      </span>
     </div>
     <div
       v-for="row in rows"
