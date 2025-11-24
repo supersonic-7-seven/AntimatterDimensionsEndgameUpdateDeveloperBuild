@@ -48,13 +48,16 @@ export const GalaxyGenerator = {
   get harshGalGenInstability() {
     const currGalaxies = player.galaxies + GalaxyGenerator.galaxies;
     const startingThreshold = 1e60;
-    const power = (Math.log10(Math.max(currGalaxies / startingThreshold, 1)) / 1000) * Effects.product(EndgameUpgrade(14));
+    const extremePower = GalacticPowers.galGenInstability2.isUnlocked ? GalacticPowers.galGenInstability2.reward : 1;
+    const power = Math.pow((Math.log10(Math.max(currGalaxies / startingThreshold, 1)) / 1000) * Effects.product(EndgameUpgrade(14)), 1 / extremePower);
     return Math.pow(1 + power, Math.log10(Math.max(currGalaxies / startingThreshold, 1)));
   },
 
   get gainPerSecondPostCap() {
+    const delay = GalacticPowers.galGenInstability1.isUnlocked ? GalacticPowers.galGenInstability1.reward : 1;
+    const startingThreshold = 1e10 * delay;
     if (!Pelle.hasGalaxyGenerator) return 1;
-    return new Decimal(Math.max(1, Math.pow(Math.pow(this.galGenInstability, this.harshGalGenInstability), Math.log10(Math.max(Math.pow((player.galaxies + GalaxyGenerator.galaxies) / 1e10, 0.75), 1))))
+    return new Decimal(Math.max(1, Math.pow(Math.pow(this.galGenInstability, this.harshGalGenInstability), Math.log10(Math.max(Math.pow((player.galaxies + GalaxyGenerator.galaxies) / startingThreshold, 0.75), 1))))
     ).toNumber();
   },
 
