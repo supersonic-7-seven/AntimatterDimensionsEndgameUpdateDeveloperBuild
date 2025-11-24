@@ -9674,6 +9674,43 @@ kbd {
   background-color: var(--color-endgame);
 }
 
+@keyframes a-galactic-power-amount-cycle {
+  0% {
+    color: #ff0000
+    text-shadow: #ff0000 0 0 3px;
+  }
+
+  17% {
+    color: #ffff00;
+    text-shadow: #ffff00 0 0 3px;
+  }
+
+  33% {
+    color: #00ff00;
+    text-shadow: #00ff00 0 0 3px;
+  }
+
+  50% {
+    color: #00ffff;
+    text-shadow: #00ffff 0 0 3px;
+  }
+
+  67% {
+    color: #0000ff;
+    text-shadow: #0000ff 0 0 3px;
+  }
+
+  83% {
+    color: #ff00ff;
+    text-shadow: #ff00ff 0 0 3px;
+  }
+
+  100% {
+    color: #ff0000;
+    text-shadow: #ff0000 0 0 3px;
+  }
+}
+
 /* #region reality-tab */
 
 .c-reality-tab__reality-machines {
