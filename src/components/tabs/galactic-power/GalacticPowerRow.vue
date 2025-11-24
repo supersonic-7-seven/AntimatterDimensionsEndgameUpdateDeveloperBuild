@@ -44,15 +44,15 @@ export default {
 </script>
 
 <template>
-  <div
-    v-show="isUnlocked"
-    class="c-galactic-power-text"
-  >
-    {{ title }} {{ description }}.
-    <br>
-    <EffectDisplay
-      :config="config"
-    />
+  <div v-show="isUnlocked">
+    <div class="c-galactic-power-text">
+      {{ title }} {{ description }}.
+    </div>
+    <div class="c-galactic-power-text">
+      <EffectDisplay
+        :config="config"
+      />
+    </div>
   </div>
 </template>
 
