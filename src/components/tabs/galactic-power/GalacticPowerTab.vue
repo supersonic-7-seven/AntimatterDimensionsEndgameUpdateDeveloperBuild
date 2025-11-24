@@ -27,6 +27,15 @@ export default {
       return next === undefined
         ? "All Galactic Powers unlocked"
         : `Next Galactic Power unlocks at ${format(next)} Galactic Power.`;
+    },
+    galacticPowerAmountStyle() {
+      return {
+        "font-size": 2.5rem,
+        "font-weight": bold,
+        animation: "a-galactic-power-amount-cycle 12s infinite",
+        color: white,
+        background: black,
+      };
     }
   },
   methods: {
@@ -43,7 +52,11 @@ export default {
 
 <template>
   <div class="l-endgame-milestone-grid">
-    <div>You have {{ format(galacticPower, 2, 2) }} Galactic Power.</div>
+    <div>
+      <span class="c-galactic-power-description-text">You have</span>
+      <span :style="galacticPowerAmountStyle">{{ format(galacticPower, 2, 2) }}</span>
+      <span class="c-galactic-power-description-text">Galactic Power.</span>
+    </div>
     <div
       v-for="row in rows"
       :key="row"
@@ -56,10 +69,19 @@ export default {
         class="l-endgame-milestone-grid__cell"
       />
     </div>
-    <div>{{ nextAtDisplay }}</div>
+    <div>
+      <span class="c-galactic-power-description-text">{{ nextAtDisplay }}</span>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.c-galactic-power-description-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: linear-gradient(var(--color-pelle--secondary), var(--color-pelle--base));
+  background-clip: text;
 
+  -webkit-text-fill-color: transparent;
+}
 </style>
