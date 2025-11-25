@@ -78,7 +78,7 @@ export default {
       <p>
         You have
         <span :class="instabilityClassObject()">{{ format(celestialMatter, 2, 1) }}</span>
-        <span v-if="unstable">Unstable</span> Celestial Matter,
+        <span v-if="unstable"> Unstable</span> Celestial Matter,
         <br>
         <span>
           increased by
@@ -86,7 +86,7 @@ export default {
         </span>
         to a
         <span :class="instabilityClassObject()">
-          {{ formatX(dimMultiplier, 2, 1) }} <span v-if="!isEffectActive">(Disabled)</span>
+          {{ formatX(dimMultiplier, 2, 1) }}<span v-if="!isEffectActive"> (Disabled)</span>
         </span>
         multiplier to
         <span>Game Speed.</span>
