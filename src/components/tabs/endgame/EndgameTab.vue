@@ -34,8 +34,10 @@ export default {
         Why don't you go ahead and get started?
       </div>
     </div>
-    <div>
-      <ResetEndgameButton/>
+    <div class="l-endgame-button-column">
+      <div class="l-endgame-button-group">
+        <ResetEndgameButton/>
+      </div>
     </div>
   </div>
 </template>
