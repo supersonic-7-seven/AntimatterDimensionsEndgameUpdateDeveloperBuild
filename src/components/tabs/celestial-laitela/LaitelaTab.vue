@@ -42,11 +42,6 @@ export default {
       return {
         color: this.isDMCapped ? "var(--color-bad)" : "",
       };
-    },
-    formatContinuumPercentage() {
-      return Laitela.matterExtraPurchaseFactor >= 11
-        ? formatX(this.matterExtraPurchasePercentage, 2, 2)
-        : formatPercents(this.matterExtraPurchasePercentage, 2);
     }
   },
   methods: {
@@ -80,6 +75,11 @@ export default {
       ui.view.h2pForcedTab = GameDatabase.h2p.tabs.filter(tab => tab.name === "Lai'tela")[0];
       Modal.h2p.show();
     },
+    formatContinuumPercentage() {
+      return Laitela.matterExtraPurchaseFactor >= 11
+        ? formatX(this.matterExtraPurchasePercentage, 2, 2)
+        : formatPercents(this.matterExtraPurchasePercentage, 2);
+    }
   }
 };
 </script>
