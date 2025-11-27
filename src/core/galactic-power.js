@@ -49,7 +49,7 @@ export function getGalacticPowerGainPerSecond() {
   const galaxyExponent1 = Math.max(Math.min(Math.pow(allGalaxies / 1680000, 6.4), 4), 1);
   const galaxyExponent2 = Math.max(Math.min(Math.pow(allGalaxies / 1960000, 15), 5), 1);
   const galaxyExponent3 = Math.max(Math.min(Math.pow(allGalaxies / 2160000, 5), 1.6), 1);
-  const galaxyExponent4 = Math.max(Math.min(Math.pow(allGalaxies / 4500000, 0.625), 1.25), 1);
+  const galaxyExponent4 = Math.max(Math.min(Math.pow(allGalaxies / 4500000, 0.75), 1.25), 1);
   const galaxyExponent5 = Math.max(Math.min(Math.pow(allGalaxies / 8000000, 0.25), 2.5), 1);
   const exponent = galaxyExponent1 * galaxyExponent2 * galaxyExponent3 * galaxyExponent4 * galaxyExponent5;
   return Pelle.isDoomed ? new Decimal(0) : Decimal.pow(base, exponent);
