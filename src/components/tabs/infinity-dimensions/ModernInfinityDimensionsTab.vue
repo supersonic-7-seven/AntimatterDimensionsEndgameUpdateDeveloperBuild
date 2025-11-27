@@ -33,7 +33,8 @@ export default {
       infinityDimCompressionMagnitude: 0,
       infinityDimOverflow: 0,
       infinityDimStart: new Decimal(0),
-      freeTesseractSoftcap: 0
+      freeTesseractSoftcap: 0,
+      freeTesseractHardcap: 0
     };
   },
   computed: {
@@ -74,6 +75,7 @@ export default {
       this.infinityDimOverflow = 1 / this.infinityDimCompressionMagnitude;
       this.infinityDimStart = InfinityDimensions.OVERFLOW;
       this.freeTesseractSoftcap = Tesseracts.freeSoftcapStart;
+      this.freeTesseractHardcap = this.freeTesseractSoftcap * 2;
     },
     maxAll() {
       InfinityDimensions.buyMax();
@@ -159,6 +161,9 @@ export default {
     </div>
     <div>
       Free Tesseracts are softcapped past {{ format(freeTesseractSoftcap, 2, 2) }}.
+      <br>
+      This softcap causes Tesseracts past {{ format(freeTesseractSoftcap, 2, 2) }} to eternally approach
+      a hardcap of {{ format(freeTesseractHardcap, 2, 2) }} without ever actually reaching it.
     </div>
     <div v-if="isEnslavedRunning">
       All Infinity Dimensions are limited to a single purchase.
