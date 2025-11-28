@@ -18,7 +18,8 @@ export default {
   },
   data() {
     return {
-      isBought: false
+      isBought: false,
+      isUnlocked: false
     };
   },
   computed: {
@@ -39,12 +40,14 @@ export default {
     update() {
       const pack = this.pack;
       this.isBought = pack.isBought;
+      this.isUnlocked = pack.isUnlocked;
     }
   }
 };
 </script>
 
 <template>
+  <div v-show="isUnlocked">
   <button
     :class="classObject"
     @click="pack.purchase()"
