@@ -9765,6 +9765,66 @@ kbd {
   align-items: center;
 }
 
+.o-expansion-pack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 98rem;
+  margin: 1rem;
+  padding: 1rem;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.o-expansion-pack--teresa {
+  color: var(--color-teresa--base);
+  background: black;
+  border: var(--var-border-width, 0.2rem) solid var(--color-teresa--base);
+  border-radius: var(--var-border-radius, 0.5rem);
+}
+
+.o-expansion-pack--effarig {
+  color: var(--color-effarig--base);
+  background: black;
+  border: var(--var-border-width, 0.2rem) solid var(--color-effarig--base);
+  border-radius: var(--var-border-radius, 0.5rem);
+}
+
+.o-expansion-pack--enslaved {
+  color: var(--color-enslaved--base);
+  background: black;
+  border: var(--var-border-width, 0.2rem) solid var(--color-enslaved--base);
+  border-radius: var(--var-border-radius, 0.5rem);
+}
+
+.o-expansion-pack--v {
+  color: var(--color-v--base);
+  background: black;
+  border: var(--var-border-width, 0.2rem) solid var(--color-v--base);
+  border-radius: var(--var-border-radius, 0.5rem);
+}
+
+.o-expansion-pack--ra {
+  color: var(--color-ra--base);
+  background: black;
+  border: var(--var-border-width, 0.2rem) solid var(--color-ra--base);
+  border-radius: var(--var-border-radius, 0.5rem);
+}
+
+.o-expansion-pack--laitela {
+  color: var(--color-laitela--base);
+  background: black;
+  border: var(--var-border-width, 0.2rem) solid var(--color-laitela--base);
+  border-radius: var(--var-border-radius, 0.5rem);
+}
+
+.o-expansion-pack--pelle {
+  color: var(--color-pelle--base);
+  background: black;
+  border: var(--var-border-width, 0.2rem) solid var(--color-pelle--base);
+  border-radius: var(--var-border-radius, 0.5rem);
+}
+
 /* #region reality-tab */
 
 .c-reality-tab__reality-machines {
