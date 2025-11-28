@@ -8,13 +8,15 @@ class ExpansionPackState extends SetPurchasableMechanicState {
   get set() {
     return player.endgame.expansionPacks.boughtPacks;
   }
-
-  get areUnlocked() {
-    return player.endgame.expansionPacks.areUnlocked
-  }
 }
 
 export const ExpansionPack = mapGameDataToObject(
   GameDatabase.endgame.packs,
   config => new ExpansionPackState(config)
 );
+
+export const ExpansionPacks = {
+  get areUnlocked() {
+    return player.endgame.expansionPacks.areUnlocked;
+  }
+}
