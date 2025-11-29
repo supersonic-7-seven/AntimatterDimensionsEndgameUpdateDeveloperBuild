@@ -26,13 +26,20 @@ export default {
     classObject() {
       return {
         "o-expansion-pack": true,
-        "o-expansion-pack--teresa": this.pack.config.id === "teresaPack",
-        "o-expansion-pack--effarig": this.pack.config.id === "effarigPack",
-        "o-expansion-pack--enslaved": this.pack.config.id === "enslavedPack",
-        "o-expansion-pack--v": this.pack.config.id === "vPack",
-        "o-expansion-pack--ra": this.pack.config.id === "raPack",
-        "o-expansion-pack--laitela": this.pack.config.id === "laitelaPack",
-        "o-expansion-pack--pelle": this.pack.config.id === "pellePack"
+        "o-expansion-pack--teresa": this.pack.config.id === "teresaPack" && !this.isBought,
+        "o-expansion-pack--effarig": this.pack.config.id === "effarigPack" && !this.isBought,
+        "o-expansion-pack--enslaved": this.pack.config.id === "enslavedPack" && !this.isBought,
+        "o-expansion-pack--v": this.pack.config.id === "vPack" && !this.isBought,
+        "o-expansion-pack--ra": this.pack.config.id === "raPack" && !this.isBought,
+        "o-expansion-pack--laitela": this.pack.config.id === "laitelaPack" && !this.isBought,
+        "o-expansion-pack--pelle": this.pack.config.id === "pellePack" && !this.isBought,
+        "o-expansion-pack--teresa--bought": this.pack.config.id === "teresaPack" && this.isBought,
+        "o-expansion-pack--effarig--bought": this.pack.config.id === "effarigPack" && this.isBought,
+        "o-expansion-pack--enslaved--bought": this.pack.config.id === "enslavedPack" && this.isBought,
+        "o-expansion-pack--v--bought": this.pack.config.id === "vPack" && this.isBought,
+        "o-expansion-pack--ra--bought": this.pack.config.id === "raPack" && this.isBought,
+        "o-expansion-pack--laitela--bought": this.pack.config.id === "laitelaPack" && this.isBought,
+        "o-expansion-pack--pelle--bought": this.pack.config.id === "pellePack" && this.isBought
       };
     },
   },
