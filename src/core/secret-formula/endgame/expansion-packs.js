@@ -68,7 +68,7 @@ export const expansionPacks = {
       resetting Lai'tela's Reality to allow for all 8 Dimensions. While disabled Dimension count still resets on Endgame, Hadronizes
       do not. Hadronization allows for additional completions of Lai'tela for the same ${formatX(8)} reward to Dark Matter on
       destabilization and ${formatX(8)} to Dark Energy on the final destabilization for each Hadronization.`,
-    cost: Decimal.pow(10, 130),
+    cost: Decimal.pow(10, 1e130),
     formatCost: value => formatPostBreak(value, 2, 0)
   },
   pellePack: {
