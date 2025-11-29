@@ -43,17 +43,6 @@ export default {
         "o-expansion-pack--pelle--bought": this.pack.config.id === "pellePack" && this.isBought
       };
     },
-    symbolObject() {
-      return {
-        "o-teresa-symbol": this.pack.config.id === "teresaPack",
-        "o-effarig-symbol": this.pack.config.id === "effarigPack",
-        "o-enslaved-symbol": this.pack.config.id === "enslavedPack",
-        "o-v-symbol": this.pack.config.id === "vPack",
-        "o-ra-symbol": this.pack.config.id === "raPack",
-        "o-laitela-symbol": this.pack.config.id === "laitelaPack",
-        "o-pelle-symbol": this.pack.config.id === "pellePack"
-      };
-    },
   },
   methods: {
     update() {
@@ -73,9 +62,7 @@ export default {
       @click="pack.purchase()"
     >
       <div class="c-expansion-packs-container">
-        <div
-          :class="symbolObject"
-        >
+        <div class="o-symbol">
           {{ symbol }}
         </div>
         <div>
@@ -105,45 +92,8 @@ export default {
   align-self: center;
 }
 
-.o-teresa-symbol {
+.o-symbol {
   font-size: 15rem;
   font-weight: bold;
-  color: var(--color-teresa--base);
-}
-
-.o-effarig-symbol {
-  font-size: 15rem;
-  font-weight: bold;
-  color: var(--color-effarig--base);
-}
-
-.o-enslaved-symbol {
-  font-size: 15rem;
-  font-weight: bold;
-  color: var(--color-enslaved--base);
-}
-
-.o-v-symbol {
-  font-size: 15rem;
-  font-weight: bold;
-  color: var(--color-v--base);
-}
-
-.o-ra-symbol {
-  font-size: 15rem;
-  font-weight: bold;
-  color: var(--color-ra--base);
-}
-
-.o-laitela-symbol {
-  font-size: 15rem;
-  font-weight: bold;
-  color: var(--color-laitela--base);
-}
-
-.o-pelle-symbol {
-  font-size: 15rem;
-  font-weight: bold;
-  color: var(--color-pelle--base);
 }
 </style>
