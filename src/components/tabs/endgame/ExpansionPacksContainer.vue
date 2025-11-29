@@ -19,7 +19,8 @@ export default {
   data() {
     return {
       isBought: false,
-      isUnlocked: false
+      isUnlocked: false,
+      symbol: ""
     };
   },
   computed: {
@@ -42,12 +43,24 @@ export default {
         "o-expansion-pack--pelle--bought": this.pack.config.id === "pellePack" && this.isBought
       };
     },
+    symbolObject() {
+      return {
+        "o-symbol-teresa": this.pack.config.id === "teresaPack",
+        "o-symbol-effarig": this.pack.config.id === "effarigPack",
+        "o-symbol-enslaved": this.pack.config.id === "enslavedPack",
+        "o-symbol-v": this.pack.config.id === "vPack",
+        "o-symbol-ra": this.pack.config.id === "raPack",
+        "o-symbol-laitela": this.pack.config.id === "laitelaPack",
+        "o-symbol-pelle": this.pack.config.id === "pellePack"
+      };
+    },
   },
   methods: {
     update() {
       const pack = this.pack;
       this.isBought = pack.isBought;
       this.isUnlocked = pack.isUnlocked;
+      this.symbol = pack.symbol;
     }
   }
 };
@@ -59,21 +72,78 @@ export default {
       :class="classObject"
       @click="pack.purchase()"
     >
-      <DescriptionDisplay :config="pack.config" />
-      <EffectDisplay
-        br
-        :config="pack.config"
-      />
-      <CostDisplay
-        v-if="!isBought"
-        br
-        :config="pack.config"
-        name="Antimatter"
-      />
+      <div class="c-expansion-packs-container">
+        <div
+          :class="symbolObject"
+        >
+          {{ symbol }}
+        </div>
+        <div>
+          <DescriptionDisplay :config="pack.config" />
+          <EffectDisplay
+            br
+            :config="pack.config"
+          />
+          <CostDisplay
+            v-if="!isBought"
+            br
+            :config="pack.config"
+            name="Antimatter"
+          />
+        </div>
+      </div>
     </button>
   </div>
 </template>
 
 <style scoped>
+.c-expansion-packs-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  align-self: center;
+}
 
+.o-teresa-symbol {
+  font-size: 15rem;
+  font-weight: bold;
+  color: var(--color-teresa--base);
+}
+
+.o-effarig-symbol {
+  font-size: 15rem;
+  font-weight: bold;
+  color: var(--color-effarig--base);
+}
+
+.o-enslaved-symbol {
+  font-size: 15rem;
+  font-weight: bold;
+  color: var(--color-enslaved--base);
+}
+
+.o-v-symbol {
+  font-size: 15rem;
+  font-weight: bold;
+  color: var(--color-v--base);
+}
+
+.o-ra-symbol {
+  font-size: 15rem;
+  font-weight: bold;
+  color: var(--color-ra--base);
+}
+
+.o-laitela-symbol {
+  font-size: 15rem;
+  font-weight: bold;
+  color: var(--color-laitela--base);
+}
+
+.o-pelle-symbol {
+  font-size: 15rem;
+  font-weight: bold;
+  color: var(--color-pelle--base);
+}
 </style>
