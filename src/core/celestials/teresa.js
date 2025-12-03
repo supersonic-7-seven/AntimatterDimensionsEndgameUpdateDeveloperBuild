@@ -70,7 +70,7 @@ class PerkShopUpgradeState extends RebuyableMechanicState {
   }
 
   get currency() {
-    return Currency.perkPoints;
+    return this.id === 6 ? Currency.celestialPoints : Currency.perkPoints;
   }
 
   get boughtAmount() {
