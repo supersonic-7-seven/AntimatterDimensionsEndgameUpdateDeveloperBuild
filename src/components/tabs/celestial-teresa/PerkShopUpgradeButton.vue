@@ -82,7 +82,7 @@ export default {
     </div>
     <PrimaryButton
       v-if="chargeUnlocked"
-      class="o-teresa-shop-button--capped"
+      class="o-primary-btn--subtab-option"
       @click="chargeView = !chargeView"
     >
       Toggle Charge Mode: {{ chargeDisplay }}
