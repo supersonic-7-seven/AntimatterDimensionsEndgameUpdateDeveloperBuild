@@ -35,6 +35,13 @@ export default {
           (this.upgrade === PerkShopUpgrade.musicGlyph || this.upgrade === PerkShopUpgrade.fillMusicGlyph)
       };
     },
+    effectConfig() {
+      const config = this.config;
+      return {
+        effect: () => this.upgrade.chargedValue !== config.effect ? config.chargedEffect : config.effect,
+        formatEffect: config.formatEffect,
+      };
+    },
   },
   methods: {
     update() {
@@ -59,7 +66,7 @@ export default {
         :length="70"
       />
       <br>
-      <EffectDisplay :config="upgrade.config" />
+      <EffectDisplay :config="effectConfig" />
       <br>
       <CostDisplay
         v-if="!isCapped"
