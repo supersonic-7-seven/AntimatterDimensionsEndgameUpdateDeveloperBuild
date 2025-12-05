@@ -5,10 +5,12 @@ import CelestialQuoteHistory from "@/components/CelestialQuoteHistory";
 import CustomizeableTooltip from "@/components/CustomizeableTooltip";
 import GlyphSetPreview from "@/components/GlyphSetPreview";
 import PerkShopUpgradeButton from "./PerkShopUpgradeButton";
+import PrimaryButton from "@/components/PrimaryButton";
 
 export default {
   name: "TeresaTab",
   components: {
+    PrimaryButton,
     GlyphSetPreview,
     PerkShopUpgradeButton,
     CelestialQuoteHistory,
