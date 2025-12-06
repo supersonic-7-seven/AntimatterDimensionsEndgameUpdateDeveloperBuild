@@ -137,7 +137,7 @@ class PerkShopUpgradeState extends RebuyableMechanicState {
   }
 
   get viewCharge() {
-    return Teresa.chargeModeOn || this.isCharged || ui.view.shiftDown;
+    return (Teresa.chargeModeOn || this.isCharged || ui.view.shiftDown) && this.ableToCharge;
   }
 
   get ableToCharge() {
