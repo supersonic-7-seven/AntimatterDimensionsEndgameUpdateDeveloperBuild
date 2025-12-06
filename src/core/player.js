@@ -606,7 +606,8 @@ window.player = {
       lastRepeatedMachines: DC.D0,
       charged: new Set(),
       disCharge: false,
-      chargeMode: false
+      chargeMode: false,
+      autoPour: false
     },
     effarig: {
       relicShards: DC.D0,
