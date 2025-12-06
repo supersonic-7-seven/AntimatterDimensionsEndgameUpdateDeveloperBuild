@@ -267,12 +267,12 @@ export default {
         </div>
       </div>
       <div class="l-rm-container l-teresa-mechanic-container">
-        <PrimaryButton
+        <button
           :class="autoClassObject"
           @click="toggleAuto"
         >
           {{ autoText }}
-        </PrimaryButton>
+        </button>
         <button
           :class="pourButtonClassObject"
           @mousedown="pour = true"
