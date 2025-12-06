@@ -69,7 +69,7 @@ export const perkShop = {
       ? PerkShopUpgrade.bulkDilation.chargedEffect()
       : PerkShopUpgrade.bulkDilation.preChargedEffect(),
     preChargedEffect: bought => Math.pow(2, bought),
-    chargedEffect: () => Math.pow(10, 300),
+    chargedEffect: () => Math.pow(10, 30),
     formatEffect: value => formatX(value, 2),
     formatCost: value => format(value, 2),
     costCap: () => (Ra.unlocks.perkShopIncrease.canBeApplied ? 1638400 : 1600),
@@ -88,7 +88,7 @@ export const perkShop = {
       ? PerkShopUpgrade.autoSpeed.chargedEffect()
       : PerkShopUpgrade.autoSpeed.preChargedEffect(),
     preChargedEffect: bought => Math.pow(2, bought),
-    chargedEffect: () => Math.pow(10, 300),
+    chargedEffect: () => Math.pow(10, 30),
     formatEffect: value => formatX(value, 2),
     formatCost: value => format(value, 2),
     costCap: () => (Ra.unlocks.perkShopIncrease.canBeApplied ? 64000 : 4000),
