@@ -155,10 +155,16 @@ class PerkShopUpgradeState extends RebuyableMechanicState {
 
   charge() {
     player.celestials.teresa.charged.add(this.id);
+    if (this.id === 0) {
+      GameCache.staticGlyphWeights.invalidate();
+    }
   }
 
   disCharge() {
     player.celestials.teresa.charged.delete(this.id);
+    if (this.id === 0) {
+      GameCache.staticGlyphWeights.invalidate();
+    }
   }
 }
 
