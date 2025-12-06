@@ -301,7 +301,9 @@ export const Endgame = {
       player.blackHole[1].unlocked = true;
     }
     player.celestials.teresa.pouredAmount = DC.D0;
-    player.celestials.teresa.quoteBits = 0;
+    if (!ExpansionPacks.areUnlocked) {
+      player.celestials.teresa.quoteBits = 0;
+    }
     player.celestials.teresa.unlockBits = 0;
     player.celestials.teresa.run = false;
     if (!EndgameUpgrade(10).isBought) {
@@ -314,7 +316,9 @@ export const Endgame = {
     player.celestials.effarig.relicShards = EndgameUpgrade(6).isBought ? DC.E12 : DC.D0;
     player.celestials.effarig.unlockBits = 0;
     player.celestials.effarig.run = false;
-    player.celestials.effarig.quoteBits = 0;
+    if (!ExpansionPacks.areUnlocked) {
+      player.celestials.effarig.quoteBits = 0;
+    }
     player.celestials.effarig.glyphWeights.ep = 25;
     player.celestials.effarig.glyphWeights.repl = 25;
     player.celestials.effarig.glyphWeights.dt = 25;
@@ -326,7 +330,9 @@ export const Endgame = {
     player.celestials.enslaved.storedReal = 0;
     player.celestials.enslaved.autoStoreReal = false;
     player.celestials.enslaved.isAutoReleasing = false;
-    player.celestials.enslaved.quoteBits = 0;
+    if (!ExpansionPacks.areUnlocked) {
+      player.celestials.enslaved.quoteBits = 0;
+    }
     player.celestials.enslaved.unlocks = [];
     if (EndgameUpgrade(6).isBought) {
       player.celestials.enslaved.unlocks.push(0);
@@ -345,7 +351,9 @@ export const Endgame = {
     Enslaved.autoReleaseTick = 0;
     player.celestials.v.unlockBits = 0;
     player.celestials.v.run = false;
-    player.celestials.v.quoteBits = 0;
+    if (!ExpansionPacks.areUnlocked) {
+      player.celestials.v.quoteBits = 0;
+    }
     player.celestials.v.runUnlocks = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     player.celestials.v.goalReductionSteps = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     player.celestials.v.STSpent = 0;
@@ -386,7 +394,9 @@ export const Endgame = {
     player.celestials.ra.highestRefinementValue.replication = 0;
     player.celestials.ra.highestRefinementValue.dilation = 0;
     player.celestials.ra.highestRefinementValue.effarig = 0;
-    player.celestials.ra.quoteBits = 0;
+    if (!ExpansionPacks.areUnlocked) {
+      player.celestials.ra.quoteBits = 0;
+    }
     player.celestials.ra.momentumTime = 0;
     player.celestials.ra.unlockBits = 0;
     player.celestials.ra.run = false;
@@ -397,7 +407,9 @@ export const Endgame = {
     player.celestials.laitela.darkMatter = DC.D0;
     player.celestials.laitela.maxDarkMatter = DC.D0;
     player.celestials.laitela.run = false;
-    player.celestials.laitela.quoteBits = 0;
+    if (!ExpansionPacks.areUnlocked) {
+      player.celestials.laitela.quoteBits = 0;
+    }
     player.celestials.laitela.dimensions = Array.range(0, 8).map(() =>
       ({
         amount: DC.D0,
