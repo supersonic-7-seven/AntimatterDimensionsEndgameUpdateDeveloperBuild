@@ -39,7 +39,7 @@ export default {
       const config = this.config;
       return {
         effect: () => this.upgrade.chargedValue !== config.effect ? config.chargedEffect : config.effect,
-        formatEffect: config.formatEffect,
+        formatEffect: () => config.formatEffect,
       };
     },
   },
