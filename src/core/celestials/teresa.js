@@ -6,7 +6,9 @@ import { Quotes } from "./quotes";
 export const Teresa = {
   timePoured: new Decimal(0),
   lastUnlock: "effarig",
-  pouredAmountCap: new Decimal(1e24),
+  get pouredAmountCap() {
+    return ExpansionPack.teresaPack.isBought ? Decimal.pow(10, 1e300) : new Decimal(1e24);
+  },
   displayName: "Teresa",
   possessiveName: "Teresa's",
   get isUnlocked() {
