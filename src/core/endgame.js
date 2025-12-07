@@ -656,6 +656,9 @@ export const Endgame = {
     if (EndgameMilestone.celestialEarlyUnlock.isReached) {
       DarkMatterDimension(1).amount = DC.D1;
     }
+    if (Achievement(165).isUnlocked) {
+      player.celestials.effarig.autoAdjustGlyphWeights = true;
+    }
   }
 };
 function lockAchievementsOnEndgame() {
