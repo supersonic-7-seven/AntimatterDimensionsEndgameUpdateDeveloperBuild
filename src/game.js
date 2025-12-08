@@ -610,7 +610,27 @@ export function gameLoop(passedDiff, options = {}) {
   }
 
   if (!Pelle.isDoomed) {
-    for (const res of AlchemyResources.all) res.bestPreDoom = res.amount;
+    player.celestials.ra.alchemy.power.bestPreDoom = player.celestials.ra.alchemy.power.amount;
+    player.celestials.ra.alchemy.infinity.bestPreDoom = player.celestials.ra.alchemy.infinity.amount;
+    player.celestials.ra.alchemy.time.bestPreDoom = player.celestials.ra.alchemy.time.amount;
+    player.celestials.ra.alchemy.replication.bestPreDoom = player.celestials.ra.alchemy.replication.amount;
+    player.celestials.ra.alchemy.dilation.bestPreDoom = player.celestials.ra.alchemy.dilation.amount;
+    player.celestials.ra.alchemy.effarig.bestPreDoom = player.celestials.ra.alchemy.effarig.amount;
+    player.celestials.ra.alchemy.cardinality.bestPreDoom = player.celestials.ra.alchemy.cardinality.amount;
+    player.celestials.ra.alchemy.eternity.bestPreDoom = player.celestials.ra.alchemy.eternity.amount;
+    player.celestials.ra.alchemy.dimensionality.bestPreDoom = player.celestials.ra.alchemy.dimensionality.amount;
+    player.celestials.ra.alchemy.inflation.bestPreDoom = player.celestials.ra.alchemy.inflation.amount;
+    player.celestials.ra.alchemy.alternation.bestPreDoom = player.celestials.ra.alchemy.alternation.amount;
+    player.celestials.ra.alchemy.synergism.bestPreDoom = player.celestials.ra.alchemy.synergism.amount;
+    player.celestials.ra.alchemy.decoherence.bestPreDoom = player.celestials.ra.alchemy.decoherence.amount;
+    player.celestials.ra.alchemy.momentum.bestPreDoom = player.celestials.ra.alchemy.momentum.amount;
+    player.celestials.ra.alchemy.multiversal.bestPreDoom = player.celestials.ra.alchemy.multiversal.amount;
+    player.celestials.ra.alchemy.force.bestPreDoom = player.celestials.ra.alchemy.force.amount;
+    player.celestials.ra.alchemy.exponential.bestPreDoom = player.celestials.ra.alchemy.exponential.amount;
+    player.celestials.ra.alchemy.uncountability.bestPreDoom = player.celestials.ra.alchemy.uncountability.amount;
+    player.celestials.ra.alchemy.boundless.bestPreDoom = player.celestials.ra.alchemy.boundless.amount;
+    player.celestials.ra.alchemy.unpredictability.bestPreDoom = player.celestials.ra.alchemy.unpredictability.amount;
+    player.celestials.ra.alchemy.reality.bestPreDoom = player.celestials.ra.alchemy.reality.amount;
   }
 
   const uncountabilityGain = AlchemyResource.uncountability.effectValue * Time.unscaledDeltaTime.totalSeconds.toNumber();
