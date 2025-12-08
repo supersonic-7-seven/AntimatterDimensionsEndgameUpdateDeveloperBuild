@@ -68,6 +68,16 @@ window.player = {
   auto: {
     autobuyersOn: true,
     disableContinuum: false,
+    endgame: {
+      mode: 0,
+      amountCP: DC.D1,
+      amountDP: DC.D1,
+      increaseWithMult: true,
+      time: 1,
+      xHighestCP: DC.D1,
+      xHighestDP: DC.D1,
+      isActive: false
+    },
     reality: {
       mode: 0,
       rm: DC.D1,
