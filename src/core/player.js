@@ -640,7 +640,9 @@ window.player = {
       hintBits: 0,
       hintUnlockProgress: 0,
       glyphHintsGiven: 0,
-      zeroHintTime: 0
+      zeroHintTime: 0,
+      pulseAmount: 0.01,
+      pulseTime: 5
     },
     v: {
       unlockBits: 0,
