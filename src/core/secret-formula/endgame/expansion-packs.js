@@ -28,7 +28,8 @@ export const expansionPacks = {
     description: () =>
       `Charging your Black Hole always only takes ${formatPercents(0.99)} of your total Game Speed. Unlock optimizers for
       for adjusting the amount of your stored time you desire to discharge as well as the interval at which you want to discharge
-      your Stored Time. Double the strength of all Effective Tesseracts.`,
+      your Stored Time. Double the strength of all Effective Tesseracts. Tesseracts multiply Endgames as well as reducing the Infinity
+      Dimension Compression Magnitude slightly.`,
     cost: Decimal.pow(10, 1e70),
     formatCost: value => formatPostBreak(value, 2, 0)
   },
