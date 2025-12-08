@@ -621,6 +621,8 @@ window.player = {
         eternities: 25
       },
       autoAdjustGlyphWeights: false,
+      effarigTime: 0,
+      effarigLayer: 0
     },
     enslaved: {
       isStoring: false,
