@@ -52,7 +52,7 @@ export const GalaxyGenerator = {
   get harshGalGenInstability() {
     const currGalaxies = player.galaxies + GalaxyGenerator.galaxies;
     const extremePower = GalacticPowers.galGenInstability2.isUnlocked ? GalacticPowers.galGenInstability2.reward : 1;
-    const power = Math.pow((Math.log10(Math.max(currGalaxies / this.harshInstabilityStart, 1)) / 1000) * Effects.product(EndgameUpgrade(14)), 1 / extremePower);
+    const power = (Math.log10(Math.max(currGalaxies / this.harshInstabilityStart, 1)) / 1000) * Effects.product(EndgameUpgrade(14)) * (1 / extremePower);
     return Math.pow(1 + power, Math.log10(Math.max(currGalaxies / this.harshInstabilityStart, 1)));
   },
 
