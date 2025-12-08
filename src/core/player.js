@@ -688,6 +688,7 @@ window.player = {
       alchemy: Array.repeat(0, 21)
         .map(() => ({
           amount: 0,
+          bestPreDoom: 0,
           reaction: false
         })),
       highestRefinementValue: {
