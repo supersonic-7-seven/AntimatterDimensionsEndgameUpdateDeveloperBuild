@@ -353,7 +353,9 @@ export const Endgame = {
       player.celestials.enslaved.unlocks.push(1);
     }
     player.celestials.enslaved.run = false;
-    player.celestials.enslaved.completed = false;
+    if (!ExpansionPack.enslavedPack.isBought) {
+      player.celestials.enslaved.completed = false;
+    }
     player.celestials.enslaved.tesseracts = 0;
     player.celestials.enslaved.hasSecretStudy = false;
     player.celestials.enslaved.feltEternity = false;
