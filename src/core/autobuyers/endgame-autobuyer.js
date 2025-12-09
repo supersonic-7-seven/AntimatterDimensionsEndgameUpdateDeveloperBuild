@@ -87,11 +87,11 @@ get increaseWithMult() {
         return gainedCelestialPoints().gte(this.amount);
       case AUTO_ENDGAME_MODE.AMOUNTDP:
         return gainedDoomedParticles().gte(this.amount);
-      case AUTO_ETERNITY_MODE.TIME:
+      case AUTO_ENDGAME_MODE.TIME:
         return Time.thisEndgameRealTime.totalSeconds.toNumber() > this.time;
-      case AUTO_ETERNITY_MODE.X_HIGHEST_CP:
+      case AUTO_ENDGAME_MODE.X_HIGHEST_CP:
         return gainedCelestialPoints().gte(this.highestPrevPrestigeCP.times(this.xHighestCP));
-      case AUTO_ETERNITY_MODE.X_HIGHEST_DP:
+      case AUTO_ENDGAME_MODE.X_HIGHEST_DP:
         return gainedDoomedParticles().gte(this.highestPrevPrestigeDP.times(this.xHighestDP));
       default:
         return Time.thisEndgameRealTime.totalSeconds.toNumber() > this.time;
