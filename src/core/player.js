@@ -216,6 +216,9 @@ window.player = {
       isActive: false,
       multiplier: 1.05,
     },
+    tesseracts: {
+      isActive: false,
+    },
     singularity: { isActive: false },
     ipMultBuyer: { isActive: false, },
     epMultBuyer: { isActive: false, },
