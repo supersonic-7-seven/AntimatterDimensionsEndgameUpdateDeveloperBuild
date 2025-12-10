@@ -90,7 +90,7 @@ export class DarkMatterDimensionState extends DimensionState {
 
   get powerDE() {
     if (!this.isUnlocked || Pelle.isDoomed) return DC.D0;
-    const supertier = [1, 1, 1, 1, 1, 5, 12, 30, 80];
+    const supertier = [1, 1, 1, 1, 1, 5, 12, 54, 360];
     const tierFactor = Decimal.pow(15, (this.tier - 1) * supertier[this.tier]);
     const destabilizeBoost = Laitela.isFullyDestabilized ? 8 : 1;
     return this.data.powerDEUpgrades.div(10).add(1)
