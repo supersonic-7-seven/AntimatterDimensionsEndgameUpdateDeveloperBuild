@@ -48,26 +48,26 @@ export const MachineHandler = {
   },
 
   get baseIMCap() {
-    if (Pelle.isDoomed) return 1.6e15;
-    return ((Math.pow(Math.clampMin(this.uncappedRM.log10() - 1000, 0), 2)) *
-      (Math.pow(Math.clampMin(this.uncappedRM.log10() - 100000, 1), 0.2)) *
-      (Math.pow(Math.clampMin(this.uncappedRM.log10() / 1000000000, 1), Math.log10(this.uncappedRM.log10()) / 7.5))) **
-      Effects.product(EndgameMastery(144));
+    if (Pelle.isDoomed) return new Decimal(1.6e15);
+    return (Decimal.pow(Decimal.clampMin(new Decimal(this.uncappedRM.log10()).sub(1000), 0), 2).times(
+      Decimal.pow(Decimal.clampMin(new Decimal(this.uncappedRM.log10()).sub(100000), 1), 0.2)).times(
+      Decimal.pow(Decimal.clampMin(new Decimal(this.uncappedRM.log10()).div(1000000000), 1),
+      new Decimal(Decimal.log10(this.uncappedRM.log10())).div(7.5)))).pow(Effects.product(EndgameMastery(144)));
   },
 
   get currentIMCap() {
-    return player.reality.iMCap * ImaginaryUpgrade(13).effectOrDefault(1);
+    return player.reality.iMCap.times(ImaginaryUpgrade(13).effectOrDefault(1));
   },
 
   // This is iM cap based on in-game values at that instant, may be lower than the actual cap
   get projectedIMCap() {
-    return this.baseIMCap * ImaginaryUpgrade(13).effectOrDefault(1);
+    return this.baseIMCap.times(ImaginaryUpgrade(13).effectOrDefault(1));
   },
 
   // Use iMCap to store the base cap; applying multipliers separately avoids some design issues the 3xTP upgrade has
   updateIMCap() {
     if (this.uncappedRM.gte(this.baseRMCap)) {
-      if (this.baseIMCap > player.reality.iMCap) {
+      if (this.baseIMCap.gt(player.reality.iMCap)) {
         player.records.bestReality.iMCapSet = Glyphs.copyForRecords(Glyphs.active.filter(g => g !== null));
         player.reality.iMCap = this.baseIMCap;
       }
@@ -80,18 +80,18 @@ export const MachineHandler = {
   },
 
   gainedImaginaryMachines(diff) {
-    return (this.currentIMCap - Currency.imaginaryMachines.value) *
-      (1 - Math.pow(2, (new Decimal(0).sub(diff).div(1000).div(this.scaleTimeForIM)).toNumber()));
+    return (this.currentIMCap.sub(Currency.imaginaryMachines.value)).times(
+      new Decimal(1).sub(Decimal.pow(2, new Decimal(0).sub(diff).div(1000).div(this.scaleTimeForIM))));
   },
 
   estimateIMTimer(cost) {
     const imCap = this.currentIMCap;
-    if (imCap <= cost) return Infinity;
+    if (imCap.lte(cost)) return Infinity;
     const currentIM = Currency.imaginaryMachines.value;
     // This is doing log(a, 1/2) - log(b, 1/2) where a is % left to imCap of cost and b is % left to imCap of current
     // iM. log(1 - x, 1/2) should be able to estimate the time taken for iM to increase from 0 to imCap * x since every
     // fixed interval the difference between current iM to max iM should decrease by a factor of 1/2.
-    return Math.max(0, Math.log2(imCap / (imCap - cost)) - Math.log2(imCap / (imCap - currentIM))) *
-      this.scaleTimeForIM;
+    return Decimal.max(0, Decimal.log2(imCap.div(imCap.sub(cost))).sub(Decimal.log2(imCap.div(imCap.sub(currentIM))))).times(
+      this.scaleTimeForIM);
   }
 };
