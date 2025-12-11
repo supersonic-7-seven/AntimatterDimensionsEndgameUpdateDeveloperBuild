@@ -100,7 +100,7 @@ window.formatHybridLarge = function formatHybridLarge(value, places, placesUnder
 };
 
 window.formatHybridFloat = function formatHybridFloat(value, digits) {
-  if (new Decimal(value).gt(1e12)) return `${format(value, digits, digits)}`;
+  if (new Decimal(value).gt(1e12)) return `${format(value, 3, 0)}`;
   return `${formatFloat(value, digits)}`;
 };
 
