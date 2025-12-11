@@ -430,7 +430,7 @@ export const alchemyResources = {
     tier: 5,
     unlockedAt: 25,
     description: "can be consumed to create Reality Glyphs",
-    formatEffect: value => `Consume all Reality Resource to create a level ${formatInt(value)} Reality Glyph`,
+    formatEffect: value => `Consume all Reality Resource to create a level ${formatHybridLarge(value, 3)} Reality Glyph`,
     reagents: [
       {
         resource: ALCHEMY_RESOURCE.EXPONENTIAL,
