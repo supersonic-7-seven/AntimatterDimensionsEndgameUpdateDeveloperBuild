@@ -36,7 +36,7 @@ export default {
       return `Tickspeed: ${format(this.tickspeed, 2, 3)} / sec`;
     },
     continuumString() {
-      return formatFloat(this.continuumValue, 2);
+      return formatHybridFloat(this.continuumValue, 2);
     },
     upgradeCount() {
       const purchased = this.purchasedTickspeed;
