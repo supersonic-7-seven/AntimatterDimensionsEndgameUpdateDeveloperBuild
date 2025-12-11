@@ -45,8 +45,8 @@ export default {
       return "";
     },
     formatGlyphLevel() {
-      if (this.glyphLevel >= 10000) return `Glyph level: ${formatInt(this.glyphLevel)}`;
-      return `Glyph level: ${formatInt(this.glyphLevel)} (${this.nextGlyphPercent} to next)`;
+      if (this.glyphLevel >= 10000) return `Glyph level: ${formatHybridLarge(this.glyphLevel, 3)}`;
+      return `Glyph level: ${formatHybridLarge(this.glyphLevel, 3)} (${this.nextGlyphPercent} to next)`;
     },
     showsRate() {
       return this.currentsRate;
