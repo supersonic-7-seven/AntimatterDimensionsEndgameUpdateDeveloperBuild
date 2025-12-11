@@ -78,6 +78,9 @@ Vue.mixin({
     formatHybridLarge(value, places, placesUnder1000) {
       return formatHybridLarge(value, places, placesUnder1000);
     },
+    formatDimboostParts(value, places, placesUnder1000) {
+      return formatDimboostParts(value, places, placesUnder1000);
+    },
     pluralize,
     quantify,
     quantifyInt
