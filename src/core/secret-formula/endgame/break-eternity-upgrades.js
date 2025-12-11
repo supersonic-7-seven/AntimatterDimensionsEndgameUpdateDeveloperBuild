@@ -31,7 +31,7 @@ export const breakEternityUpgrades = {
     effect: value => Math.pow(2, value),
     description: () => "Square All Antimatter Dimension Multipliers",
     isDisabled: effect => effect.eq(0),
-    formatEffect: value => `^${formatInt(value)}`,
+    formatEffect: value => `^${formatHybridSmall(value, 3)}`,
     noLabel: false
   }),
   infinityDimensionPow: rebuyable({
@@ -43,7 +43,7 @@ export const breakEternityUpgrades = {
     effect: value => Math.pow(2, value),
     description: () => "Square All Infinity Dimension Multipliers",
     isDisabled: effect => effect.eq(0),
-    formatEffect: value => `^${formatInt(value)}`,
+    formatEffect: value => `^${formatHybridSmall(value, 3)}`,
     noLabel: false
   }),
   timeDimensionPow: rebuyable({
@@ -55,7 +55,7 @@ export const breakEternityUpgrades = {
     effect: value => Math.pow(2, value),
     description: () => "Square All Time Dimension Multipliers",
     isDisabled: effect => effect.eq(0),
-    formatEffect: value => `^${formatInt(value)}`,
+    formatEffect: value => `^${formatHybridSmall(value, 3)}`,
     noLabel: false
   }),
   replicantiIntervalPow: rebuyable({
@@ -67,7 +67,7 @@ export const breakEternityUpgrades = {
     effect: value => Math.pow(0.5, value),
     description: () => "Square-root the Replicanti Interval",
     isDisabled: effect => effect.eq(0),
-    formatEffect: value => `^${format(value, 2, 2)}`,
+    formatEffect: value => `^${format(value, 2, 3)}`,
     noLabel: false
   }),
   tachyonParticlePow: rebuyable({
@@ -79,7 +79,7 @@ export const breakEternityUpgrades = {
     effect: value => Math.pow(2, value),
     description: () => "Square Tachyon Particle Gain",
     isDisabled: effect => effect.eq(0),
-    formatEffect: value => `^${formatInt(value)}`,
+    formatEffect: value => `^${formatHybridSmall(value, 3)}`,
     noLabel: false
   }),
   galaxyScaleDelay: rebuyable({
@@ -115,7 +115,7 @@ export const breakEternityUpgrades = {
     effect: value => Math.pow(2, value),
     description: () => "Square the start of the 5x EP Multiplier Cost Scalings",
     isDisabled: effect => effect.eq(0),
-    formatEffect: value => `^${formatInt(value)}`,
+    formatEffect: value => `^${formatHybridSmall(value, 3)}`,
     noLabel: false
   }),
   replicantiGalaxyPower: rebuyable({
