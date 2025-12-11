@@ -33,7 +33,7 @@ export default {
       if (this.imaginaryBoosts.neq(0)) {
         parts.push(this.imaginaryBoosts);
       }
-      const sum = parts.map(formatHybridLarge, 3).join(" + ");
+      const sum = parts.map(formatDimboostParts).join(" + ");
       if (parts.length >= 2) {
         return `${sum} = ${formatHybridLarge(parts.decimalSum(), 3)}`;
       }
