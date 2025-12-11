@@ -38,7 +38,7 @@ export default {
       this.totalDimCap.copyFrom(CelestialDimensions.totalDimCap);
       this.creditsClosed = GameEnd.creditsEverClosed;
       this.softcapPow = CelestialDimensions.softcapPow;
-      this.softcap = CelestialDimensions.SOFTCAP;
+      this.softcap.copyFrom(CelestialDimensions.SOFTCAP);
       this.unstable = this.celestialMatter.gte(this.softcap);
       this.isEffectActive = player.endgame.celestialMatterMultiplier.isActive;
     },
