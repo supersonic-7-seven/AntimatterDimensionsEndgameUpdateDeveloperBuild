@@ -88,9 +88,9 @@ export default {
           const extra = upgrade.extra;
           if (extra > 0) {
             const total = value + extra;
-            description += `<br>${formatInt(value)} + ${formatInt(extra)} = ${formatInt(total)}`;
+            description += `<br>${formatHybridLarge(value, 3)} + ${formatHybridLarge(extra, 3)} = ${formatHybridLarge(total, 3)}`;
           } else {
-            description += formatInt(value);
+            description += formatHybridLarge(value, 3);
           }
           return description;
         },
