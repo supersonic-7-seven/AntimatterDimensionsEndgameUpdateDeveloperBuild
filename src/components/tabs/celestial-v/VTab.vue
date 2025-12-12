@@ -244,6 +244,8 @@ export default {
       >
         <button
           @click="purchase"
+          :key="upgrade.id"
+          :upgrade="upgrade"
         >
           <DescriptionDisplay
             :config="upgrade.config"
