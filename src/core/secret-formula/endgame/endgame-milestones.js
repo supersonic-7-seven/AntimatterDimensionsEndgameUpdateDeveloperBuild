@@ -33,34 +33,34 @@ export const endgameMilestones = {
     }
   },
   fasterGalaxies: {
-    endgames: 20,
+    endgames: 15,
     reward: "Unlock a new Galaxy Generator Upgrade"
   },
   remnantFormula: {
-    endgames: 50,
+    endgames: 25,
     reward: "Improve the Remnant Formula (see Remnant Gain Factors in the Pelle subtab)"
   },
   celestialEarlyUnlock: {
-    endgames: 100,
+    endgames: 50,
     reward: () => {
       return `Start Endgames with the first ${formatInt(6)} Celestials unlocked`;
     }
   },
-  moreFasterGalaxies: {
-    endgames: 200,
+  realityShardDTBoost: {
+    endgames: 100,
     reward: () => {
-      return "Endgames boost Galaxy Production in Pelle " + 
-        (player.endgames >= 200
-         ? `(Currently: ${formatX(Math.pow(10, Math.min(Currency.endgames.value / 200, 50)) * Math.pow(10, Math.max((Math.log10(Currency.endgames.value + 1) - 4) * 50, 0)), 2, 2)})`
+      return "Dilated Time gain is multiplied by your Reality Shard count " + 
+        (player.endgames >= 100
+         ? `(Currently: ${formatX(Currency.realityShards.value.plus(1), 2, 2)})`
          : "(You have not yet reached this milestone)");
     }
   },
-  realityShardDTBoost: {
-    endgames: 500,
+  moreFasterGalaxies: {
+    endgames: 250,
     reward: () => {
-      return "Dilated Time gain is multiplied by your Reality Shard count " + 
-        (player.endgames >= 500
-         ? `(Currently: ${formatX(Currency.realityShards.value.plus(1), 2, 2)})`
+      return "Endgames boost Galaxy Production in Pelle " + 
+        (player.endgames >= 250
+         ? `(Currently: ${formatX(Math.pow(10, Math.min(Currency.endgames.value / 200, 50)) * Math.pow(10, Math.max((Math.log10(Currency.endgames.value + 1) - 4) * 50, 0)), 2, 2)})`
          : "(You have not yet reached this milestone)");
     }
   },
