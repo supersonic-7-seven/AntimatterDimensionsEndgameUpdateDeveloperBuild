@@ -225,11 +225,13 @@ export default {
       >
         You have {{ quantify("Perk Point", pp, 2, 0) }}.
       </div>
-      <VUpgradeButton
-        v-for="upgrade in upgrades"
-        :key="upgrade.id"
-        :upgrade="upgrade"
-      />
+      <div class="l-v-upgrades-grid">
+        <VUpgradeButton
+          v-for="upgrade in upgrades"
+          :key="upgrade.id"
+          :upgrade="upgrade"
+        />
+      </div>
       <div class="l-v-unlocks-container">
         <li
           v-for="(hex, hexId) in hexGrid"
