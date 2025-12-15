@@ -308,6 +308,7 @@ window.player = {
     fullGameCompletions: 0,
     previousRunRealTime: 0,
     totalAntimatter: DC.E1,
+    bestAntimatterExponentOutsideDoom: 0,
     totalEndgameAntimatter: DC.E1,
     totalRealityAntimatter: DC.E1,
     totalEternityAntimatter: DC.E1,
