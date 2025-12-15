@@ -773,6 +773,10 @@ export function gameLoop(passedDiff, options = {}) {
     Currency.galacticPower.add(getGalacticPowerGainPerSecond().times(realDiff).div(1000));
   }
 
+  if (!Pelle.isDoomed) {
+    player.records.bestAntimatterExponentOutsideDoom = Decimal.log10(player.records.totalAntimatter);
+  }
+
   if (Enslaved.canTickHintTimer) {
     player.celestials.enslaved.hintUnlockProgress += Enslaved.isRunning ? realDiff : (realDiff * 0.4);
     if (player.celestials.enslaved.hintUnlockProgress > (TimeSpan.fromHours(new Decimal(5)).totalMilliseconds.toNumber())) {
