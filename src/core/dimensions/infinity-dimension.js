@@ -165,6 +165,7 @@ class InfinityDimensionState extends DimensionState {
     mult = mult.pow(Ra.momentumValue);
     mult = mult.powEffectOf(PelleRifts.paradox);
     mult = mult.powEffectOf(SingularityMilestone.dimensionPow);
+    mult = mult.powEffectOf(Ra.unlocks.allDimPowTT);
 
     if (player.dilation.active || PelleStrikes.dilation.hasStrike) {
       mult = dilatedValueOf(mult);
