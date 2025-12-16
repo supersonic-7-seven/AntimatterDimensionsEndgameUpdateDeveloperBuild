@@ -175,7 +175,8 @@ function applyNDPowers(mult, tier) {
       AlchemyResource.power,
       Achievement(183),
       PelleRifts.paradox,
-      SingularityMilestone.dimensionPow
+      SingularityMilestone.dimensionPow,
+      Ra.unlocks.allDimPowTT
     );
 
   multiplier = multiplier.pow(getAdjustedGlyphEffect("curseddimensions"));
