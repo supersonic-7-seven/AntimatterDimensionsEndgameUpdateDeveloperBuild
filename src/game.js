@@ -345,7 +345,7 @@ export function getGameSpeedupFactor(effectsToConsider, blackHolesActiveOverride
   if (effectsToConsider === undefined) {
     effects = [GAME_SPEED_EFFECT.FIXED_SPEED, GAME_SPEED_EFFECT.TIME_GLYPH, GAME_SPEED_EFFECT.BLACK_HOLE,
       GAME_SPEED_EFFECT.TIME_STORAGE, GAME_SPEED_EFFECT.SINGULARITY_MILESTONE, GAME_SPEED_EFFECT.NERFS,
-      GAME_SPEED_EFFECT.CELESTIAL_MATTER];
+      GAME_SPEED_EFFECT.CELESTIAL_MATTER, GAME_SPEED_EFFECT.RA_BUFFS];
   } else {
     effects = effectsToConsider;
   }
@@ -386,6 +386,15 @@ export function getGameSpeedupFactor(effectsToConsider, blackHolesActiveOverride
     const celestialMatterExponent = CelestialDimensions.conversionExponent;
     if (player.endgame.celestialMatter.gt(0) && player.endgame.celestialMatterMultiplier.isActive) {
       factor = factor.times(Decimal.pow(player.endgame.celestialMatter, celestialMatterExponent));
+    }
+  }
+
+  if (effects.includes(GAME_SPEED_EFFECT.RA_BUFFS)) {
+    if (Ra.unlocks.gameSpeedTesseractBoost.effectValue.gt(1)) {
+      factor = factor.timesEffectOf(Ra.unlocks.gameSpeedTesseractBoost);
+    }
+    if (Ra.unlocks.gameSpeedImprovement.effectValue.gt(1)) {
+      factor = factor.powEffectOf(Ra.unlocks.gameSpeedImprovement);
     }
   }
 
