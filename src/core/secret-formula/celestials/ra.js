@@ -298,7 +298,7 @@ export const ra = {
       effect: () => 1 + Math.floor(Ra.pets.teresa.level) / 100,
       pet: "teresa",
       level: 30,
-      displayIcon: `<span class="fab fa-angle-up"></span>`,
+      displayIcon: `<span class="fas fa-angle-up"></span>`,
       disabledByPelle: false
     },
     realityMachineCap: {
@@ -307,7 +307,7 @@ export const ra = {
       effect: () => 1 + Math.floor(Ra.pets.teresa.level) / 100,
       pet: "teresa",
       level: 40,
-      displayIcon: `<span class="fab fa-arrow-turn-up"></span>`,
+      displayIcon: `<span class="fas fa-arrow-turn-up"></span>`,
       disabledByPelle: false
     },
     celestialDimensionConversionPower: {
@@ -316,7 +316,7 @@ export const ra = {
       effect: () => 1 + Math.floor(Ra.pets.teresa.level) / 200,
       pet: "teresa",
       level: 50,
-      displayIcon: `<span class="fab fa-star"></span>`,
+      displayIcon: `<span class="fas fa-star"></span>`,
       disabledByPelle: false
     },
     celestialDimensionConversionPower: {
@@ -324,7 +324,7 @@ export const ra = {
       reward: "Charged Infinity Upgrades act as if your Teresa Level was twice as high",
       pet: "teresa",
       level: 65,
-      displayIcon: `<span class="fab fa-bolt"></span>`,
+      displayIcon: `<span class="fas fa-bolt"></span>`,
       disabledByPelle: false
     },
     sacrificePower: {
@@ -347,7 +347,7 @@ export const ra = {
       },
       pet: "teresa",
       level: 100,
-      displayIcon: `<span class="fab fa-gear"></span>`,
+      displayIcon: `<span class="fas fa-gear"></span>`,
       disabledByPelle: false
     },
     celestialDimensionPower: {
@@ -356,7 +356,7 @@ export const ra = {
       effect: () => Math.pow(1 + Math.log10(1 + (Math.floor(Ra.pets.teresa.level) * player.endgames / 1e6)), 3),
       pet: "teresa",
       level: 125,
-      displayIcon: `<span class="fab fa-award"></span>`,
+      displayIcon: `<span class="fas fa-award"></span>`,
       disabledByPelle: false
     },
     relicShardBoost: {
