@@ -50,8 +50,8 @@ export const expansionPacks = {
     symbol: "\uf185",
     description: () =>
       `Ra is kept on Endgame. Raise the level cap of all Celestials to the double-logarithm of your record Antimatter amount.
-      Unlock an additional effect for each Celestial which scales based on their level. Multiply Memory and Memory Chunk gain
-      by ${formatX(10)}.`,
+      Unlock ${formatInt(7)} new effects for each Celestial which can be obtained by increasing the level of each Celestial.
+      Multiply Memory and Memory Chunk gain by ${formatX(10)}.`,
     cost: Decimal.pow(10, 1e110),
     formatCost: value => formatPostBreak(value, 2, 0)
   },
