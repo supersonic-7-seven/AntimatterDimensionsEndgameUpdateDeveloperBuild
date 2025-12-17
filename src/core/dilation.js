@@ -112,11 +112,9 @@ export function getTachyonGalaxyMult(thresholdUpgrade) {
   const thresholdMult = BreakEternityUpgrade.tgThresholdUncap.isBought ? 3.65 * upgrade + (0.35 * (upgrade ** 0.001)) : 3.65 * upgrade + 0.35;
   const glyphEffect = getAdjustedGlyphEffect("dilationgalaxyThreshold");
   const glyphReduction = glyphEffect === 0 ? 1 : glyphEffect;
-  const contingentTG = 1000000;
-  const contingencyEffect = Math.pow(10, Math.max(Math.floor(Math.log10(player.dilation.baseTachyonGalaxies)) - Math.floor(Math.log10(contingentTG)) + 1, 0));
   const pelleExclusivePower = DilationUpgrade.galaxyThresholdPelle.canBeApplied ? DilationUpgrade.galaxyThresholdPelle.effectValue : 1;
   const extraPower = GalacticPowers.tachyonGalaxies.isUnlocked ? 1 / GalacticPowers.tachyonGalaxies.reward : 1;
-  const power = pelleExclusivePower * contingencyEffect * EndgameUpgrade(22).effectOrDefault(1) * extraPower;
+  const power = pelleExclusivePower * EndgameUpgrade(22).effectOrDefault(1) * extraPower;
   return (1 + thresholdMult * glyphReduction) ** power;
 }
 
