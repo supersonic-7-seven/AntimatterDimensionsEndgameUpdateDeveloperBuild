@@ -23,7 +23,9 @@ export default {
       toMaxTooltip: "",
       isHovering: false,
       isEndgameUnlocked: false,
-      scaleStart: new Decimal()
+      scaleStart: new Decimal(),
+      viewSoftcap: false,
+      softcapStart: new Decimal()
     };
   },
   computed: {
@@ -122,7 +124,9 @@ export default {
       else this.toMaxTooltip = estimateText.startsWith("<") ? "Currently Increasing" : estimateText;
 
       this.isEndgameUnlocked = PlayerProgress.endgameUnlocked();
-      this.scaleStart = DilationUpgradeScaling.PRIMARY_SCALING;
+      this.scaleStart.copyFrom(DilationUpgradeScaling.PRIMARY_SCALING);
+      this.viewSoftcap = this.maxDT.gte(this.softcapStart);
+      this.softcapStart.copyFrom(DilationSoftcapStart.PRIMARY_THRESHOLD);
     }
   }
 };
@@ -171,6 +175,9 @@ export default {
     </span>
     <span v-if="isEndgameUnlocked">
       Past {{ format(scaleStart, 2, 1) }} Dilated Time, all rebuyable Dilation Upgrades will scale faster.
+    </span>
+    <span v-if="viewSoftcap">
+      Dilated Time has been softcapped. This effect started at {{ format(softcapStart, 2, 1) }} Dilated Time.
     </span>
     <div class="l-dilation-upgrades-grid">
       <div
