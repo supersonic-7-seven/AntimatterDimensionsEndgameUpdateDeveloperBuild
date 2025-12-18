@@ -108,7 +108,7 @@ export function buyMaxTimeDimension(tier, portionToSpend = 1, isMaxAll = false) 
   }
   if (Enslaved.isRunning) return buySingleTimeDimension(tier);
   const pur = Math.clampMin(calcHighestPurchaseableTD(tier, canSpend) - dim.bought, 0);
-  const cost = dim.nextCost(pur + dim.bought) - 1;
+  const cost = dim.nextCost(pur + dim.bought).sub(1);
   if (pur <= 0) return false;
   Currency.eternityPoints.subtract(cost);
   dim.amount = dim.amount.plus(pur);
