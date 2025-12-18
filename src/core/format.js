@@ -222,6 +222,34 @@ window.quantifyInt = function quantifyInt(name, value) {
 };
 
 /**
+ * Returns the value formatted to formatHybridSmall followed by a name, pluralized based on the value input.
+ * @param  {string} name                  - name to pluralize and display after {value}
+ * @param  {number|Decimal} value         - number to format
+ * @return {string} - the formatted {value} followed by the {name} after having been pluralized based on the {value}
+ */
+window.quantifyHybridSmall = function quantifyHybridSmall(name, value) {
+  if (name === undefined || value === undefined) throw "Arguments must be defined";
+
+  const number = formatHybridSmall(value, 3);
+  const plural = pluralize(name, value);
+  return `${number} ${plural}`;
+};
+
+/**
+ * Returns the value formatted to formatHybridLarge followed by a name, pluralized based on the value input.
+ * @param  {string} name                  - name to pluralize and display after {value}
+ * @param  {number|Decimal} value         - number to format
+ * @return {string} - the formatted {value} followed by the {name} after having been pluralized based on the {value}
+ */
+window.quantifyHybridLarge = function quantifyHybridLarge(name, value) {
+  if (name === undefined || value === undefined) throw "Arguments must be defined";
+
+  const number = formatHybridLarge(value, 3);
+  const plural = pluralize(name, value);
+  return `${number} ${plural}`;
+};
+
+/**
  * Creates an enumated string, using the oxford comma, such that "a"; "a and b"; "a, b, and c"
  * @param  {string[]} items - an array of items to enumerate
  * @return {string} - a string of {items}, separated by commas and/or and as needed.
