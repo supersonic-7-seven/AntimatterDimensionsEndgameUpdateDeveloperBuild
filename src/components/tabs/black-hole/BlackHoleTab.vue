@@ -93,7 +93,7 @@ export default {
         const cycleCount = BlackHole(1).isActive
           ? Math.floor((bh2Remaining - bh1Remaining) / BlackHole(1).duration) + 1
           : Math.floor(bh2Remaining / BlackHole(1).duration);
-        return `Black Hole 2 will activate after ${quantifyInt("more active cycle", cycleCount)} of Black Hole 1.`;
+        return `Black Hole 2 will activate after ${quantifyHybridSmall("more active cycle", cycleCount)} of Black Hole 1.`;
       }
 
       // BH1 inactive, BH2 ready to go when BH1 activates
