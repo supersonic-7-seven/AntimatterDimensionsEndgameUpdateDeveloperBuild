@@ -251,7 +251,7 @@ export default {
         </div>
         <br>
         <div>
-          You have seen {{ quantifyInt("news message", totalNews) }} in total.
+          You have seen {{ quantifyHybridSmall("news message", totalNews) }} in total.
         </div>
         <div>
           You have seen {{ quantifyInt("unique news message", uniqueNews) }}.
