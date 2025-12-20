@@ -126,6 +126,7 @@ export const Laitela = {
     this.celestial.darkMatterMult = DC.D1;
     Currency.darkMatter.max = DC.D1;
     Currency.darkMatter.reset();
+    Currency.unnerfedDarkMatter.reset();
     Currency.singularities.reset();
     this.celestial.fastestCompletion = 3600;
     this.celestial.difficultyTier = 0;
