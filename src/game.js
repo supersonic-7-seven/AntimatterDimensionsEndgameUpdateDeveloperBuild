@@ -789,7 +789,7 @@ export function gameLoop(passedDiff, options = {}) {
     darkMatterProd = Decimal.min(darkMatterProd, darkMatterThreshold2).times(Decimal.pow(Decimal.max(darkMatterProd.div(darkMatterThreshold2), 1), 0.25));
   }
   player.celestials.laitela.darkMatter = Decimal.min(darkMatterProd, Laitela.darkMatterCap);
-  player.celestials.laitela.maxDarkMatter = Decimal.max(darkMatterProd, player.celestials.laitela.maxDarkMatter);
+  player.celestials.laitela.maxDarkMatter = Decimal.max(player.celestials.laitela.darkMatter, player.celestials.laitela.maxDarkMatter);
   
   if (EndgameMastery(111).isBought) {
     player.reality.imaginaryMachines = MachineHandler.currentIMCap;
