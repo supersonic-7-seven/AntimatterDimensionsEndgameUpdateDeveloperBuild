@@ -776,6 +776,20 @@ export function gameLoop(passedDiff, options = {}) {
   const uncapped = Decimal.min(player.endgame.unnerfedCelestialMatter, CelestialDimensions.SOFTCAP);
   const instability = Decimal.pow(Decimal.max(player.endgame.unnerfedCelestialMatter.div(CelestialDimensions.SOFTCAP), 1), 1 / CelestialDimensions.softcapPow);
   player.endgame.celestialMatter = Decimal.min(uncapped.times(instability), Decimal.NUMBER_MAX_VALUE);
+
+  let darkMatterProd = DC.D1;
+  const unnerfedDM = player.celestials.laitela.unnerfedDarkMatter;
+  darkMatterProd = unnerfedDM;
+  const darkMatterThreshold1 = DC.E10000;
+  if (darkMatterProd.gt(darkMatterThreshold1) {
+    darkMatterProd = Decimal.min(darkMatterProd, darkMatterThreshold1).times(Decimal.pow(Decimal.max(darkMatterProd.div(darkMatterThreshold1), 1), 0.5));
+  }
+  const darkMatterThreshold2 = DC.E100000;
+  if (darkMatterProd.gt(darkMatterThreshold2) {
+    darkMatterProd = Decimal.min(darkMatterProd, darkMatterThreshold2).times(Decimal.pow(Decimal.max(darkMatterProd.div(darkMatterThreshold2), 1), 0.1));
+  }
+  player.celestials.laitela.darkMatter = Decimal.min(darkMatterProd, Laitela.darkMatterCap);
+  
   if (EndgameMastery(111).isBought) {
     player.reality.imaginaryMachines = MachineHandler.currentIMCap;
   }
