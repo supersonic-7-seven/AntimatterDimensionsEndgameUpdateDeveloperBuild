@@ -278,17 +278,9 @@ export const DarkMatterDimensions = {
         const ticks = Decimal.floor(new Decimal(dim.timeSinceLastUpdate).div(dim.interval));
         const productionDM = dim.amount.times(ticks).times(dim.powerDM);
         if (tier === 1) {
-          const nerfedProduction = Decimal.min(productionDM, DC.E1000).times(
-            Decimal.pow(Decimal.max(productionDM.div(DC.E1000), 1), 0.5));
-          const nerfedProductionFull = Decimal.min(nerfedProduction, DC.E10000).times(
-            Decimal.pow(Decimal.max(nerfedProduction.div(DC.E10000), 1), 0.1));
-          Currency.darkMatter.add(Decimal.min(nerfedProductionFull, Laitela.darkMatterCap.sub(Currency.darkMatter.value)));
+          Currency.darkMatter.add(productionDM);
         } else {
-          const nerfedProduction = Decimal.min(productionDM, DC.E1000).times(
-            Decimal.pow(Decimal.max(productionDM.div(DC.E1000), 1), 0.5));
-          const nerfedProductionFull = Decimal.min(nerfedProduction, DC.E10000).times(
-            Decimal.pow(Decimal.max(nerfedProduction.div(DC.E10000), 1), 0.1));
-          DarkMatterDimension(tier - 1).amount = DarkMatterDimension(tier - 1).amount.plus(nerfedProductionFull);
+          DarkMatterDimension(tier - 1).amount = DarkMatterDimension(tier - 1).amount.plus(productionDM);
         }
         Currency.darkEnergy.add(ticks.mul(dim.powerDE));
         dim.timeSinceLastUpdate -= dim.interval.times(ticks).toNumber();
