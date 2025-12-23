@@ -29,6 +29,22 @@ export class BulkSingularityAutobuyerState extends AutobuyerState {
     this.data.upperBound = value;
   }
 
+  get hasLowerBound() {
+    return this.data.hasLowerBound;
+  }
+
+  set hasLowerBound(value) {
+    this.data.hasLowerBound = value;
+  }
+
+  get hasUpperBound() {
+    return this.data.hasUpperBound;
+  }
+
+  set hasUpperBound(value) {
+    this.data.hasUpperBound = value;
+  }
+
   get bulk() {
     return 0;
   }
