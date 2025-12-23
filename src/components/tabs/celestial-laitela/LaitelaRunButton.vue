@@ -15,6 +15,8 @@ export default {
       singularitiesUnlocked: false,
       bestSet: [],
       tierNotCompleted: true,
+      hadronizeUnlocked: false,
+      darkEnergyBoost: 0,
     };
   },
   computed: {
@@ -39,6 +41,8 @@ export default {
       this.singularitiesUnlocked = Currency.singularities.gt(0);
       this.bestSet = Glyphs.copyForRecords(player.records.bestReality.laitelaSet);
       this.tierNotCompleted = this.realityTime === 3600 || (this.realityTime === 300 && this.maxDimTier < 8);
+      this.hadronizeUnlocked = ExpansionPack.laitelaPack.isBought;
+      this.darkEnergyBoost = Math.pow(8, Laitela.hadronizes + 1);
     },
     startRun() {
       if (this.isDoomed) return;
@@ -94,7 +98,7 @@ export default {
       <span v-else>
         <br>
         <b>
-          You also gain an additional {{ formatX(8) }} Dark Energy.
+          You also gain an additional {{ formatX(darkEnergyBoost) }} Dark Energy.
         </b>
         <br><br>
         Lai'tela's Reality has been fully destabilized and cannot have its reward further improved.
@@ -109,5 +113,20 @@ export default {
     </div>
     <br>
     <div>{{ runDescription }}</div>
+    <br>
+    <div v-if="hadronizeUnlocked">
+      <button
+        class="l-laitela-hadronize-button c-laitela-hadronize-button"
+        @click="hadronize"
+      >
+        <b>Hadronize Laitela's Reality</b>
+      </button>
+      <br>
+      <br>
+      Hadronizing Lai'tela's Reality will restabilize all {{ formatInt(8) }} Dimensions, so you can use them again.
+      Rewards for completing Lai'tela's Reality from previous Hadronizes will persist, and you will be able to gain
+      more rewards for destabilizing Lai'tela's Reality again. Each Hadronization, the reward for destabilizing
+      Lai'tela's Reality will be multiplied by {{ formatInt(8) }}.
+    </div>
   </button>
 </template>
