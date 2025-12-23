@@ -85,6 +85,12 @@ export default {
       <b>
         All Dark Matter multipliers are {{ formatX(realityReward, 2, 2) }} higher.
       </b>
+      <br>
+      <span v-if="maxDimTier === 0 || hasHadronizes">
+        <b>
+          You also gain an additional {{ formatX(darkEnergyBoost) }} Dark Energy.
+        </b>
+      </span>
       <span v-if="maxDimTier > 0">
         <br><br>
         {{ completionTime }}
@@ -101,15 +107,9 @@ export default {
           :glyphs="bestSet"
         />
       </span>
-      <span v-if="maxDimTier <= 0 || hasHadronizes">
-        <br>
-        <b>
-          You also gain an additional {{ formatX(darkEnergyBoost) }} Dark Energy.
-        </b>
+      <span v-else>
         <br><br>
-        <span v-if="maxDimTier <= 0">
-          Lai'tela's Reality has been fully destabilized and cannot have its reward further improved.
-        </span>
+        Lai'tela's Reality has been fully destabilized and cannot have its reward further improved.
       </span>
       <br>
     </div>
