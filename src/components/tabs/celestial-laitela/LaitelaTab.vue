@@ -34,7 +34,9 @@ export default {
       singularitiesUnlocked: false,
       singularityCap: new Decimal(0),
       singularityWaitTime: "",
-      showAnnihilation: false
+      showAnnihilation: false,
+      endgameUnlocked: false,
+      darkMatterCap: new Decimal(0),
     };
   },
   computed: {
@@ -64,6 +66,8 @@ export default {
       this.singularityWaitTime = TimeSpan.fromSeconds(new Decimal((this.singularityCap.sub(this.darkEnergy)).div(
         Currency.darkEnergy.productionPerSecond))).toStringShort();
       this.showAnnihilation = Laitela.annihilationUnlocked;
+      this.endgameUnlocked = PlayerProgress.endgameUnlocked();
+      this.darkMatterCap.copyFrom(Laitela.darkMatterCap);
 
       const d1 = DarkMatterDimension(1);
       this.darkMatterGain = d1.amount.times(d1.powerDM).divide(d1.interval).times(1000);
@@ -114,6 +118,24 @@ export default {
     </div>
     <div class="o-laitela-matter-amount">
       Dark Matter Dimensions are unaffected by storing real time.
+    </div>
+    <div
+      v-if="maxDarkMatter.gte(Decimal.pow(10, 10000))"
+      class="o-laitela-matter-amount"
+    >
+      Dark Matter is softcapped past {{ format(Decimal.pow(10, 10000), 2) }}.
+    </div>
+    <div
+      v-if="maxDarkMatter.gte(Decimal.pow(10, 100000))"
+      class="o-laitela-matter-amount"
+    >
+      Dark Matter is further softcapped past {{ format(Decimal.pow(10, 100000), 2) }}.
+    </div>
+    <div
+      v-if="endgameUnlocked"
+      class="o-laitela-matter-amount"
+    >
+      Dark Matter is hardcapped at {{ format(darkMatterCap, 2) }}.
     </div>
     <h2
       v-if="!singularitiesUnlocked"
