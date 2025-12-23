@@ -17,6 +17,7 @@ export default {
       tierNotCompleted: true,
       hadronizeUnlocked: false,
       darkEnergyBoost: 0,
+      hasHadronizes: false,
     };
   },
   computed: {
@@ -42,7 +43,8 @@ export default {
       this.bestSet = Glyphs.copyForRecords(player.records.bestReality.laitelaSet);
       this.tierNotCompleted = this.realityTime === 3600 || (this.realityTime === 300 && this.maxDimTier < 8);
       this.hadronizeUnlocked = ExpansionPack.laitelaPack.isBought;
-      this.darkEnergyBoost = Math.pow(8, Laitela.hadronizes + 1);
+      this.darkEnergyBoost = Laitela.realityRewardDE;
+      this.hasHadronizes = Laitela.hadronizes > 0;
     },
     startRun() {
       if (this.isDoomed) return;
@@ -99,13 +101,15 @@ export default {
           :glyphs="bestSet"
         />
       </span>
-      <span v-else>
+      <span v-if="maxDimTier <= 0 || hasHadronizes">
         <br>
         <b>
           You also gain an additional {{ formatX(darkEnergyBoost) }} Dark Energy.
         </b>
         <br><br>
-        Lai'tela's Reality has been fully destabilized and cannot have its reward further improved.
+        <span v-if="maxDimTier <= 0">
+          Lai'tela's Reality has been fully destabilized and cannot have its reward further improved.
+        </span>
       </span>
       <br>
     </div>
