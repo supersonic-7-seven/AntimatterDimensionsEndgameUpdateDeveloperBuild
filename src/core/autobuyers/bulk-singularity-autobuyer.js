@@ -35,12 +35,12 @@ export class BulkSingularityAutobuyerState extends AutobuyerState {
 
   tick() {
     if (Singularity.timePerCondense.gt(this.upperBound)) {
-      const bulk = Decimal.log10(Singularity.timePerCondense.div(this.upperBound));
+      const bulk = Math.floor(Decimal.log10(Singularity.timePerCondense.div(this.upperBound)));
       player.celestials.laitela.singularityCapIncreases = player.celestials.laitela.singularityCapIncreases.sub(bulk);
     }
 
     if (Singularity.timePerCondense.lt(this.lowerBound)) {
-      const bulk = Decimal.log10(Singularity.timePerCondense.div(this.lowerBound).recip());
+      const bulk = Math.floor(Decimal.log10(Singularity.timePerCondense.div(this.lowerBound).recip()));
       player.celestials.laitela.singularityCapIncreases = player.celestials.laitela.singularityCapIncreases.add(bulk);
     }
   }
