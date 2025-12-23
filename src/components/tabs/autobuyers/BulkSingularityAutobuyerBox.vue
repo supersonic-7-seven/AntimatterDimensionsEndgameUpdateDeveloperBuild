@@ -22,7 +22,7 @@ export default {
     };
   },
   computed: {
-    autobuyer: () => Autobuyer.bulkSingularity
+    autobuyer: () => player.auto.bulkSingularity
   },
   watch: {
     hasLowerBound(newValue) {
