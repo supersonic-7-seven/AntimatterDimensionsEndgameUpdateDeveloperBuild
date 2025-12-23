@@ -61,7 +61,7 @@ export default {
 </script>
 
 <template>
-  <div class="l-laitela-annihilation-container">
+  <div :class="classObject()">
     <button
       v-if="darkMatter.lt(matterRequirement)"
       class="l-laitela-annihilation-button"
