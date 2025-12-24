@@ -92,7 +92,7 @@ export default {
         const autobuyer = Autobuyer.dilationUpgrade(upgrade.id);
         this.boughtAmount = upgrade.boughtAmount;
         if (!autobuyer) {
-          const autobuyerPelle = Autobuyer.pelleDilationUpgrade(upgrade.id);
+          const autobuyerPelle = Autobuyer.pelleDilationUpgrade(upgrade.id - 10);
           this.isPelleAutoUnlocked = autobuyerPelle.isUnlocked;
           this.isPelleAutobuyerOn = autobuyerPelle.isActive;
           return;
