@@ -22,20 +22,20 @@ export const GalaxyGenerator = {
   },
 
   get galaxies() {
-    return this.generatedGalaxies - this.spentGalaxies;
+    return this.generatedGalaxies.sub(this.spentGalaxies);
   },
 
   get gainPerSecondPreCap() {
     let extraGain = 1;
-    if (EndgameMilestone.moreFasterGalaxies.isReached) extraGain = Math.pow(10, Math.min(Currency.endgames.value / 200, 50)) * Math.pow(10, Math.max((Math.log10(Currency.endgames.value + 1) - 4) * 50, 0));
-    if (!Pelle.hasGalaxyGenerator) return 0;
+    if (EndgameMilestone.moreFasterGalaxies.isReached) extraGain = Decimal.pow(10, Math.min(Currency.endgames.value / 200, 50)).times(Decimal.pow(10, Math.max((Math.log10(Currency.endgames.value + 1) - 4) * 50, 0)));
+    if (!Pelle.hasGalaxyGenerator) return new Decimal(0);
     return new Decimal(GalaxyGeneratorUpgrades.additive.effectValue).timesEffectsOf(
       GalaxyGeneratorUpgrades.multiplicative,
       GalaxyGeneratorUpgrades.antimatterMult,
       GalaxyGeneratorUpgrades.IPMult,
       GalaxyGeneratorUpgrades.EPMult,
       GalaxyGeneratorUpgrades.RSMult
-    ).toNumber() * extraGain;
+    ).times(extraGain);
   },
 
   get galGenInstability() {
@@ -51,10 +51,10 @@ export const GalaxyGenerator = {
   },
 
   get harshGalGenInstability() {
-    const currGalaxies = player.galaxies + GalaxyGenerator.galaxies;
+    const currGalaxies = player.galaxies.add(GalaxyGenerator.galaxies);
     const extremePower = GalacticPowers.galGenInstability2.isUnlocked ? GalacticPowers.galGenInstability2.reward : 1;
-    const power = (Math.log10(Math.max(currGalaxies / this.harshInstabilityStart, 1)) / 1000) * Effects.product(EndgameUpgrade(14)) * (1 / extremePower);
-    return Math.pow(1 + power, Math.log10(Math.max(currGalaxies / this.harshInstabilityStart, 1)));
+    const power = (Decimal.log10(Decimal.max(currGalaxies.div(this.harshInstabilityStart), 1)) / 1000) * Effects.product(EndgameUpgrade(14)) * (1 / extremePower);
+    return Math.pow(1 + power, Decimal.log10(Decimal.max(currGalaxies.div(this.harshInstabilityStart), 1)));
   },
 
   get instabilityStart() {
@@ -63,14 +63,13 @@ export const GalaxyGenerator = {
   },
 
   get gainPerSecondPostCap() {
-    if (!Pelle.hasGalaxyGenerator) return 1;
-    return new Decimal(Math.max(1, Math.pow(Math.pow(this.galGenInstability, this.harshGalGenInstability), Math.log10(Math.max(Math.pow((player.galaxies + GalaxyGenerator.galaxies) / this.instabilityStart, 0.75), 1))))
-    ).toNumber();
+    if (!Pelle.hasGalaxyGenerator) return new Decimal(1);
+    return Decimal.max(1, Decimal.pow(Math.pow(this.galGenInstability, this.harshGalGenInstability), Decimal.log10(Decimal.max(Decimal.pow((player.galaxies.add(GalaxyGenerator.galaxies)).div(this.instabilityStart), 0.75), 1))));
   },
 
   get gainPerSecond() {
-    if (!Pelle.hasGalaxyGenerator) return 0;
-    return new Decimal(this.gainPerSecondPreCap / this.gainPerSecondPostCap).toNumber();
+    if (!Pelle.hasGalaxyGenerator) return new Decimal(0);
+    return this.gainPerSecondPreCap.div(this.gainPerSecondPostCap);
   },
 
   get capObj() {
@@ -86,7 +85,7 @@ export const GalaxyGenerator = {
   },
 
   get isCapped() {
-    return this.generationCap === this.generatedGalaxies;
+    return new Decimal(this.generationCap).eq(this.generatedGalaxies);
   },
 
   get sacrificeActive() {
@@ -132,8 +131,8 @@ export const GalaxyGenerator = {
       }
 
     }
-    player.celestials.pelle.galaxyGenerator.generatedGalaxies += Decimal.max(new Decimal(this.gainPerSecond).times(diff).div(1000), 0).toNumber();
-    player.celestials.pelle.galaxyGenerator.generatedGalaxies = Math.min(
+    player.celestials.pelle.galaxyGenerator.generatedGalaxies = player.celestials.pelle.galaxyGenerator.generatedGalaxies.add(Decimal.max(this.gainPerSecond.times(diff).div(1000), 0));
+    player.celestials.pelle.galaxyGenerator.generatedGalaxies = Decimal.min(
       player.celestials.pelle.galaxyGenerator.generatedGalaxies,
       this.generationCap
     );
