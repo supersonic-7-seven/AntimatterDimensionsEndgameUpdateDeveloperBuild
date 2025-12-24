@@ -76,7 +76,7 @@ export default {
       Autobuyer.dilationUpgrade(this.upgrade.id).isActive = newValue;
     },
     isPelleAutobuyerOn(newValue) {
-      Autobuyer.pelleDilationUpgrade(this.upgrade.id).isActive = newValue;
+      Autobuyer.pelleDilationUpgrade(this.upgrade.id - 10).isActive = newValue;
     }
   },
   methods: {
