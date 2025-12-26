@@ -84,7 +84,7 @@ export class Galaxy {
     }
 
     if (type === GALAXY_TYPE.REMOTE) {
-      amount = amount.times(Decimal.pow(Galaxy.remoteGalaxyStrength, galaxies.sub(Galaxy.remoteStart.sub(1))));
+      amount = amount.times(Decimal.pow(Galaxy.remoteGalaxyStrength, galaxies.sub(Galaxy.remoteStart - 1)));
     }
 
     amount = amount.sub(Effects.sum(InfinityUpgrade.resetBoost));
