@@ -68,9 +68,9 @@ export default {
         } else if (ExpansionPacks.areUnlocked) {
           setProgress(new Decimal(Currency.antimatter.value.exponent), new Decimal(Decimal.log10(ExpansionPacks.nextPackUnlockAM)),
             "Percentage to next Expansion Pack");
-        } else if (GalaxyGenerator.galaxies > 1e15) {
-          setLinearProgress(GalaxyGenerator.galaxies, Math.pow(2, 64), "Percentage to Expansion Packs");
-        } else if (PelleRifts.recursion.milestones[2].canBeApplied || GalaxyGenerator.spentGalaxies > 0) {
+        } else if (GalaxyGenerator.galaxies.gt(1e15)) {
+          setLinearProgress(GalaxyGenerator.galaxies.toNumber(), Math.pow(2, 64), "Percentage to Expansion Packs");
+        } else if (PelleRifts.recursion.milestones[2].canBeApplied || GalaxyGenerator.spentGalaxies.gt(0)) {
           setProgress(new Decimal(Currency.antimatter.value.exponent), new Decimal(9e15), "Percentage to Endgame");
         } else if (PelleStrikes.dilation.hasStrike) {
           setProgress(Currency.eternityPoints.value, DC.E4000, "Percentage to Galaxy Generator");
