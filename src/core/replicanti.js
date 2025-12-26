@@ -433,7 +433,7 @@ export const ReplicantiUpgrade = {
     get id() { return 3; }
 
     get value() { return player.replicanti.boughtGalaxyCap; }
-    set value(value) { player.replicanti.boughtGalaxyCap = value; }
+    set value(value) { player.replicanti.boughtGalaxyCap = new Decimal(value); }
 
     get nextValue() {
       return this.value.add(1);
@@ -483,16 +483,93 @@ export const ReplicantiUpgrade = {
       return TimeStudy(131).effectOrDefault(0).add(PelleRifts.decay.milestones[2].effectOrDefault(0));
     }
 
+    bulkPurchaseCalc() {
+      // Copypasted constants
+      const logBase = 170;
+      const logBaseIncrease = EternityChallenge(6).isRunning ? 2 : 25;
+      const logCostScaling = EternityChallenge(6).isRunning ? 2 : 5;
+      const distantReplicatedGalaxyStart = (100 + GlyphSacrifice.replication.effectValue.toNumber()) * Effects.product(BreakEternityUpgrade.replicantiGalaxyPower);
+      const remoteReplicatedGalaxyStart = (1000 + GlyphSacrifice.replication.effectValue.toNumber()) * Effects.product(BreakEternityUpgrade.replicantiGalaxyPower);
+      const contingentReplicatedGalaxyStart = 1000000;
+      const logDistantScaling = 50;
+      const logRemoteScaling = 5;
+      const extraIncrements = 5;
+      const contingentScalingFactor = 1.0002;
+
+      const cur = Currency.infinityPoints.value.times(TimeStudy(233).effectOrDefault(1)).max(1).log10();
+
+      if (logBase.gt(cur)) return;
+      let a = new Decimal(logCostScaling / 2);
+      let b = new Decimal(logBaseIncrease - logCostScaling / 2);
+      let c = new Decimal(logBase - cur);
+      if (decimalQuadraticSolution(a, b, c).floor().lte(distantReplicatedGalaxyStart)) {
+        // eslint-disable-next-line consistent-return
+        return decimalQuadraticSolution(a, b, c).floor().add(1);
+      }
+      a = new Decimal(logCostScaling + logDistantScaling / 2);
+      // eslint-disable-next-line max-len
+      b = new Decimal((logBaseIncrease - logCostScaling / 2) - logDistantScaling * distantReplicatedGalaxyStart + logDistantScaling * 4.5);
+      // eslint-disable-next-line max-len
+      c = new Decimal(-cur + 170 + Math.pow(distantReplicatedGalaxyStart, 2) * logDistantScaling / 2 - distantReplicatedGalaxyStart * 4.5 * logDistantScaling);
+      if (decimalQuadraticSolution(a, b, c).floor().lte(remoteReplicatedGalaxyStart)) {
+        // eslint-disable-next-line consistent-return
+        return decimalQuadraticSolution(a, b, c).floor().add(1);
+      }
+      a = new Decimal(logRemoteScaling / 3);
+
+      b = new Decimal(logCostScaling + logDistantScaling / 2 - logRemoteScaling * remoteReplicatedGalaxyStart + logRemoteScaling / 2);
+
+      c = new Decimal(logBaseIncrease - logCostScaling / 2 - distantReplicatedGalaxyStart * logDistantScaling +
+        logDistantScaling * 4.5 + Math.pow(remoteReplicatedGalaxyStart, 2) * logRemoteScaling -
+        remoteReplicatedGalaxyStart * logRemoteScaling);
+
+      const d = new Decimal(-cur + 170 + Math.pow(distantReplicatedGalaxyStart, 2) * logDistantScaling / 2 -
+        distantReplicatedGalaxyStart * 4.5 * logDistantScaling -
+        Math.pow(remoteReplicatedGalaxyStart, 3) * logRemoteScaling / 3 +
+        Math.pow(remoteReplicatedGalaxyStart, 2) * logRemoteScaling / 2 -
+        remoteReplicatedGalaxyStart * logRemoteScaling / 6);
+
+      if (decimalCubicSolution(a, b, c, d, false).floor().lte(contingentReplicatedGalaxyStart)) {
+        // eslint-disable-next-line consistent-return
+        return decimalCubicSolution(a, b, c, d, false).floor().add(1);
+      }
+
+      const numDistant = contingentReplicatedGalaxyStart.sub(distantReplicatedGalaxyStart);
+      const numRemote = contingentReplicatedGalaxyStart.sub(remoteReplicatedGalaxyStart);
+      const logCostAtContingent = new Decimal(logBase).add(count.times(logBaseIncrease)).add(
+        (contingentReplicatedGalaxyStart * (contingentReplicatedGalaxyStart - 1) / 2).times(logCostScaling)).add(
+        new Decimal(logDistantScaling).times(numDistant).times(numDistant.add(2 * extraIncrements).sub(1)).div(2)).add(
+        new Decimal(logRemoteScaling).times(numRemote).times(numRemote.add(1)).times(numRemote.times(2).add(1)).div(6)).toNumber();
+      let simpleEstimate = Decimal.log(new Decimal(cur / logCostAtContingent), contingentScalingFactor) + contingentReplicatedGalaxyStart;
+      let estimatedCost = Decimal.log10(this.baseCostAfterCount(simpleEstimate));
+      let x = 0;
+      // eslint-disable-next-line consistent-return
+      if (cur >= estimatedCost && cur < Decimal.log10(this.baseCostAfterCount(simpleEstimate + 1))) return simpleEstimate;
+      if (cur < estimatedCost) {
+        while (x < 50 && cur < estimatedCost) {
+          simpleEstimate -= 1;
+          estimatedCost = Decimal.log10(this.baseCostAfterCount(simpleEstimate));
+          x++;
+        }
+        return simpleEstimate;
+      }
+      if (cur >= Decimal.log10(this.baseCostAfterCount(simpleEstimate + 1))) {
+        while (x < 50 && cur >= cur >= Decimal.log10(this.baseCostAfterCount(simpleEstimate + 1))) {
+          simpleEstimate += 1;
+          estimatedCost = Decimal.log10(this.baseCostAfterCount(simpleEstimate));
+          x++;
+        }
+        return simpleEstimate;
+      }
+      throw new Error("Failed to calculate a finite value for Max Replicanti Galaxy Purchases.");
+    }
+
     autobuyerTick() {
       // This isn't a hot enough autobuyer to worry about doing an actual inverse.
-      const bulk = bulkBuyBinarySearch(Currency.infinityPoints.value, {
-        costFunction: x => this.baseCostAfterCount(x).dividedByEffectOf(TimeStudy(233)),
-        firstCost: this.cost,
-        cumulative: true,
-      }, this.value);
-      if (!bulk) return;
-      Currency.infinityPoints.subtract(bulk.purchasePrice);
-      this.value += bulk.quantity;
+      const bulk = this.bulkPurchaseCalc();
+      if (!bulk || bulk.floor().sub(this.value).lte(0)) return;
+      Currency.infinityPoints.subtract(this.baseCostAfterCount(this.value).sub(1));
+      this.value = this.value.add(bulk.sub(this.value));
       this.baseCost = this.baseCostAfterCount(this.value);
     }
 
