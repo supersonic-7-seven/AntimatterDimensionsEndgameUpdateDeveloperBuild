@@ -522,12 +522,12 @@ Currency.replicanti = new class extends DecimalCurrency {
 
 Currency.galaxyGeneratorGalaxies = new class extends DecimalCurrency {
   get value() {
-    return new Decimal(player.galaxies + GalaxyGenerator.galaxies);
+    return player.galaxies.add(GalaxyGenerator.galaxies);
   }
 
   set value(value) {
-    const spent = player.galaxies + GalaxyGenerator.galaxies - value.toNumber();
-    player.celestials.pelle.galaxyGenerator.spentGalaxies += spent;
+    const spent = player.galaxies.add(GalaxyGenerator.galaxies).sub(value);
+    player.celestials.pelle.galaxyGenerator.spentGalaxies = player.celestials.pelle.galaxyGenerator.spentGalaxies.add(spent);
   }
 }();
 
