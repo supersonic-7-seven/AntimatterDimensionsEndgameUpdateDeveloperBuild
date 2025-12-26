@@ -103,7 +103,7 @@ export const normalTimeStudies = [
     requirement: [31],
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     description: () => `All Galaxies give a ${formatX(DC.D1_2, 1, 1)} multiplier to Infinity Points gained`,
-    effect: () => DC.D1_2.pow(Replicanti.galaxies.total + player.galaxies + player.dilation.totalTachyonGalaxies),
+    effect: () => DC.D1_2.pow(Replicanti.galaxies.total.add(player.galaxies).add(player.dilation.totalTachyonGalaxies)),
     formatEffect: value => formatX(value, 2, 1)
   },
   {
@@ -252,7 +252,7 @@ export const normalTimeStudies = [
     requirement: [93],
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     description: "Time Dimension multiplier equal to Replicanti Galaxy amount",
-    effect: () => Math.max(player.replicanti.galaxies, 1),
+    effect: () => Decimal.max(player.replicanti.galaxies, 1),
     formatEffect: value => formatX(value, 2, 0)
   },
   {
@@ -319,7 +319,7 @@ export const normalTimeStudies = [
     description: () => (Achievement(138).isUnlocked
       ? `You can get ${formatPercents(0.5)} more Replicanti Galaxies`
       : `Automatic Replicanti Galaxies are disabled, but you can get ${formatPercents(0.5)} more`),
-    effect: () => Math.floor(player.replicanti.boughtGalaxyCap / 2)
+    effect: () => Decimal.floor(player.replicanti.boughtGalaxyCap.div(2))
   },
   {
     id: 132,
@@ -566,7 +566,7 @@ export const normalTimeStudies = [
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     requiresST: [226],
     description: "You gain extra Replicanti Galaxies based on Replicanti amount",
-    effect: () => Math.floor(Replicanti.amount.exponent / 1000),
+    effect: () => Decimal.floor(Replicanti.amount.exponent / 1000),
     formatEffect: value => `+${formatHybridLarge(value, 3)} RG`
   },
   {
@@ -577,7 +577,7 @@ export const normalTimeStudies = [
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     requiresST: [225],
     description: "You gain extra Replicanti Galaxies based on their max",
-    effect: () => Math.floor(player.replicanti.boughtGalaxyCap / 12),
+    effect: () => Decimal.floor(player.replicanti.boughtGalaxyCap.div(12)),
     formatEffect: value => `+${formatHybridLarge(value, 3)} RG`
   },
   {
@@ -623,7 +623,7 @@ export const normalTimeStudies = [
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     requiresST: [231],
     description: "All Galaxies are stronger based on Antimatter Galaxies",
-    effect: () => Math.pow(1 + player.galaxies / 500, 0.25),
+    effect: () => Decimal.pow(player.galaxies.div(500).add(1), 0.25).toNumber(),
     formatEffect: value => `+${formatPercents(value - 1, 3)}`
   },
   {
