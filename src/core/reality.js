@@ -633,7 +633,7 @@ export function finishProcessReality(realityProps) {
   player.records.thisInfinity.lastBuyTime = DC.D0;
   player.records.thisInfinity.realTime = 0;
   player.dimensionBoosts = DC.D0;
-  player.galaxies = 0;
+  player.galaxies = DC.D0;
   player.partInfinityPoint = 0;
   player.partInfinitied = 0;
   player.break = false;
@@ -692,8 +692,8 @@ export function finishProcessReality(realityProps) {
     Currency.tachyonParticles.reset();
   }
   player.dilation.nextThreshold = DC.E3;
-  player.dilation.baseTachyonGalaxies = 0;
-  player.dilation.totalTachyonGalaxies = 0;
+  player.dilation.baseTachyonGalaxies = DC.D0;
+  player.dilation.totalTachyonGalaxies = DC.D0;
   Currency.dilatedTime.reset();
   player.records.thisInfinity.maxAM = DC.D0;
   player.records.thisEternity.maxAM = DC.D0;
@@ -801,7 +801,7 @@ export function applyRUPG10() {
   }
 
   player.dimensionBoosts = Decimal.max(DC.D4, player.dimensionBoosts);
-  player.galaxies = Math.max(1, player.galaxies);
+  player.galaxies = Decimal.max(1, player.galaxies);
   player.break = true;
   Currency.eternities.bumpTo(100);
   Replicanti.amount = Replicanti.amount.clampMin(1);
