@@ -128,10 +128,10 @@ export function bigCrunchResetValues(enteringAntimatterChallenge) {
   let remainingGalaxies = 0;
   if (Achievement(95).isUnlocked && (!Pelle.isDoomed || PelleAchievementUpgrade.achievement95.isBought)) {
     Replicanti.amount = currentReplicanti;
-    remainingGalaxies += Math.min(currentReplicantiGalaxies, 1);
+    remainingGalaxies = remainingGalaxies.add(Decimal.min(currentReplicantiGalaxies, 1));
   }
   if (TimeStudy(33).isBought && (!Pelle.isDoomed || PelleDestructionUpgrade.timestudy33.isBought)) {
-    remainingGalaxies += Math.floor(currentReplicantiGalaxies / 2);
+    remainingGalaxies = remainingGalaxies.add(Decimal.floor(currentReplicantiGalaxies.div(2)));
   }
 
   if (PelleUpgrade.replicantiGalaxyNoReset.canBeApplied) {
@@ -139,7 +139,7 @@ export function bigCrunchResetValues(enteringAntimatterChallenge) {
   }
   // I don't think this Math.clampMax is technically needed, but if we add another source
   // of keeping Replicanti Galaxies then it might be.
-  player.replicanti.galaxies = Math.clampMax(remainingGalaxies, currentReplicantiGalaxies);
+  player.replicanti.galaxies = Decimal.clampMax(remainingGalaxies, currentReplicantiGalaxies);
 }
 
 function bigCrunchCheckUnlocks() {
@@ -153,13 +153,13 @@ function bigCrunchCheckUnlocks() {
 
 export function secondSoftReset(enteringAntimatterChallenge) {
   player.dimensionBoosts = DC.D0;
-  player.galaxies = 0;
+  player.galaxies = DC.D0;
   player.records.thisInfinity.maxAM = DC.D0;
   Currency.antimatter.reset();
   softReset(0, true, true, enteringAntimatterChallenge);
   InfinityDimensions.resetAmount();
   if (player.replicanti.unl) Replicanti.amount = DC.D1;
-  player.replicanti.galaxies = 0;
+  player.replicanti.galaxies = DC.D0;
   player.records.thisInfinity.time = DC.D0;
   player.records.thisInfinity.lastBuyTime = DC.D0;
   player.records.thisInfinity.realTime = 0;
