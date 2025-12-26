@@ -700,7 +700,7 @@ export const celestialNavigation = {
       if (Achievement(151).isUnlocked) return 1;
       if (!player.requirementChecks.infinity.noAD8) return 0;
 
-      return player.galaxies / 800;
+      return player.galaxies.div(800).toNumber();
     },
     drawOrder: -1,
     node: {
@@ -1668,7 +1668,7 @@ export const celestialNavigation = {
       const upgrade = DarkMatterDimension(4).unlockUpgrade;
       if (upgrade.canBeBought || upgrade.isBought) return 1;
       if (upgrade.isAvailableForPurchase) return upgrade.currency.value / upgrade.cost;
-      return (Replicanti.galaxies.total + player.galaxies + player.dilation.totalTachyonGalaxies) / 80000;
+      return (Replicanti.galaxies.total.add(player.galaxies).add(player.dilation.totalTachyonGalaxies)).div(80000).toNumber();
     },
     node: {
       clickAction: () => Tab.celestials.laitela.show(true),
@@ -1698,11 +1698,11 @@ export const celestialNavigation = {
             / ${format(upgrade.cost, 1)}`
           ];
 
-          const allGalaxies = Replicanti.galaxies.total + player.galaxies + player.dilation.totalTachyonGalaxies;
+          const allGalaxies = Replicanti.galaxies.total.add(player.galaxies).add(player.dilation.totalTachyonGalaxies);
           return [
             dmdText,
             `Have ${format(80000)} total Galaxies`,
-            `${format(Math.clampMax(allGalaxies, 80000))} / ${format(80000)}`
+            `${format(Decimal.clampMax(allGalaxies, 80000))} / ${format(80000)}`
           ];
         },
         angle: 225,
@@ -2036,11 +2036,11 @@ export const celestialNavigation = {
     visible: () => Pelle.hasGalaxyGenerator,
     complete: () => {
       const riftCaps = PelleRifts.all.map(r => r.config.galaxyGeneratorThreshold);
-      const brokenRifts = riftCaps.countWhere(n => GalaxyGenerator.generatedGalaxies >= n);
+      const brokenRifts = riftCaps.countWhere(n => GalaxyGenerator.generatedGalaxies.gte(n));
       if (brokenRifts === 5) return 1;
-      const prevRift = riftCaps.filter(n => GalaxyGenerator.generatedGalaxies >= n).max();
-      const nextRift = riftCaps.filter(n => GalaxyGenerator.generatedGalaxies < n).min();
-      const currRiftProp = Math.sqrt((GalaxyGenerator.generatedGalaxies - prevRift) / (nextRift - prevRift));
+      const prevRift = riftCaps.filter(n => GalaxyGenerator.generatedGalaxies.gte(n)).max();
+      const nextRift = riftCaps.filter(n => GalaxyGenerator.generatedGalaxies.ln(n)).min();
+      const currRiftProp = Decimal.sqrt((GalaxyGenerator.generatedGalaxies.sub(prevRift)).div(nextRift - prevRift)).toNumber();
       return (brokenRifts + currRiftProp) / 5;
     },
     connector: (function() {
@@ -2062,7 +2062,7 @@ export const celestialNavigation = {
   // The path BG is invisible, but we want to make sure it extends far enough that it expands out "forever"
   "pelle-galaxy-generator-infinite": {
     visible: () => Pelle.hasGalaxyGenerator && !Number.isFinite(GalaxyGenerator.generationCap),
-    complete: () => Math.clamp((GalaxyGenerator.generatedGalaxies - 1e10) / 2e11, 1e-6, 1),
+    complete: () => Decimal.clamp((GalaxyGenerator.generatedGalaxies.sub(1e10)).div(2e11), 1e-6, 1).toNumber(),
     connector: (function() {
       const pathStart = 0.5 * Math.PI;
       const pathEnd = pathStart + 10 * Math.PI;
