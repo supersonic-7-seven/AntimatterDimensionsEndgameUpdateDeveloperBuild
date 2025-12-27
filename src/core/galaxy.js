@@ -62,7 +62,7 @@ export class Galaxy {
     }
 
     if (Galaxy.requirementAt(Galaxy.remoteStart).amount.lt(currency)) {
-      return new Decimal(Decimal.log10(currency.div(Galaxy.requirementAt(Galaxy.remoteStart).amount), Galaxy.remoteGalaxyStrength))
+      return new Decimal(Decimal.log(currency.div(Galaxy.requirementAt(Galaxy.remoteStart).amount), Galaxy.remoteGalaxyStrength))
         .add(Galaxy.remoteStart).floor().max(currGal);
     }
 
