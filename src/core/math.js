@@ -51,6 +51,21 @@ window.decimalCubicSolution = function decimalCubicSolution(a, b, c, d, n = fals
 };
 
 /**
+ * @param {Decimal|Number} a Variable before x^3 in ax^3 + bx^2 + cx + d = 0
+ * @param {Decimal|Number} b Variable before x^2 in ax^3 + bx^2 + cx + d = 0
+ * @param {Decimal|Number} c Variable before x in ax^3 +  bx^2 + cx + d = 0
+ * @param {Decimal|Number} d Variable after x in ax^3 +  bx^2 + cx + d = 0
+ * @returns {Decimal}
+*/
+window.decimalCubicSolutionX = function decimalCubicSolutionX(a, b, c, d) {
+  const p = b.neg().div(a.times(3));
+  const q = Decimal.pow(p, 3).add((b.times(c).sub(a.times(d).times(3))).div(Decimal.pow(a, 2).times(6)));
+  const r = c.div(a.times(3));
+  const x = Decimal.pow(q.add(Decimal.pow(Decimal.pow(q, 2).add(Decimal.pow(r.sub(Decimal.pow(p, 2)), 3)), 0.5)), new Decimal(1 / 3)).add(Decimal.pow(q.sub(Decimal.pow(Decimal.pow(q, 2).add(Decimal.pow(r.sub(Decimal.pow(p, 2)), 3)), 0.5)), new Decimal(1 / 3))).add(p);
+  return x;
+};
+
+/**
  * @typedef {Object} bulkBuyBinarySearch_result
  * @property {number} quantity amount purchased (relative)
  * @property {Decimal} purchasePrice amount that needs to be paid to get that
