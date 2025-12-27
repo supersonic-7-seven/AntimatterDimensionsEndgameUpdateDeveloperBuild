@@ -530,9 +530,9 @@ export const ReplicantiUpgrade = {
         .add(remoteReplicatedGalaxyStart.pow(2).mul(logRemoteScaling).div(2))
         .sub(remoteReplicatedGalaxyStart.mul(logRemoteScaling).div(6));
 
-      if (decimalCubicSolution(a, b, c, d, false).floor().lte(contingentReplicatedGalaxyStart)) {
+      if (decimalCubicSolutionX(a, b, c, d).floor().lte(contingentReplicatedGalaxyStart)) {
         // eslint-disable-next-line consistent-return
-        return decimalCubicSolution(a, b, c, d, false).floor().add(1);
+        return decimalCubicSolutionX(a, b, c, d).floor().add(1);
       }
 
       const numDistant = contingentReplicatedGalaxyStart.sub(distantReplicatedGalaxyStart);
