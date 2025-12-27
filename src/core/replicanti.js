@@ -480,7 +480,7 @@ export const ReplicantiUpgrade = {
     }
 
     get extra() {
-      return TimeStudy(131).effectOrDefault(0).add(PelleRifts.decay.milestones[2].effectOrDefault(0));
+      return TimeStudy(131).effectOrDefault(DC.D0).add(PelleRifts.decay.milestones[2].effectOrDefault(0));
     }
 
     bulkPurchaseCalc() {
