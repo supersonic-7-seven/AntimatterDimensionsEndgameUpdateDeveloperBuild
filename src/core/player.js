@@ -407,6 +407,7 @@ window.player = {
       bestCPmin: DC.D0,
       bestDPmin: DC.D0,
       glyphLevel: 0,
+      galaxies: DC.D0,
     },
     permanent: {
       maxCP: DC.D0,
