@@ -146,7 +146,7 @@ export function gainedInfinityPoints() {
 }
 
 function totalEPMult() {
-  if Pelle.isDisabled("EPMults") {
+  if (Pelle.isDisabled("EPMults")) {
     let ep = Pelle.specialGlyphEffect.time.timesEffectOf(PelleRifts.vacuum.milestones[2]);
     if (PelleDestructionUpgrade.x5EPUpgrade.isBought) ep = ep.timesEffectOf(EternityUpgrade.epMult);
     if (PelleDestructionUpgrade.timestudy61.isBought) ep = ep.timesEffectOf(TimeStudy(61));
