@@ -78,13 +78,13 @@ export const dilationUpgrades = {
     increment: 20,
     capIncreaseAt: () => Math.floor((Decimal.log10(DilationUpgradeScaling.PRIMARY_SCALING) / Math.log10(20)) - (Math.log10(5e5) / Math.log10(20))),
     description: () => {
-      if (Pelle.isDoomed) return `Multiply the amount of Tachyon Particles gained by ${formatInt(1)}`;
+      if (Pelle.isDoomed && !PelleDestructionUpgrade.x3TPUpgrade) return `Multiply the amount of Tachyon Particles gained by ${formatInt(1)}`;
       if (Enslaved.isRunning) return `Multiply the amount of Tachyon Particles gained
       by ${Math.pow(3, Enslaved.tachyonNerf).toFixed(2)}`;
       return "Triple the amount of Tachyon Particles gained";
     },
     effect: bought => {
-      if (Pelle.isDoomed) return DC.D1.pow(bought);
+      if (Pelle.isDoomed && !PelleDestructionUpgrade.x3TPUpgrade) return DC.D1.pow(bought);
       return DC.D3.pow(bought);
     },
     formatEffect: value => formatX(value, 2),
