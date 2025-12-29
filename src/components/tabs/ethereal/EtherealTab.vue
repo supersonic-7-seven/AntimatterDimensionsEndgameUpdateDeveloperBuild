@@ -10,7 +10,7 @@ export default {
       <br>
       <div>
       <b>
-        The Ethreal
+        The Ethereal
       </b>
       </div>
       <br>
