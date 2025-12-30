@@ -1114,20 +1114,29 @@ export function getTTPerSecond() {
   );
   if (GlyphAlteration.isAdded("dilation")) ttMult *= getSecondaryGlyphEffect("dilationTTgen");
 
+  let pelleTTMult = 1;
+  if (PelleCelestialUpgrade.raV3.isBought) pelleTTMult *= Effects.product(Ra.unlocks.continuousTTBoost.effects.ttGen);
+  if (PelleCelestialUpgrade.raV4.isBought) pelleTTMult *= Effects.product(Ra.unlocks.achievementTTMult);
+  if (PelleAchievementUpgrade.achievement137.isBought) pelleTTMult *= Effects.product(Achievement(137));
+  if (PelleAchievementUpgrade.achievement156.isBought) pelleTTMult *= Effects.product(Achievement(156));
+  if (PelleCelestialUpgrade.raTeresa3.isBought) pelleTTMult *= getSecondaryGlyphEffect("dilationTTgen");
+
   // Glyph TT generation
-  const glyphTT = Teresa.isRunning || Enslaved.isRunning || Pelle.isDoomed
+  const glyphTT = Teresa.isRunning || Enslaved.isRunning || (Pelle.isDoomed && !PelleDestructionUpgrade.destroyedGlyphEffects.isBought)
     ? 0
-    : getAdjustedGlyphEffect("dilationTTgen") * ttMult;
+    : getAdjustedGlyphEffect("dilationTTgen") * (Pelle.isDoomed ? pelleTTMult : ttMult);
 
   // Dilation TT generation
   const dilationTT = DilationUpgrade.ttGenerator.isBought
-    ? DilationUpgrade.ttGenerator.effectValue.times(Pelle.isDoomed ? 1 : ttMult)
+    ? DilationUpgrade.ttGenerator.effectValue.times(Pelle.isDoomed ? pelleTTMult : ttMult)
     : DC.D0;
 
   // Lai'tela TT power
   let finalTT = dilationTT.add(glyphTT);
   if (finalTT.gt(1)) {
-    finalTT = finalTT.pow(SingularityMilestone.theoremPowerFromSingularities.effectOrDefault(1));
+    if (!Pelle.isDoomed || PelleDestructionUpgrade.singularityMilestones.isBought) {
+      finalTT = finalTT.pow(SingularityMilestone.theoremPowerFromSingularities.effectOrDefault(1));
+    }
   }
 
   return finalTT;
