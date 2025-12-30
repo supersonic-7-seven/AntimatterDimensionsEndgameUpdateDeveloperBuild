@@ -197,7 +197,7 @@ class BlackHoleState {
   // The logic to determine what state the black hole is in for displaying is nontrivial and used in multiple places
   get displayState() {
     if (Pelle.isDisabled("blackhole") && !PelleDestructionUpgrade.blackHole.isBought) return `<i class="fas fa-ban"></i> Disabled`;
-    if (PelleDestructionUpgrade.blackHole.isBought) return `♅ Doomed`;
+    if (Pelle.isDoomed && PelleDestructionUpgrade.blackHole.isBought) return `♅ Doomed`;
     if (Enslaved.isAutoReleasing) {
       if (Enslaved.autoReleaseTick < 3) return `<i class="fas fa-compress-arrows-alt u-fa-padding"></i> Pulsing`;
       return `<i class="fas fa-expand-arrows-alt u-fa-padding"></i> Pulsing`;
