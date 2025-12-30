@@ -95,6 +95,26 @@ export const Pelle = {
     CelestialDimensions.resetAmount();
     player.records.thisEndgame.peakGameSpeed = DC.D1;
     player.requirementChecks.endgame.noGlyphsDoomed = true;
+    player.blackHole = Array.range(0, 2).map(id => ({
+      id,
+      intervalUpgrades: 0,
+      powerUpgrades: 0,
+      durationUpgrades: 0,
+      phase: 0,
+      active: false,
+      unlocked: false,
+      activations: 0,
+    }));
+    player.blackHolePause = false;
+    player.blackHoleAutoPauseMode = 0;
+    player.blackHolePauseTime = 0;
+    player.blackHoleNegative = 1;
+    if (PelleDestructionUpgrade.blackHole.isBought) {
+      player.blackHole[0].unlocked = true;
+    }
+    if (PelleDestructionUpgrade.blackHole.isBought && PelleRealityUpgrade.parityOfSingularity.isBought) {
+      player.blackHole[1].unlocked = true;
+    }
 
     // Force-enable the group toggle for AD autobuyers to be active; whether or not they can actually tick
     // is still handled through if the autobuyers are unlocked at all. This fixes an odd edge case where the player
