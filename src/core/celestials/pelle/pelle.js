@@ -103,7 +103,27 @@ export const Pelle = {
     player.auto.antimatterDims.isActive = true;
 
     player.records.realTimeDoomed = 0;
-    for (const res of AlchemyResources.all) res.amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyPower.isBought) player.celestials.ra.alchemy[0].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyInfinity.isBought) player.celestials.ra.alchemy[1].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyTime.isBought) player.celestials.ra.alchemy[2].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyReplication.isBought) player.celestials.ra.alchemy[3].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyDilation.isBought) player.celestials.ra.alchemy[4].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyEffarig.isBought) player.celestials.ra.alchemy[5].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyCardinality.isBought) player.celestials.ra.alchemy[6].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyEternity.isBought) player.celestials.ra.alchemy[7].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyDimensionality.isBought) player.celestials.ra.alchemy[8].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyInflation.isBought) player.celestials.ra.alchemy[9].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyAlternation.isBought) player.celestials.ra.alchemy[10].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemySynergism.isBought) player.celestials.ra.alchemy[11].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyDecoherence.isBought) player.celestials.ra.alchemy[12].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyMomentum.isBought) player.celestials.ra.alchemy[13].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyMultiversal.isBought) player.celestials.ra.alchemy[14].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyForce.isBought) player.celestials.ra.alchemy[15].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyExponential.isBought) player.celestials.ra.alchemy[16].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyUncountability.isBought) player.celestials.ra.alchemy[17].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyBoundless.isBought) player.celestials.ra.alchemy[18].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyUnpredictability.isBought) player.celestials.ra.alchemy[19].amount = 0;
+    if (!PelleAlchemyUpgrade.alchemyReality.isBought) player.celestials.ra.alchemy[20].amount = 0;
     AutomatorBackend.stop();
 
     // Force-unhide all tabs except for the shop tab, for which we retain the hide state instead
