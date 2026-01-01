@@ -20,7 +20,7 @@ export default {
     },
     strikes() {
       return PelleStrikes.all;
-    }
+    },
     sickVisualStrikeText() {
       return Pelle.sickVisualStrikeText;
     }
