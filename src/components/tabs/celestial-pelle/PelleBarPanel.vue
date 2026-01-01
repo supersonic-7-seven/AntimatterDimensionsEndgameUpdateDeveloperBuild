@@ -1,4 +1,6 @@
 <script>
+import wordShift from "@/core/word-shift";
+  
 import PelleRift from "./PelleRift";
 
 export default {
@@ -31,7 +33,24 @@ export default {
       player.celestials.pelle.collapsed.rifts = !this.isCollapsed;
     },
     sickVisualStrikeText() {
-      return Pelle.sickVisualStrikeText;
+      if (PelleStrikeUpgrade.all.filter(u => u.isBought).length === 0) {
+        return `Pelle Strike penalties are permanent and remain active even after Armageddon!`;
+      }
+      if (PelleStrikeUpgrade.all.filter(u => u.isBought).length === 1) {
+        return Date.now() % 2500 > 500 ? `Pelle Strike penalties are permanent and remain active even after Armageddon!` : wordShift.randomCrossWords("Pelle Strike penalties are permanent and remain active even after Armageddon!");
+      }
+      if (PelleStrikeUpgrade.all.filter(u => u.isBought).length === 2) {
+        return Date.now() % 2500 > 1000 ? `Pelle Strike penalties are permanent and remain active even after Armageddon!` : wordShift.randomCrossWords("Pelle Strike penalties are permanent and remain active even after Armageddon!");
+      }
+      if (PelleStrikeUpgrade.all.filter(u => u.isBought).length === 3) {
+        return Date.now() % 2500 > 1500 ? `Pelle Strike penalties are permanent and remain active even after Armageddon!` : wordShift.randomCrossWords("Pelle Strike penalties are permanent and remain active even after Armageddon!");
+      }
+      if (PelleStrikeUpgrade.all.filter(u => u.isBought).length === 4) {
+        return Date.now() % 2500 > 2000 ? `Pelle Strike penalties are permanent and remain active even after Armageddon!` : wordShift.randomCrossWords("Pelle Strike penalties are permanent and remain active even after Armageddon!");
+      }
+      if (PelleStrikeUpgrade.all.filter(u => u.isBought).length === 5) {
+        return wordShift.wordCycle(["All Pelle Strikes have been destroyed!", `We will meet again, ${wordShift.wordCycle(["False", "Deity", "Destroyer"])}.`]);
+      }
     }
   }
 };
