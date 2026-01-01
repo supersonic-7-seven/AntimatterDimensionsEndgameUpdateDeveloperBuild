@@ -372,6 +372,7 @@ export const EternityChallenges = {
       );
       minutes /= Effects.sum(EndgameMastery(22));
       minutes /= VUnlocks.fastAutoEC.effectOrDefault(1);
+      if (Pelle.isDoomed && PelleCelestialUpgrade.vMilestones2.isBought) minutes /= VUnlocks.fastAutoEC.effectValue;
       return TimeSpan.fromMinutes(new Decimal(minutes)).totalMilliseconds.toNumber();
     }
   }
