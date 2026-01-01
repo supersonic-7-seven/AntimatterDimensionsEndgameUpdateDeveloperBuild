@@ -58,7 +58,7 @@ export const dilationUpgrades = {
     increment: 100,
     capIncreaseAt: () => Math.floor((Decimal.log10(DilationUpgradeScaling.PRIMARY_SCALING) / 2) - 2),
     description: () =>
-      (Perk.bypassTGReset.isBought && !Pelle.isDoomed
+      (Perk.bypassTGReset.isBought && (!Pelle.isDoomed || PellePerkUpgrade.perkTGR.isBought)
         ? "Reset Tachyon Galaxies, but lower their threshold"
         : "Reset Dilated Time and Tachyon Galaxies, but lower their threshold"),
     // The 38th purchase is at 1e80, and is the last purchase.
