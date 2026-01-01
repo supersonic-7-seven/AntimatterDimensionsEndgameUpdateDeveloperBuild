@@ -536,7 +536,7 @@ export const Pelle = {
       return Date.now() % 2500 > 2000 ? `Pelle Strike penalties are permanent and remain active even after Armageddon!` : wordShift.randomCrossWords("Pelle Strike penalties are permanent and remain active even after Armageddon!");
     }
     if (PelleStrikeUpgrade.all.filter(u => u.isBought).length === 5) {
-      return wordShift.wordCycle(["All Pelle Strikes have been destroyed!"], [`It's not over yet ${wordShift.wordCycle(["False", "Deity", "Destroyer"])}!`]);
+      return wordShift.wordCycle(["All Pelle Strikes have been destroyed!"], ["We will meet again..."]);
     }
   },
   
