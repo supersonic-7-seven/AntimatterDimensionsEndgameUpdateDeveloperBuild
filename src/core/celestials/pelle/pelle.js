@@ -95,6 +95,7 @@ export const Pelle = {
     CelestialDimensions.resetAmount();
     player.records.thisEndgame.peakGameSpeed = DC.D1;
     player.requirementChecks.endgame.noGlyphsDoomed = true;
+    player.celestials.enslaved.stored = DC.D0;
 
     // Force-enable the group toggle for AD autobuyers to be active; whether or not they can actually tick
     // is still handled through if the autobuyers are unlocked at all. This fixes an odd edge case where the player
