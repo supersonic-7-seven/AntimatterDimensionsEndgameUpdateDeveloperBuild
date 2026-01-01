@@ -12,6 +12,7 @@ export default {
     return {
       decayRate: 0,
       isCollapsed: false,
+      time: 0,
     };
   },
   computed: {
@@ -28,6 +29,7 @@ export default {
     update() {
       this.decayRate = Pelle.riftDrainPercent;
       this.isCollapsed = player.celestials.pelle.collapsed.rifts;
+      this.time = Date.now();
     },
     toggleCollapse() {
       player.celestials.pelle.collapsed.rifts = !this.isCollapsed;
@@ -37,16 +39,16 @@ export default {
         return `Pelle Strike penalties are permanent and remain active even after Armageddon!`;
       }
       if (PelleStrikeUpgrade.all.filter(u => u.isBought).length === 1) {
-        return Date.now() % 2500 > 500 ? `Pelle Strike penalties are permanent and remain active even after Armageddon!` : wordShift.randomCrossWords("Pelle Strike penalties are permanent and remain active even after Armageddon!");
+        return this.time % 2500 > 500 ? `Pelle Strike penalties are permanent and remain active even after Armageddon!` : wordShift.randomCrossWords("Pelle Strike penalties are permanent and remain active even after Armageddon!");
       }
       if (PelleStrikeUpgrade.all.filter(u => u.isBought).length === 2) {
-        return Date.now() % 2500 > 1000 ? `Pelle Strike penalties are permanent and remain active even after Armageddon!` : wordShift.randomCrossWords("Pelle Strike penalties are permanent and remain active even after Armageddon!");
+        return this.time % 2500 > 1000 ? `Pelle Strike penalties are permanent and remain active even after Armageddon!` : wordShift.randomCrossWords("Pelle Strike penalties are permanent and remain active even after Armageddon!");
       }
       if (PelleStrikeUpgrade.all.filter(u => u.isBought).length === 3) {
-        return Date.now() % 2500 > 1500 ? `Pelle Strike penalties are permanent and remain active even after Armageddon!` : wordShift.randomCrossWords("Pelle Strike penalties are permanent and remain active even after Armageddon!");
+        return this.time % 2500 > 1500 ? `Pelle Strike penalties are permanent and remain active even after Armageddon!` : wordShift.randomCrossWords("Pelle Strike penalties are permanent and remain active even after Armageddon!");
       }
       if (PelleStrikeUpgrade.all.filter(u => u.isBought).length === 4) {
-        return Date.now() % 2500 > 2000 ? `Pelle Strike penalties are permanent and remain active even after Armageddon!` : wordShift.randomCrossWords("Pelle Strike penalties are permanent and remain active even after Armageddon!");
+        return this.time % 2500 > 2000 ? `Pelle Strike penalties are permanent and remain active even after Armageddon!` : wordShift.randomCrossWords("Pelle Strike penalties are permanent and remain active even after Armageddon!");
       }
       if (PelleStrikeUpgrade.all.filter(u => u.isBought).length === 5) {
         return wordShift.wordCycle(["All Pelle Strikes have been destroyed!", `We will meet again, ${wordShift.wordCycle(["False", "Deity", "Destroyer"])}.`]);
