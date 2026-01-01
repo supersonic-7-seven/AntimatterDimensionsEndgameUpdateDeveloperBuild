@@ -76,7 +76,7 @@ export default {
       When active, Rifts consume {{ formatPercents(decayRate) }} of another resource per second.
       <br>
       Rift effects apply even when not activated, and are based on the total amount drained.
-      <b class="o-strike-warning">{{ sickVisualStrikeText }}</b>
+      <b class="o-strike-warning">{{ sickVisualStrikeText() }}</b>
       <div class="c-pelle-bar-container">
         <PelleRift
           v-for="strike in strikes"
