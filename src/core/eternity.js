@@ -105,7 +105,7 @@ export function eternity(force, auto, specialConditions = {}) {
   }
 
   player.challenge.eternity.current = 0;
-  if (!specialConditions.enteringEC && (!Pelle.isDoomed || PelleStrikes.dilation.isDestroyed)) {
+  if (!specialConditions.enteringEC && (!Pelle.isDoomed || PelleStrikes.dilation.isDestroyed())) {
     player.dilation.active = false;
   }
   resetInfinityRuns();
