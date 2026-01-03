@@ -7,7 +7,7 @@ export const ReplicantiGrowth = {
     return Math.log10(Number.MAX_VALUE);
   },
   get scaleFactor() {
-    if (PelleStrikes.eternity.hasStrike && !PelleStrikes.eternity.isDestroyed && Replicanti.amount.gte(DC.E2000)) return 10;
+    if (PelleStrikes.eternity.hasStrike && !PelleStrikes.eternity.isDestroyed() && Replicanti.amount.gte(DC.E2000)) return 10;
     if (Pelle.isDoomed) return 2;
     return AlchemyResource.cardinality.effectValue;
   }
@@ -106,7 +106,7 @@ export function getReplicantiInterval(overCapOverride, intervalIn) {
 
   if (overCap) {
     let increases = (amount.log10() - replicantiCap().log10()) / ReplicantiGrowth.scaleLog10;
-    if (PelleStrikes.eternity.hasStrike && !PelleStrikes.eternity.isDestroyed && amount.gte(DC.E2000)) {
+    if (PelleStrikes.eternity.hasStrike && !PelleStrikes.eternity.isDestroyed() && amount.gte(DC.E2000)) {
       // The above code assumes in this case there's 10x scaling for every 1e308 increase;
       // in fact, before e2000 it's only 2x.
       increases -= Math.log10(5) * (2000 - replicantiCap().log10()) / ReplicantiGrowth.scaleLog10;
