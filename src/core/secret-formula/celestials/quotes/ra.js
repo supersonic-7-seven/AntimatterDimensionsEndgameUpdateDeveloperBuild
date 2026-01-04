@@ -143,6 +143,7 @@ export const raQuotes = {
   },
   raPack: {
     id: 15,
+    requirement: () => ExpansionPack.raPack.isBought,
     lines: [
       "Wait...",
       "More memories?",
@@ -155,6 +156,7 @@ export const raQuotes = {
   },
   doubleCap: {
     id: 16,
+    requirement: () => Ra.totalPetLevel >= 200,
     lines: [
       "So many memories...",
       "I didn't realize I had forgotten this much...",
