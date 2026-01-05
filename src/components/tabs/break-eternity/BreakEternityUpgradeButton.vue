@@ -74,6 +74,12 @@ export default {
       v-else
       :class="classObject"
     >
+      <HintText
+        type="breakEternityUpgrades"
+        class="l-hint-text--reality-upgrade c-hint-text--reality-upgrade"
+      >
+        {{ config.name }}
+      </HintText>
       <DescriptionDisplay :config="upgrade.config" />
       <EffectDisplay
         br
