@@ -86,7 +86,7 @@ class QuoteLine {
     const usernameReplacementMatch = /%name+/gu;
 
     let testline = typeof line === "string"
-      ? () => line.replaceAll(usernameReplacementMatch, player.username);
+      ? () => line.replaceAll(usernameReplacementMatch, player.username)
       // This matches each digit after a $ and replaces it with the wordCycle of an array with the digit it matched.
       : () => line.text.replaceAll(replacementMatch, (_, i) => wordShift.wordCycle(line[i]));
 
