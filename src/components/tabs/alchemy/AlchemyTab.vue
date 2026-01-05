@@ -182,6 +182,9 @@ export default {
         reaction.isActive = setIsActive;
       }
     },
+    resetAlchemy() {
+      for (const res of AlchemyResources.all) res.amount = 0;
+    },
     nodeClass(node) {
       const resource = node.resource;
       return {
@@ -214,6 +217,12 @@ export default {
         onclick="Modal.realityGlyph.show()"
       >
         View Reality Glyph creation
+      </PrimaryButton>
+      <PrimaryButton
+        class="o-primary-btn--subtab-option"
+        @click="resetAlchemy"
+      >
+        Force-reset all Alchemy resources
       </PrimaryButton>
     </div>
     <AlchemyResourceInfo
