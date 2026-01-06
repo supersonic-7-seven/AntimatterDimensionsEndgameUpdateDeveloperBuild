@@ -46,6 +46,7 @@ import SecretAchievementTab from "./secret-achievements/SecretAchievementTab";
 import ShopTab from "./shop/ShopTab";
 import SpeedrunMilestonesTab from "./speedrun-milestones/SpeedrunMilestonesTab";
 import StatisticsTab from "./statistics/StatisticsTab";
+import StoredTimeTab from "./statistics/StoredTimeTab";
 import TeresaTab from "./celestial-teresa/TeresaTab";
 import TimeDilationTab from "./time-dilation/TimeDilationTab";
 import TimeDimensionsTab from "./time-dimensions/TimeDimensionsTab";
@@ -66,6 +67,7 @@ const TabComponents = {
   GlyphSetRecordsTab,
   SpeedrunMilestonesTab,
   PreviousSpeedrunTab,
+  StoredTimeTab,
   NormalAchievementsTab,
   SecretAchievementTab,
   TeresaTab,
