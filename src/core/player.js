@@ -774,7 +774,7 @@ window.player = {
           timeSinceLastUpdate: 0,
           ascensionCount: DC.D0
         })),
-      entropy: 0,
+      entropy: DC.D0,
       thisCompletion: 3600,
       fastestCompletion: 3600,
       difficultyTier: 0,
