@@ -156,6 +156,14 @@ export const tabs = [
         id: 6,
         hidable: true,
       },
+      {
+        key: "stored time",
+        name: "Stored Time",
+        symbol: "<i class='fas fa-clock'></i>",
+        component: "StoredTimeTab",
+        id: 7,
+        hidable: true,
+      },
     ]
   },
   {
