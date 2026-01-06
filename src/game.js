@@ -981,7 +981,7 @@ function laitelaRealityTick(realDiff) {
   const laitelaInfo = player.celestials.laitela;
   if (!Laitela.isRunning) return;
   if (laitelaInfo.entropy >= 0) {
-    laitelaInfo.entropy += (realDiff / 1000) * Laitela.entropyGainPerSecond;
+    laitelaInfo.entropy += Math.min((realDiff / 1000) * Laitela.entropyGainPerSecond, 1 - laitelaInfo.entropy);
   }
 
   // Setting entropy to -1 on completion prevents the modal from showing up repeatedly
