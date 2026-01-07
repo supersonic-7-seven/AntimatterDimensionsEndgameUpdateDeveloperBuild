@@ -9,7 +9,7 @@ export const changelog = [
    * }
    */
   {
-    date: [2026, 1, 6],
+    date: [2026, 1, 7],
     name: "v0.3.0: The Greater Reimagining II",
     info: `
 Happy New Year!
@@ -43,6 +43,7 @@ Happy New Year!
 <li>New Celestial quotes</li>
 <li>Break Eternity Upgrade names</li>
 <li>Automator commands</li>
+<li>Made Exporting your save give rewards</li>
 </ul>
 <br>
 <b>Things removed:</b><br>
