@@ -79,7 +79,7 @@ export default {
     getETAText() {
       if (this.canBeBought || !this.isAvailableForPurchase || this.isBought || Pelle.isDoomed) return "";
       const time = MachineHandler.estimateIMTimer(this.upgrade.cost);
-      if (isFinite(time.toNumber())) return TimeSpan.fromSeconds(new Decimal(time)).toString();
+      if (isFinite(new Decimal(time).toNumber())) return TimeSpan.fromSeconds(new Decimal(time)).toString();
       return "Never affordable";
     },
     toggleLock(upgrade) {
