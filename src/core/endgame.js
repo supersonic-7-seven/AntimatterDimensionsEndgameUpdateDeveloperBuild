@@ -41,6 +41,11 @@ function giveEndgameRewards() {
 }
 
 export const Endgame = {
+  hotkeyReset() {
+    if (!Pelle.isDoomed || player.antimatter.lt(DC.E9E15)) return false;
+    this.newEndgame();
+    return true;
+  },
   resetNoReward() {
     GameEnd.creditsClosed = false;
     GameEnd.creditsEverClosed = false;
