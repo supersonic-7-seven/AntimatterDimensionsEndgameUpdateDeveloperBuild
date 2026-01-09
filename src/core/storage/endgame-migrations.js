@@ -19,9 +19,9 @@ export function endgameMigration(player) {
     if (ImaginaryUpgrade(28).isBought) DarkMatterDimension(7).amount = new Decimal(1);
     if (ImaginaryUpgrade(29).isBought) DarkMatterDimension(8).amount = new Decimal(1);
   }
-  player.records.bestEndgame.time = player.records.bestEndgame.time.eq(0)
+  player.records.bestEndgame.time = new Decimal(player.records.bestEndgame.time).eq(0)
         ? new Decimal(999999999999)
-        : player.records.bestEndgame.time;
+        : new Decimal(player.records.bestEndgame.time);
   player.records.bestEndgame.realTime = player.records.bestEndgame.realTime === 0
         ? 999999999999
         : player.records.bestEndgame.realTime;
