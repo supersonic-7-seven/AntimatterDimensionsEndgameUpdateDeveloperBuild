@@ -78,7 +78,7 @@ function fastReplicantiBelow308(log10GainFactor, isAutobuyerActive) {
     return remainingGain;
   }
 
-  const gainNeededPerRG = Decimal.NUMBER_MAX_VALUE.log10();
+  const gainNeededPerRG = DC.NUMMAX.log10();
   const replicantiExponent = log10GainFactor.toNumber() + Replicanti.amount.log10();
   const toBuy = Decimal.floor(Decimal.min(new Decimal(replicantiExponent / gainNeededPerRG),
     Replicanti.galaxies.max.sub(player.replicanti.galaxies))).toNumber();
@@ -189,8 +189,8 @@ export function replicantiCap() {
     ? Currency.infinitiesTotal.value
       .pow(TimeStudy(31).isBought ? 120 : 30)
       .clampMin(1)
-      .times(Decimal.NUMBER_MAX_VALUE)
-    : Decimal.NUMBER_MAX_VALUE;
+      .times(DC.NUMMAX)
+    : DC.NUMMAX;
 }
 
 // eslint-disable-next-line complexity
@@ -273,7 +273,7 @@ export function replicantiLoop(diff) {
     Replicanti.amount = replicantiBeforeLoop.times(1e308);
   }
 
-  if (areRGsBeingBought && Replicanti.amount.gte(Decimal.NUMBER_MAX_VALUE)) {
+  if (areRGsBeingBought && Replicanti.amount.gte(DC.NUMMAX)) {
     const buyer = Autobuyer.replicantiGalaxy;
     const isAuto = buyer.canTick && buyer.isEnabled;
     // There might be a manual and auto tick simultaneously; pass auto === true iff the autobuyer is ticking and
@@ -675,7 +675,7 @@ export const Replicanti = {
       return ReplicantiUpgrade.galaxies.value.add(ReplicantiUpgrade.galaxies.extra);
     },
     get canBuyMore() {
-      if (!Replicanti.amount.gte(Decimal.NUMBER_MAX_VALUE)) return false;
+      if (!Replicanti.amount.gte(DC.NUMMAX)) return false;
       return this.bought.lt(this.max);
     },
     get areBeingBought() {
