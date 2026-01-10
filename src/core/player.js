@@ -48,12 +48,12 @@ window.player = {
   challenge: {
     normal: {
       current: 0,
-      bestTimes: Array.repeat(Decimal.MAX_VALUE, 11),
+      bestTimes: Array.repeat(DC.BEMAX, 11),
       completedBits: 0,
     },
     infinity: {
       current: 0,
-      bestTimes: Array.repeat(Decimal.MAX_VALUE, 8),
+      bestTimes: Array.repeat(DC.BEMAX, 8),
       completedBits: 0,
     },
     eternity: {
@@ -329,7 +329,7 @@ window.player = {
   records: {
     gameCreatedTime: Date.now(),
     totalTimePlayed: DC.D0,
-    timePlayedAtBHUnlock: Decimal.MAX_VALUE,
+    timePlayedAtBHUnlock: DC.BEMAX,
     realTimePlayed: 0,
     realTimeDoomed: 0,
     fullGameCompletions: 0,
@@ -342,13 +342,13 @@ window.player = {
     totalEternityAntimatter: DC.E1,
     totalInfinityAntimatter: DC.E1,
     recentInfinities: Array.range(0, 10).map(() =>
-      [Decimal.MAX_VALUE, Number.MAX_VALUE, DC.D1, DC.D1, ""]),
+      [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, ""]),
     recentEternities: Array.range(0, 10).map(() =>
-      [Decimal.MAX_VALUE, Number.MAX_VALUE, DC.D1, DC.D1, "", DC.D0]),
+      [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, "", DC.D0]),
     recentRealities: Array.range(0, 10).map(() =>
-      [Decimal.MAX_VALUE, Number.MAX_VALUE, DC.D1, 1, "", 0, 0]),
+      [DC.BEMAX, Number.MAX_VALUE, DC.D1, 1, "", 0, 0]),
     recentEndgames: Array.range(0, 10).map(() =>
-      [Decimal.MAX_VALUE, Number.MAX_VALUE, DC.D1, DC.D1, 1]),
+      [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, 1]),
     thisInfinity: {
       time: DC.D0,
       realTime: 0,
@@ -358,7 +358,7 @@ window.player = {
       bestIPminVal: DC.D0,
     },
     bestInfinity: {
-      time: Decimal.MAX_VALUE,
+      time: DC.BEMAX,
       realTime: Number.MAX_VALUE,
       bestIPminEternity: DC.D0,
       bestIPminReality: DC.D0,
@@ -374,7 +374,7 @@ window.player = {
       bestInfinitiesPerMs: DC.D0,
     },
     bestEternity: {
-      time: Decimal.MAX_VALUE,
+      time: DC.BEMAX,
       realTime: Number.MAX_VALUE,
       bestEPminReality: DC.D0,
     },
@@ -391,7 +391,7 @@ window.player = {
       bestRSminVal: DC.D0,
     },
     bestReality: {
-      time: Decimal.MAX_VALUE,
+      time: DC.BEMAX,
       realTime: Number.MAX_VALUE,
       glyphStrength: 0,
       RM: DC.D0,
@@ -414,7 +414,7 @@ window.player = {
       peakGameSpeed: DC.D1,
     },
     bestEndgame: {
-      time: Decimal.MAX_VALUE,
+      time: DC.BEMAX,
       realTime: Number.MAX_VALUE,
       bestCPmin: DC.D0,
       bestDPmin: DC.D0,
@@ -1110,7 +1110,7 @@ export const Player = {
   get canCrunch() {
     if (Enslaved.isRunning && Enslaved.BROKEN_CHALLENGES.includes(NormalChallenge.current?.id)) return false;
     const challenge = NormalChallenge.current || InfinityChallenge.current;
-    const goal = challenge === undefined ? Decimal.NUMBER_MAX_VALUE : challenge.goal;
+    const goal = challenge === undefined ? DC.NUMMAX : challenge.goal;
     return player.records.thisInfinity.maxAM.gte(goal);
   },
 
@@ -1136,11 +1136,11 @@ export const Player = {
 
   get infinityGoal() {
     const challenge = NormalChallenge.current || InfinityChallenge.current;
-    return challenge === undefined ? Decimal.NUMBER_MAX_VALUE : challenge.goal;
+    return challenge === undefined ? DC.NUMMAX : challenge.goal;
   },
 
   get infinityLimit() {
-    const trueHardcap = player.break2 ? DC.E1E300 : DC.E9E15;
+    const trueHardcap = player.break2 ? DC.ENUMMAX : DC.E9E15;
     const challenge = NormalChallenge.current || InfinityChallenge.current;
     return challenge === undefined ? trueHardcap : challenge.goal;
   },
