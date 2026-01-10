@@ -647,25 +647,25 @@ export const Endgame = {
       lockAchievementsOnEndgame();
     }
     player.records.totalTimePlayed = new Decimal(player.records.realTimePlayed);
-    player.records.timePlayedAtBHUnlock = Decimal.MAX_VALUE;
+    player.records.timePlayedAtBHUnlock = DC.BEMAX;
     player.records.realTimeDoomed = 0;
     player.records.totalEndgameAntimatter = DC.E1;
     player.records.totalRealityAntimatter = DC.E1;
     player.records.totalEternityAntimatter = DC.E1;
     player.records.totalInfinityAntimatter = DC.E1;
     player.records.recentInfinities = Array.range(0, 10).map(() =>
-      [Decimal.MAX_VALUE, Number.MAX_VALUE, DC.D1, DC.D1, ""]);
+      [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, ""]);
     player.records.recentEternities = Array.range(0, 10).map(() =>
-      [Decimal.MAX_VALUE, Number.MAX_VALUE, DC.D1, DC.D1, "", DC.D0]);
+      [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, "", DC.D0]);
     player.records.recentRealities = Array.range(0, 10).map(() =>
-      [Decimal.MAX_VALUE, Number.MAX_VALUE, DC.D1, 1, "", 0, 0]);
+      [DC.BEMAX, Number.MAX_VALUE, DC.D1, 1, "", 0, 0]);
     player.records.thisInfinity.time = DC.D0;
     player.records.thisInfinity.realTime = 0;
     player.records.thisInfinity.lastBuyTime = DC.D0;
     player.records.thisInfinity.maxAM = DC.D0;
     player.records.thisInfinity.bestIPmin = DC.D0;
     player.records.thisInfinity.bestIPminVal = DC.D0;
-    player.records.bestInfinity.time = Decimal.MAX_VALUE;
+    player.records.bestInfinity.time = DC.BEMAX;
     player.records.bestInfinity.realTime = Number.MAX_VALUE;
     player.records.bestInfinity.bestIPminEternity = DC.D0;
     player.records.bestInfinity.bestIPminReality = DC.D0;
@@ -677,7 +677,7 @@ export const Endgame = {
     player.records.thisEternity.bestEPmin = DC.D0;
     player.records.thisEternity.bestEPminVal = DC.D0;
     player.records.thisEternity.bestInfinitiesPerMs = DC.D0;
-    player.records.bestEternity.time = Decimal.MAX_VALUE;
+    player.records.bestEternity.time = DC.BEMAX;
     player.records.bestEternity.realTime = Number.MAX_VALUE;
     player.records.bestEternity.bestEPminReality = DC.D0;
     player.records.thisReality.time = DC.D0;
@@ -690,7 +690,7 @@ export const Endgame = {
     player.records.thisReality.maxDT = DC.D0;
     player.records.thisReality.bestRSmin = DC.D0;
     player.records.thisReality.bestRSminVal = DC.D0;
-    player.records.bestReality.time = Decimal.MAX_VALUE;
+    player.records.bestReality.time = DC.BEMAX;
     player.records.bestReality.realTime = Number.MAX_VALUE;
     player.records.bestReality.glyphStrength = 0;
     player.records.bestReality.RM = DC.D0;
