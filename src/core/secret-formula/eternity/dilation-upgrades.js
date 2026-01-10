@@ -1,5 +1,3 @@
-import { DC } from "../../constants";
-
 function rebuyableCost(initialCost, increment, id, capIncreaseAt) {
   return Decimal.multiply(initialCost, Decimal.pow(increment, player.dilation.rebuyables[id] + (Math.max(player.dilation.rebuyables[id] - capIncreaseAt, 0) * Math.max(player.dilation.rebuyables[id] - (capIncreaseAt + 1), 0) / 2)));
 }
