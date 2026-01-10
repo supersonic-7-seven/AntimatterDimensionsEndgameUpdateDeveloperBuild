@@ -189,7 +189,7 @@ export const endgameUpgrades = [
     checkRequirement: () => Currency.antimatter.exponent >= 1e33 && !Pelle.isDoomed,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: () => `Gain a power to the Antimatter Exponent based on Imaginary Machines`,
-    effect: () => 1 + (Math.pow(Math.log10(Decimal.log10(player.reality.imaginaryMachines.add(1)) + 1), 2) / 200),
+    effect: () => 1 + (Decimal.pow(Decimal.log10(Decimal.log10(player.reality.imaginaryMachines.add(1)).add(1)), 2).div(200)).toNumber(),
     formatEffect: value => formatPow(value, 2, 3)
   },
   {
@@ -276,7 +276,7 @@ export const endgameUpgrades = [
     checkRequirement: () => BreakEternityUpgrade.tesseractMultiplier.isBought,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Celestial Points delay the Free Tesseract Softcap",
-    effect: () => Math.pow(1 + Math.log10(Math.max(Decimal.log10(player.endgame.celestialPoints) / 200, 1)), 2),
+    effect: () => Math.pow(1 + Decimal.log10(Decimal.max(Decimal.log10(player.endgame.celestialPoints).div(200), 1)).toNumber(), 2),
     formatEffect: value => formatX(value, 2, 2)
   },
   {
@@ -288,7 +288,7 @@ export const endgameUpgrades = [
     checkRequirement: () => BreakEternityUpgrade.glyphSacrificeUncap.isBought,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "All Glyph Sacrifice Values are increased based on Celestial Matter",
-    effect: () => Math.pow(Math.max(Math.log10(Decimal.log10(player.endgame.celestialMatter)) / 2, 1), 1.5),
+    effect: () => Decimal.pow(Decimal.max(Decimal.log10(Decimal.log10(player.endgame.celestialMatter)).div(2), 1), 1.5).toNumber(),
     formatEffect: value => formatPow(value, 2, 3)
   },
   {
@@ -300,7 +300,7 @@ export const endgameUpgrades = [
     checkRequirement: () => BreakEternityUpgrade.glyphSlotImprovement.isBought,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Glyph Level gains a multiplier based on Antimatter which applies after Instability",
-    effect: () => Math.min(Math.pow(Math.max(Math.log10(Decimal.log10(player.antimatter)) / 100, 1), 0.05), 1.2),
+    effect: () => Decimal.min(Decimal.pow(Decimal.max(Decimal.log10(Decimal.log10(player.antimatter)).div(100), 1), 0.05), 1.2).toNumber(),
     formatEffect: value => formatX(value, 2, 2)
   },
 ];
