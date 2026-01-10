@@ -268,7 +268,7 @@ export const endgameMasteries = [
     requirement: [141],
     reqType: EM_REQUIREMENT_TYPE.AT_LEAST_ONE,
     description: () => `Make the Infinity Point formula better`,
-    effect: () => Effects.min(308, Achievement(103), TimeStudy(111)) / (1 + (Math.log10(Decimal.log10(Currency.celestialPoints.value.plus(1)) + 1) / 20)),
+    effect: () => Effects.min(308, Achievement(103), TimeStudy(111)) / ((Decimal.log10(Decimal.log10(Currency.celestialPoints.value.plus(1)).add(1)).div(20)).add(1)).toNumber(),
     formatEffect: value => `log(x)/${format(Effects.min(308, Achievement(103), TimeStudy(111)), 2, 2)} ➜ log(x)/${format(value, 2, 2)}`
   },
   {
