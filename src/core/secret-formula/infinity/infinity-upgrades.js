@@ -2,7 +2,7 @@ function dimInfinityMult() {
   return Currency.infinitiesTotal.value.times(0.2).plus(1);
 }
 function chargedDimInfinityMult() {
-  return 1 + Math.log10(Math.max(1, Currency.infinitiesTotal.value.pLog10())) * Math.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1)) / 150;
+  return 1 + Decimal.log10(Decimal.max(1, Currency.infinitiesTotal.value.pLog10())).toNumber() * Math.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1)) / 150;
 }
 
 export const infinityUpgrades = {
@@ -15,8 +15,8 @@ export const infinityUpgrades = {
     charged: {
       description: "Antimatter Dimensions gain a power effect based on time played and Teresa level",
       effect: () => 1 +
-        Math.log10(Decimal.log10(Time.totalTimePlayed.totalMilliseconds)) *
-        Math.pow(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1), 0.5) / 150,
+        Decimal.log10(Decimal.log10(Time.totalTimePlayed.totalMilliseconds)).times(
+        Math.pow(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1), 0.5)).div(150).toNumber(),
       formatEffect: value => formatPow(value, 4, 4)
     }
   },
@@ -120,8 +120,8 @@ export const infinityUpgrades = {
       description:
         "Antimatter Dimensions gain a power effect based on time spent in current Infinity and Teresa level",
       effect: () => 1 +
-        Math.log10(Decimal.log10(Time.thisInfinity.totalMilliseconds.plus(100))) *
-        Math.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1)) / 150,
+        Decimal.log10(Decimal.log10(Time.thisInfinity.totalMilliseconds.plus(100))).times(
+        Math.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1))).div(150),
       formatEffect: value => formatPow(value, 4, 4)
     }
   },
@@ -133,7 +133,7 @@ export const infinityUpgrades = {
     effect: () => {
       const divisor = EndgameMastery(81).isBought ? 5 : 10;
       const subtrahend = EndgameMastery(81).isBought ? 1.5 : 0;
-      return Decimal.min(Currency.infinityPoints.value.dividedBy(2), Decimal.pow(DC.E1E15, EndgameUpgrade(1).effectOrDefault(1))).pow(Math.max((Math.log10(Currency.infinityPoints.value.log10()) / divisor) - subtrahend, 1.5)).plus(1);
+      return Decimal.min(Currency.infinityPoints.value.dividedBy(2), Decimal.pow(DC.E1E15, EndgameUpgrade(1).effectOrDefault(1))).pow(Decimal.max((Decimal.log10(Currency.infinityPoints.value.log10()).div(divisor)).sub(subtrahend), 1.5)).plus(1);
     },
     formatEffect: value => formatX(value, 2, 2),
     charged: {
@@ -141,7 +141,7 @@ export const infinityUpgrades = {
       effect: () => {
         const divisor = EndgameMastery(81).isBought ? 5 : 10;
         const subtrahend = EndgameMastery(81).isBought ? 1.5 : 0;
-        return Decimal.min(Currency.infinityPoints.value.dividedBy(2), Decimal.pow(DC.E1E15, EndgameUpgrade(1).effectOrDefault(1))).pow(Math.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1)) * Math.max((Math.log10(Currency.infinityPoints.value.log10()) / divisor) - subtrahend, 1.5)).plus(1);
+        return Decimal.min(Currency.infinityPoints.value.dividedBy(2), Decimal.pow(DC.E1E15, EndgameUpgrade(1).effectOrDefault(1))).pow(Decimal.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1)).times(Decimal.max((Decimal.log10(Currency.infinityPoints.value.log10()).div(divisor)).sub(subtrahend), 1.5))).plus(1);
       },
       formatEffect: value => formatX(value, 2, 2)
     }
