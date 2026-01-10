@@ -1,6 +1,4 @@
 <script>
-import { DC } from "@/core/constants";
-
 import TypeSacrifice from "./TypeSacrifice";
 
 export default {
