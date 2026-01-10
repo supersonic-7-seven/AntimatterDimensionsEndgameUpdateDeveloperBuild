@@ -15,7 +15,7 @@ function deepFreeze(obj) {
   return Object.freeze(obj);
 }
 
-export const DC = deepFreeze({
+window.DC = deepFreeze({
   // Naming Scheme:
   // D[0-9]: Decimal mantissa variable
   // _: decimal (.) part of the mantissa
