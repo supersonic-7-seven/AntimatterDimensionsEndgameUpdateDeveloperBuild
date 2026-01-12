@@ -49,8 +49,8 @@ export const perkShop = {
     effect: () => PerkShopUpgrade.rmMult.isCharged
       ? PerkShopUpgrade.rmMult.chargedEffect()
       : PerkShopUpgrade.rmMult.preChargedEffect(),
-    preChargedEffect: bought => Math.pow(2, bought),
-    chargedEffect: () => Decimal.log10(player.antimatter).toNumber(),
+    preChargedEffect: bought => Decimal.pow(2, bought),
+    chargedEffect: () => Decimal.log10(player.antimatter),
     formatEffect: value => formatX(value, 2),
     formatCost: value => format(value, 2),
     costCap: () => (Ra.unlocks.perkShopIncrease.canBeApplied ? 1048576 : 2048),
