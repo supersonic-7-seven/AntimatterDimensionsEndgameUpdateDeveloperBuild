@@ -223,7 +223,7 @@ dev.buyAllPerks = function() {
 
 // This should help for balancing different glyph types, strong rounding of values is intentional
 dev.printResourceTotals = function() {
-  console.log(`Antimatter: e${Currency.antimatter.log10().toPrecision(3)}`);
+  console.log(`Antimatter: e${Currency.antimatter.value.log10().toPrecision(3)}`);
   console.log(`RM: e${Decimal.round(MachineHandler.gainedRealityMachines.log10())}`);
   console.log(`Glyph level: ${100 * Math.floor(gainedGlyphLevel().actualLevel / 100 + 0.5)}`);
 
@@ -484,7 +484,7 @@ dev.testGlyphs = function(config) {
     const gl = padString(gainedGlyphLevel().actualLevel, 4);
     const ep = padString(player.eternityPoints.log10().toString(), 6);
     const ip = padString(player.infinityPoints.log10().toString(), 8);
-    const am = padString(Currency.antimatter.log10().toString(), 12);
+    const am = padString(Currency.antimatter.value.log10().toString(), 12);
     const dimboosts = DimBoost.purchasedBoosts;
     const galaxies = Replicanti.galaxies.total.add(player.galaxies).add(player.dilation.totalTachyonGalaxies);
     const glyphData = glyphSets[index].map(glyphToShortString).sum();
