@@ -132,7 +132,7 @@ export default {
       if (Teresa.isRunning && Teresa.rewardMultiplier(Currency.antimatter.value).gt(Teresa.runRewardMultiplier)) {
         return true;
       }
-      return Currency.eternityPoints.value.exponent > 4000 &&
+      return Currency.eternityPoints.value.log10().gt(4000) &&
         ((Effarig.isRunning && !EffarigUnlock.reality.isUnlocked) || (Enslaved.isRunning && !Enslaved.isCompleted));
     }
   }
