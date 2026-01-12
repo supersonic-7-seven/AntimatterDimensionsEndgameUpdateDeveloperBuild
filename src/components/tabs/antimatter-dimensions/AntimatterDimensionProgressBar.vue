@@ -64,12 +64,12 @@ export default {
         if (ExpansionPacks.areUnlocked && ExpansionPacks.nextPackUnlockAM === undefined) {
           setProgress(gainedCelestialPoints(), DC.NUMMAX, "Percentage to Celestial Point Cap");
         } else if (ExpansionPacks.areUnlocked) {
-          setProgress(new Decimal(Currency.antimatter.value.exponent), new Decimal(Decimal.log10(ExpansionPacks.nextPackUnlockAM)),
+          setProgress(new Decimal(Currency.antimatter.value.log10()), new Decimal(Decimal.log10(ExpansionPacks.nextPackUnlockAM)),
             "Percentage to next Expansion Pack");
         } else if (GalaxyGenerator.galaxies.gt(1e15)) {
           setLinearProgress(GalaxyGenerator.galaxies.toNumber(), Math.pow(2, 64), "Percentage to Expansion Packs");
         } else if (PelleRifts.recursion.milestones[2].canBeApplied || GalaxyGenerator.spentGalaxies.gt(0)) {
-          setProgress(new Decimal(Currency.antimatter.value.exponent), new Decimal(9e15), "Percentage to Endgame");
+          setProgress(new Decimal(Currency.antimatter.value.log10()), new Decimal(9e15), "Percentage to Endgame");
         } else if (PelleStrikes.dilation.hasStrike) {
           setProgress(Currency.eternityPoints.value, DC.E4000, "Percentage to Galaxy Generator");
         } else if (PelleStrikes.ECs.hasStrike) {
