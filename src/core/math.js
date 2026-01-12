@@ -389,15 +389,16 @@ window.ExponentialCostScaling = class ExponentialCostScaling {
     if (typeof this._baseIncrease !== "number") throw new Error("baseIncrease must be a number");
     this._costScale = param.costScale;
     if (typeof this._costScale !== "number") throw new Error("costScale must be a number");
-    this._logBaseCost = ExponentialCostScaling.log10(param.baseCost).toNumber();
+    this._logBaseCost = ExponentialCostScaling.log10(param.baseCost);
     this._logBaseIncrease = ExponentialCostScaling.log10(param.baseIncrease);
     this._logCostScale = ExponentialCostScaling.log10(param.costScale);
     if (param.purchasesBeforeScaling !== undefined) {
       this._purchasesBeforeScaling = param.purchasesBeforeScaling;
     // eslint-disable-next-line no-negated-condition
     } else if (param.scalingCostThreshold !== undefined) {
-      this._purchasesBeforeScaling = Math.ceil(
-        (ExponentialCostScaling.log10(param.scalingCostThreshold) - this._logBaseCost) / this._logBaseIncrease);
+      this._purchasesBeforeScaling = Decimal.ceil(
+        (new Decimal(ExponentialCostScaling.log10(param.scalingCostThreshold)).sub(this._logBaseCost)).div(
+          this._logBaseIncrease)).toNumber();
     } else throw new Error("Must specify either scalingCostThreshold or purchasesBeforeScaling");
     this.updateCostScale();
     this.log = {
