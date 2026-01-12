@@ -99,7 +99,7 @@ export function gainedInfinityPoints() {
     EndgameMastery(151)
   );
   if (Pelle.isDisabled("IPMults")) {
-    let ip = Decimal.pow10(player.records.thisInfinity.maxAM.log10() / div - 0.75)
+    let ip = Decimal.pow10(player.records.thisInfinity.maxAM.log10().div(div).sub(0.75))
       .timesEffectsOf(PelleRifts.vacuum)
       .times(Pelle.specialGlyphEffect.infinity);
     if (PelleDestructionUpgrade.timestudy41.isBought) ip = ip.timesEffectOf(TimeStudy(41));
@@ -121,7 +121,7 @@ export function gainedInfinityPoints() {
     return ip.floor();
   }
   let ip = player.break
-    ? Decimal.pow10(player.records.thisInfinity.maxAM.log10() / div - 0.75)
+    ? Decimal.pow10(player.records.thisInfinity.maxAM.log10().div(div).sub(0.75))
     : new Decimal(308 / div);
   if (Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ETERNITY) {
     ip = ip.min(DC.E200);
@@ -171,7 +171,7 @@ function totalEPMult() {
 
 export function gainedEternityPoints() {
   let ep = DC.D5.pow(player.records.thisEternity.maxIP.plus(
-    gainedInfinityPoints()).log10() / (308 - PelleRifts.recursion.effectValue.toNumber()) - 0.7).times(totalEPMult());
+    gainedInfinityPoints()).log10().div(308 - PelleRifts.recursion.effectValue.toNumber()).sub(0.7)).times(totalEPMult());
 
   if (Teresa.isRunning) {
     ep = ep.pow(0.55);
@@ -1144,7 +1144,7 @@ export function getTTPerSecond() {
 
 export function gainedCelestialPoints() {
   if (!player.break2) return DC.D1;
-  let cp = new Decimal(player.celestials.pelle.records.totalEndgameAntimatter.log10() / 9e15);
+  let cp = player.celestials.pelle.records.totalEndgameAntimatter.log10().div(9e15);
   if (Achievement(197).isUnlocked) {
     cp = cp.times(Decimal.max(9e115, player.celestials.pelle.records.totalEndgameAntimatter.log10()).div(9e115));
   }
@@ -1154,7 +1154,7 @@ export function gainedCelestialPoints() {
 
 export function gainedDoomedParticles() {
   if (!player.break2) return DC.D1;
-  let dp = Decimal.min(player.celestials.pelle.records.totalEndgameAntimatter.log10() / 9e15, DC.E100.sub(player.endgame.doomedParticles));
+  let dp = Decimal.min(player.celestials.pelle.records.totalEndgameAntimatter.log10().div(9e15), new Decimal(1e100 - player.endgame.doomedParticles.toNumber()));
   return dp.floor();
 }
 
