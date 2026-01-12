@@ -120,7 +120,7 @@ export const realityUpgrades = [
       const hasValidGlyphInInventory = Glyphs.inventory.countWhere(g => g && g.level >= 3) > 0;
       return invalidEquippedGlyphs || (Glyphs.activeWithoutCompanion.length === 0 && !hasValidGlyphInInventory);
     },
-    checkRequirement: () => Currency.eternityPoints.log10().get(4000) &&
+    checkRequirement: () => Currency.eternityPoints.value.log10().get(4000) &&
       Glyphs.activeWithoutCompanion.length === 1 && Glyphs.activeWithoutCompanion[0].level >= 3,
     checkEvent: GAME_EVENT.ETERNITY_RESET_AFTER,
     canLock: true,
@@ -134,12 +134,12 @@ export const realityUpgrades = [
     cost: 15,
     requirement: () => `Complete your first manual Eternity with at least ${formatPostBreak(DC.E400)} Infinity Points`,
     hasFailed: () => !player.requirementChecks.reality.noEternities,
-    checkRequirement: () => Currency.infinityPoints.log10().gte(400) &&
+    checkRequirement: () => Currency.infinityPoints.value.log10().gte(400) &&
       player.requirementChecks.reality.noEternities,
     checkEvent: GAME_EVENT.ETERNITY_RESET_BEFORE,
     canLock: true,
     lockEvent: "Eternity",
-    bypassLock: () => Currency.infinityPoints.log10().gte(400),
+    bypassLock: () => Currency.infinityPoints.value.log10().gte(400),
     description: () => `Start every Reality with ${formatInt(100)} Eternities (also applies to current Reality)`,
     automatorPoints: 15,
     shortDescription: () => `Start with ${formatInt(100)} Eternities`,
@@ -150,7 +150,7 @@ export const realityUpgrades = [
     id: 11,
     cost: 50,
     requirement: () => `${format(Currency.infinitiesBanked.value, 2)}/${format(DC.E12)} Banked Infinities`,
-    checkRequirement: () => Currency.infinitiesBanked.log10().gte(12),
+    checkRequirement: () => Currency.infinitiesBanked.value.log10().gte(12),
     checkEvent: [GAME_EVENT.ETERNITY_RESET_AFTER, GAME_EVENT.REALITY_FIRST_UNLOCKED],
     description: "Every second, gain 10% of the Infinities you would normally gain by Infinitying",
     automatorPoints: 5,
@@ -164,7 +164,7 @@ export const realityUpgrades = [
     cost: 50,
     requirement: () => `Eternity for ${format(DC.E70)} Eternity Points without completing Eternity Challenge 1`,
     hasFailed: () => EternityChallenge(1).completions !== 0,
-    checkRequirement: () => Currency.eternityPoints.log10().gte(70) && EternityChallenge(1).completions === 0,
+    checkRequirement: () => Currency.eternityPoints.value.log10().gte(70) && EternityChallenge(1).completions === 0,
     checkEvent: GAME_EVENT.ETERNITY_RESET_AFTER,
     canLock: true,
     lockEvent: "complete Eternity Challenge 1",
@@ -180,7 +180,7 @@ export const realityUpgrades = [
     cost: 50,
     requirement: () => `Eternity for ${format(DC.E4000)} Eternity Points without Time Dim. 5-8`,
     hasFailed: () => !Array.range(5, 4).every(i => TimeDimension(i).amount.equals(0)),
-    checkRequirement: () => Currency.eternityPoints.log10().gte(4000) &&
+    checkRequirement: () => Currency.eternityPoints.value.log10().gte(4000) &&
       Array.range(5, 4).every(i => TimeDimension(i).amount.equals(0)),
     checkEvent: GAME_EVENT.ETERNITY_RESET_AFTER,
     canLock: true,
@@ -209,7 +209,7 @@ export const realityUpgrades = [
     requirement: () => `Have ${format(DC.E10)} Eternity Points without purchasing
       the ${formatX(5)} Eternity Point upgrade`,
     hasFailed: () => player.epmultUpgrades !== 0,
-    checkRequirement: () => Currency.eternityPoints.log10().gte(10) && player.epmultUpgrades === 0,
+    checkRequirement: () => Currency.eternityPoints.value.log10().gte(10) && player.epmultUpgrades === 0,
     checkEvent: GAME_EVENT.ETERNITY_RESET_AFTER,
     canLock: true,
     lockEvent: () => `purchase a ${formatX(5)} EP upgrade`,
@@ -315,7 +315,7 @@ export const realityUpgrades = [
     id: 22,
     cost: 100000,
     requirement: () => `${format(Currency.timeShards.value, 1)}/${format(DC.E28000)} Time Shards`,
-    checkRequirement: () => Currency.timeShards.log10().gte(28000),
+    checkRequirement: () => Currency.timeShards.value.log10().gte(28000),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Time Dimension multiplier based on days spent in this Reality",
     effect: () => Decimal.pow10(Decimal.pow(Decimal.log10(Time.thisReality.totalDays.plus(1)).times(2).plus(1), 2.2)),
