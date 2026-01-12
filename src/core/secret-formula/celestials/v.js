@@ -214,7 +214,7 @@ export const v = {
       id: 0,
       reward: "Unlock V, The Celestial Of Achievements",
       description: "Meet all the above requirements simultaneously",
-      requirement: () => Object.values(GameDatabase.celestials.v.mainUnlock).every(e => e.progress() >= 1)
+      requirement: () => Object.values(GameDatabase.celestials.v.mainUnlock).every(e => e.progress().gte(1))
     },
     shardReduction: {
       id: 1,
