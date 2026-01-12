@@ -16,8 +16,8 @@ export const MachineHandler = {
   },
 
   get realityMachineMultiplier() {
-    return ShopPurchase.RMPurchases.currentMult * Effects.max(1, PerkShopUpgrade.rmMult) *
-      getAdjustedGlyphEffect("effarigrm") * Achievement(167).effectOrDefault(1);
+    return new Decimal(ShopPurchase.RMPurchases.currentMult).timesEffectOf(PerkShopUpgrade.rmMult).times(
+      getAdjustedGlyphEffect("effarigrm")).times(Achievement(167).effectOrDefault(1));
   },
 
   get uncappedRM() {
