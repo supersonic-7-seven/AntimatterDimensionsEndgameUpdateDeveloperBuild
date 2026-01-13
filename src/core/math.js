@@ -290,7 +290,7 @@ window.decimalGetCostWithLinearCostScaling = function decimalGetCostWithLinearCo
   let decimalCostGrowth = new Decimal(costMultGrowth);
   const preScalingPurchases = Decimal.max(0, Decimal.floor(Decimal.log(decimalScalingStart.div(decimalInitialCost)).div(Decimal.log(decimalCostMult))));
   const preScalingCost = Decimal.ceil(Decimal.pow(decimalCostMult, Decimal.min(preScalingPurchases, decimalPurchaseCount)).times(decimalInitialCost));
-  const scaling = new LinearMultiplierScaling(decimalCostMult, decimalCostGrowth);
+  const scaling = new LinearMultiplierScaling(costMult, costMultGrowth);
   const postScalingCost = Decimal.exp(scaling.logTotalMultiplierAfterPurchases(
     Decimal.max(0, decimalPurchaseCount.sub(preScalingPurchases)).toNumber()));
   return preScalingCost.times(postScalingCost);
