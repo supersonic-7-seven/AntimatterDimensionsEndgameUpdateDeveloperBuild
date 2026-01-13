@@ -82,7 +82,7 @@ export class Sacrifice {
     } else if (InfinityChallenge(2).isCompleted) {
       prePowerSacrificeMult = nd1Amount.dividedBy(sacrificed);
     } else {
-      prePowerSacrificeMult = new Decimal((nd1Amount.log10().div(10)).div(Decimal.max(sacrificed.log10().div(10), 1)));
+      prePowerSacrificeMult = new Decimal((nd1Amount.add(1).log10().div(10)).div(Decimal.max(sacrificed.add(1).log10().div(10), 1)));
     }
 
     return prePowerSacrificeMult.clampMin(1).pow(this.sacrificeExponent);
@@ -101,7 +101,7 @@ export class Sacrifice {
     if (InfinityChallenge(2).isCompleted) {
       prePowerBoost = player.sacrificed;
     } else {
-      prePowerBoost = new Decimal(player.sacrificed.log10().div(10));
+      prePowerBoost = new Decimal(player.sacrificed.add(1).log10().div(10));
     }
 
     return prePowerBoost.clampMin(1).pow(this.sacrificeExponent);
