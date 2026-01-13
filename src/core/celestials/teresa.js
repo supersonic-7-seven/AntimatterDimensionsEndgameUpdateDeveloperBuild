@@ -15,8 +15,14 @@ export const Teresa = {
     if (EndgameMilestone.celestialEarlyUnlock.isReached) return true;
     return Achievement(147).isUnlocked;
   },
-  pourRM(diff) {
+  pourRM(diff, auto = false) {
     if (this.pouredAmount.gte(Teresa.pouredAmountCap)) return;
+    if (auto) {
+      const autoPouredRM = Decimal.min(MachineHandler.hardcapRM.div(1000), Currency.realityMachines.value);
+      this.pouredAmount = this.pouredAmount.add(autoPouredRM);
+      Currency.realityMachines.subtract(autoPouredRM);
+      this.checkForUnlocks();
+    }
     this.timePoured = this.timePoured.add(diff);
     const rm = Currency.realityMachines.value;
     const rmPoured = Decimal.min((this.pouredAmount.plus(1e6)).times(0.01).times(Decimal.pow(this.timePoured, 2)), rm);
