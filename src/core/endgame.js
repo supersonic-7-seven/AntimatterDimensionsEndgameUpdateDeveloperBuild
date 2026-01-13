@@ -8,7 +8,7 @@ import { deepmergeAll } from "@/utility/deepmerge";
 import { GlyphTypes } from "./glyph-effects";
 
 export function isEndgameAvailable() {
-  return player.celestials.pelle.records.totalEndgameAntimatter.log10().gte(9e15);
+  return player.celestials.pelle.records.totalEndgameAntimatter.add(1).log10().gte(9e15);
 }
 
 function updateEndgameRecords() {
