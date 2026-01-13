@@ -73,7 +73,7 @@ export const Laitela = {
   },
   get darkMatterMultGain() {
     const extraPow = ExpansionPack.laitelaPack.isBought
-      ? Decimal.pow((Decimal.log10(Decimal.log10(Currency.darkMatter.value).add(1)).add(1)).div(2), 2).add(1) : 1;
+      ? Decimal.pow((Decimal.log10(Decimal.log10(Currency.darkMatter.value.add(1)).add(1)).add(1)).div(2), 2).add(1) : 1;
     return Decimal.pow(Decimal.pow(Currency.darkMatter.value.dividedBy(this.annihilationDMRequirement)
       .plus(1).log10(), 1.5).times(ImaginaryUpgrade(21).effectOrDefault(1)), extraPow);
   },
