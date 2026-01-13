@@ -217,6 +217,7 @@ export function resetChallengeStuff() {
 }
 
 export function ratePerMinute(amount, time) {
+  if (new Decimal(time).eq(0)) return DC.D0;
   return Decimal.divide(amount, new Decimal(time).div(60 * 1000).clampMin(1e-300));
 }
 
