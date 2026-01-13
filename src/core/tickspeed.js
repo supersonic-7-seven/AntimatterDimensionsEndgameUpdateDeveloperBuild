@@ -218,7 +218,7 @@ export const FreeTickspeed = {
     const tickmult = (1 + (Effects.min(1.33, TimeStudy(171)) - 1) *
       Math.max(getAdjustedGlyphEffect("cursedtickspeed"), 1));
     const logTickmult = Math.log(tickmult);
-    const logShards = Decimal.min(1, shards).ln().toNumber();
+    const logShards = Decimal.max(1, shards).ln().toNumber();
     const uncapped = Math.max(0, logShards / logTickmult);
     if (uncapped <= FreeTickspeed.softcap) {
       this.multToNext = tickmult;
