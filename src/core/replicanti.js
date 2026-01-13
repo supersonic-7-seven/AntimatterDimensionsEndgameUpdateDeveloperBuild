@@ -382,17 +382,20 @@ export const ReplicantiUpgrade = {
       // N = log(IP * (1e15 - 1) / cost + 1) / log(1e15)
       let N = Currency.infinityPoints.value.times(this.costIncrease - 1)
         .dividedBy(this.cost).plus(1).log(this.costIncrease);
-      N = Math.round((Math.min(this.value + 0.01 * Math.floor(N), this.cap) - this.value) * 100);
-      if (N <= 0) return;
+      N = Decimal.round((Decimal.min(Decimal.floor(N).times(0.01).add(this.value), this.cap).sub(this.value)).times(100));
+      if (N.lte(0)) return;
       const totalCost = this.cost.times(Decimal.pow(this.costIncrease, N).minus(1).dividedBy(this.costIncrease - 1));
       Currency.infinityPoints.subtract(totalCost);
       this.baseCost = this.baseCost.times(Decimal.pow(this.costIncrease, N));
-      this.value = this.nearestPercent(this.value + 0.01 * N);
+      this.value = this.decimalNearestPercent(N.times(0.01).add(this.value)).toNumber();
     }
 
     // Rounding errors suck
     nearestPercent(x) {
       return Math.round(100 * x) / 100;
+    }
+    decimalNearestPercent(x) {
+      return Decimal.round(x.times(100)).div(100);
     }
   }(),
   interval: new class ReplicantiIntervalUpgrade extends ReplicantiUpgradeState {
