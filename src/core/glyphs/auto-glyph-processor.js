@@ -238,13 +238,13 @@ function getGlyphLevelSources() {
     : Currency.eternityPoints.value;
   eternityPoints = Decimal.max(player.records.thisReality.maxEP, eternityPoints);
   const epCoeff = 0.016;
-  const epBase = Decimal.pow(Decimal.max(1, eternityPoints.pLog10()), 0.5).times(epCoeff).toNumber();
+  const epBase = Decimal.pow(Decimal.max(1, eternityPoints.add(1).pLog10()), 0.5).times(epCoeff).toNumber();
   const replPow = 0.4 + getAdjustedGlyphEffect("replicationglyphlevel");
   const replCoeff = 0.025;
-  const replBase = Decimal.pow(Decimal.max(1, player.records.thisReality.maxReplicanti.log10()), replPow).times(replCoeff).toNumber();
+  const replBase = Decimal.pow(Decimal.max(1, player.records.thisReality.maxReplicanti.add(1).log10()), replPow).times(replCoeff).toNumber();
   const dtPow = 1.3 + getAdjustedGlyphEffect("realityDTglyph");
   const dtCoeff = 0.025;
-  const dtBase = Decimal.pow(Decimal.max(1, player.records.thisReality.maxDT.pLog10()), dtPow).times(dtCoeff).toNumber();
+  const dtBase = Decimal.pow(Decimal.max(1, player.records.thisReality.maxDT.add(1).pLog10()), dtPow).times(dtCoeff).toNumber();
   const eterBase = Effects.max(1, RealityUpgrade(18));
   return {
     ep: {
