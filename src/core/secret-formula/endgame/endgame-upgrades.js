@@ -140,7 +140,7 @@ export const endgameUpgrades = [
     id: 11,
     cost: new Decimal(1e50),
     requirement: () => `Reach ${format(1e50)} Celestial Matter`,
-    checkRequirement: () => Currency.celestialMatter.value.log10().gte(50),
+    checkRequirement: () => Currency.celestialMatter.value.add(1).log10().gte(50),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: () =>
       `Delay the Infinity Challenge 8 Reward Hardcap by ${formatPow(9)},
@@ -186,7 +186,7 @@ export const endgameUpgrades = [
     cost: new Decimal(1e150),
     requirement: () => `Reach ${format(Decimal.pow(10, 1e33))} Antimatter outside Pelle`,
     hasFailed: () => Pelle.isDoomed,
-    checkRequirement: () => Currency.antimatter.value.log10().gte(1e33) && !Pelle.isDoomed,
+    checkRequirement: () => Currency.antimatter.value.add(1).log10().gte(1e33) && !Pelle.isDoomed,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: () => `Gain a power to the Antimatter Exponent based on Imaginary Machines`,
     effect: () => 1 + (Decimal.pow(Decimal.log10(Decimal.log10(player.reality.imaginaryMachines.add(1)).add(1)), 2).div(200)).toNumber(),
