@@ -117,7 +117,7 @@ export const GlyphSelection = {
 };
 
 export function isRealityAvailable() {
-  return player.records.thisReality.maxEP.log10().gte(4000) && TimeStudy.reality.isBought;
+  return player.records.thisReality.maxEP.add(1).log10().gte(4000) && TimeStudy.reality.isBought;
 }
 
 // Returns the number of "extra" realities from stored real time or Multiversal effects, should be called
