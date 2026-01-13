@@ -99,7 +99,7 @@ export class DarkMatterDimensionState extends DimensionState {
       .mul(Decimal.pow(1.005, this.data.powerDEUpgrades)).mul(tierFactor).div(1000)
       .times(this.commonDarkMult)
       .times(Decimal.pow(POWER_DE_PER_ASCENSION, this.ascensions))
-      .times(ExpansionPack.laitelaPack.isBought ? Decimal.pow(Decimal.log10(player.celestials.laitela.singularities), 2) : 1)
+      .times(ExpansionPack.laitelaPack.isBought ? Decimal.pow(Decimal.log10(player.celestials.laitela.singularities.add(1)), 2) : 1)
       .timesEffectsOf(
         SingularityMilestone.darkEnergyMult,
         SingularityMilestone.realityDEMultiplier,
