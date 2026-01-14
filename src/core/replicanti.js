@@ -579,7 +579,7 @@ export const ReplicantiUpgrade = {
       // This isn't a hot enough autobuyer to worry about doing an actual inverse.
       const bulk = this.bulkPurchaseCalc();
       if (!bulk || bulk.floor().sub(this.value).lte(0)) return;
-      Currency.infinityPoints.purchase(this.baseCostAfterCount(this.value).sub(1));
+      Currency.infinityPoints.subtract(this.baseCostAfterCount(this.value).sub(1));
       this.value = this.value.add(bulk.sub(this.value));
       this.baseCost = this.baseCostAfterCount(this.value);
     }
