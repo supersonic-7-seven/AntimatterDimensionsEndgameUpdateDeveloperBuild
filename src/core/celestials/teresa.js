@@ -22,6 +22,7 @@ export const Teresa = {
       this.pouredAmount = this.pouredAmount.add(autoPouredRM);
       Currency.realityMachines.subtract(autoPouredRM);
       this.checkForUnlocks();
+      return;
     }
     this.timePoured = this.timePoured.add(diff);
     const rm = Currency.realityMachines.value;
