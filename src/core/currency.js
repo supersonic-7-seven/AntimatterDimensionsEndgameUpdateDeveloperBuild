@@ -155,6 +155,7 @@ export class Currency {
 
   purchase(cost) {
     if (!this.gte(cost)) return false;
+    if (cost.gte(DC.E9E15)) return true;
     this.subtract(cost);
     return true;
   }
