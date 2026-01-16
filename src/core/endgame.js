@@ -197,6 +197,8 @@ export const Endgame = {
     charge3 = player.celestials.teresa.perkShop[2];
     let charge4 = 0;
     charge4 = player.celestials.teresa.perkShop[3];
+    let rowProtect = 0;
+    rowProtect = player.reality.glyphs.protectedRows;
     player.isGameEnd = false;
     Tab.dimensions.antimatter.show();
     AchievementTimers.marathon2.reset();
@@ -230,12 +232,14 @@ export const Endgame = {
     player.reality.glyphs.undo = [];
     player.reality.glyphs.protectedRows = 0;
     Glyphs.autoClean(0);
-    player.reality.glyphs.protectedRows = 2;
+    player.reality.glyphs.protectedRows = rowProtect;
     Glyphs.unequipAll();
     player.reality.glyphs.protectedRows = 0;
     Glyphs.autoClean(0);
-    player.reality.glyphs.protectedRows = 2;
-    player.reality.glyphs.createdRealityGlyph = false;
+    player.reality.glyphs.protectedRows = rowProtect;
+    if (!ExpansionPack.effarigPack.isBought) {
+      player.reality.glyphs.createdRealityGlyph = false;
+    }
     player.reality.initialSeed = Math.floor(Date.now() * Math.random() + 1);
     player.reality.seed = 1;
     player.reality.secondGaussian = 1e6;
@@ -287,11 +291,9 @@ export const Endgame = {
     player.reality.respec = false;
     player.reality.showGlyphSacrifice = false;
     player.reality.showSidebarPanel = GLYPH_SIDEBAR_MODE.INVENTORY_MANAGEMENT;
-    player.reality.autoSort = 0;
-    player.reality.autoCollapse = false;
-    player.reality.autoAutoClean = false;
-    player.reality.applyFilterToPurge = false;
-    player.reality.moveGlyphsOnProtection = false;
+    if (!ExpansionPack.vPack.isBought) {
+      player.reality.autoAutoClean = false;
+    }
     player.reality.perkPoints = EndgameUpgrade(6).isBought ? 1e7 : 0;
     player.reality.unlockedEC = 0;
     player.reality.autoEC = true;
@@ -359,7 +361,9 @@ export const Endgame = {
     player.celestials.enslaved.isStoringReal = false;
     player.celestials.enslaved.storedReal = 0;
     player.celestials.enslaved.autoStoreReal = false;
-    player.celestials.enslaved.isAutoReleasing = false;
+    if (!ExpansionPack.raPack.isBought) {
+      player.celestials.enslaved.isAutoReleasing = false;
+    }
     if (!ExpansionPacks.areUnlocked) {
       player.celestials.enslaved.quoteBits = 0;
     }
