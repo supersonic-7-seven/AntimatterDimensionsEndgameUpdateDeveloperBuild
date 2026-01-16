@@ -117,6 +117,7 @@ window.TimeSpan = class TimeSpan {
    * @returns {Decimal}
    */
   get totalYears() {
+    if (this._ms.lt(1e300)) return new Decimal(this._ms.toNumber() / 31536e6);
     return this._ms.div(31536e6);
   }
 
@@ -124,6 +125,7 @@ window.TimeSpan = class TimeSpan {
    * @returns {Decimal}
    */
   get totalDays() {
+    if (this._ms.lt(1e300)) return new Decimal(this._ms.toNumber() / 864e5);
     return this._ms.div(864e5);
   }
 
@@ -131,6 +133,7 @@ window.TimeSpan = class TimeSpan {
    * @returns {Decimal}
    */
   get totalHours() {
+    if (this._ms.lt(1e300)) return new Decimal(this._ms.toNumber() / 36e5);
     return this._ms.div(36e5);
   }
 
@@ -138,6 +141,7 @@ window.TimeSpan = class TimeSpan {
    * @returns {Decimal}
    */
   get totalMinutes() {
+    if (this._ms.lt(1e300)) return new Decimal(this._ms.toNumber() / 6e4);
     return this._ms.div(6e4);
   }
 
@@ -145,6 +149,7 @@ window.TimeSpan = class TimeSpan {
    * @returns {Decimal}
    */
   get totalSeconds() {
+    if (this._ms.lt(1e300)) return new Decimal(this._ms.toNumber() / 1e3);
     return this._ms.div(1e3);
   }
 
