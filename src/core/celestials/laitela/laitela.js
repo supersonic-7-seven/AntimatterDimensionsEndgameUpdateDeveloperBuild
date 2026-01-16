@@ -47,7 +47,7 @@ export const Laitela = {
   },
   get matterExtraPurchaseFactor() {
     if (Pelle.isDoomed && !PelleDestructionUpgrade.continuumBuff.isBought) return 1;
-    return (Decimal.pow(new Decimal(Decimal.log10(Currency.darkMatter.max)).div(50), 0.4).times(0.5).add(1).times(
+    return (Decimal.pow(new Decimal(Decimal.log10(Currency.darkMatter.max.add(1))).div(50), 0.4).times(0.5).add(1).times(
       SingularityMilestone.continuumMult.effectOrDefault(new Decimal(0)).add(1))).toNumber();
   },
   get hadronizes() {
