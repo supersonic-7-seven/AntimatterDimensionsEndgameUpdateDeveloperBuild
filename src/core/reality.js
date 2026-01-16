@@ -373,7 +373,9 @@ export function beginProcessReality(realityProps) {
   // Save a few important props before resetting all resources. We need to do this before processing glyphs so
   // that we don't try to reality again while async is running, but we need to retain RNG and level or else
   // glyphs will be generated with values based on post-reset values
-  const glyphsToProcess = realityProps.simulatedRealities + (realityProps.alreadyGotGlyph ? 0 : 1);
+  const glyphsToProcess = (Ra.unlocks.maxGlyphRarityAndShardSacrificeBoost.canBeApplied && Ra.unlocks.glyphEffectCount.canBeApplied
+    ? Math.min(realityProps.simulatedRealities + (realityProps.alreadyGotGlyph ? 0 : 1), 99)
+    : realityProps.simulatedRealities + (realityProps.alreadyGotGlyph ? 0 : 1));
   const rng = GlyphGenerator.getRNG(false);
   const glyphLevel = gainedGlyphLevel();
   finishProcessReality(realityProps);
