@@ -154,6 +154,19 @@ export const AutomatorCommands = [
           return false;
         }
       }
+      if (ctx.PrestigeEvent[0].tokenType === T.Endgame) {
+        if (!EndgameMilestone.autobuyerEndgame.isReached) {
+          V.addError(ctx.PrestigeEvent, "Endgame autobuyer is not unlocked",
+            "Reach the Endgame Milestone which unlocks the Endgame autobuyer");
+          return false;
+        }
+        if (advSetting) {
+          V.addError((ctx.duration || ctx.xHighest)[0],
+            "Auto Endgame cannot be set to a duration or x highest",
+            "Use CP for Auto Endgame");
+          return false;
+        }
+      }
 
       return true;
     },
