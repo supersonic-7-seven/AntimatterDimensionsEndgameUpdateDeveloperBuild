@@ -275,6 +275,17 @@ createInCategory(PrestigeEvent, "Armageddon", /armageddon/i, {
   $prestigeCurrency: "RS",
   $prestige: () => Pelle.armageddon(true),
 });
+createInCategory(PrestigeEvent, "Endgame", /endgame/i, {
+  $autobuyer: () => Autobuyer.endgame,
+  $autobuyerCurrencyMode: AUTO_ENDGAME_MODE.CP,
+  $prestigeAvailable: () => isEndgameAvailable(),
+  $prestigeLevel: 6,
+  $prestigeCurrency: "CP",
+  $prestige: () => Endgame.newEndgame(),
+  $respec: () => {
+    player.endgame.respec = true;
+  },
+});
 
 createInCategory(StudyPath, "Idle", /idle/i, { $studyPath: TIME_STUDY_PATH.IDLE });
 createInCategory(StudyPath, "Passive", /passive/i, { $studyPath: TIME_STUDY_PATH.PASSIVE });
