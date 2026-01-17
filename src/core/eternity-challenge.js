@@ -362,17 +362,17 @@ export const EternityChallenges = {
     get interval() {
       if (!Perk.autocompleteEC1.canBeApplied && !EndgameMastery(22).isBought) return Infinity;
       let startingmin = Number.MAX_VALUE;
-      if (EndgameMastery(22).isBought) startingmin = 60;
-      let minutes = Effects.min(
+      if (EndgameMastery(22).isBought) startingmin = new Decimal(60);
+      let minutes = new Decimal(Effects.min(
         startingmin,
         Perk.autocompleteEC1,
         Perk.autocompleteEC2,
         Perk.autocompleteEC3
-      );
-      minutes /= Effects.sum(EndgameMastery(22));
-      minutes /= VUnlocks.fastAutoEC.effectOrDefault(1);
-      if (Pelle.isDoomed && PelleCelestialUpgrade.vMilestones2.isBought) minutes /= VUnlocks.fastAutoEC.effectValue;
-      return TimeSpan.fromMinutes(new Decimal(minutes)).totalMilliseconds.toNumber();
+      ));
+      minutes = minutes.div(Effects.sum(EndgameMastery(22)));
+      minutes = minutes.div(VUnlocks.fastAutoEC.effectOrDefault(1));
+      if (Pelle.isDoomed && PelleCelestialUpgrade.vMilestones2.isBought) minutes = minutes.div(VUnlocks.fastAutoEC.effectValue);
+      return TimeSpan.fromMinutes(minutes).totalMilliseconds.toNumber();
     }
   }
 };
