@@ -163,8 +163,8 @@ export const Tickspeed = {
   },
 
   get continuumValue() {
-    if (!this.isUnlocked) return 0;
-    return this.costScale.getContinuumValue(Currency.antimatter.value, 1) * Laitela.matterExtraPurchaseFactor;
+    if (!this.isUnlocked) return DC.D0;
+    return this.costScale.getContinuumValue(Currency.antimatter.value, 1).times(Laitela.matterExtraPurchaseFactor);
   },
 
   get baseValue() {
@@ -181,7 +181,7 @@ export const Tickspeed = {
     let boughtTickspeed;
     if (Laitela.continuumActive) boughtTickspeed = this.continuumValue;
     else boughtTickspeed = player.totalTickBought;
-    return boughtTickspeed + player.totalTickGained;
+    return new Decimal(boughtTickspeed).add(player.totalTickGained).toNumber();
   },
 
   get perSecond() {
