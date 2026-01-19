@@ -30,7 +30,7 @@ export default {
 .really-cool-ethereal-text {
   font-size: 3rem;
   font-weight: bold;
-  background: linear-gradient(#000000, #0000ff);
+  background: linear-gradient(#000000, #0000c0);
   background-clip: text;
   text-shadow: 0 0 1.5rem #ffffff;
 
