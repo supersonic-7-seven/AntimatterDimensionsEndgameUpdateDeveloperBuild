@@ -20,5 +20,5 @@ export function getEtherealPowerGainPerSecond() {
 
 function tryAdvanceSector() {
   if (Currency.etherealPower.lt(Ethereal.sectorThreshold)) return;
-  player.endgame.ethreal.sector++;
+  player.endgame.ethereal.sector++;
 }
