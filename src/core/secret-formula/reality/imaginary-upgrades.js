@@ -7,7 +7,7 @@ const rebuyable = props => {
     props.costMult / 2,
     DC.E309,
     1e3,
-    props.initialCost * props.costMult
+    props.costMult
   );
   const { effect } = props;
   if (props.isDecimal) props.effect = () => Decimal.pow(effect, player.reality.imaginaryRebuyables[props.id]);
