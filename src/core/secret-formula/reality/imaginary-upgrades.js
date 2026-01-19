@@ -25,7 +25,6 @@ export const imaginaryUpgrades = [
     costMult: 60,
     description: () => `Increase Temporal Amplifier multiplier by +${format(0.15, 2, 2)}`,
     effect: 0.15,
-    scaleStart: 9,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.temporalIntensifier.isBought
   }),
   rebuyable({
@@ -35,7 +34,6 @@ export const imaginaryUpgrades = [
     costMult: 60,
     description: () => `Increase Replicative Amplifier multiplier by +${format(0.15, 2, 2)}`,
     effect: 0.15,
-    scaleStart: 9,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.replicativeIntensifier.isBought
   }),
   rebuyable({
@@ -45,7 +43,6 @@ export const imaginaryUpgrades = [
     costMult: 40,
     description: () => `Increase Eternal Amplifier multiplier by +${format(0.4, 2, 2)}`,
     effect: 0.4,
-    scaleStart: 10,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.eternalIntensifier.isBought
   }),
   rebuyable({
@@ -55,7 +52,6 @@ export const imaginaryUpgrades = [
     costMult: 80,
     description: () => `Increase Superluminal Amplifier multiplier by +${format(0.15, 2, 2)}`,
     effect: 0.15,
-    scaleStart: 8,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.superluminalIntensifier.isBought
   }),
   rebuyable({
@@ -65,7 +61,6 @@ export const imaginaryUpgrades = [
     costMult: 30,
     description: () => `Increase Boundless Amplifier multiplier by +${format(0.6, 2, 2)}`,
     effect: 0.6,
-    scaleStart: 11,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.boundlessIntensifier.isBought
   }),
   rebuyable({
@@ -75,7 +70,6 @@ export const imaginaryUpgrades = [
     costMult: 500,
     description: () => `Increase the Reality Machine cap by ${formatX(1e100)}`,
     effect: 1e100,
-    scaleStart: 5,
     formatEffect: value => `${formatX(EndgameMastery(153).isBought ? value.powEffectsOf(EndgameMastery(153)) : value)}`,
     isDecimal: true,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.ellipticMateriality.isBought
@@ -87,7 +81,6 @@ export const imaginaryUpgrades = [
     costMult: 500,
     description: () => `Delay Glyph Instability starting level by ${formatInt(200)}`,
     effect: 200,
-    scaleStart: 4,
     formatEffect: value => `+${formatInt(value)} levels`,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.runicAssurance.isBought
   }),
@@ -98,7 +91,6 @@ export const imaginaryUpgrades = [
     costMult: 800,
     description: () => `Multiply Infinity Dimensions by ${format("1e100000")}`,
     effect: DC.E100000,
-    scaleStart: 3,
     formatEffect: value => `${formatX(value)}`,
     isDecimal: true,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.hyperbolicApeirogon.isBought
@@ -110,7 +102,6 @@ export const imaginaryUpgrades = [
     costMult: 1000,
     description: () => `Increase Galaxy strength`,
     effect: 0.03,
-    scaleStart: 2,
     formatEffect: value => `+${formatPercents(value)}`,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.cosmicFilament.isBought
   }),
@@ -121,7 +112,6 @@ export const imaginaryUpgrades = [
     costMult: 2000,
     description: () => `Increase Singularity gain`,
     effect: 1,
-    scaleStart: 2,
     formatEffect: value => `${formatX(EndgameMastery(131).isBought ? Decimal.pow(1 + value, value) : new Decimal(1 + value), 2)}`,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.entropicCondensing.isBought
   }),
