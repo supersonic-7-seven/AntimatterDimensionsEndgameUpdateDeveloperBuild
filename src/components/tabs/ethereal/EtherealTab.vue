@@ -32,7 +32,7 @@ export default {
   font-weight: bold;
   background: linear-gradient(#000000, #0000c0);
   background-clip: text;
-  text-shadow: 0 0 1.5rem #ffffff;
+  text-shadow: 0 0 1.5rem #0000ff;
 
   -webkit-text-fill-color: transparent;
 }
