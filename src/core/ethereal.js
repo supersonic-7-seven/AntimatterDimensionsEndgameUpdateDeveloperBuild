@@ -1,6 +1,6 @@
 export const Ethereal = {
   get isUnlocked() {
-    return GalacticPowers.ethrealUnlock.isUnlocked;
+    return GalacticPowers.etherealUnlock.isUnlocked;
   },
   get cosmicSector() {
     return player.endgame.ethereal.sector;
