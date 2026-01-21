@@ -68,7 +68,7 @@ export const imaginaryUpgrades = [
     id: 6,
     initialCost: 1e4,
     costMult: 500,
-    description: () => `Increase the Reality Machine cap by ${formatX(1e100 ** Effects.product(EndgameMastery(153))}`,
+    description: () => `Increase the Reality Machine cap by ${formatX(1e100 ** Effects.product(EndgameMastery(153)))}`,
     effect: 1e100,
     formatEffect: value => `${formatX(EndgameMastery(153).isBought ? value.powEffectsOf(EndgameMastery(153)) : value)}`,
     isDecimal: true,
