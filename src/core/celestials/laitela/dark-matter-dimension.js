@@ -112,8 +112,8 @@ export class DarkMatterDimensionState extends DimensionState {
     const purchases = Decimal.affordGeometricSeries(Currency.darkMatter.value, this.rawIntervalCost,
       this.intervalCostIncrease, 0);
     const intervalReduction = ExpansionPack.laitelaPack.isBought ? 200 : 0;
-    return SingularityMilestone.ascensionIntervalScaling.effectOrDefault(
-      new Decimal(1200).sub(intervalReduction)).times(this.rawInterval.times(Decimal.pow(INTERVAL_PER_UPGRADE, purchases)));
+    return Decimal.max(SingularityMilestone.ascensionIntervalScaling.effectOrDefault(new Decimal(1200).sub(intervalReduction))
+      .times(this.rawInterval.times(Decimal.pow(INTERVAL_PER_UPGRADE, purchases))), this.intervalPurchaseCap);
   }
 
   get adjustedStartingCost() {
