@@ -101,6 +101,7 @@ export default {
           class="l-options-grid__button c-options-grid__notations"
           button-class="o-primary-btn o-primary-btn--option l-options-grid__notations-header"
           :label="notationLabel"
+          needs-high-zindex="true"
         >
           <template #dropdown>
             <SelectNotationDropdown />
