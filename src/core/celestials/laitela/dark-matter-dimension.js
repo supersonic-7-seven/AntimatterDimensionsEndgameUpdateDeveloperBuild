@@ -234,9 +234,19 @@ export class DarkMatterDimensionState extends DimensionState {
     return this.buyManyPowerDE(1);
   }
 
+  get affordableAscensions() {
+    const intervalReduction = ExpansionPack.laitelaPack.isBought ? 200 : 0;
+    const intervalIncrease = SingularityMilestone.ascensionIntervalScaling.effectOrDefault(new Decimal(1200).sub(intervalReduction));
+    const purchasesToMax = Decimal.log(intervalIncrease, DC.D1.div(INTERVAL_PER_UPGRADE));
+    const intervalBeyondCap = this.intervalPurchaseCap.div(this.interval);
+    const purchasesBeyondCap = Decimal.log(intervalBeyondCap, DC.D1.div(INTERVAL_PER_UPGRADE));
+    const rawAscensions = purchasesBeyondCap.div(purchasesToMax);
+    return rawAscensions.floor();
+  }
+
   ascend() {
     if (this.interval.gt(this.intervalPurchaseCap)) return;
-    this.data.ascensionCount = this.data.ascensionCount.add(1);
+    this.data.ascensionCount = this.data.ascensionCount.add(this.affordableAscensions);
 
     // Immediately buy as many interval upgrades as possible
     this.buyManyInterval(Infinity);
