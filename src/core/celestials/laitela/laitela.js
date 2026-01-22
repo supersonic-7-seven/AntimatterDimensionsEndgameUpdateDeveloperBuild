@@ -128,7 +128,7 @@ export const Laitela = {
     // Buy everything costing less than 0.02 of initial matter.
     const darkMatter = Currency.darkMatter.value;
     for (const upgrade of upgradeInfo) {
-      const purchases = Decimal.clamp(Decimal.floor(darkMatter.times(0.02).div(upgrade[0]).log(upgrade[1].toNumber())), 0, upgrade[2]);
+      const purchases = Decimal.clamp(Decimal.floor(darkMatter.times(0.02).div(upgrade[0]).max(1).log(upgrade[1].toNumber())), 0, upgrade[2]);
       buy(upgrade, purchases);
     }
     while (upgradeInfo.some(upgrade => upgrade[0].lte(darkMatter) && upgrade[2].gt(0))) {
