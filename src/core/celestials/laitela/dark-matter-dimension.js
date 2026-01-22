@@ -238,7 +238,7 @@ export class DarkMatterDimensionState extends DimensionState {
     const intervalBeyondCap = this.intervalPurchaseCap.div(this.interval);
     const purchasesBeyondCap = Decimal.log(intervalBeyondCap, DC.D1.div(INTERVAL_PER_UPGRADE));
     const rawAscensions = purchasesBeyondCap.div(purchasesToMax);
-    return rawAscensions.floor();
+    return rawAscensions.add(1).floor();
   }
 
   ascend() {
