@@ -869,7 +869,7 @@ window.player = {
       unlockBits: 0,
       run: false,
       quoteBits: 0,
-      layer: 0
+      stage: 0
     }
   },
   endgames: 0,
