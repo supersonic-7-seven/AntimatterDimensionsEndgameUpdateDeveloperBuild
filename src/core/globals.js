@@ -38,6 +38,7 @@ export * from "./celestials/pelle/rifts";
 export * from "./celestials/pelle/galaxy-generator";
 export * from "./celestials/pelle/game-end";
 export * from "./celestials/pelle/pelle-destruction-upgrades";
+export * from "./celestials/alpha";
 export * from "./celestials/celestials";
 
 export * from "./automator";
