@@ -1085,6 +1085,7 @@ window.player = {
     },
     invertTTgenDisplay: false,
     autoRealityForFilter: false,
+    brightAlpha: false,
   },
   IAP: {
     enabled: false,
