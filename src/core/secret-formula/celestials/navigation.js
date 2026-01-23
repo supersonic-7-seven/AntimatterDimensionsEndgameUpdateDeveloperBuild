@@ -1757,7 +1757,7 @@ export const celestialNavigation = {
   },
   "laitela-destabilization": {
     visible: () => DarkMatterDimension(4).isUnlocked && ImaginaryUpgrade(19).isBought,
-    complete: () => Laitela.difficultyTier / 8,
+    complete: () => Laitela.hadronizes >= 1 ? 1 : Laitela.difficultyTier / 8,
     node: {
       clickAction: () => Tab.celestials.laitela.show(true),
       incompleteClass: "c-celestial-nav__test-incomplete",
@@ -1907,7 +1907,8 @@ export const celestialNavigation = {
   "alpha-unlock": {
     visible: () => PlayerProgress.endgameUnlocked(),
     complete: () => {
-      if (ImaginaryUpgrade(30).isAvailableForPurchase) return 1;
+      if (ImaginaryUpgrade(30).isBought) return 1;
+      if (ImaginaryUpgrade(30).isAvailableForPurchase) return 0.999;
       const imCost = Decimal.clampMax(Decimal.log10(Currency.imaginaryMachines.value.add(1)).div(Math.log10(Number.MAX_VALUE)), 1).toNumber();
       const nerfsLeft = (PelleAchievementUpgrade.all.filter(u => u.isBought).length +
         PelleDestructionUpgrade.all.filter(u => u.isBought).length + PelleRealityUpgrade.all.filter(u => u.isBought).length +
@@ -1923,7 +1924,7 @@ export const celestialNavigation = {
       return Decimal.clampMax(0.25, Currency.realityMachines.value.add(1).pLog10().div(MachineHandler.baseRMCap.log10())).toNumber();
     },
     node: {
-      clickAction: () => Tab.endgame.show(true),
+      clickAction: () => Tab.celestials.alpha.show(true),
       incompleteClass: "c-celestial-nav__test-incomplete",
       symbol: "α",
       symbolOffset: "1.6",
@@ -1936,6 +1937,11 @@ export const celestialNavigation = {
       legend: {
         text: complete => {
           if (complete === 1) {
+            return [
+              "Alpha's Reality"
+            ];
+          }
+          if (complete === 0.999) {
             return [
               "Unlock Alpha",
               "The Celestial of Darkness"
