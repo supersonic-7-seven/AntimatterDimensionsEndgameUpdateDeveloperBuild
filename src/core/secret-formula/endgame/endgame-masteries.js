@@ -158,7 +158,7 @@ export const endgameMasteries = [
     requirement: [84],
     reqType: EM_REQUIREMENT_TYPE.AT_LEAST_ONE,
     description: "Delay the Celestial Matter Softcap Start based on Endgames",
-    effect: () => Math.pow(10, Math.pow(player.endgames, 0.25)),
+    effect: () => Decimal.pow(10, Decimal.pow(player.endgames, 0.25)),
     formatEffect: value => formatX(value, 2)
   },
   {
