@@ -54,4 +54,5 @@ export function endgameMigration(player) {
   if (player.endgame.celestialPoints.lt(0)) player.endgame.celestialPoints = new Decimal(0);
   if (player.endgame.doomedParticles.lt(0)) player.endgame.doomedParticles = new Decimal(0);
   player.celestials.v.runRecords = [DC.E1.neg(), DC.D0, DC.D0, DC.D0, DC.D0, DC.D0, DC.D0, DC.D0, DC.D0];
+  player.endgameMasteries.preferredPaths[1] = [];
 }
