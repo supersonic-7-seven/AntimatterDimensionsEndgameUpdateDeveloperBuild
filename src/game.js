@@ -743,7 +743,10 @@ export function gameLoop(passedDiff, options = {}) {
       player.celestials.v.vAuto += 1;
       player.celestials.v.vTotal += 1;
     }
-    if (player.celestials.v.vAuto >= 6) {
+    if (player.celestials.v.vAuto >= 6 && player.celestials.v.vLayer === 0) {
+      player.celestials.v.vAuto = 0;
+    }
+    if (player.celestials.v.vAuto >= 3 && player.celestials.v.vLayer === 1) {
       player.celestials.v.vAuto = 0;
     }
     if (player.celestials.v.vTotal >= 36 && V.isFlipped && player.celestials.v.vLayer === 0) {
