@@ -9697,7 +9697,7 @@ kbd {
   text-align: center;
   font-family: Typewriter, serif;
   font-size: 1rem;
-  color: var(--color-celestials);
+  color: black;
   background-color: black;
   border: var(--var-border-width, 0.2rem) solid var(--color-endgame);
   border-radius: var(--var-border-radius, 0.5rem);
@@ -9706,7 +9706,7 @@ kbd {
 }
 
 .s-base--dark .c-endgame-upgrade-btn {
-  color: var(--color-celestials);
+  color: black;
 }
 
 .c-endgame-upgrade-btn__requirement {
@@ -9802,7 +9802,7 @@ kbd {
 
 .t-s6.c-endgame-upgrade-btn--bought:hover,
 .t-s10.c-endgame-upgrade-btn--bought:hover {
-  color: var(--color-celestials);
+  color: black;
   background-color: var(--color-endgame);
 }
 
