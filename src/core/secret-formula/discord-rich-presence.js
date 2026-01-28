@@ -14,7 +14,7 @@ function formatMachines(realPart, imagPart, dualPart) {
   if (Decimal.neq(realPart, 0)) parts.push(format(realPart, 2));
   if (Decimal.neq(imagPart, 0)) parts.push(`${format(imagPart, 2, 2)}i`);
   if (Decimal.neq(dualPart, 0)) parts.push(`${format(dualPart, 2, 2)}ε`);
-  if (Decimal.eq(realPart, 0) && Decimal.eq(imagPart, 0)) && Decimal.eq(dualPart, 0)) return format(0);
+  if (Decimal.eq(realPart, 0) && Decimal.eq(imagPart, 0) && Decimal.eq(dualPart, 0)) return format(0);
   return parts.join(" + ");
 }
 
