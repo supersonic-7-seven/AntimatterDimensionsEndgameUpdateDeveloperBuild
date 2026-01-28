@@ -1497,4 +1497,72 @@ export const normalAchievements = [
     effect: () => Decimal.pow(Decimal.log10(Currency.unnerfedCelestialMatter.value.add(1).log10().add(1)).add(1), 0.1).toNumber(),
     formatEffect: value => `${formatX(value, 2, 3)}`
   },
+  {
+    id: 201,
+    name: "Mistake?",
+    get description() { return `Enter Alpha's Reality.` },
+    checkRequirement: () => Alpha.isRunning,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 202,
+    name: "The Dark Crunch",
+    get description() { return `Reach Infinity in Alpha's Reality.` },
+    checkRequirement: () => Alpha.isRunning,
+    checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE
+  },
+  {
+    id: 203,
+    name: "Never Gonna Stop",
+    get description() { return `Reach Eternity in Alpha's Reality.` },
+    checkRequirement: () => Alpha.isRunning,
+    checkEvent: GAME_EVENT.ETERNITY_RESET_BEFORE
+  },
+  {
+    id: 204,
+    name: "Light",
+    get description() { return `Defeat Alpha.` },
+    checkRequirement: () => Alpha.isRunning,
+    checkEvent: GAME_EVENT.REALITY_RESET_BEFORE,
+    get reward() {
+      return `Unlock Celestial Dimension Expansion.`;
+    }
+  },
+  {
+    id: 205,
+    name: "Domain Error",
+    get description() { return `Reach ${format(DC.NUMMAX, 1, 0)} Celestial Points.` },
+    checkRequirement: () => Currency.celestialPoints.value.gte(DC.NUMMAX),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 206,
+    name: "Este logro no existe IV",
+    get description() { return `Reach ${formatPostBreak(DC.D9_99999E999, 5, 0)} Imaginary Machines.` },
+    checkRequirement: () => player.reality.imaginaryMachines.gte(DC.D9_99999E999),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    get reward() {
+      return `Gain a small multiplier to Ethereal Power based on Imaginary Machines.`;
+    },
+    effect: () => Decimal.pow(Decimal.log10(player.reality.imaginaryMachines).div(1000), 5).times(1000),
+    formatEffect: value => `${formatX(value, 3)}`
+  },
+  {
+    id: 207,
+    name: "Destroyer of Universes",
+    get description() { return `Reach ${formatPostBreak(Decimal.pow10(1e100), 2)} Antimatter.` },
+    checkRequirement: () => Currency.antimatter.value.gte(Decimal.pow10(1e100)),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    get reward() {
+      return `Double the Celestial Matter Conversion Exponent.`;
+    },
+    effect: 2
+  },
+  {
+    id: 208,
+    name: "Limits of Reality",
+    get description() { return `Reach ${formatPostBreak(DC.E4000, 2)} Celestial Points of Eternity.` },
+    checkRequirement: () => false,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
 ];
