@@ -47,12 +47,31 @@ export const MachineHandler = {
 
   get baseIMCap() {
     if (Pelle.isDoomed) return new Decimal(1.6e15);
-    return (Decimal.pow(Decimal.clampMin(new Decimal(this.uncappedRM.log10()).sub(1000), 0), 2).times(
+    return Decimal.min((Decimal.pow(Decimal.clampMin(new Decimal(this.uncappedRM.log10()).sub(1000), 0), 2).times(
       Decimal.pow(Decimal.clampMin(new Decimal(this.uncappedRM.log10()).sub(100000), 1), 0.2)).times(
       Decimal.pow(Decimal.clampMin(new Decimal(this.uncappedRM.log10()).div(1000000000), 1),
       new Decimal(Decimal.log10(this.uncappedRM.log10())).div(7.5)))).pow(
       new Decimal(Effects.product(EndgameMastery(144), Ra.unlocks.imaginaryMachines, Ra.unlocks.imaginaryMachineEternityPower)).times(
-      Decimal.max(Decimal.log10(this.uncappedRM.log10()).sub(45), 0).div(10).add(1)));
+      Decimal.max(Decimal.log10(this.uncappedRM.log10()).sub(45), 0).div(10).add(1))), this.hardcapIM);
+  },
+
+  get baseIMHardcap() {
+    return DC.E1000;
+  },
+
+  get hardcapIM() {
+    return this.baseIMHardcap;
+  },
+
+  get uncappedIM() {
+    return Pelle.isDoomed
+      ? new Decimal(1.6e15)
+      : (Decimal.pow(Decimal.clampMin(new Decimal(this.uncappedRM.log10()).sub(1000), 0), 2).times(
+        Decimal.pow(Decimal.clampMin(new Decimal(this.uncappedRM.log10()).sub(100000), 1), 0.2)).times(
+        Decimal.pow(Decimal.clampMin(new Decimal(this.uncappedRM.log10()).div(1000000000), 1),
+        new Decimal(Decimal.log10(this.uncappedRM.log10())).div(7.5)))).pow(
+        new Decimal(Effects.product(EndgameMastery(144), Ra.unlocks.imaginaryMachines, Ra.unlocks.imaginaryMachineEternityPower)).times(
+        Decimal.max(Decimal.log10(this.uncappedRM.log10()).sub(45), 0).div(10).add(1)));
   },
 
   get currentIMCap() {
@@ -93,5 +112,53 @@ export const MachineHandler = {
     // fixed interval the difference between current iM to max iM should decrease by a factor of 1/2.
     return Decimal.max(0, new Decimal(Decimal.log2(imCap.div(imCap.sub(cost)))).sub(
       Decimal.log2(imCap.div(imCap.sub(currentIM))))).times(this.scaleTimeForIM);
+  },
+
+  get isDMUnlocked() {
+    Currency.imaginaryMachines.value.gte(this.hardcapIM) || Currency.dualMachines.gt(0);
+  },
+
+  get baseDMCap() {
+    return Decimal.pow(Decimal.clampMin(this.uncappedIM.log10().sub(1000), 0), Decimal.clampMin(
+      Decimal.log10(Currency.realityMachines.value.add(1).log10().add(1)).sub(3), 1));
+  },
+
+  get currentDMCap() {
+    return player.reality.DMCap;
+  },
+
+  // This is εM cap based on in-game values at that instant, may be lower than the actual cap
+  get projectedDMCap() {
+    return this.baseDMCap;
+  },
+
+  // Use DMCap to store the base cap; applying multipliers separately avoids some design issues the 3xTP upgrade has
+  updateDMCap() {
+    if (this.uncappedIM.gte(this.baseIMCap)) {
+      if (this.baseDMCap.gt(player.reality.DMCap)) {
+        player.reality.DMCap = this.baseDMCap;
+      }
+    }
+  },
+
+  // Time in seconds to reduce the missing amount by a factor of two
+  get scaleTimeForDM() {
+    return 600;
+  },
+
+  gainedDualMachines(diff) {
+    return (this.currentDMCap.sub(Currency.dualMachines.value)).times(
+      new Decimal(1).sub(Decimal.pow(2, new Decimal(0).sub(diff).div(1000).div(this.scaleTimeForDM))));
+  },
+
+  estimateDMTimer(cost) {
+    const dmCap = this.currentDMCap;
+    if (dmCap.lte(cost)) return Infinity;
+    const currentDM = Currency.dualMachines.value;
+    // This is doing log(a, 1/2) - log(b, 1/2) where a is % left to dmCap of cost and b is % left to dmCap of current
+    // εM. log(1 - x, 1/2) should be able to estimate the time taken for εM to increase from 0 to dmCap * x since every
+    // fixed interval the difference between current εM to max εM should decrease by a factor of 1/2.
+    return Decimal.max(0, new Decimal(Decimal.log2(dmCap.div(dmCap.sub(cost)))).sub(
+      Decimal.log2(dmCap.div(dmCap.sub(currentDM))))).times(this.scaleTimeForDM);
   }
 };
