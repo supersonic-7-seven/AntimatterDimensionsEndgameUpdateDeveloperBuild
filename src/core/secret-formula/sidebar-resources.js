@@ -155,4 +155,28 @@ export const sidebarResources = [
     formatValue: x => format(x, 2, 2),
     formatClass: "o-sidebar-currency--celestials",
   },
+  {
+    id: 20,
+    optionName: "Total Endgame Skills",
+    isAvailable: () => Currency.endgameSkills.max.gt(0),
+    value: () => Currency.endgameSkills.max,
+    formatValue: x => format(x, 2),
+    formatClass: "o-sidebar-currency--endgame",
+  },
+  {
+    id: 21,
+    optionName: "Galactic Power",
+    isAvailable: () => Currency.galacticPower.gt(0),
+    value: () => Currency.galacticPower,
+    formatValue: x => format(x, 2, 2),
+    formatClass: "o-sidebar-currency--power",
+  },
+  {
+    id: 22,
+    optionName: "Ethereal Power",
+    isAvailable: () => Currency.etherealPower.gt(0),
+    value: () => Currency.etherealPower,
+    formatValue: x => format(x, 2, 2),
+    formatClass: "o-sidebar-currency--ethereal",
+  },
 ];
