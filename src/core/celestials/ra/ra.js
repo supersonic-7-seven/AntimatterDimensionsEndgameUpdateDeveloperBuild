@@ -302,9 +302,9 @@ export const Ra = {
       : Ra.productionPerMemoryChunk.times(pet.memoryUpgradeCurrentMult).times(pet.memoryChunksPerSecond).div(2);
     const b = Ra.productionPerMemoryChunk.times(pet.memoryUpgradeCurrentMult).times(pet.memoryChunks);
     const c = new Decimal(expToGain).neg();
-    const estimate = a.eq(0)
-      ? c.neg().div(b)
-      : (Decimal.sqrt(Decimal.pow(b, 2).sub(a.times(c).times(4))).sub(b)).div(a.times(2));
+    let estimate = DC.D0;
+    if (a.eq(0)) estimate = c.neg().div(b);
+    else if (a.neq(0)) estimate = (Decimal.sqrt(Decimal.pow(b, 2).sub(a.times(c).times(4))).sub(b)).div(a.times(2));
     if (Decimal.isFinite(estimate)) {
       return `in ${TimeSpan.fromSeconds(estimate).toStringShort()}`;
     }
