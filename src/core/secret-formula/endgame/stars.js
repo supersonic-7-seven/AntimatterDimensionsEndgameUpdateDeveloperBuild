@@ -1,6 +1,6 @@
 export const stars = {
   red: {
-    id: "red",
+    id: 0,
     unlockStage: 1,
     effect: () => {
       const amount = player.endgame.ethereal.stars.red;
@@ -10,7 +10,7 @@ export const stars = {
     description: amount => `Raise the Exponents of all Antimatter Dimension Multipliers to ${formatPow(amount, 2, 3)}`
   },
   orange: {
-    id: "orange",
+    id: 1,
     unlockStage: 4,
     effect: () => {
       const amount = player.endgame.ethereal.stars.orange;
@@ -20,7 +20,7 @@ export const stars = {
     description: amount => `Raise the Exponents of all Infinity Dimension Multipliers to ${formatPow(amount, 2, 3)}`
   },
   yellow: {
-    id: "yellow",
+    id: 2,
     unlockStage: 7,
     effect: () => {
       const amount = player.endgame.ethereal.stars.yellow;
@@ -30,7 +30,7 @@ export const stars = {
     description: amount => `Multiply the Celestial Matter Conversion Exponent by ${formatX(amount, 2, 3)}`
   },
   green: {
-    id: "green",
+    id: 3,
     unlockStage: 10,
     effect: () => {
       const amount = player.endgame.ethereal.stars.green;
@@ -40,7 +40,7 @@ export const stars = {
     description: amount => `Raise Imaginary Machine Gain to ${formatPow(amount, 2, 3)}`
   },
   blue: {
-    id: "blue",
+    id: 4,
     unlockStage: 13,
     effect: () => {
       const amount = player.endgame.ethereal.stars.blue;
@@ -50,7 +50,7 @@ export const stars = {
     description: amount => `Multiply Ethereal Power Gain by ${formatX(amount, 2, 3)}`
   },
   purple: {
-    id: "purple",
+    id: 5,
     unlockStage: 16,
     effect: () => {
       const amount = player.endgame.ethereal.stars.purple;
@@ -60,7 +60,7 @@ export const stars = {
     description: amount => `Raise the Exponents of all Time Dimension Multipliers to ${formatPow(amount, 2, 3)}`
   },
   white: {
-    id: "white",
+    id: 6,
     unlockStage: 20,
     effect: () => {
       const amount = player.endgame.ethereal.stars.white;
@@ -70,7 +70,7 @@ export const stars = {
     description: amount => `Increase the Dark Matter cap by ${formatX(amount, 2)}`
   },
   black: {
-    id: "black",
+    id: 7,
     unlockStage: 24,
     effect: () => {
       const amount = player.endgame.ethereal.stars.black;
@@ -80,7 +80,7 @@ export const stars = {
     description: amount => `Raise the Antimatter Exponent to ${formatPow(amount, 2, 3)}`
   },
   gray: {
-    id: "gray",
+    id: 8,
     unlockStage: 28,
     effect: () => {
       const amount = player.endgame.ethereal.stars.gray;
