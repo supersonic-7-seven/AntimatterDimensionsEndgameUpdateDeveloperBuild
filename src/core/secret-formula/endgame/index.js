@@ -5,6 +5,7 @@ import { endgameMilestones } from "./endgame-milestones";
 import { endgameUpgrades } from "./endgame-upgrades";
 import { galacticPowerRewards } from "./galactic-power";
 import { expansionPacks } from "./expansion-packs";
+import { stars } from "./stars";
 
 export const endgame = {
   breakUpgrades: breakEternityUpgrades,
@@ -13,5 +14,6 @@ export const endgame = {
   milestones: endgameMilestones,
   upgrades: endgameUpgrades,
   galacticPowers: galacticPowerRewards,
-  packs: expansionPacks
+  packs: expansionPacks,
+  stars: stars
 };
