@@ -7,7 +7,7 @@ export const ra = {
       chunkGain: "Eternity Points",
       memoryGain: "current RM",
       requiredUnlock: () => undefined,
-      rawMemoryChunksPerSecond: () => 4 * Decimal.pow(Currency.eternityPoints.value.add(1).pLog10().div(5e3), 3.5).toNumber(),
+      rawMemoryChunksPerSecond: () => Decimal.pow(Currency.eternityPoints.value.add(1).pLog10().div(5e3), 3.5).times(4),
       memoryProductionMultiplier: () => Ra.unlocks.teresaXP.effectOrDefault(1)
     },
     effarig: {
@@ -17,7 +17,7 @@ export const ra = {
       chunkGain: "Relic Shards gained",
       memoryGain: "best Glyph level",
       requiredUnlock: () => Ra.unlocks.effarigUnlock,
-      rawMemoryChunksPerSecond: () => 4 * Decimal.pow(Effarig.shardsGained, 0.175).toNumber(),
+      rawMemoryChunksPerSecond: () => Decimal.pow(Effarig.shardsGained, 0.175).times(4),
       memoryProductionMultiplier: () => Ra.unlocks.effarigXP.effectOrDefault(1)
     },
     enslaved: {
@@ -27,7 +27,7 @@ export const ra = {
       chunkGain: "Time Shards",
       memoryGain: "total time played",
       requiredUnlock: () => Ra.unlocks.enslavedUnlock,
-      rawMemoryChunksPerSecond: () => 4 * Decimal.pow(Currency.timeShards.value.add(1).pLog10().div(5e4), 2.5).toNumber(),
+      rawMemoryChunksPerSecond: () => Decimal.pow(Currency.timeShards.value.add(1).pLog10().div(5e4), 2.5).times(4),
       memoryProductionMultiplier: () => Ra.unlocks.enslavedXP.effectOrDefault(1)
     },
     v: {
@@ -37,7 +37,7 @@ export const ra = {
       chunkGain: "Infinity Power",
       memoryGain: "total Memory levels",
       requiredUnlock: () => Ra.unlocks.vUnlock,
-      rawMemoryChunksPerSecond: () => 4 * Decimal.pow(Currency.infinityPower.value.add(1).pLog10().div(1e6), 1.875).toNumber(),
+      rawMemoryChunksPerSecond: () => Decimal.pow(Currency.infinityPower.value.add(1).pLog10().div(1e6), 1.875).times(4),
       memoryProductionMultiplier: () => Ra.unlocks.vXP.effectOrDefault(1)
     }
   },

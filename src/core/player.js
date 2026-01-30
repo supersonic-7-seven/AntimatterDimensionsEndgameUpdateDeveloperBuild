@@ -711,29 +711,29 @@ window.player = {
       pets: {
         teresa: {
           level: 1,
-          memories: 0,
-          memoryChunks: 0,
+          memories: DC.D0,
+          memoryChunks: DC.D0,
           memoryUpgrades: 0,
           chunkUpgrades: 0
         },
         effarig: {
           level: 1,
-          memories: 0,
-          memoryChunks: 0,
+          memories: DC.D0,
+          memoryChunks: DC.D0,
           memoryUpgrades: 0,
           chunkUpgrades: 0
         },
         enslaved: {
           level: 1,
-          memories: 0,
-          memoryChunks: 0,
+          memories: DC.D0,
+          memoryChunks: DC.D0,
           memoryUpgrades: 0,
           chunkUpgrades: 0
         },
         v: {
           level: 1,
-          memories: 0,
-          memoryChunks: 0,
+          memories: DC.D0,
+          memoryChunks: DC.D0,
           memoryUpgrades: 0,
           chunkUpgrades: 0
         }
