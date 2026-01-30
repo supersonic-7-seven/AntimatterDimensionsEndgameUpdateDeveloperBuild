@@ -212,8 +212,8 @@ export const STUDY_TREE_LAYOUT_TYPE = {
   ALTERNATIVE_62_181: 3,
   ALTERNATIVE_TRIAD_STUDIES: 4,
   get current() {
-    const alt62 = Perk.bypassEC5Lock.isBought;
-    const alt181 = Perk.bypassEC1Lock.isBought && Perk.bypassEC2Lock.isBought && Perk.bypassEC3Lock.isBought;
+    const alt62 = (Perk.bypassEC5Lock.isBought && !player.disablePostReality);
+    const alt181 = (Perk.bypassEC1Lock.isBought && Perk.bypassEC2Lock.isBought && Perk.bypassEC3Lock.isBought && !player.disablePostReality);
     if (Ra.canBuyTriad) return this.ALTERNATIVE_TRIAD_STUDIES;
     if (alt62 && alt181) return this.ALTERNATIVE_62_181;
     if (alt62) return this.ALTERNATIVE_62;
