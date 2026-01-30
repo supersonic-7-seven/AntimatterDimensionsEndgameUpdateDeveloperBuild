@@ -1178,7 +1178,7 @@ export const Player = {
   },
 
   get automatorUnlocked() {
-    return AutomatorPoints.totalPoints >= AutomatorPoints.pointsForAutomator || player.reality.automator.forceUnlock;
+    return (AutomatorPoints.totalPoints >= AutomatorPoints.pointsForAutomator || player.reality.automator.forceUnlock) && !player.disablePostReality;
   },
 
   resetRequirements(key) {
