@@ -56,7 +56,7 @@ export default {
       const id = this.id;
       const study = this.study;
       const ec = EternityChallenge(id);
-      this.hasRequirement = !Perk.studyECRequirement.isBought && !study.wasRequirementPreviouslyMet;
+      this.hasRequirement = (Perk.studyECRequirement.isBought && !player.disablePostReality) && !study.wasRequirementPreviouslyMet;
       this.completions = ec.completions;
       this.showTotalCompletions = !Enslaved.isRunning || id !== 1;
       this.isRunning = EternityChallenge.current?.id === id;
