@@ -76,5 +76,6 @@ export function resetForStar(id) {
   if (Currency.etherealPower.lt(resetReq)) return;
   const resetFormula = Decimal.pow(Currency.etherealPower.value.div(resetReq), 0.5 - id / 20);
   player.endgame.ethereal.power = DC.D0;
+  player.endgame.ethereal.sector = 1;
   player.endgame.ethereal.star[starName] = player.endgame.ethereal.star[starName].add(resetFormula);
 }
