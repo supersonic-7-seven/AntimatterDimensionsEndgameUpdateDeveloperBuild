@@ -163,7 +163,7 @@ export default {
       >
         <div class="l-ra-pet-upgrade-container">
           <div class="l-ra-pet-upgrade c-ra-pet-upgrade__top">
-            <div
+            <button
               :class="upgradeClassObject('memory')"
               @click="pet.purchaseMemoryUpgrade()"
             >
@@ -198,7 +198,7 @@ export default {
                   Capped: {{ formatX(currentMemoryMult, 2, 2) }}
                 </div>
               </div>
-            </div>
+            </button>
             <div class="c-ra-upgrade-bar">
               <div
                 class="c-ra-upgrade-bar__inner"
@@ -207,7 +207,7 @@ export default {
             </div>
           </div>
           <div class="l-ra-pet-upgrade c-ra-pet-upgrade__bottom">
-            <div
+            <button
               :class="upgradeClassObject('chunk')"
               @click="pet.purchaseChunkUpgrade()"
             >
@@ -242,7 +242,7 @@ export default {
                   Capped: {{ formatX(currentChunkMult, 2, 2) }}
                 </div>
               </div>
-            </div>
+            </button>
             <div class="c-ra-upgrade-bar c-ra-upgrade-bar--bottom">
               <div
                 class="c-ra-upgrade-bar__inner"
@@ -331,5 +331,10 @@ export default {
 
 .l-ra-pet-postcompletion-spacer {
   margin-bottom: 0.8rem;
+}
+
+.c-ra-pet-upgrade__tooltip {
+  font-family: Typewriter, serif;
+  line-height: 1.5;
 }
 </style>

@@ -13,7 +13,7 @@ export default {
       level: 0,
       memories: new Decimal(0),
       requiredMemories: new Decimal(0),
-      nextLevelEstimate: new Decimal(0),
+      nextLevelEstimate: "",
     };
   },
   computed: {
@@ -106,7 +106,7 @@ export default {
       this.memories.copyFrom(pet.memories);
       this.level = pet.level;
       this.requiredMemories.copyFrom(pet.requiredMemories);
-      this.nextLevelEstimate.copyFrom(Ra.timeToGoalString(this.pet, this.requiredMemories.sub(this.memories)));
+      this.nextLevelEstimate = Ra.timeToGoalString(this.pet, this.requiredMemories.sub(this.memories));
     },
     isImportant(level) {
       return this.importantLevels.includes(level);
@@ -123,7 +123,7 @@ export default {
         :style="barStyle"
       />
     </div>
-    <div
+    <button
       :class="classObject"
       @click="pet.levelUp()"
     >
@@ -146,6 +146,13 @@ export default {
           <span v-if="memories.lte(requiredMemories)">{{ nextLevelEstimate }}</span>
         </div>
       </div>
-    </div>
+    </button>
   </div>
 </template>
+
+<style scoped>
+.c-ra-pet-upgrade__tooltip {
+  font-family: Typewriter, serif;
+  line-height: 1.5;
+}
+</style>
