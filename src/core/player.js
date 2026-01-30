@@ -912,7 +912,19 @@ window.player = {
     },
     ethereal: {
       power: DC.D0,
-      sector: 1
+      sector: 1,
+      isExtended: false,
+      stars: {
+        red: DC.D0,
+        orange: DC.D0,
+        yellow: DC.D0,
+        green: DC.D0,
+        blue: DC.D0,
+        purple: DC.D0,
+        white: DC.D0,
+        black: DC.D0,
+        gray: DC.D0
+      },
     },
   },
   endgameMasteries: {
