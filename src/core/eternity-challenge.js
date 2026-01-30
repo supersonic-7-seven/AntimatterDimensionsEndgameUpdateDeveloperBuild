@@ -330,7 +330,7 @@ export const EternityChallenges = {
       const hasUpgradeLock = RealityUpgrade(12).isLockingMechanics ||
         (ImaginaryUpgrade(15).isLockingMechanics && shouldPreventEC7 &&
           !Array.range(1, 6).some(ec => !EternityChallenge(ec).isFullyCompleted));
-      if (!player.reality.autoEC || (Pelle.isDisabled("autoec") && !PellePerkUpgrade.perkPEC1.isBought) || hasUpgradeLock) {
+      if (!player.reality.autoEC || (Pelle.isDisabled("autoec") && (!PellePerkUpgrade.perkPEC1.isBought || player.disablePostReality)) || hasUpgradeLock) {
         player.reality.lastAutoEC = Math.clampMax(player.reality.lastAutoEC, this.interval);
         return;
       }
@@ -360,7 +360,7 @@ export const EternityChallenges = {
     },
 
     get interval() {
-      if (!Perk.autocompleteEC1.canBeApplied && !EndgameMastery(22).isBought) return Infinity;
+      if ((!Perk.autocompleteEC1.canBeApplied && !EndgameMastery(22).isBought) || player.disablePostReality) return Infinity;
       let startingmin = 1e300;
       if (EndgameMastery(22).isBought) startingmin = 60;
       let minutes = new Decimal(Effects.min(
