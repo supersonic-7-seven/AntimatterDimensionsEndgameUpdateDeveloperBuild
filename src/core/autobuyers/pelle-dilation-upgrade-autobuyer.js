@@ -12,7 +12,9 @@ export class PelleDilationUpgradeAutobuyerState extends IntervaledAutobuyerState
   }
 
   get interval() {
-    return 1000 * Perk.autobuyerFasterDilation.effectOrDefault(1) / PerkShopUpgrade.autoSpeed.effectOrDefault(1);
+    return player.disablePostReality
+      ? 1000
+      : 1000 * Perk.autobuyerFasterDilation.effectOrDefault(1) / PerkShopUpgrade.autoSpeed.effectOrDefault(1);
   }
 
   get isUnlocked() {
