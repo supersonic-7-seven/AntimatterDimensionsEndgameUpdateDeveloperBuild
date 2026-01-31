@@ -452,7 +452,7 @@ export function getGameSpeedupFactor(effectsToConsider, _applyMaxThisEndgame, bl
 
   factor = factor.times(PelleUpgrade.timeSpeedMult.effectValue);
 
-  if (EndgameUpgrade(7).isBought && applyMaxThisEndgame) factor = Decimal.clampMin(factor, player.records.thisEndgame.peakGameSpeed);
+  if (EndgameUpgrade(7).isBought && applyMaxThisEndgame && !player.disablePostReality) factor = Decimal.clampMin(factor, player.records.thisEndgame.peakGameSpeed);
 
   // 1e-300 is now possible with max inverted BH, going below it would be possible with
   // an effarig glyph.
@@ -601,7 +601,7 @@ export function gameLoop(passedDiff, options = {}) {
         GAME_SPEED_EFFECT.CELESTIAL_MATTER, GAME_SPEED_EFFECT.RA_BUFFS], false);
       const totalTimeFactor = getGameSpeedupFactor([GAME_SPEED_EFFECT.FIXED_SPEED, GAME_SPEED_EFFECT.TIME_GLYPH, GAME_SPEED_EFFECT.BLACK_HOLE,
         GAME_SPEED_EFFECT.SINGULARITY_MILESTONE, GAME_SPEED_EFFECT.CELESTIAL_MATTER, GAME_SPEED_EFFECT.RA_BUFFS], false);
-      const multiplicandFactor = EndgameUpgrade(7).isBought ? getGameSpeedupFactor() : totalTimeFactor.sub(reducedTimeFactor);
+      const multiplicandFactor = (EndgameUpgrade(7).isBought && !player.disablePostReality) ? getGameSpeedupFactor() : totalTimeFactor.sub(reducedTimeFactor);
       const amplification = Ra.unlocks.improvedStoredTime.effects.gameTimeAmplification.effectOrDefault(1);
       const beforeStore = player.celestials.enslaved.stored;
       player.celestials.enslaved.stored = Decimal.clampMax(player.celestials.enslaved.stored.plus(
