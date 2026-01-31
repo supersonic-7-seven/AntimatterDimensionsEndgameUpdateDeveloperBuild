@@ -137,7 +137,7 @@ class BlackHoleState {
   }
 
   get isUnlocked() {
-    return this._data.unlocked && !Enslaved.isRunning && (!Pelle.isDisabled("blackhole") || PelleDestructionUpgrade.blackHole.isBought);
+    return this._data.unlocked && !Enslaved.isRunning && (!Pelle.isDisabled("blackhole") || PelleDestructionUpgrade.blackHole.isBought) && !player.disablePostReality;
   }
 
   get isCharged() {
