@@ -210,7 +210,7 @@ class TeresaUnlockState extends BitUpgradeState {
   }
 
   get isEffectActive() {
-    return !this.pelleDisabled;
+    return !this.pelleDisabled && !player.disablePostReality;
   }
 
   get canBeUnlocked() {
