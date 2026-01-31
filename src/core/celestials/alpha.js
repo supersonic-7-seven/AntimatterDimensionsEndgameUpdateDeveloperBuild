@@ -84,14 +84,18 @@ export const AlphaArrays = {
   get nerfNames() {
     let nerfs = [];
     for (let n = 0; n < 28; n++) {
-      nerfs.push(AlphaUnlocks.all.find(x => x.id === n).nerfDescription);
+      nerfs.push(typeof AlphaUnlocks.all.find(x => x.id === n).nerfDescription === "function"
+                 ? AlphaUnlocks.all.find(x => x.id === n).nerfDescription()
+                 : AlphaUnlocks.all.find(x => x.id === n).nerfDescription);
     }
     return nerfs;
   },
   get buffNames() {
     let buffs = [];
     for (let n = 0; n < 28; n++) {
-      buffs.push(AlphaUnlocks.all.find(x => x.id === n).buffDescription);
+      buffs.push(typeof AlphaUnlocks.all.find(x => x.id === n).buffDescription === "function"
+                 ? AlphaUnlocks.all.find(x => x.id === n).buffDescription()
+                 : AlphaUnlocks.all.find(x => x.id === n).buffDescription);
     }
     return buffs;
   }
