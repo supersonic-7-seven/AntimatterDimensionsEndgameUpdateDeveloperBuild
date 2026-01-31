@@ -22,10 +22,10 @@ export const alphaUnlocks = {
   firstGalaxy: {
     id: 2,
     requirement: 3,
-    nerfDescription: () => `All Galaxies are ${formatPercents(1 - Math.min(Decimal.log10(Decimal.log10(Tickspeed.perSecond.add(1)).add(1)).toNumber(), 1), 2)} weaker`,
+    nerfDescription: () => `All Galaxies are ${formatPercents(1 - Math.min(Decimal.log10(Decimal.log10(Tickspeed.perSecond.add(1)).add(1)).div(100).toNumber(), 1), 2)} weaker`,
     buffDescription: "The Alternation Effect in Glyph Alchemy affects all Galaxy types",
     effects: {
-      nerf: () => Math.min(Decimal.log10(Decimal.log10(Tickspeed.perSecond.add(1)).add(1)).toNumber(), 1)
+      nerf: () => Math.min(Decimal.log10(Decimal.log10(Tickspeed.perSecond.add(1)).add(1)).div(100).toNumber(), 1)
     }
   },
   infinity: {
@@ -102,7 +102,7 @@ export const alphaUnlocks = {
   infinityDimensions: {
     id: 10,
     requirement: 11,
-    nerfDescription: () => `Infinity Point gain is raised ${format(Math.clamp(1 - Decimal.log10(Currency.infinityPoints.value.add(1)).sub(280).div(100).toNumber(), 0, 1), 2, 3)} (only applies first Eternity)`,
+    nerfDescription: () => `Infinity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(Currency.infinityPoints.value.add(1)).sub(280).div(100).toNumber(), 0, 1), 2, 3)} (only applies first Eternity)`,
     buffDescription: () => `The ${formatInt(8)}th Infinity Dimension is powered ${formatInt(10)}`,
     effects: {
       nerf: () => Math.clamp(1 - Decimal.log10(Currency.infinityPoints.value.add(1)).sub(280).div(100).toNumber(), 0, 1),
@@ -249,10 +249,10 @@ export const alphaUnlocks = {
   timeTheoremGeneration: {
     id: 25,
     requirement: 26,
-    nerfDescription: () => `Time Theorem Generation is ${formatPercents(1 - Decimal.log10(Currency.timeTheorems.value.add(1)).toNumber(), 2)} weaker (based on TP)`,
+    nerfDescription: () => `Time Theorem Generation is ${formatPercents(Math.clamp(1 - Decimal.log10(Currency.timeTheorems.value.add(1)).toNumber(), 0, 1), 2)} weaker (based on TP)`,
     buffDescription: "Time Theorem Generation is squared",
     effects: {
-      nerf: () => Decimal.log10(Currency.timeTheorems.value.add(1)),
+      nerf: () => Math.clamp(Decimal.log10(Currency.timeTheorems.value.add(1)).toNumber(), 0, 1),
       buff: 2
     }
   },
