@@ -228,7 +228,7 @@ export const v = {
       id: 2,
       reward: "Antimatter Dimension power based on total Space Theorems.",
       description: () => `Have ${formatInt(5)} V-Achievements`,
-      effect: () => 1 + Math.sqrt(V.spaceTheorems) / 80,
+      effect: () => player.disablePostReality ? 1 : 1 + Math.sqrt(V.spaceTheorems) / 80,
       format: x => formatPow(x, 3, 3),
       requirement: () => V.spaceTheorems >= 5,
       pelleDisabled: () => !PelleCelestialUpgrade.vMilestones1.isBought
@@ -237,7 +237,7 @@ export const v = {
       id: 3,
       reward: "Achievement multiplier reduces Auto-EC completion time.",
       description: () => `Have ${formatInt(10)} V-Achievements`,
-      effect: () => Achievements.power,
+      effect: () => player.disablePostReality ? 1 : Achievements.power,
       // Base rate is 60 ECs at 20 minutes each
       format: x => (Ra.unlocks.instantECAndRealityUpgradeAutobuyers.canBeApplied || EndgameMastery(53).isBought
         ? "Instant (Ra upgrade)"
@@ -256,7 +256,7 @@ export const v = {
       id: 5,
       reward: "Achievement multiplier affects Black Hole power.",
       description: () => `Have ${formatInt(30)} V-Achievements`,
-      effect: () => Achievements.power,
+      effect: () => player.disablePostReality ? 1 : Achievements.power,
       format: x => formatX(x, 2, 0),
       requirement: () => V.spaceTheorems >= 30,
       pelleDisabled: () => !PelleCelestialUpgrade.vMilestones3.isBought
