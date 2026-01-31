@@ -230,7 +230,7 @@ export const singularityMilestones = {
     repeat: new Decimal(0),
     limit: 1,
     description: "Annihilation mult. generates highest DMD (above the third) when Annihilation is available",
-    effect: () => (DarkMatterDimension(8).amount.gt(1) && ExpansionPack.laitelaPack.isBought
+    effect: () => (DarkMatterDimension(8).amount.gt(1) && (ExpansionPack.laitelaPack.isBought && !player.disablePostReality)
       ? Decimal.pow(Laitela.darkMatterMult, 2) : Laitela.darkMatterMult),
     effectFormat: x => `${format(x, 2, 1)}/s`,
     upgradeDirection: LAITELA_UPGRADE_DIRECTION.SELF_BOOST,
