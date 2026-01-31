@@ -62,15 +62,41 @@ class AlphaUnlockState extends BitUpgradeState {
     return this.config.requirement;
   }
 
+  get nerfDescription() {
+    return this.config.nerfDescription;
+  }
+
+  get buffDescription() {
+    return this.config.buffDescription;
+  }
+
   get isEffectActive() {
     return player.celestials.alpha.stage >= this.requirement;
   }
 }
 
-export const AlphaUnlock = mapGameDataToObject(
+export const AlphaUnlocks = mapGameDataToObject(
   GameDatabase.celestials.alpha.unlocks,
   config => new AlphaUnlockState(config)
 );
+
+export const AlphaArrays = {
+  get nerfNames() {
+    let nerfs = [];
+      for (let n = 0; n < 28; n++) {
+        nerfs.push(AlphaUnlocks.all.find(x => x.id === n).nerfDescription);
+      }
+    return nerfs;
+  }
+
+  get buffNames() {
+    let buffs = [];
+      for (let n = 0; n < 28; n++) {
+        buffs.push(AlphaUnlocks.all.find(x => x.id === n).buffDescription);
+      }
+    return buffs;
+  }
+};
 
 EventHub.logic.on(GAME_EVENT.TAB_CHANGED, () => {
   if (Tab.celestials.alpha.isOpen) Alpha.quotes.unlock.show();
