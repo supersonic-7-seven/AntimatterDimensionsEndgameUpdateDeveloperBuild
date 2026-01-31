@@ -87,7 +87,7 @@ export default {
       this.isDoomed = Pelle.isDoomed;
       this.isUseless = Pelle.isDoomed && !PelleCelestialUpgrade.raTeresa2.isBought;
       this.alwaysRecpec = this.isDoomed && Pelle.isAlwaysDischargeCIU;
-      this.chargeUnlocked = Ra.unlocks.chargedInfinityUpgrades.canBeApplied && !this.isUseless;
+      this.chargeUnlocked = Ra.unlocks.chargedInfinityUpgrades.canBeApplied && !this.isUseless && !player.disablePostReality;
       this.totalCharges = Ra.totalCharges;
       this.chargesUsed = Ra.totalCharges - Ra.chargesLeft;
       this.disCharge = player.celestials.ra.disCharge;
