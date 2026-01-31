@@ -225,7 +225,7 @@ export const V = {
       if (i < 6) sum += player.celestials.v.runUnlocks[i];
       else sum += player.celestials.v.runUnlocks[i] * 2;
     }
-    this.spaceTheorems = sum * (ExpansionPack.vPack.isBought ? 2 : 1) * Ra.unlocks.spaceTheoremBoost.effectOrDefault(1);
+    this.spaceTheorems = player.disablePostReality ? 0 : sum * (ExpansionPack.vPack.isBought ? 2 : 1) * Ra.unlocks.spaceTheoremBoost.effectOrDefault(1);
   },
   reset() {
     player.celestials.v = {
