@@ -10,8 +10,8 @@ export const Alpha = {
     return ImaginaryUpgrade(30).isBought;
   },
   initializeRun() {
-    Endgame.resetNoReward();
     player.disablePostReality = true;
+    Endgame.resetNoReward();
     disChargeAllPerkUpgrades();
     AutomatorBackend.stop();
     clearCelestialRuns();
