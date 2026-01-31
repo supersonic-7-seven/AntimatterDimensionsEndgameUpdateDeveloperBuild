@@ -434,7 +434,7 @@ export function getGameSpeedupFactor(effectsToConsider, _applyMaxThisEndgame, bl
   }
 
   if (Enslaved.isStoringGameTime && effects.includes(GAME_SPEED_EFFECT.TIME_STORAGE)) {
-    const storedTimeWeight = Ra.unlocks.autoPulseTime.canBeApplied || ExpansionPack.enslavedPack.isBought ? 0.99 : 1;
+    const storedTimeWeight = (Ra.unlocks.autoPulseTime.canBeApplied || ExpansionPack.enslavedPack.isBought) && !player.disablePostReality ? 0.99 : 1;
     factor = factor.times(1 - storedTimeWeight).plus(storedTimeWeight);
   }
 
