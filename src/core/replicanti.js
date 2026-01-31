@@ -169,7 +169,7 @@ export function totalReplicantiSpeedMult(overCap) {
     totalMult = totalMult.times((Perk.studyPassive.isBought && !player.disablePostReality) ? 3 : 1.5);
   }
 
-  if (!overCap && Achievement(134).isUnlocked) {
+  if (!overCap && Achievement(134).isUnlocked && !player.disablePostReality) {
     totalMult = totalMult.times(2);
   }
   totalMult = totalMult.times(getAdjustedGlyphEffect("replicationspeed"));
