@@ -29,6 +29,10 @@ export class TimeDimensionAutobuyerState extends IntervaledAutobuyerState {
     return PRESTIGE_EVENT.REALITY;
   }
 
+  get disabledByContinuum() {
+    return Laitela.continuumActive && Alpha.currentStage >= 17 && !Alpha.isRunning;
+  }
+
   get hasUnlimitedBulk() {
     return true;
   }
