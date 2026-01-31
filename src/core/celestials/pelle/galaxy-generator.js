@@ -42,7 +42,7 @@ export const GalaxyGenerator = {
     const extraReduction = (ExpansionPack.pellePack.isBought && !player.disablePostReality) ? 1 : 0;
     const reduction = Effects.sum(EndgameMastery(122), Achievement(196), EndgameUpgrade(12)) + extraReduction;
     let powReduction = 1;
-    if (EndgameMilestone.instabilityReduction.isReached) powReduction = Math.pow(1 / Math.log10(Currency.endgames.value + 1), 0.1);
+    if (EndgameMilestone.instabilityReduction.isReached && !player.disablePostReality) powReduction = Math.pow(1 / Math.log10(Currency.endgames.value + 1), 0.1);
     return Math.pow(10 - reduction, powReduction);
   },
 
