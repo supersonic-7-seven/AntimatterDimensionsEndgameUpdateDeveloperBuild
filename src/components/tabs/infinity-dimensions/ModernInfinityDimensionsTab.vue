@@ -77,7 +77,7 @@ export default {
       this.tesseractCost.copyFrom(Tesseracts.nextCost);
       this.totalDimCap = InfinityDimensions.totalDimCap;
       this.canBuyTesseract = Tesseracts.canBuyTesseract;
-      this.enslavedCompleted = Enslaved.isCompleted;
+      this.enslavedCompleted = Enslaved.isCompleted && !player.disablePostReality;
       this.boughtTesseracts = Tesseracts.bought * Tesseracts.totalMult;
       this.extraTesseracts = Tesseracts.extra * Tesseracts.totalMult;
       this.creditsClosed = GameEnd.creditsEverClosed;
