@@ -797,7 +797,7 @@ export function gameLoop(passedDiff, options = {}) {
   // Unlocks dilation at a certain total TT count for free, but we add the cost first in order to make
   // sure that TT count doesn't go negative and that we can actually buy it. This technically bumps the max theorem
   // amount up as well, but at this point of the game 5k TT is insignificant to basically all other sources of TT.
-  if (Ra.unlocks.autoUnlockDilation.canBeApplied &&
+  if ((Ra.unlocks.autoUnlockDilation.canBeApplied && !player.disablePostReality) &&
     Currency.timeTheorems.max.gte(TimeStudy.dilation.totalTimeTheoremRequirement) &&
     !isInCelestialReality() &&
     !Pelle.isDoomed) {
