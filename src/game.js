@@ -684,7 +684,7 @@ export function gameLoop(passedDiff, options = {}) {
     player.celestials.ra.alchemy[20].bestPreDoom = player.celestials.ra.alchemy[20].amount;
   }
 
-  if (ExpansionPack.effarigPack.isBought) {
+  if (ExpansionPack.effarigPack.isBought && !player.disablePostReality) {
     const effarigTick = Time.unscaledDeltaTime.totalMilliseconds.div(player.records.bestEndgame.realTime / 10).toNumber();
     player.celestials.effarig.effarigTime += effarigTick;
     if (player.celestials.effarig.effarigTime >= 1) {
