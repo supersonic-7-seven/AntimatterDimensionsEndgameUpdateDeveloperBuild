@@ -702,7 +702,7 @@ export function gameLoop(passedDiff, options = {}) {
     }
   }
 
-  if (ExpansionPack.vPack.isBought) {
+  if (ExpansionPack.vPack.isBought && !player.disablePostReality) {
     const vTick = Time.unscaledDeltaTime.totalMilliseconds.div(VUpgrade.auto.effectValue * 1000).toNumber();
     player.celestials.v.vTime += vTick;
     if (player.celestials.v.vAuto === 0 && player.celestials.v.vTime >= 1 && player.celestials.v.runUnlocks[0] < 6 && player.celestials.v.vLayer === 0) {
