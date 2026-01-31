@@ -425,7 +425,7 @@ export const GlyphAlteration = {
   },
   get isUnlocked() {
     if (Pelle.isDisabled("alteration") && !PelleCelestialUpgrade.raTeresa3.isBought) return false;
-    return Ra.unlocks.alteredGlyphs.canBeApplied;
+    return Ra.unlocks.alteredGlyphs.canBeApplied && !player.disablePostReality;
   },
   isAdded(type) {
     return this.isUnlocked && this.getSacrificePower(type).gte(this.additionThreshold);
