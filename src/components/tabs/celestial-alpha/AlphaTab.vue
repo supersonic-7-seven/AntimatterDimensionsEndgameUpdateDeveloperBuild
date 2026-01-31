@@ -11,15 +11,21 @@ export default {
       stage: 0,
       quote: "",
       isRunning: false,
-      layers: [],
-      nerfs: [],
-      buffs: [],
     };
   },
   computed: {
     symbol() {
       return Alpha.symbol;
     },
+    layers() {
+      return AlphaDescriptions.layerRow;
+    },
+    nerfs() {
+      return AlphaDescriptions.nerfRow;
+    },
+    buffs() {
+      return AlphaDescriptions.buffRow;
+    }
     /*
     runButtonOuterClass() {
       return {
@@ -51,9 +57,6 @@ export default {
       this.stage = Alpha.currentStage;
       this.quote = Alpha.quote;
       this.isRunning = Alpha.isRunning;
-      this.layers = AlphaDescriptions.layerRow;
-      this.nerfs = AlphaDescriptions.nerfRow;
-      this.buffs = AlphaDescriptions.buffRow;
     },
     startRun() {
       if (this.isDoomed) return;
