@@ -54,7 +54,6 @@ export const Alpha = {
   symbol: "α"
 };
 
-/*
 class AlphaUnlockState extends BitUpgradeState {
   get bits() { return player.celestials.alpha.unlockBits; }
   set bits(value) { player.celestials.alpha.unlockBits = value; }
@@ -72,7 +71,6 @@ export const AlphaUnlock = mapGameDataToObject(
   GameDatabase.celestials.alpha.unlocks,
   config => new AlphaUnlockState(config)
 );
-*/
 
 EventHub.logic.on(GAME_EVENT.TAB_CHANGED, () => {
   if (Tab.celestials.alpha.isOpen) Alpha.quotes.unlock.show();
