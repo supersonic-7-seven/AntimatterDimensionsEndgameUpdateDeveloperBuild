@@ -239,7 +239,7 @@ export const v = {
       description: () => `Have ${formatInt(10)} V-Achievements`,
       effect: () => player.disablePostReality ? 1 : Achievements.power,
       // Base rate is 60 ECs at 20 minutes each
-      format: x => (Ra.unlocks.instantECAndRealityUpgradeAutobuyers.canBeApplied || EndgameMastery(53).isBought
+      format: x => ((Ra.unlocks.instantECAndRealityUpgradeAutobuyers.canBeApplied || EndgameMastery(53).isBought) && !player.disablePostReality
         ? "Instant (Ra upgrade)"
         : `${TimeSpan.fromMinutes(new Decimal(60).times(20).div(x)).toStringShort()} for full completion`),
       requirement: () => V.spaceTheorems >= 10,
