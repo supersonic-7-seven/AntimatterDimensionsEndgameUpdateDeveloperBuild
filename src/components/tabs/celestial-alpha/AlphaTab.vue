@@ -114,8 +114,11 @@ export default {
 }
 
 .l-alpha-unlocks {
+  width: 50rem;
+  display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   border: var(--var-border-width, 0.2rem) solid var(--color-alpha--base);
   border-radius: var(--var-border-radius, 0.5rem);
   margin: 1rem;
@@ -124,5 +127,10 @@ export default {
 
 p {
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15rem;
+  height: 10rem;
 }
 </style>
