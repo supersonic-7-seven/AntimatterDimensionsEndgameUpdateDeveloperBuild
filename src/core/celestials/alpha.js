@@ -87,8 +87,7 @@ export const AlphaArrays = {
         nerfs.push(AlphaUnlocks.all.find(x => x.id === n).nerfDescription);
       }
     return nerfs;
-  }
-
+  },
   get buffNames() {
     let buffs = [];
       for (let n = 0; n < 28; n++) {
