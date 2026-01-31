@@ -925,7 +925,7 @@ function updatePrestigeRates() {
 function globalPassivePrestigeGen(realDiff) {
   let endgamedGain = 0;
   let endgameMult = 1;
-  endgameMult = (ExpansionPack.enslavedPack.isBought
+  endgameMult = ((ExpansionPack.enslavedPack.isBought && !player.disablePostReality)
     ? Math.floor(1 + Math.pow(Math.log10(Math.min(Tesseracts.effectiveCount, 1000) * Math.max(Math.log10(Tesseracts.effectiveCount) - 2, 1) + 1), Math.log10(player.endgames + 1)))
     : 1);
   if (EndgameUpgrade(8).isBought) {
