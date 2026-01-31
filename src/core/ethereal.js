@@ -9,6 +9,7 @@ export const Ethereal = {
     return Decimal.pow(this.cosmicSector, this.cosmicSector);
   },
   get sectorBoost() {
+    if (player.disablePostReality && !Alpha.isRunning) return DC.D1;
     if (Alpha.isRunning) return Decimal.pow(2, this.cosmicSector - 1);
     return Decimal.pow(2, Math.pow(this.cosmicSector - 1, 2));
   },
