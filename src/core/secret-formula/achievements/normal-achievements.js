@@ -1550,8 +1550,8 @@ export const normalAchievements = [
   {
     id: 207,
     name: "Destroyer of Universes",
-    get description() { return `Reach ${formatPostBreak(Decimal.pow10(1e100), 2)} Antimatter.` },
-    checkRequirement: () => Currency.antimatter.value.gte(Decimal.pow10(1e100)),
+    get description() { return `Reach ${formatPostBreak(Decimal.pow10(1e100), 2)} Antimatter outside Pelle.` },
+    checkRequirement: () => Currency.antimatter.value.gte(Decimal.pow10(1e100)) && !Pelle.isDoomed,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
       return `Double the Celestial Matter Conversion Exponent.`;
