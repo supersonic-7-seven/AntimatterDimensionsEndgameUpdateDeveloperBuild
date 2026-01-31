@@ -75,14 +75,14 @@ export default {
           {{ layer }}
         </p>
         <p
-          v-for="(nerf, idx) in nerfs"
-          :key="idx"
+          v-for="(nerf, idy) in nerfs"
+          :key="idy"
         >
           {{ nerf }}
         </p>
         <p
-          v-for="(buff, idx) in buffs"
-          :key="idx"
+          v-for="(buff, idz) in buffs"
+          :key="idz"
         >
           {{ buff }}
         </p>
