@@ -40,7 +40,6 @@ export default {
       chargesUsed: 0,
       disCharge: false,
       chargeView: false,
-      chargeUnlocked: false,
       autoPour: false,
     };
   },
@@ -59,7 +58,7 @@ export default {
         PerkShopUpgrade.musicGlyph,
       ];
       if (this.raisedPerkShop) upgrades.push(PerkShopUpgrade.fillMusicGlyph);
-      if (ExpansionPack.teresaPack.isBought) upgrades.push(PerkShopUpgrade.addCharges);
+      if (ExpansionPack.teresaPack.isBought && !player.disablePostReality) upgrades.push(PerkShopUpgrade.addCharges);
       return upgrades;
     },
     runButtonClassObject() {
@@ -157,12 +156,11 @@ export default {
       this.isRunning = Teresa.isRunning;
       this.canUnlockNextPour = TeresaUnlocks.all
         .filter(unlock => this.rm.plus(this.pouredAmount).gte(unlock.price) && !unlock.isUnlocked).length > 0;
-      this.chargeUnlocked = ExpansionPack.teresaPack.isBought;
+      this.chargeUnlocked = ExpansionPack.teresaPack.isBought && !player.disablePostReality;
       this.totalCharges = Teresa.totalCharges;
       this.chargesUsed = Teresa.totalCharges - Teresa.chargesLeft;
       this.disCharge = player.celestials.teresa.disCharge;
       this.chargeView = Teresa.chargeModeOn;
-      this.chargeUnlocked = ExpansionPack.teresaPack.isBought;
       this.autoPour = player.celestials.teresa.autoPour;
     },
     startRun() {
