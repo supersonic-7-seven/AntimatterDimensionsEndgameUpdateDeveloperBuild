@@ -129,7 +129,7 @@ class InfinityDimensionState extends DimensionState {
       (Laitela.isRunning && this.tier > Laitela.maxAllowedDimension)) {
       return DC.D0;
     }
-    let production = this.amount;
+    let production = this.totalAmount;
     if (EternityChallenge(11).isRunning) {
       return production;
     }
@@ -148,7 +148,15 @@ class InfinityDimensionState extends DimensionState {
         tier === 4 ? TimeStudy(72) : null,
         tier === 1 ? EternityChallenge(2).reward : null
       );
-    mult = mult.times(Decimal.pow(this.powerMultiplier, Math.floor(this.baseAmount / 10)));
+
+    let purchValue;
+    if (Laitela.continuumActive) {
+      purchValue = InfinityDimension(tier).continuumValue;
+    } else {
+      purchValue = Decimal.floor(this.baseAmount / 10);
+    }
+
+    mult = mult.times(Decimal.pow(this.powerMultiplier, purchValue));
 
 
     if (tier === 1) {
@@ -198,7 +206,7 @@ class InfinityDimensionState extends DimensionState {
       (Laitela.isRunning && tier > Laitela.maxAllowedDimension)) {
       return false;
     }
-    return this.amount.gt(0);
+    return this.totalAmount.gt(0);
   }
 
   get baseCost() {
@@ -237,6 +245,29 @@ class InfinityDimensionState extends DimensionState {
 
   get hardcapIPAmount() {
     return this._baseCost.times(Decimal.pow(this.costMultiplier, this.purchaseCap));
+  }
+
+  get continuumValue() {
+    if (!this.isAvailableForPurchase) return DC.D0;
+    // Nameless limits dim purchases to 1 only
+    // Continuum should be no different
+    if (Enslaved.isRunning) return DC.D1;
+    // It's safe to use dimension.currencyAmount because this is
+    // a dimension-only method (so don't just copy it over to tickspeed).
+    // We need to use dimension.currencyAmount here because of different costs in NC6.
+    return Decimal.min(this.costScale.getContinuumValue(Currency.infinityPoints.value, 1), this.purchaseCap).times(Laitela.matterExtraPurchaseFactor);
+  }
+
+  /**
+   * @returns {number}
+   */
+  get continuumAmount() {
+    if (!Laitela.continuumActive) return DC.D0;
+    return Decimal.floor(this.continuumValue.times(10));
+  }
+
+  get totalAmount() {
+    return this.amount.max(this.continuumAmount);
   }
 
   resetAmount() {
