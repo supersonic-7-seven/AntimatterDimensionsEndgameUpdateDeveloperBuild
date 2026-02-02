@@ -10,6 +10,10 @@ export class BreakInfinityUpgradeState extends SetPurchasableMechanicState {
     return player.infinityUpgrades;
   }
 
+  get cost() {
+    return this.config.cost();
+  }
+
   onPurchased() {
     if (this.id === "postGalaxy") {
       SpeedrunMilestones(7).tryComplete();
