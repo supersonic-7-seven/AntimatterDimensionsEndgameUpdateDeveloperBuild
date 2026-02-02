@@ -301,24 +301,24 @@ export const Glyphs = {
     if (this.findByInventoryIndex(glyph.idx) !== glyph) {
       throw new Error("Inconsistent inventory indexing");
     }
-    let sameSpecialTypeIndex = -1;
-    if (["effarig", "reality"].includes(glyph.type)) {
-      sameSpecialTypeIndex = this.active.findIndex(x => x && x.type === glyph.type);
-    }
     let maxSpecialGlyph = 1;
     if (Achievement(194).isUnlocked && !player.disablePostReality) {
       maxSpecialGlyph = 2;
     }
-    let specialGlyphEquipped = 0;
+
+    let specialGlyphEquippedAfterChange = 0;
     if (["effarig", "reality"].includes(glyph.type)) {
-      specialGlyphEquipped = player.reality.glyphs.active.filter(g => g.type === glyph.type).length;
+      specialGlyphEquippedAfterChange = player.reality.glyphs.active.filter(g => g.type === glyph.type).length;
+      if (this.active[targetSlot] === null || this.active[targetSlot].type !== glyph.type) specialGlyphEquippedAfterChange++;
     }
+
+    if (specialGlyphEquippedAfterChange > maxSpecialGlyph) {
+      Modal.message.show(`You may only have ${formatInt(maxSpecialGlyph)} ${glyph.type.capitalize()} Glyph equipped!`,
+        { closeEvent: GAME_EVENT.GLYPHS_CHANGED });
+      return;
+    }
+
     if (this.active[targetSlot] === null) {
-      if (sameSpecialTypeIndex >= 0 && specialGlyphEquipped >= maxSpecialGlyph) {
-        Modal.message.show(`You may only have ${formatInt(maxSpecialGlyph)} ${glyph.type.capitalize()} Glyph equipped!`,
-          { closeEvent: GAME_EVENT.GLYPHS_CHANGED });
-        return;
-      }
       this.removeFromInventory(glyph);
       this.saveUndo(targetSlot);
       player.reality.glyphs.active.push(glyph);
@@ -330,12 +330,6 @@ export const Glyphs = {
       EventHub.dispatch(GAME_EVENT.GLYPHS_CHANGED);
       this.validate();
     } else {
-      // We can only replace effarig/reality glyph
-      if (sameSpecialTypeIndex >= 0 && sameSpecialTypeIndex !== targetSlot && specialGlyphEquipped >= maxSpecialGlyph) {
-        Modal.message.show(`You may only have ${formatInt(maxSpecialGlyph)} ${glyph.type.capitalize()} Glyph equipped!`,
-          { closeEvent: GAME_EVENT.GLYPHS_CHANGED });
-        return;
-      }
       if (!player.options.confirmations.glyphReplace) {
         this.swapIntoActive(glyph, targetSlot);
         return;
