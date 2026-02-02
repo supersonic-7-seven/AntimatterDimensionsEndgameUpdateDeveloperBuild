@@ -118,6 +118,7 @@ export function gainedInfinityPoints() {
     if (PelleAlchemyUpgrade.alchemyExponential.isBought && Replicanti.areUnlocked) ip = ip.times(Replicanti.amount.powEffectOf(AlchemyResource.exponential));
     if (PelleCelestialUpgrade.raTeresa3.isBought) ip = ip.pow(getSecondaryGlyphEffect("infinityIP"));
     if (EndgameMastery(141).isBought) ip = ip.powEffectsOf(EndgameMastery(141));
+    if (!player.disablePostReality) ip = ip.pow(AlphaUnlocks.infinity.effects.buff.effectOrDefault(1));
     return ip.floor();
   }
   let ip = player.break
@@ -139,6 +140,9 @@ export function gainedInfinityPoints() {
   }
   if (EndgameMastery(141).isBought) {
     ip = ip.powEffectsOf(EndgameMastery(141));
+  }
+  if (!player.disablePostReality) {
+    ip = ip.pow(AlphaUnlocks.infinity.effects.buff.effectOrDefault(1));
   }
 
   return ip.floor();
