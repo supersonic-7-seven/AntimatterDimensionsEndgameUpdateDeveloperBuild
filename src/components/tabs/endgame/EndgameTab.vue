@@ -9,7 +9,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="l-endgame-tab-container">
     <div class="endgame-text">
       <br>
       <div>
@@ -36,7 +36,7 @@ export default {
     </div>
     <br>
     <div class="l-endgame-button-column">
-      <div class="l-endgame-button-container">
+      <div>
         <ResetEndgameButton/>
       </div>
     </div>
@@ -49,7 +49,7 @@ export default {
   color: var(--color-endgame);
 }
 
-.l-endgame-button-container {
+.l-endgame-tab-container {
   display: flex;
   flex-direction: row;
   align-items: center;
