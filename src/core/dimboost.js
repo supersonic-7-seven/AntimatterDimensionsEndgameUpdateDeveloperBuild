@@ -73,7 +73,7 @@ export class DimBoost {
       // this case would trigger when we're in IC1.
       return DC.D5;
     }
-    return DC.E9E15;
+    return DC.BEMAX;
   }
 
   static get canBeBought() {
@@ -104,9 +104,9 @@ export class DimBoost {
       TimeStudy(211),
       TimeStudy(222)
     );
-    if (!player.disablePostReality) discount += Effects.sum(AlphaUnlocks.fifthDimboost.effects.buff.effectOrDefault(0));
+    if (!player.disablePostReality) discount += AlphaUnlocks.fifthDimboost.effects.buff.effectOrDefault(0);
     let multi = 1;
-    if (Alpha.isRunning) multi = Effects.product(AlphaUnlocks.fifthDimboost.effects.nerf.effectOrDefault(1));
+    if (Alpha.isRunning) multi *= AlphaUnlocks.fifthDimboost.effects.nerf.effectOrDefault(1);
     if (tier === 6 && NormalChallenge(10).isRunning) {
       amount = amount.add(targetResets.sub(3).mul(DC.D20.sub(discount).times(multi)).round());
     } else if (tier === 8) {
@@ -254,14 +254,14 @@ function maxBuyDimBoosts() {
     TimeStudy(211),
     TimeStudy(222)
   );
-  if (!player.disablePostReality) discount += Effects.sum(AlphaUnlocks.fifthDimboost.effects.buff.effectOrDefault(0));
+  if (!player.disablePostReality) discount += AlphaUnlocks.fifthDimboost.effects.buff.effectOrDefault(0);
   let multiplierPerDB;
   if (tier === 6) {
     multiplierPerDB = DC.D20.sub(discount);
   } else if (tier === 8) {
     multiplierPerDB = DC.D15.sub(discount);
   }
-  if (Alpha.isRunning) multiplierPerDB *= Effects.product(AlphaUnlocks.fifthDimboost.effects.nerf.effectOrDefault(1));
+  if (Alpha.isRunning) multiplierPerDB *= AlphaUnlocks.fifthDimboost.effects.nerf.effectOrDefault(1);
 
   amount = amount.sub(Effects.sum(InfinityUpgrade.resetBoost));
   if (InfinityChallenge(5).isCompleted) amount = amount.sub(1);
@@ -279,8 +279,8 @@ function maxBuyDimBoosts() {
     let estimateTotalAmount = Decimal.floor(Decimal.cbrt(ad.div(InfinityUpgrade.resetBoost.chargedEffect.effectOrDefault(1)))).add(1);
     const freeBoost = NormalChallenge(10).isRunning ? new Decimal(2) : new Decimal(4);
     const divisor1 = NormalChallenge(10).isRunning ? new Decimal(20) : new Decimal(15);
-    const divisor2 = Effects.sum(TimeStudy(211), TimeStudy(222)) + (player.disablePostReality ? 0 : Effects.sum(AlphaUnlocks.fifthDimboost.effects.buff.effectOrDefault(0)));
-    const multi = divisor1.sub(divisor2).times(Alpha.isRunning ? Effects.product(AlphaUnlocks.fifthDimboost.effects.nerf.effectOrDefault(1)) : 1);
+    const divisor2 = Effects.sum(TimeStudy(211), TimeStudy(222)) + (player.disablePostReality ? 0 : AlphaUnlocks.fifthDimboost.effects.buff.effectOrDefault(0));
+    const multi = divisor1.sub(divisor2).times(Alpha.isRunning ? AlphaUnlocks.fifthDimboost.effects.nerf.effectOrDefault(1) : 1);
     const extraEffect = InfinityChallenge(5).isCompleted ? new Decimal(1) : new Decimal(0);
     const cubicSum = DC.D20.add(estimateTotalAmount.sub(freeBoost.add(1)).mul(multi));
     const listedCost = estimateTotalAmount.lt(freeBoost) ? new Decimal(0) : (Decimal.pow(estimateTotalAmount.sub(1), 3).add(estimateTotalAmount).add(cubicSum).sub(1).sub(Effects.sum(InfinityUpgrade.resetBoost)).sub(extraEffect)).times(InfinityUpgrade.resetBoost.chargedEffect.effectOrDefault(1));
