@@ -2,7 +2,7 @@ function dimInfinityMult() {
   return Currency.infinitiesTotal.value.times(0.2).plus(1);
 }
 function chargedDimInfinityMult() {
-  return 1 + Decimal.log10(Decimal.max(1, Currency.infinitiesTotal.value.add(1).pLog10())).toNumber() * Math.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1)) / 150;
+  return 1 + Decimal.log10(Decimal.max(1, Currency.infinitiesTotal.value.add(1).pLog10())).toNumber() * Math.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1) * (player.disablePostReality ? 1 : AlphaUnlocks.autoCrunchChallenge.effects.buff.effectOrDefault(1))) / 150;
 }
 
 export const infinityUpgrades = {
@@ -16,7 +16,7 @@ export const infinityUpgrades = {
       description: "Antimatter Dimensions gain a power effect based on time played and Teresa level",
       effect: () => 1 +
         Decimal.log10(Decimal.log10(Time.totalTimePlayed.totalMilliseconds)).times(
-        Math.pow(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1), 0.5)).div(150).toNumber(),
+        Math.pow(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1) * (player.disablePostReality ? 1 : AlphaUnlocks.autoCrunchChallenge.effects.buff.effectOrDefault(1)), 0.5)).div(150).toNumber(),
       formatEffect: value => formatPow(value, 4, 4)
     }
   },
@@ -81,7 +81,7 @@ export const infinityUpgrades = {
     effect: 9,
     charged: {
       description: () => "Decrease Dimension Boost requirement based on Teresa level",
-      effect: () => 1 / (1 + Math.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1)) / 10),
+      effect: () => 1 / (1 + Math.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1) * (player.disablePostReality ? 1 : AlphaUnlocks.autoCrunchChallenge.effects.buff.effectOrDefault(1))) / 10),
       formatEffect: value => `${formatX(value, 4, 4)}`
     }
   },
@@ -94,7 +94,7 @@ export const infinityUpgrades = {
     charged: {
       description: () => `The multiplier for buying ${formatInt(10)} Antimatter Dimensions gains ` +
         "a power effect based on Teresa level",
-      effect: () => 1 + (Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1)) / 200,
+      effect: () => 1 + (Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1) * (player.disablePostReality ? 1 : AlphaUnlocks.autoCrunchChallenge.effects.buff.effectOrDefault(1))) / 200,
       formatEffect: value => formatPow(value, 3, 3)
     }
   },
@@ -106,7 +106,7 @@ export const infinityUpgrades = {
     effect: 2,
     charged: {
       description: "All Galaxies are stronger based on Teresa level",
-      effect: () => 2 + Math.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1)) / 100,
+      effect: () => 2 + Math.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1) * (player.disablePostReality ? 1 : AlphaUnlocks.autoCrunchChallenge.effects.buff.effectOrDefault(1))) / 100,
       formatEffect: value => `+${formatPercents(value - 1)}`
     }
   },
@@ -121,7 +121,7 @@ export const infinityUpgrades = {
         "Antimatter Dimensions gain a power effect based on time spent in current Infinity and Teresa level",
       effect: () => 1 +
         Decimal.log10(Decimal.log10(Time.thisInfinity.totalMilliseconds.plus(100))).times(
-        Math.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1))).div(150).toNumber(),
+        Math.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1) * (player.disablePostReality ? 1 : AlphaUnlocks.autoCrunchChallenge.effects.buff.effectOrDefault(1)))).div(150).toNumber(),
       formatEffect: value => formatPow(value, 4, 4)
     }
   },
@@ -141,7 +141,7 @@ export const infinityUpgrades = {
       effect: () => {
         const divisor = (EndgameMastery(81).isBought && !player.disablePostReality) ? 5 : 10;
         const subtrahend = (EndgameMastery(81).isBought && !player.disablePostReality) ? 1.5 : 0;
-        return Decimal.min(Currency.infinityPoints.value.dividedBy(2), Decimal.pow(DC.E1E15, EndgameUpgrade(1).effectOrDefault(1))).pow(Decimal.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1)).times(Decimal.max((Decimal.log10(Currency.infinityPoints.value.add(10).log10()).div(divisor)).sub(subtrahend), 1.5))).plus(1);
+        return Decimal.min(Currency.infinityPoints.value.dividedBy(2), Decimal.pow(DC.E1E15, EndgameUpgrade(1).effectOrDefault(1))).pow(Decimal.sqrt(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1) * (player.disablePostReality ? 1 : AlphaUnlocks.autoCrunchChallenge.effects.buff.effectOrDefault(1))).times(Decimal.max((Decimal.log10(Currency.infinityPoints.value.add(10).log10()).div(divisor)).sub(subtrahend), 1.5))).plus(1);
       },
       formatEffect: value => formatX(value, 2, 2)
     }
@@ -155,7 +155,7 @@ export const infinityUpgrades = {
     formatEffect: () => `${formatX(2, 0, 1)} ➜ ${formatX(2.5, 0, 1)}`,
     charged: {
       description: "Dimension Boost multiplier gains a power effect based on Teresa level",
-      effect: () => 1 + (Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1)) / 200,
+      effect: () => 1 + (Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1) * (player.disablePostReality ? 1 : AlphaUnlocks.autoCrunchChallenge.effects.buff.effectOrDefault(1))) / 200,
       formatEffect: value => formatPow(value, 3, 3)
     }
   },
@@ -176,7 +176,7 @@ export const infinityUpgrades = {
       description: () =>
         `Gain Reality Machines each real-time second proportional to amount gained on Reality,
         increasing with Teresa level`,
-      effect: () => Math.pow(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1), 2) *
+      effect: () => Math.pow(Ra.pets.teresa.level * Ra.unlocks.chargeBoost.effectOrDefault(1) * (player.disablePostReality ? 1 : AlphaUnlocks.autoCrunchChallenge.effects.buff.effectOrDefault(1)), 2) *
         Ra.unlocks.continuousTTBoost.effects.autoPrestige.effectOrDefault(1),
       formatEffect: value => formatX(value, 2, 1)
     }
