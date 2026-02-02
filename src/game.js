@@ -337,6 +337,7 @@ export function gainedInfinities() {
     if (PelleCelestialUpgrade.raV3.isBought) pelleInfs = pelleInfs.timesEffectsOf(Ra.unlocks.continuousTTBoost.effects.infinity);
     if (PelleDestructionUpgrade.destroyedGlyphEffects.isBought) pelleInfs = pelleInfs.times(getAdjustedGlyphEffect("infinityinfmult"));
     if (PelleDestructionUpgrade.singularityMilestones.isBought) pelleInfs = pelleInfs.powEffectOf(SingularityMilestone.infinitiedPow);
+    if (!player.disablePostReality) pelleInfs = pelleInfs.pow(AlphaUnlocks.eternityChallenge10.effects.buff.effectOrDefault(1));
     return pelleInfs;
   }
   let infGain = Effects.max(
@@ -355,6 +356,7 @@ export function gainedInfinities() {
   );
   infGain = infGain.times(getAdjustedGlyphEffect("infinityinfmult"));
   infGain = infGain.powEffectOf(SingularityMilestone.infinitiedPow);
+  if (!player.disablePostReality) infGain = infGain.pow(AlphaUnlocks.eternityChallenge10.effects.buff.effectOrDefault(1));
   return infGain;
 }
 
