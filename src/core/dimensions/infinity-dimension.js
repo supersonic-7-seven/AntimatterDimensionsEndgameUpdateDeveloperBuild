@@ -266,7 +266,7 @@ class InfinityDimensionState extends DimensionState {
    * @returns {number}
    */
   get continuumAmount() {
-    if (!Laitela.continuumActive || EternityChallenge(8).isRunning) return DC.D0;
+    if (!Laitela.continuumActive || EternityChallenge(8).isRunning || Alpha.currentStage < 9 || player.disablePostReality) return DC.D0;
     return Decimal.floor(this.continuumValue.times(10));
   }
 
