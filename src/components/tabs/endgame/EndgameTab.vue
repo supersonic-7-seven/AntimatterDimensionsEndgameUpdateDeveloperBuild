@@ -36,7 +36,7 @@ export default {
     </div>
     <br>
     <div class="l-endgame-button-column">
-      <div>
+      <div class="l-endgame-button-container">
         <ResetEndgameButton/>
       </div>
     </div>
@@ -47,5 +47,12 @@ export default {
 .endgame-text {
   font-size: 2rem;
   color: var(--color-endgame);
+}
+
+.l-endgame-button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 </style>
