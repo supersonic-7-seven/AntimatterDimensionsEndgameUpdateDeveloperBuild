@@ -122,7 +122,12 @@ export class Currency {
   }
 
   subtract(amount) {
-    if (new Decimal(amount).gte(DC.E9E15)) return;
+    if (new Decimal(amount).gte(DC.E9E15) || this.value.gte(DC.E9E15)) return;
+    if (new Decimal(amount).gt(this.value)) {
+      if (player.DEV) throw new Error("Subtract command attempted to make currency negative, resetting currency and breaking loop");
+      this.value = (this.value instanceof DecimalCurrency || this.value instanceof Decimal) ? DC.D0 : 0;
+      return;
+    }
     if (new Decimal(amount).gte(this.value) && (this.value instanceof DecimalCurrency || this.value instanceof Decimal)) {
       this.value = Decimal.floor(this.value.div(1e15));
     }
