@@ -1,4 +1,9 @@
 export function effectiveBaseGalaxies() {
+  let alternation = Decimal.max(0, Replicanti.amount.add(1).log10().div(1e6)).times(AlchemyResource.alternation.effectValue).add(1);
+  let galaxies = player.galaxies;
+  if (!player.disablePostReality) galaxies = galaxies.times(alternation);
+  let generatedGalaxies = GalaxyGenerator.galaxies;
+  if (!player.disablePostReality) generatedGalaxies = generatedGalaxies.times(alternation);
   // Note that this already includes the "50% more" active path effect
   let replicantiGalaxies = Replicanti.galaxies.bought;
   replicantiGalaxies = replicantiGalaxies.times(1 + Effects.sum(
@@ -12,9 +17,10 @@ export function effectiveBaseGalaxies() {
   // Effects.sum is intentional here - if EC8 is not completed,
   // this value should not be contributed to total replicanti galaxies
   replicantiGalaxies = replicantiGalaxies.add(nonActivePathReplicantiGalaxies.times(Effects.sum(EternityChallenge(8).reward)));
+  if (!player.disablePostReality) replicantiGalaxies = replicantiGalaxies.times(alternation);
   let freeGalaxies = player.dilation.totalTachyonGalaxies;
-  freeGalaxies = freeGalaxies.times(Decimal.max(0, Replicanti.amount.add(1).log10().div(1e6)).times(AlchemyResource.alternation.effectValue).add(1));
-  return Decimal.max(player.galaxies.add(GalaxyGenerator.galaxies).add(replicantiGalaxies).add(freeGalaxies), 0);
+  freeGalaxies = freeGalaxies.times(alternation);
+  return Decimal.max(galaxies.add(generatedGalaxies).add(replicantiGalaxies).add(freeGalaxies), 0);
 }
 
 export function getTickSpeedMultiplier() {
@@ -64,6 +70,7 @@ export function getTickSpeedMultiplier() {
   if (GalacticPowers.galaxyStrength.isUnlocked) galaxies = galaxies.times(GalacticPowers.galaxyStrength.reward);
 
   galaxies = galaxies.times(Pelle.specialGlyphEffect.power);
+  if (Alpha.isRunning) galaxies = galaxies.times(AlphaUnlocks.firstGalaxy.effects.nerf.effectOrDefault(1));
   const perGalaxy = DC.D0_965;
   return perGalaxy.pow(galaxies.sub(2)).times(baseMultiplier);
 }
