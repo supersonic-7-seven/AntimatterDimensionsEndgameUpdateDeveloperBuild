@@ -23,7 +23,8 @@ export class Galaxy {
   
   static get remoteStart() {
     const extraDelay = GalacticPowers.remoteGalaxyScale.isUnlocked ? GalacticPowers.remoteGalaxyScale.reward : 0;
-    return this.baseRemoteStart + Effects.sum(BreakEternityUpgrade.galaxyScaleDelay) + extraDelay;
+    return (this.baseRemoteStart + Effects.sum(BreakEternityUpgrade.galaxyScaleDelay) + extraDelay) *
+      (player.disablePostReality ? 1 : AlphaUnlocks.powerGalaxies.effects.buff.effectOrDefault(1));
   }
 
   static get remoteGalaxyStrength() {
@@ -152,12 +153,13 @@ export class Galaxy {
   }
 
   static get costScalingStart() {
-    return 100 + TimeStudy(302).effectOrDefault(0) + GlyphSacrifice.power.effectValue.toNumber() + Effects.sum(
+    return ((Alpha.isRunning ? AlphaUnlocks.powerGalaxies.effects.nerf.effectOrDefault(100) : 100) +
+      TimeStudy(302).effectOrDefault(0) + GlyphSacrifice.power.effectValue.toNumber() + Effects.sum(
       TimeStudy(223),
       TimeStudy(224),
       EternityChallenge(5).reward,
       BreakEternityUpgrade.galaxyScaleDelay
-    );
+    )) * (player.disablePostReality ? 1 : AlphaUnlocks.powerGalaxies.effects.buff.effectOrDefault(1));
   }
 
   static get type() {
