@@ -142,6 +142,7 @@ export class EternityChallengeState extends GameMechanicState {
   }
 
   get currentGoal() {
+    if (this.id === 11 && Alpha.isRunning && Alpha.currentStage >= 22) return this.goalAtCompletions(4);
     return this.goalAtCompletions(this.completions);
   }
 
