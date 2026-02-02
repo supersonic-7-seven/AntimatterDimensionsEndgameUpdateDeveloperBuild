@@ -164,7 +164,7 @@ export default {
       <PrimaryToggleButton
         v-if="isAutobuyerUnlocked && !isEC8Running"
         v-model="isAutobuyerOn"
-        :class="maxButtonClass()"
+        class="o-primary-btn--id-auto"
         label="Auto:"
       />
       <PrimaryButton
