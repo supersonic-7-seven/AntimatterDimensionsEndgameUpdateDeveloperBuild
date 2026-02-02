@@ -109,7 +109,7 @@ export default {
         this.capIP.copyFrom(dimension.hardcapIPAmount);
         this.hardcap = dimension.purchaseCap;
       }
-      this.isContinuumActive = Laitela.continuumActive && Alpha.currentStage >= 9 && !player.disablePostReality;
+      this.isContinuumActive = Laitela.continuumActive && !this.isEC8Running && Alpha.currentStage >= 9 && !player.disablePostReality;
       if (this.isContinuumActive) this.continuumValue = dimension.continuumValue;
       this.isEC8Running = EternityChallenge(8).isRunning;
       this.isAutobuyerOn = autobuyer.isActive;
