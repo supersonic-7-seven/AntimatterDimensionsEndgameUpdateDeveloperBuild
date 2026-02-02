@@ -134,7 +134,6 @@ export const alphaUnlocks = {
     nerfDescription: () => `The multiplier of your highest Time Dimension is always ${formatX(1)}`,
     buffDescription: () => `The Time Dimension Per-Purchase Multiplier is increased to ${formatX(10)}`,
     effects: {
-      nerf: 1,
       buff: 10
     }
   },
