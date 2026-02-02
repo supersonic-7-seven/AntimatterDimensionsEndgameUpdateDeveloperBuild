@@ -8,7 +8,7 @@ function chargedDimInfinityMult() {
 export const infinityUpgrades = {
   totalTimeMult: {
     id: "timeMult",
-    cost: 1,
+    cost: () => Math.pow(1, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     description: "Antimatter Dimensions gain a multiplier based on time played",
     effect: () => Decimal.pow(Time.totalTimePlayed.totalMinutes.div(2), 0.15),
     formatEffect: value => formatX(value, 2, 2),
@@ -22,7 +22,7 @@ export const infinityUpgrades = {
   },
   dim18mult: {
     id: "18Mult",
-    cost: 1,
+    cost: () => Math.pow(1, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     checkRequirement: () => InfinityUpgrade.totalTimeMult.isBought,
     description: "1st and 8th Antimatter Dimensions gain a multiplier based on Infinities",
     effect: () => dimInfinityMult(),
@@ -35,7 +35,7 @@ export const infinityUpgrades = {
   },
   dim27mult: {
     id: "27Mult",
-    cost: 1,
+    cost: () => Math.pow(1, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     checkRequirement: () => InfinityUpgrade.buy10Mult.isBought,
     description: "2nd and 7th Antimatter Dimensions gain a multiplier based on Infinities",
     effect: () => dimInfinityMult(),
@@ -48,7 +48,7 @@ export const infinityUpgrades = {
   },
   dim36mult: {
     id: "36Mult",
-    cost: 1,
+    cost: () => Math.pow(1, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     checkRequirement: () => InfinityUpgrade.dim18mult.isBought,
     description: "3rd and 6th Antimatter Dimensions gain a multiplier based on Infinities",
     effect: () => dimInfinityMult(),
@@ -61,7 +61,7 @@ export const infinityUpgrades = {
   },
   dim45mult: {
     id: "45Mult",
-    cost: 1,
+    cost: () => Math.pow(1, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     checkRequirement: () => InfinityUpgrade.dim27mult.isBought,
     description: "4th and 5th Antimatter Dimensions gain a multiplier based on Infinities",
     effect: () => dimInfinityMult(),
@@ -74,7 +74,7 @@ export const infinityUpgrades = {
   },
   resetBoost: {
     id: "resetBoost",
-    cost: 1,
+    cost: () => Math.pow(1, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     checkRequirement: () => InfinityUpgrade.dim36mult.isBought,
     description: () =>
       `Decrease the number of Dimensions needed for Dimension Boosts and Antimatter Galaxies by ${formatInt(9)}`,
@@ -87,7 +87,7 @@ export const infinityUpgrades = {
   },
   buy10Mult: {
     id: "dimMult",
-    cost: 1,
+    cost: () => Math.pow(1, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     description: () => `Increase the multiplier for buying ${formatInt(10)} Antimatter Dimensions`,
     effect: () => 1.1,
     formatEffect: () => `${formatX(2, 0, 1)} ➜ ${formatX(2.2, 0, 1)}`,
@@ -100,7 +100,7 @@ export const infinityUpgrades = {
   },
   galaxyBoost: {
     id: "galaxyBoost",
-    cost: 2,
+    cost: () => Math.pow(2, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     checkRequirement: () => InfinityUpgrade.dim45mult.isBought,
     description: "All Galaxies are twice as strong",
     effect: 2,
@@ -112,7 +112,7 @@ export const infinityUpgrades = {
   },
   thisInfinityTimeMult: {
     id: "timeMult2",
-    cost: 3,
+    cost: () => Math.pow(3, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     description: "Antimatter Dimensions gain a multiplier based on time spent in current Infinity",
     effect: () => Decimal.max(Decimal.pow(Time.thisInfinity.totalMinutes.div(4), 0.25), 1),
     formatEffect: value => formatX(value, 2, 2),
@@ -127,7 +127,7 @@ export const infinityUpgrades = {
   },
   unspentIPMult: {
     id: "unspentBonus",
-    cost: 5,
+    cost: () => Math.pow(5, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     checkRequirement: () => InfinityUpgrade.thisInfinityTimeMult.isBought,
     description: "Multiplier to 1st Antimatter Dimension based on unspent Infinity Points",
     effect: () => {
@@ -148,7 +148,7 @@ export const infinityUpgrades = {
   },
   dimboostMult: {
     id: "resetMult",
-    cost: 7,
+    cost: () => Math.pow(7, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     checkRequirement: () => InfinityUpgrade.unspentIPMult.isBought,
     description: "Increase Dimension Boost multiplier",
     effect: () => 2.5,
@@ -161,7 +161,7 @@ export const infinityUpgrades = {
   },
   ipGen: {
     id: "passiveGen",
-    cost: 10,
+    cost: () => Math.pow(10, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     checkRequirement: () => InfinityUpgrade.dimboostMult.isBought,
     description: () => `Passively generate Infinity Points ${formatInt(10)} times slower than your fastest Infinity`,
     // Cutting corners: this is not actual effect, but it is totalIPMult that is displyed on upgrade
@@ -183,27 +183,27 @@ export const infinityUpgrades = {
   },
   skipReset1: {
     id: "skipReset1",
-    cost: 20,
+    cost: () => Math.pow(20, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     description: () =>
       `Start every reset with ${formatInt(1)} Dimension Boost, automatically unlocking the 5th Antimatter Dimension`,
   },
   skipReset2: {
     id: "skipReset2",
-    cost: 40,
+    cost: () => Math.pow(40, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     checkRequirement: () => InfinityUpgrade.skipReset1.isBought,
     description: () =>
       `Start every reset with ${formatInt(2)} Dimension Boosts, automatically unlocking the 6th Antimatter Dimension`,
   },
   skipReset3: {
     id: "skipReset3",
-    cost: 80,
+    cost: () => Math.pow(80, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     checkRequirement: () => InfinityUpgrade.skipReset2.isBought,
     description: () =>
       `Start every reset with ${formatInt(3)} Dimension Boosts, automatically unlocking the 7th Antimatter Dimension`,
   },
   skipResetGalaxy: {
     id: "skipResetGalaxy",
-    cost: 300,
+    cost: () => Math.pow(300, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     checkRequirement: () => InfinityUpgrade.skipReset3.isBought,
     description: () =>
       `Start every reset with ${formatInt(4)} Dimension Boosts, automatically unlocking the 8th Antimatter Dimension;
@@ -211,7 +211,7 @@ export const infinityUpgrades = {
   },
   ipOffline: {
     id: "ipOffline",
-    cost: 1000,
+    cost: () => Math.pow(1000, AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1)),
     checkRequirement: () => Achievement(41).isUnlocked,
     description: () => (player.options.offlineProgress
       ? `Only while offline, gain ${formatPercents(0.5)} of your best IP/min without using Max All`
