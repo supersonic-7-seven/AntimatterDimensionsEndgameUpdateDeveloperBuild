@@ -103,7 +103,8 @@ window.player = {
       time: 1,
       xHighest: DC.D1,
       isActive: true,
-      lastTick: 0
+      lastTick: 0,
+      hasIncreasedAlphaCosts: true
     },
     galaxy: {
       cost: 1,
