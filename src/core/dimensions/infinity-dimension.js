@@ -150,7 +150,7 @@ class InfinityDimensionState extends DimensionState {
       );
 
     let purchValue;
-    if (Laitela.continuumActive) {
+    if (Laitela.continuumActive && !EternityChallenge(8).isRunning && Alpha.currentStage >= 9 && !player.disablePostReality) {
       purchValue = InfinityDimension(tier).continuumValue;
     } else {
       purchValue = Decimal.floor(this.baseAmount / 10);
