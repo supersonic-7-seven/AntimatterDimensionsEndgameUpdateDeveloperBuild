@@ -343,7 +343,7 @@ class TimeDimensionState extends DimensionState {
    * @returns {number}
    */
   get continuumAmount() {
-    if (!Laitela.continuumActive) return DC.D0;
+    if (!Laitela.continuumActive || Alpha.currentStage < 17 || player.disablePostReality) return DC.D0;
     return Decimal.floor(this.continuumValue);
   }
 
