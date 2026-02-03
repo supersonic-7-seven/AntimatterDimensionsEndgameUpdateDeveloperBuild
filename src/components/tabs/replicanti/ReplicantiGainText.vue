@@ -55,7 +55,7 @@ export default {
       const galaxiesPerSecond = log10GainFactorPerTickUncapped.times(ticksPerSecond / LOG10_MAX_VALUE);
       const timeFromZeroRG = galaxies => Decimal.ln((galaxies.add(49.5)).div(49.5)).times(50).toNumber();
       let baseGalaxiesPerSecond, effectiveMaxRG, effectiveCurrentRG;
-      if (RealityUpgrade(6).isBought && !Pelle.isDoomed) {
+      if (RealityUpgrade(6).isBought && !Pelle.isDoomed && !player.disablePostReality) {
         baseGalaxiesPerSecond = galaxiesPerSecond.divide(RealityUpgrade(6).effectValue);
         effectiveMaxRG = new Decimal(timeFromZeroRG(Replicanti.galaxies.max.add(Replicanti.galaxies.extra)) -
           timeFromZeroRG(Replicanti.galaxies.extra));
