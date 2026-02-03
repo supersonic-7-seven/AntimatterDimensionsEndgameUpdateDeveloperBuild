@@ -20,6 +20,14 @@ export const Alpha = {
     recalculateAllGlyphs();
     Tab.dimensions.antimatter.show(false);
   },
+  escapeTheMatrix() {
+    //Leave open for function callers
+    player.disablePostReality = false;
+    Endgame.resetNoReward();
+    clearCelestialRuns();
+    recalculateAllGlyphs();
+    Tab.dimensions.antimatter.show(false);
+  },
   get isRunning() {
     return player.celestials.alpha.run;
   },
