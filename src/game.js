@@ -978,7 +978,7 @@ function passivePrestigeGen(realDiff) {
       );
       infGen = infGen.times(getAdjustedGlyphEffect("infinityinfmult"));
     }
-    if (RealityUpgrade(11).isBought && (!Pelle.isDoomed || PelleRealityUpgrade.boundlessFlow.isBought)) {
+    if (RealityUpgrade(11).isBought && (!Pelle.isDoomed || PelleRealityUpgrade.boundlessFlow.isBought) && !player.disablePostReality) {
       infGen = infGen.plus(RealityUpgrade(11).effectValue.times(Time.deltaTime));
     }
     if (EffarigUnlock.eternity.isUnlocked && (!Pelle.isDoomed || PelleCelestialUpgrade.effarigRewards.isBought)) {
