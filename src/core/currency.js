@@ -122,7 +122,7 @@ export class Currency {
   }
 
   subtract(amount) {
-    if (player.DEV && new Decimal(amount).gt(this.value)) throw new Error("Subtract command attempted to make currency negative, resetting currency and breaking loop");
+    if (player.DEV && new Decimal(amount).gt(this.value)) console.log("Subtract command attempted to make currency negative, resetting currency and breaking loop");
     if (DC.E9E15.lt(this.value) || DC.E9E15.lt(amount)) return;
     switch (new Decimal(amount).cmp(this.value)) {
       case -1: // amount < value
