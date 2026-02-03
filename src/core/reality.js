@@ -733,7 +733,7 @@ export function finishProcessReality(realityProps) {
   AchievementTimers.marathon2.reset();
   Currency.infinityPoints.reset();
 
-  if (RealityUpgrade(10).isBought) applyRUPG10();
+  if (RealityUpgrade(10).isBought && !player.disablePostReality) applyRUPG10();
   else Tab.dimensions.antimatter.show();
 
   Lazy.invalidateAll();
