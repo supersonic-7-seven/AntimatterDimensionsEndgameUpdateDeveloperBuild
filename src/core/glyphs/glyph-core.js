@@ -63,19 +63,22 @@ export const Glyphs = {
     this.validate();
     return this.inventory.filter((e, idx) => e === null && idx >= this.protectedSlots).length;
   },
+  activeSlotCountInPelle(maxSlot = false) {
+    let PelleGlyphs = 0;
+    if (maxSlot || PelleRifts.vacuum.milestones[0].canBeApplied) PelleGlyphs = PelleGlyphs + 1;
+    if (PelleDestructionUpgrade.glyphSlot1.isBought) PelleGlyphs = PelleGlyphs + 1;
+    if (PelleDestructionUpgrade.glyphSlot2.isBought) PelleGlyphs = PelleGlyphs + 1;
+    if (PelleDestructionUpgrade.glyphSlot3.isBought) PelleGlyphs = PelleGlyphs + 1;
+    if (PelleDestructionUpgrade.glyphSlot4.isBought) PelleGlyphs = PelleGlyphs + 1;
+    if (PelleRealityUpgrade.linguisticallyExpand.isBought) PelleGlyphs = PelleGlyphs + 1;
+    if (PelleRealityUpgrade.syntheticSymbolism.isBought) PelleGlyphs = PelleGlyphs + 1;
+    PelleGlyphs += Effects.sum(EndgameMastery(121), Ra.unlocks.glyphSlot);
+    return PelleGlyphs;
+  },
   get activeSlotCount() {
     if (player.disablePostReality) return 0;
     if (Pelle.isDoomed) {
-      let PelleGlyphs = 0;
-      if (PelleRifts.vacuum.milestones[0].canBeApplied) PelleGlyphs = PelleGlyphs + 1;
-      if (PelleDestructionUpgrade.glyphSlot1.isBought) PelleGlyphs = PelleGlyphs + 1;
-      if (PelleDestructionUpgrade.glyphSlot2.isBought) PelleGlyphs = PelleGlyphs + 1;
-      if (PelleDestructionUpgrade.glyphSlot3.isBought) PelleGlyphs = PelleGlyphs + 1;
-      if (PelleDestructionUpgrade.glyphSlot4.isBought) PelleGlyphs = PelleGlyphs + 1;
-      if (PelleRealityUpgrade.linguisticallyExpand.isBought) PelleGlyphs = PelleGlyphs + 1;
-      if (PelleRealityUpgrade.syntheticSymbolism.isBought) PelleGlyphs = PelleGlyphs + 1;
-      PelleGlyphs += Effects.sum(EndgameMastery(121), Ra.unlocks.glyphSlot);
-      return PelleGlyphs;
+      return this.activeSlotCountInPelle();
     }
     return 3 + Effects.sum(RealityUpgrade(9), RealityUpgrade(24), BreakEternityUpgrade.glyphSlotImprovement, Ra.unlocks.glyphSlot);
   },
@@ -576,7 +579,7 @@ export const Glyphs = {
   // If deleteGlyphs === false, we are running this from the modal and are doing so purely to *count* the number of
   // removed glyphs. In this case, we copy the inventory and run the purge on the copy - we need to be able to remove
   // glyphs as we go, or else the purge logic will be wrong (eg. 7 identical glyphs will all be "worse than 5 others")
-  autoClean(threshold = 5, deleteGlyphs = true) {
+  autoClean(threshold = Math.max(5, this.activeSlotCount), deleteGlyphs = true) {
     const isHarsh = threshold < 5;
     let toBeDeleted = 0;
     const inventoryCopy = deleteGlyphs ? undefined : this.fakePurgeInventory();

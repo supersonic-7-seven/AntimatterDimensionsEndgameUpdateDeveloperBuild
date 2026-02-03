@@ -70,8 +70,8 @@ export const Pelle = {
         Glyphs could not be unequipped due to lack of inventory space.`, 1);
       return;
     }
-    // Keep 8 of each glyphs.
-    Glyphs.autoClean(8);
+    // Keep glyphs equal to max slot in Pelle.
+    Glyphs.autoClean(Glyphs.activeSlotCountInPelle(true));
     if (Glyphs.freeInventorySpace < 5) {
       Modal.hideAll();
       Modal.message.show(`You must have enough empty unprotected Glyph slots for

@@ -230,11 +230,11 @@ export const Endgame = {
     player.reality.glyphs.sac.reality = DC.D0;
     player.reality.glyphs.undo = [];
     player.reality.glyphs.protectedRows = 0;
-    Glyphs.autoClean(0);
+    Glyphs.deleteAllUnprotected();
     player.reality.glyphs.protectedRows = rowProtect;
     Glyphs.unequipAll();
     player.reality.glyphs.protectedRows = 0;
-    Glyphs.autoClean(0);
+    Glyphs.deleteAllUnprotected();
     player.reality.glyphs.protectedRows = rowProtect;
     if (!ExpansionPack.effarigPack.isBought) {
       player.reality.glyphs.createdRealityGlyph = false;
