@@ -32,7 +32,7 @@ export default {
           challengeName: "a Celestial Reality",
           normalName: "Reality",
           hasHigherLayers: false,
-          exitFn: () => beginProcessReality(getRealityProps(true))
+          exitFn: () => Alpha.isRunning ? Alpha.escapeTheMatrix() : beginProcessReality(getRealityProps(true))
         });
         else beginProcessReality(getRealityProps(true));
       } else if (confirms.resetReality) Modal.resetReality.show();
