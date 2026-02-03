@@ -952,7 +952,7 @@ function globalPassivePrestigeGen(realDiff) {
 
 function passivePrestigeGen(realDiff) {
   let eternitiedGain = DC.D0;
-  if (RealityUpgrade(14).isBought && (!Pelle.isDoomed || PelleRealityUpgrade.eternalFlow.isBought)) {
+  if (RealityUpgrade(14).isBought && (!Pelle.isDoomed || PelleRealityUpgrade.eternalFlow.isBought) && !player.disablePostReality) {
     eternitiedGain = DC.D1.timesEffectsOf(
       Achievement(113),
       RealityUpgrade(3),
