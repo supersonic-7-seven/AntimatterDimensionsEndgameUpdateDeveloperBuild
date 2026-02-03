@@ -116,6 +116,9 @@ export default {
     chargeDisplay() {
       return `Charge Upgrades: ${this.chargeView ? "ON" : "OFF"}`;
     },
+    shouldDisplayPourLimit() {
+      return this.pouredAmountCap.lt(DC.BEMAX);
+    }
   },
   watch: {
     disCharge(newValue) {
@@ -293,7 +296,13 @@ export default {
             <div class="c-rm-store-label">
               {{ formatX(rmMult, 2, 2) }} RM gain
               <br>
-              {{ format(pouredAmount, 2, 2) }}/{{ format(pouredAmountCap, 2, 2) }}
+              {{ format(pouredAmount, 2, 2) }}
+              <span v-if="shouldDisplayPourLimit">
+                / {{ format(pouredAmountCap, 2, 2) }}
+              </span>
+              <span v-else>
+                RM
+              </span>
             </div>
           </div>
           <CustomizeableTooltip
