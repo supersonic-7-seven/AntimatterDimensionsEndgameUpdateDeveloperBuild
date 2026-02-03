@@ -122,17 +122,18 @@ export class Currency {
   }
 
   subtract(amount) {
-    if (new Decimal(amount).gte(DC.E9E15) || new Decimal(this.value).gte(DC.E9E15)) return;
-    if (new Decimal(amount).gt(this.value)) {
-      if (player.DEV) throw new Error("Subtract command attempted to make currency negative, resetting currency and breaking loop");
-      this.value = (this.value instanceof DecimalCurrency || this.value instanceof Decimal) ? DC.D0 : 0;
-      return;
+    if (player.DEV && new Decimal(amount).gt(this.value)) throw new Error("Subtract command attempted to make currency negative, resetting currency and breaking loop");
+    if (DC.E9E15.lt(this.value) || DC.E9E15.lt(amount)) return;
+    switch (new Decimal(amount).cmp(this.value)) {
+      case 1: // amount > value
+        this.value = (this.value instanceof DecimalCurrency || this.value instanceof Decimal) ? DC.D0 : 0;
+        break;
+      case 0: // amount == value
+        this.value = (this.value instanceof DecimalCurrency || this.value instanceof Decimal) ? Decimal.floor(this.value.div(1e15)) : Math.floor(this.value / 1e15);
+        break;
+      default: // amount < value
+        this.value = this.operations.max(this.operations.subtract(this.value, amount), 0);
     }
-    if (new Decimal(amount).gte(this.value) && (this.value instanceof DecimalCurrency || this.value instanceof Decimal)) {
-      this.value = Decimal.floor(this.value.div(1e15));
-    }
-    else if (new Decimal(amount).gte(this.value)) { this.value = Math.floor(this.value / 1e15); }
-    else { this.value = this.operations.max(this.operations.subtract(this.value, amount), 0); }
   }
 
   multiply(amount) {
