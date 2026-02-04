@@ -34,7 +34,7 @@ export default {
           hasHigherLayers: false,
           exitFn: () => Alpha.isRunning ? Alpha.escapeTheMatrix() : beginProcessReality(getRealityProps(true))
         });
-        else beginProcessReality(getRealityProps(true));
+        else Alpha.isRunning ? Alpha.escapeTheMatrix() : beginProcessReality(getRealityProps(true));
       } else if (confirms.resetReality) Modal.resetReality.show();
       else beginProcessReality(getRealityProps(true));
     },
