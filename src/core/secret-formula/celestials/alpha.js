@@ -32,10 +32,10 @@ export const alphaUnlocks = {
     id: 3,
     requirement: 4,
     nerfDescription: "Infinity Upgrade costs are squared",
-    buffDescription: () => `IP Gain is raised ${formatPow(Tesseracts.effectiveCount / 100, 2, 3)} (based on Tesseracts)`,
+    buffDescription: () => `IP Gain is raised ${formatPow(1 + (Tesseracts.effectiveCount / 1000), 2, 3)} (based on Tesseracts)`,
     effects: {
       nerf: 2,
-      buff: () => Tesseracts.effectiveCount / 100
+      buff: () => 1 + (Tesseracts.effectiveCount / 1000)
     }
   },
   autoCrunchChallenge: {
