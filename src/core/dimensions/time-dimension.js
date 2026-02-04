@@ -281,7 +281,6 @@ class TimeDimensionState extends DimensionState {
       BreakEternityUpgrade.infinityDimensionPow
     );
 
-    if (!player.disablePostReality) mult = mult.pow(AlphaUnlocks.ecCompletion1.effects.buff.effectOrDefault(1));
     if (!player.disablePostReality) mult = mult.pow(AlphaUnlocks.ecCompletion5.effects.buff.effectOrDefault(1));
 
     if (tier === 8 && !player.disablePostReality) {
@@ -429,8 +428,9 @@ export const TimeDimensions = {
   },
 
   get compressionMagnitude() {
-    const reduction = Effects.product(EndgameMastery(83), EndgameUpgrade(3));
-    return 10 * reduction;
+    let reduction = Effects.product(EndgameMastery(83), EndgameUpgrade(3));
+    if (!player.disablePostReality) reduction *= AlphaUnlocks.ecCompletion1.effects.buff.effectOrDefault(1);
+    return Math.max(10 * reduction, 2) - Math.max((0.2 - reduction) * 5, 0);
   },
 
   get scalingPast1e6000() {

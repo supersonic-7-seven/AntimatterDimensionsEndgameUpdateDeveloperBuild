@@ -32,10 +32,10 @@ export const alphaUnlocks = {
     id: 3,
     requirement: 4,
     nerfDescription: "Infinity Upgrade costs are squared",
-    buffDescription: () => `IP Gain is raised ${formatPow(Tesseracts.effectiveCount / 100, 2, 3)} (based on Tesseracts)`,
+    buffDescription: () => `IP Gain is raised ${formatPow(1 + (Tesseracts.effectiveCount / 1000), 2, 3)} (based on Tesseracts)`,
     effects: {
       nerf: 2,
-      buff: () => Tesseracts.effectiveCount / 100
+      buff: () => 1 + (Tesseracts.effectiveCount / 1000)
     }
   },
   autoCrunchChallenge: {
@@ -83,10 +83,10 @@ export const alphaUnlocks = {
     id: 8,
     requirement: 9,
     nerfDescription: () => `The Repeatable IP Multiplier Upgrade is capped at ${formatInt(140)} Purchases`,
-    buffDescription: "Infinity Dimension Multipliers are squared and convert Infinity Dimensions to Continuum",
+    buffDescription: () => `Reduce Infinity Dimension Compression by ${formatPercents(0.25, 2)} and convert Infinity Dimensions to Continuum`,
     effects: {
       nerf: 140,
-      buff: 2
+      buff: 0.75
     }
   },
   replicanti: {
@@ -160,10 +160,10 @@ export const alphaUnlocks = {
     id: 16,
     requirement: 17,
     nerfDescription: () => `IP nerf in Eternity Challenges is decreased to ${formatPow(0.65, 2, 3)}`,
-    buffDescription: "Time Dimension Multipliers are squared and convert Time Dimensions to Continuum",
+    buffDescription: () => `Reduce Time Dimension Compression by ${formatPercents(0.25, 2)} and convert Time Dimensions to Continuum`,
     effects: {
       nerf: 0.65,
-      buff: 2
+      buff: 0.75
     }
   },
   ecCompletion5: {
