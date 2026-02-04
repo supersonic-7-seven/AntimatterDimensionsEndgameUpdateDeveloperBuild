@@ -106,7 +106,7 @@ export default {
         </div>
       </div>
       <span class="l-alpha-text">
-        Each Alpha layer beaten also doubles Endgame gain
+        Each Alpha layer beaten also increases Endgame gain by {{ formatPercents(0.25, 2) }}
       </span>
     </div>
   </div>
