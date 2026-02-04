@@ -13,19 +13,19 @@ export const alphaUnlocks = {
     id: 1,
     requirement: 2,
     nerfDescription: "Double the Dimension Boost Scaling Threshold",
-    buffDescription: () => `Decrease the base Dimension Boost Scaling Threshold by ${formatInt(1)}`,
+    buffDescription: () => `Decrease the base Dimension Boost Scaling Threshold by ${formatInt(2)}`,
     effects: {
       nerf: 2,
-      buff: 1
+      buff: 2
     }
   },
   firstGalaxy: {
     id: 2,
     requirement: 3,
-    nerfDescription: () => `All Galaxies are ${formatPercents(1 - Math.min(Decimal.log10(Decimal.log10(Tickspeed.perSecond.add(1)).add(1)).div(100).toNumber(), 1), 2)} weaker`,
+    nerfDescription: () => `All Galaxies are ${formatPercents(1 - Math.clamp(Decimal.log10(Decimal.log10(Tickspeed.perSecond.add(1)).add(1)).div(100).toNumber(), 0.1, 1), 2)} weaker`,
     buffDescription: "The Alternation Effect in Glyph Alchemy affects all Galaxy types",
     effects: {
-      nerf: () => Math.min(Decimal.log10(Decimal.log10(Tickspeed.perSecond.add(1)).add(1)).div(100).toNumber(), 1)
+      nerf: () => Math.clamp(Decimal.log10(Decimal.log10(Tickspeed.perSecond.add(1)).add(1)).div(100).toNumber(), 0.1, 1)
     }
   },
   infinity: {
@@ -42,21 +42,22 @@ export const alphaUnlocks = {
     id: 4,
     requirement: 5,
     nerfDescription: "The Big Crunch Autobuyer purchase scaling triples instead of doubles",
-    buffDescription: () => `Charged Infinity Upgrades act as if your Teresa Level was ${formatPercents(0.25, 2)} higher`,
+    buffDescription: "Charged Infinity Upgrades act as if your Teresa Level was twice as high",
     effects: {
       nerf: 3,
-      buff: 1.25
+      buff: 2
     }
   },
   breakInfinity: {
     id: 5,
     requirement: 6,
     nerfDescription: () => `Break Infinty Upgrades are ${formatX(1000)} more expensive, post-Break Tickspeed/Dimension cost scalings start at ${formatX(20)}`,
-    buffDescription: () => `Reduce Post-Break Tickspeed/Dimension cost scalings by ${format(0.1, 1, 1)}`,
+    buffDescription: () => `Reduce Post-Break Tickspeed cost scaling by ${format(0.15, 2, 2)} and Post-Break Dimension cost scaling by ${format(0.25, 2, 2)}`,
     effects: {
       nerfA: 1000,
       nerfB: 20,
-      buff: 0.1
+      buffA: 0.15,
+      buffB: 0.25
     }
   },
   powerGalaxies: {
@@ -73,10 +74,11 @@ export const alphaUnlocks = {
     id: 7,
     requirement: 8,
     nerfDescription: () => `The Infinity Dimension Purchase cap is decreased to ${formatInt(25)}`,
-    buffDescription: () => `Reduce Post-Break Tickspeed/Dimension cost scalings by ${format(0.1, 1, 1)}`,
+    buffDescription: () => `Reduce Post-Break Tickspeed cost scaling by ${format(0.15, 2, 2)} and Post-Break Dimension cost scaling by ${format(0.25, 2, 2)}`,
     effects: {
       nerf: 25,
-      buff: 0.1
+      buffA: 0.15,
+      buffB: 0.25
     }
   },
   infinityChallenges: {
@@ -103,10 +105,10 @@ export const alphaUnlocks = {
     id: 10,
     requirement: 11,
     nerfDescription: () => `Infinity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(Currency.infinityPoints.value.add(1)).sub(280).div(100).toNumber(), 0, 1), 2, 3)} (only applies first Eternity)`,
-    buffDescription: () => `The ${formatInt(8)}th Infinity Dimension is powered ${formatInt(10)}`,
+    buffDescription: () => `The ${formatInt(8)}th Infinity Dimension is powered ${formatInt(100)}`,
     effects: {
       nerf: () => Math.clamp(1 - Decimal.log10(Currency.infinityPoints.value.add(1)).sub(280).div(100).toNumber(), 0, 1),
-      buff: 10
+      buff: 100
     }
   },
   eternity: {
@@ -141,10 +143,10 @@ export const alphaUnlocks = {
     id: 14,
     requirement: 15,
     nerfDescription: () => `All Infinity Dimensions are raised ${formatPow(0.9, 2, 3)}`,
-    buffDescription: () => `The ${formatInt(1)}st Infinity Dimension is powered ${formatInt(20)}`,
+    buffDescription: () => `The ${formatInt(1)}st Infinity Dimension is powered ${formatInt(100)}`,
     effects: {
       nerf: 0.9,
-      buff: 20
+      buff: 100
     }
   },
   eternityChallengeUnlock: {
@@ -170,59 +172,59 @@ export const alphaUnlocks = {
     id: 17,
     requirement: 18,
     nerfDescription: () => `IP nerf in Eternity Challenges is decreased to ${formatPow(0.55, 2, 3)}`,
-    buffDescription: "Time Dimension Multipliers are squared",
+    buffDescription: () => `All Time Dimension Multipliers are raised ${formatPow(5)}`,
     effects: {
       nerf: 0.55,
-      buff: 2
+      buff: 5
     }
   },
   timestudy181: {
     id: 18,
     requirement: 19,
     nerfDescription: () => `All Antimatter Dimensions are raised ${formatPow(0.9, 2, 3)}`,
-    buffDescription: "All Antimatter Dimension Multipliers are squared",
+    buffDescription: () => `All Antimatter Dimension Multipliers are raised ${formatPow(5)}`,
     effects: {
       nerf: 0.9,
-      buff: 2
+      buff: 5
     }
   },
   eternityChallenge10: {
     id: 19,
     requirement: 20,
     nerfDescription: () => `Eternity Point gain is raised ${formatPow(0.9, 2, 3)}`,
-    buffDescription: () => `Infinity gain is raised ${formatPow(1.5, 2, 3)}`,
+    buffDescription: "Infinity gain is squared",
     effects: {
       nerf: 0.9,
-      buff: 1.5
+      buff: 2
     }
   },
   timestudy192: {
     id: 20,
     requirement: 21,
     nerfDescription: () => `Post-Infinite Replicanti scale is increased to ${formatX(1.5, 1, 1)} per ${format(DC.NUMMAX, 2, 2)} Replicanti`,
-    buffDescription: "Replicanti Interval is square-rooted",
+    buffDescription: "Replicanti boosts Dark Energy gain at a reduced rate",
     effects: {
       nerf: 1.5,
-      buff: 0.5
+      buff: () => Decimal.pow(Decimal.log2(player.replicanti.amount.add(1)), 10).add(1)
     }
   },
   eternityChallenge11: {
     id: 21,
     requirement: 22,
     nerfDescription: () => `Eternity Challenge ${formatInt(11)} must have a ${formatX(5)} Bulk Completion`,
-    buffDescription: () => `Reduce Post-Break Tickspeed cost scale by ${format(0.05, 2, 2)}`,
+    buffDescription: () => `Reduce Post-Break Tickspeed cost scale by ${format(0.075, 3, 3)}`,
     effects: {
-      buff: 0.05
+      buff: 0.075
     }
   },
   ec11Bulk: {
     id: 22,
     requirement: 23,
     nerfDescription: () => `The Dilation Study costs ${formatInt(12900)} Time Theorems`,
-    buffDescription: () => `Reduce Post-Break Tickspeed cost scale by ${format(0.05, 2, 2)}`,
+    buffDescription: () => `Reduce Post-Break Tickspeed cost scale by ${format(0.075, 3, 3)}`,
     effects: {
       nerf: 12900,
-      buff: 0.05
+      buff: 0.075
     }
   },
   unlockDilation: {
@@ -249,20 +251,20 @@ export const alphaUnlocks = {
     id: 25,
     requirement: 26,
     nerfDescription: () => `Time Theorem Generation is ${formatPercents(Math.clamp(1 - Decimal.log10(Currency.timeTheorems.value.add(1)).toNumber(), 0, 1), 2)} weaker (based on TP)`,
-    buffDescription: "Time Theorem Generation is squared",
+    buffDescription: () => `Time Theorem Generation is raised ${formatPow(10)}`,
     effects: {
       nerf: () => Math.clamp(Decimal.log10(Currency.timeTheorems.value.add(1)).toNumber(), 0, 1),
-      buff: 2
+      buff: 10
     }
   },
   timeDimension8: {
     id: 26,
     requirement: 27,
     nerfDescription: () => `Eternity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(Currency.eternityPoints.value.add(1)).sub(3350).div(1000).toNumber(), 0, 1), 2, 3)}`,
-    buffDescription: () => `The ${formatInt(8)}th Time Dimension is powered ${formatInt(100)}`,
+    buffDescription: () => `The ${formatInt(8)}th Time Dimension is powered ${formatInt(1000)}`,
     effects: {
       nerf: () => Math.clamp(1 - Decimal.log10(Currency.eternityPoints.value.add(1)).sub(3350).div(1000).toNumber(), 0, 1),
-      buff: 100
+      buff: 1000
     }
   },
   reality: {
