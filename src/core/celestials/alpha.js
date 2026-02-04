@@ -480,10 +480,10 @@ export const Alpha = {
       player.timestudy.amBought = alphaRecords.timestudy.amBought;
       player.timestudy.ipBought = alphaRecords.timestudy.ipBought;
       player.timestudy.epBought = alphaRecords.timestudy.epBought;
-      for (x = 0; x < 305; x++) {
-        if (alphaRecords.timestudy.studies.includes(x)) {
-          player.timestudy.theorem = player.timestudy.theorem.add(TimeStudy(x).cost);
-          TimeStudy(x).purchase();
+      for (let ts = 0; ts < 305; ts++) {
+        if (alphaRecords.timestudy.studies.includes(ts)) {
+          player.timestudy.theorem = player.timestudy.theorem.add(TimeStudy(ts).cost);
+          TimeStudy(ts).purchase();
         }
       }
       player.eternityChalls.eterc1 = alphaRecords.eternityChalls.eterc1;
@@ -501,10 +501,10 @@ export const Alpha = {
       player.respec = alphaRecords.respec;
       player.eterc8ids = alphaRecords.eterc8ids;
       player.eterc8repl = alphaRecords.eterc8repl;
-      for (x = 0; x < 7; x++) {
-        if (alphaRecords.dilation.studies.includes(x)) {
-          player.timestudy.theorem = player.timestudy.theorem.add(DilationTimeStudyState.studies[x].cost);
-          DilationTimeStudyState.studies[x].purchase();
+      for (let dts = 0; dts < 7; dts++) {
+        if (alphaRecords.dilation.studies.includes(dts)) {
+          player.timestudy.theorem = player.timestudy.theorem.add(DilationTimeStudyState.studies[dts].cost);
+          DilationTimeStudyState.studies[dts].purchase();
         }
       }
       player.dilation.active = alphaRecords.dilation.active;
@@ -960,10 +960,10 @@ export const Alpha = {
     alphaRecords.timestudy.amBought = player.timestudy.amBought;
     alphaRecords.timestudy.ipBought = player.timestudy.ipBought;
     alphaRecords.timestudy.epBought = player.timestudy.epBought;
-    for (x = 0; x < 305; x++) {
-      if (TimeStudy(x)) {
-        if (TimeStudy(x).isBought) {
-          alphaRecords.timestudy.studies.push(x);
+    for (let ats = 0; ats < 305; ats++) {
+      if (TimeStudy(ats)) {
+        if (TimeStudy(ats).isBought) {
+          alphaRecords.timestudy.studies.push(ats);
         }
       }
     }
@@ -982,9 +982,9 @@ export const Alpha = {
     alphaRecords.respec = player.respec;
     alphaRecords.eterc8ids = player.eterc8ids;
     alphaRecords.eterc8repl = player.eterc8repl;
-    for (x = 0; x < 7; x++) {
-      if (player.dilation.studies.includes(x)) {
-        alphaRecords.dilation.studies.push(x);
+    for (adts = 0; adts < 7; adts++) {
+      if (player.dilation.studies.includes(adts)) {
+        alphaRecords.dilation.studies.push(adts);
       }
     }
     alphaRecords.dilation.active = player.dilation.active;
