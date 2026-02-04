@@ -19,6 +19,7 @@ export default {
       incomeType: "",
       areAutobuyersUnlocked: false,
       showLockedDimCostNote: true,
+      hasCap: true
     };
   },
   computed: {
@@ -35,6 +36,7 @@ export default {
       this.shardsPerSecond.copyFrom(TimeDimension(1).productionPerRealSecond);
       this.incomeType = EternityChallenge(7).isRunning ? "Eighth Infinity Dimensions" : "Time Shards";
       this.areAutobuyersUnlocked = Autobuyer.timeDimension(1).isUnlocked;
+      this.hasCap = Alpha.currentStage < 11 || player.disablePostReality;
     },
     maxAll() {
       tryUnlockTimeDimensions();
@@ -101,7 +103,9 @@ export default {
       <div v-if="showLockedDimCostNote">
         Hold shift to see the Eternity Point cost for locked Time Dimensions.
       </div>
-      Any 8th Time Dimensions purchased above {{ format(1e8) }} will not further increase the multiplier.
+      <div v-if="hasCap">
+        Any 8th Time Dimensions purchased above {{ format(1e8) }} will not further increase the multiplier.
+      </div>
     </div>
   </div>
 </template>
