@@ -194,8 +194,6 @@ class InfinityDimensionState extends DimensionState {
       BreakEternityUpgrade.infinityDimensionPow
     );
 
-    if (!player.disablePostReality) mult = mult.pow(AlphaUnlocks.infinityChallenges.effects.buff.effectOrDefault(1));
-
     if (tier === 8 && !player.disablePostReality) {
       mult = mult.pow(AlphaUnlocks.infinityDimensions.effects.buff.effectOrDefault(1));
     }
@@ -401,8 +399,9 @@ export const InfinityDimensions = {
 
   get compressionMagnitude() {
     const extraReduction = (ExpansionPack.enslavedPack.isBought && !player.disablePostReality) ? Math.pow(1 / Math.log10(Tesseracts.effectiveCount + 1), 0.2) : 1;
-    const reduction = Effects.product(EndgameMastery(82), EndgameUpgrade(2)) * extraReduction;
-    return 10 * reduction;
+    let reduction = Effects.product(EndgameMastery(82), EndgameUpgrade(2)) * extraReduction;
+    if (!player.disablePostReality) reduction *= AlphaUnlocks.infinityChallenges.effects.buff.effectOrDefault(1);
+    return Math.max(10 * reduction, 2) - Math.max((0.2 - reduction) * 5, 0);
   },
 
   unlockNext() {
