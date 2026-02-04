@@ -28,6 +28,8 @@ export default {
       multDT: new Decimal(),
       hasIPMult: false,
       multIP: new Decimal(),
+      hasDEMult: false,
+      multDE: new Decimal(),
       hasRaisedCap: false,
       replicantiCap: new Decimal(),
       capMultText: "",
@@ -114,6 +116,10 @@ export default {
         boostList.push(`a <span class="c-replicanti-description__accent">${formatX(this.multIP)}</span>
           multiplier to Infinity Points from Glyph Alchemy`);
       }
+      if (this.hasDEMult) {
+        boostList.push(`a <span class="c-replicanti-description__accent">${formatX(this.multDE)}</span>
+          multiplier to Dark Energy from an Alpha Reward`);
+      }
       if (boostList.length === 1) return `${boostList[0]}.`;
       if (boostList.length === 2) return `${boostList[0]}<br> and ${boostList[1]}.`;
       return `${boostList.slice(0, -1).join(",<br>")},<br> and ${boostList[boostList.length - 1]}.`;
@@ -151,6 +157,8 @@ export default {
       );
       this.hasIPMult = AlchemyResource.exponential.amount > 0 && !this.isDoomed;
       this.multIP = Replicanti.amount.powEffectOf(AlchemyResource.exponential);
+      this.hasDEMult = !player.disablePostReality && Alpha.currentStage >= 21;
+      this.multDE = Decimal.pow(Decimal.log2(Replicanti.amount.add(1)), 10).add(1);
       this.isUncapped = PelleRifts.vacuum.milestones[1].canBeApplied;
       this.hasRaisedCap = (EffarigUnlock.infinity.isUnlocked && !this.isUncapped) || (Pelle.isDoomed && PelleCelestialUpgrade.replicantiCapIncrease.isBought);
       this.replicantiCap.copyFrom(replicantiCap());
