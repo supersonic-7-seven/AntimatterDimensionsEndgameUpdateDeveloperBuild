@@ -100,9 +100,10 @@ export const endgameUpgrades = [
     formatEffect: value => {
       if (new Decimal(value).gte(9999999999)) return "No Endgame generation";
       let endgames = 1;
-      endgames = ((ExpansionPack.enslavedPack.isBought && !player.disablePostReality)
+      endgames *= ((ExpansionPack.enslavedPack.isBought && !player.disablePostReality)
         ? Math.floor(1 + Math.pow(Math.log10(Math.min(Tesseracts.effectiveCount, 1000) * Math.max(Math.log10(Tesseracts.effectiveCount) - 2, 1) + 1), Math.log10(player.endgames + 1)))
         : 1);
+      endgames *= Math.pow(2, Alpha.currentStage);
       const timeStr = Time.bestEndgameRealTime.totalMilliseconds.lte(100)
         ? `${TimeSpan.fromMilliseconds(new Decimal(1000)).toStringShort()} (capped)`
         : `${TimeSpan.fromMilliseconds(new Decimal(value)).toStringShort()}`;
