@@ -977,9 +977,9 @@ export const Alpha = {
     alphaRecords.dilation.rebuyables[12] = player.dilation.rebuyables[12];
     alphaRecords.dilation.rebuyables[13] = player.dilation.rebuyables[13];
     alphaRecords.dilation.lastEP = player.dilation.lastEP;
+    clearCelestialRuns();
     player.disablePostReality = false;
     Endgame.resetNoReward();
-    clearCelestialRuns();
     recalculateAllGlyphs();
     Tab.dimensions.antimatter.show(false);
   },
