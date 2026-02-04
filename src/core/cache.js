@@ -70,8 +70,8 @@ export const GameCache = {
   tickSpeedMultDecrease: new Lazy(() => (Alpha.isRunning ? AlphaUnlocks.breakInfinity.effects.nerfB.effectOrDefault(10) : 10) - Effects.sum(
     BreakInfinityUpgrade.tickspeedCostMult,
     EternityChallenge(11).reward) - (player.disablePostReality ? 0 : Effects.sum(
-    AlphaUnlocks.breakInfinity.effects.buff,
-    AlphaUnlocks.breakUpgrades.effects.buff,
+    AlphaUnlocks.breakInfinity.effects.buffA,
+    AlphaUnlocks.breakUpgrades.effects.buffA,
     AlphaUnlocks.eternityChallenge11.effects.buff,
     AlphaUnlocks.ec11Bulk.effects.buff
   ))),
@@ -79,8 +79,8 @@ export const GameCache = {
   dimensionMultDecrease: new Lazy(() => (Alpha.isRunning ? AlphaUnlocks.breakInfinity.effects.nerfB.effectOrDefault(10) : 10) - Effects.sum(
     BreakInfinityUpgrade.dimCostMult,
     EternityChallenge(6).reward) - (player.disablePostReality ? 0 : Effects.sum(
-    AlphaUnlocks.breakInfinity.effects.buff,
-    AlphaUnlocks.breakUpgrades.effects.buff
+    AlphaUnlocks.breakInfinity.effects.buffB,
+    AlphaUnlocks.breakUpgrades.effects.buffB
   ))),
 
   timeStudies: new Lazy(() => NormalTimeStudyState.studies
