@@ -2,7 +2,7 @@
 function averageRun(allRuns) {
   // Filter out all runs which have the default infinite value for time, but if we're left with no valid runs then we
   // take just one entry so that the averages also have the same value and we don't get division by zero.
-  let runs = allRuns.filter(run => run[0] !== Number.MAX_VALUE);
+  let runs = allRuns.filter(run => run[1] !== Number.MAX_VALUE);
   if (runs.length === 0) runs = [allRuns[0]];
 
   const longestRow = allRuns.map(r => r.length).max();
@@ -70,7 +70,7 @@ export default {
   methods: {
     update() {
       this.runs = this.clone(this.getRuns());
-      this.hasEmptyRecord = this.runs[0][0] === Number.MAX_VALUE;
+      this.hasEmptyRecord = this.runs[0][1] === Number.MAX_VALUE;
       this.runs.push(this.averageRun);
       this.isRealityUnlocked = PlayerProgress.current.isRealityUnlocked;
       this.shown = player.shownRuns[this.singular];
@@ -239,7 +239,10 @@ export default {
         <h3>Last {{ formatInt(10) }} {{ plural }}:</h3>
       </span>
     </div>
-    <div v-show="shown">
+    <div
+      v-show="shown"
+      class="c-past-runs-table"
+    >
       <div class="c-row-container">
         <span
           v-for="(entry, col) in infoCol()"
@@ -254,7 +257,7 @@ export default {
         :key="index"
       >
         <span
-          v-if="run[0] === Number.MAX_VALUE"
+          v-if="run[1] === Number.MAX_VALUE"
           class="c-empty-row"
         >
           <i v-if="index === 10">
