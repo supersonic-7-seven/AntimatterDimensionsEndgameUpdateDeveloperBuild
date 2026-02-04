@@ -72,6 +72,7 @@ export default {
         <span class="c-normal-ethereal-text"> Ethereal Power.</span>
       </div>
     </div>
+    <br>
     <div
       v-if="!isExtended"
       class="l-ethereal-extension-unlock"
