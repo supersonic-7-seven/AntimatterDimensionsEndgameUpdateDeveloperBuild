@@ -50,7 +50,7 @@ export default {
       this.isRunning = this.challenge.isOnlyActiveChallenge;
       this.normalLockedAt = this.challenge.config.lockedAt;
       this.alphaLockedAt = this.challenge.config.alphaLockedAt;
-      this.lockedAt = Alpha.isRunning ? this.normalLockedAt : this.alphaLockedAt;
+      this.lockedAt = Alpha.isRunning ? this.alphaLockedAt : this.normalLockedAt;
       this.isBroken = Enslaved.isRunning && Enslaved.BROKEN_CHALLENGES.includes(this.challenge.id);
       this.isCompleted = this.challenge.isCompleted && !this.isBroken;
     }
