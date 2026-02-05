@@ -139,7 +139,7 @@ export default {
         };
       } else {
         names = { chall: this.activeChallengeNames[0], normal: "Reality" };
-        clickFn = () => beginProcessReality(getRealityProps(true));
+        clickFn = () => Alpha.isRunning ? Alpha.escapeTheMatrix() : beginProcessReality(getRealityProps(true));
       }
 
       if (player.options.confirmations.exitChallenge) {
