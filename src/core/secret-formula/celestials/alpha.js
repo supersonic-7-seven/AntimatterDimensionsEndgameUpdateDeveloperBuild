@@ -2,20 +2,20 @@ export const alphaUnlocks = {
   fourthDimboost: {
     id: 0,
     requirement: 1,
-    nerfDescription: () => `The Dimension Boost Multiplier is raised ${formatPow(0.8, 2, 3)}`,
+    nerfDescription: "Square-root the Dimension Boost Multiplier",
     buffDescription: "Square the Dimension Boost Multiplier",
     effects: {
-      nerf: 0.8,
+      nerf: 0.5,
       buff: 2
     }
   },
   fifthDimboost: {
     id: 1,
     requirement: 2,
-    nerfDescription: () => `Increase the Dimension Boost Scaling Threshold by ${formatPercents(0.5)}`,
+    nerfDescription: "Double the Dimension Boost Scaling Threshold",
     buffDescription: () => `Decrease the base Dimension Boost Scaling Threshold by ${formatInt(2)}`,
     effects: {
-      nerf: 1.5,
+      nerf: 2,
       buff: 2
     }
   },
