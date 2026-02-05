@@ -53,7 +53,7 @@ export function playerInfinityUpgradesOnReset() {
 
   if ((RealityUpgrade(10).isBought && !player.disablePostReality) || EternityMilestone.keepBreakUpgrades.isReached) {
     player.infinityUpgrades = breakInfinityUpgrades;
-    player.infinityRebuyables = [8, 7, 10];
+    player.infinityRebuyables = Alpha.isRunning ? [18, 17, 10] : [8, 7, 10];
   } else if (EternityMilestone.keepInfinityUpgrades.isReached) {
     player.infinityUpgrades = infinityUpgrades;
     player.infinityRebuyables = [0, 0, 0];
