@@ -55,7 +55,7 @@ class NormalChallengeState extends GameMechanicState {
   get isUnlocked() {
     if (PlayerProgress.eternityUnlocked() && (!Alpha.isRunning || Currency.eternities.gt(0))) return true;
     if (this.id === 0) return true;
-    const ip = Alpha.isRunning ? GameDatabase.challenges.normal[this.id].alphaLockedAt : GameDatabase.challenges.normal[this.id - 1].lockedAt;
+    const ip = Alpha.isRunning ? GameDatabase.challenges.normal[this.id - 1].alphaLockedAt : GameDatabase.challenges.normal[this.id - 1].lockedAt;
     return Currency.infinitiesTotal.gte(ip);
   }
 
