@@ -109,7 +109,9 @@ export default {
     },
     buyGalaxy(bulk) {
       if (!this.canBeBought) return;
+      if (Alpha.isRunning && player.galaxies.eq(0) && Alpha.currentStage < 2) return;
       manualRequestGalaxyReset(this.canBulkBuy && bulk);
+      if (Alpha.isRunning && player.galaxies.gte(1)) Alpha.advanceLayer();
     },
     formatGalaxies(num) {
       return new Decimal(num).gt(1e8) ? format(num, 2) : formatInt(num);
