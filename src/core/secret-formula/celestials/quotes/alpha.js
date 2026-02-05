@@ -24,5 +24,17 @@ export const alphaQuotes = {
       "For I am Alpha, Celestial of Darkness.",
       "And you will never see the light again."
     ]
-  }
+  },
+  enter: {
+    id: 1,
+    lines: [
+      "Welcome to my domain.",
+      "My perfect domain.",
+      "Only darkness lives in here.",
+      "None who go in come out.",
+      "Go ahead.",
+      "But take a good look.",
+      "This is the last time light will shine upon you."
+    ]
+  },
 };
