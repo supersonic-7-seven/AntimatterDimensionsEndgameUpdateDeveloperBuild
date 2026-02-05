@@ -1038,10 +1038,13 @@ export const Alpha = {
   get currentShortStageName() {
     return this.shortStageNames[this.currentStage];
   },
-  get celestialMatterConversionNerf() {
+  get alphaDecay() {
     return 0.01 + (this.currentStage / 200) + Math.max(0, (this.currentStage - 18) / 200) +
       Math.max(0, (this.currentStage - 20) / 100) + Math.max(0, (this.currentStage - 21) / 100) +
       Math.max(0, (this.currentStage - 23) / 50) + Math.max(0, (this.currentStage - 25) / 20);
+  },
+  get celestialMatterConversionNerf() {
+    return DC.D1.sub(Decimal.pow(1 - this.alphaDecay, TimeSpan.fromMilliseconds(Time.thisEndgameRealTime._ms).totalHours)).toNumber();
   },
   quotes: Quotes.alpha,
   symbol: "α"
