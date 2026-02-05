@@ -59,7 +59,10 @@ export default {
     },
     dimensionBoost(bulk) {
       if (!DimBoost.requirement.isSatisfied || !DimBoost.canBeBought) return;
+      if (DimBoost.purchasedBoosts.gte(4) && Alpha.currentStage < 1) return;
       manualRequestDimensionBoost(bulk);
+      if (Alpha.isRunning && DimBoost.purchasedBoosts.gte(4)) Alpha.advanceLayer();
+      if (Alpha.isRunning && DimBoost.purchasedBoosts.gte(5)) Alpha.advanceLayer();
     }
   }
 };
