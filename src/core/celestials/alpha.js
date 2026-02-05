@@ -1007,6 +1007,10 @@ export const Alpha = {
     recalculateAllGlyphs();
     Tab.dimensions.antimatter.show(false);
   },
+  advanceLayer() {
+    player.celestials.alpha.stage++;
+    this.escapeTheMatrix();
+  },
   get isRunning() {
     return player.celestials.alpha.run;
   },
