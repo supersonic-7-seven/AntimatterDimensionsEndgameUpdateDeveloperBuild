@@ -873,7 +873,259 @@ window.player = {
       unlockBits: 0,
       run: false,
       quoteBits: 0,
-      stage: 0
+      stage: 0,
+      records: {
+        antimatter: DC.E1,
+        dimensions: {
+          antimatter: Array.range(0, 8).map(() => ({
+            bought: 0,
+            costBumps: 0,
+            amount: DC.D0
+          })),
+          infinity: Array.range(0, 8).map(tier => ({
+            isUnlocked: false,
+            bought: 0,
+            amount: DC.D0,
+            cost: [DC.E8, DC.E9, DC.E10, DC.E20, DC.E140, DC.E200, DC.E250, DC.E280][tier],
+            baseAmount: 0
+          })),
+          time: Array.range(0, 8).map(tier => ({
+            cost: [DC.D1, DC.D5, DC.E2, DC.E3, DC.E2350, DC.E2650, DC.E3000, DC.E3350][tier],
+            amount: DC.D0,
+            bought: 0
+          }))
+        },
+        buyUntil10: true,
+        sacrificed: DC.D0,
+        infinityUpgrades: new Set(),
+        infinityRebuyables: [0, 0, 0],
+        challenge: {
+          normal: {
+            current: 0,
+            bestTimes: Array.repeat(DC.BEMAX, 11),
+            completedBits: 0,
+          },
+          infinity: {
+            current: 0,
+            bestTimes: Array.repeat(DC.BEMAX, 8),
+            completedBits: 0,
+          },
+          eternity: {
+            current: 0,
+            unlocked: 0,
+            requirementBits: 0,
+          }
+        },
+        infinity: {
+          upgradeBits: 0
+        },
+        auto: {
+          autobuyersOn: true,
+          disableContinuum: false,
+          eternity: {
+            amount: DC.D1,
+            increaseWithMult: true,
+            time: 1,
+            xHighest: DC.D1,
+            isActive: false
+          },
+          bigCrunch: {
+            cost: 1,
+            interval: 150000,
+            mode: 0,
+            amount: DC.D1,
+            increaseWithMult: true,
+            time: 1,
+            xHighest: DC.D1,
+            isActive: true,
+            lastTick: 0,
+          },
+          galaxy: {
+            cost: 1,
+            interval: 20000,
+            limitGalaxies: false,
+            maxGalaxies: 1,
+            buyMax: false,
+            buyMaxInterval: 0,
+            isActive: true,
+            lastTick: 0
+          },
+          dimBoost: {
+            cost: 1,
+            interval: 4000,
+            limitDimBoosts: false,
+            maxDimBoosts: 1,
+            limitUntilGalaxies: false,
+            galaxies: 10,
+            buyMaxInterval: 0,
+            isActive: true,
+            lastTick: 0
+          },
+          tickspeed: {
+            isUnlocked: false,
+            cost: 1,
+            interval: 500,
+            mode: AUTOBUYER_MODE.BUY_SINGLE,
+            isActive: true,
+            lastTick: 0,
+            isBought: false
+          },
+          sacrifice: {
+            multiplier: DC.D2,
+            isActive: true
+          },
+          antimatterDims: {
+            all: Array.range(0, 8).map(tier => ({
+              isUnlocked: false,
+              cost: 1,
+              interval: [500, 600, 700, 800, 900, 1000, 1100, 1200][tier],
+              bulk: 1,
+              mode: AUTOBUYER_MODE.BUY_10,
+              isActive: true,
+              lastTick: 0,
+              isBought: false
+            })),
+            isActive: true,
+          },
+          infinityDims: {
+            all: Array.range(0, 8).map(() => ({
+              isActive: false,
+              lastTick: 0,
+            })),
+            isActive: true,
+          },
+          replicantiGalaxies: {
+            isActive: false,
+          },
+          replicantiUpgrades: {
+            all: Array.range(0, 3).map(() => ({
+              isActive: false,
+              lastTick: 0,
+            })),
+            isActive: true,
+          },
+          ipMultBuyer: { isActive: false, },
+        },
+        infinityPoints: DC.D0,
+        infinities: DC.D0,
+        infinitiesBanked: DC.D0,
+        dimensionBoosts: DC.D0,
+        galaxies: DC.D0,
+        chall2Pow: 1,
+        chall3Pow: DC.D0_01,
+        matter: DC.D1,
+        chall9TickspeedCostBumps: 0,
+        chall8TotalSacrifice: DC.D1,
+        ic2Count: 0,
+        partInfinityPoint: DC.D0,
+        partInfinitied: 0,
+        break: false,
+        requirementChecks: {
+          infinity: {
+            maxAll: false,
+            noSacrifice: true,
+            noAD8: true,
+          },
+          eternity: {
+            onlyAD1: true,
+            onlyAD8: true,
+            noAD1: true,
+            noRG: true,
+          }
+        },
+        records: {
+          totalTimePlayed: DC.D0,
+          totalEndgameAntimatter: DC.E1,
+          totalRealityAntimatter: DC.E1,
+          totalEternityAntimatter: DC.E1,
+          totalInfinityAntimatter: DC.E1,
+          recentInfinities: Array.range(0, 10).map(() =>
+            [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, ""]),
+          recentEternities: Array.range(0, 10).map(() =>
+            [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, "", DC.D0]),
+          thisInfinity: {
+            time: DC.D0,
+            realTime: 0,
+            lastBuyTime: DC.D0,
+            maxAM: DC.D0,
+            bestIPmin: DC.D0,
+            bestIPminVal: DC.D0,
+          },
+          bestInfinity: {
+            time: DC.BEMAX,
+            realTime: Number.MAX_VALUE,
+            bestIPminEternity: DC.D0,
+            bestIPminReality: DC.D0,
+          },
+          thisEternity: {
+            time: DC.D0,
+            realTime: 0,
+            maxAM: DC.D0,
+            maxIP: DC.D0,
+            bestIPMsWithoutMaxAll: DC.D0,
+            bestEPmin: DC.D0,
+            bestEPminVal: DC.D0,
+            bestInfinitiesPerMs: DC.D0,
+          },
+          bestEternity: {
+            time: DC.BEMAX,
+            realTime: Number.MAX_VALUE,
+            bestEPminReality: DC.D0,
+          },
+        },
+        IPMultPurchases: 0,
+        infinityPower: DC.D1,
+        postC4Tier: 0,
+        eternityPoints: DC.D0,
+        eternities: DC.D0,
+        eternityUpgrades: new Set(),
+        epmultUpgrades: 0,
+        timeShards: DC.D0,
+        totalTickGained: 0,
+        totalTickBought: 0,
+        replicanti: {
+          unl: false,
+          amount: DC.D0,
+          chance: 0.01,
+          chanceCost: DC.E150,
+          interval: 1000,
+          intervalCost: DC.E140,
+          boughtGalaxyCap: DC.D0,
+          galaxies: DC.D0,
+          galCost: DC.E170,
+        },
+        timestudy: {
+          theorem: DC.D0,
+          maxTheorem: DC.D0,
+          amBought: 0,
+          ipBought: 0,
+          epBought: 0,
+          studies: [],
+        },
+        eternityChalls: {},
+        respec: false,
+        eterc8ids: 50,
+        eterc8repl: 40,
+        dilation: {
+          studies: [],
+          active: false,
+          tachyonParticles: DC.D0,
+          dilatedTime: DC.D0,
+          nextThreshold: DC.E3,
+          baseTachyonGalaxies: DC.D0,
+          totalTachyonGalaxies: DC.D0,
+          upgrades: new Set(),
+          rebuyables: {
+            1: 0,
+            2: 0,
+            3: 0,
+            11: 0,
+            12: 0,
+            13: 0,
+          },
+          lastEP: DC.DM1,
+        }
+      }
     }
   },
   endgames: 0,
