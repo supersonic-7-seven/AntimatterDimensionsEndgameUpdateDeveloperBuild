@@ -24,7 +24,7 @@ export default {
       required: true
     },
     lockedAt: {
-      type: Function,
+      type: Decimal,
       required: false,
       default: undefined
     },
@@ -64,7 +64,7 @@ export default {
       if (this.isUnlocked) return "Start";
       const lockedText = this.lockedAt === undefined
         ? ""
-        : ` (${formatInt(this.infinities)}/${formatInt(this.lockedAt())})`;
+        : ` (${formatInt(this.infinities)}/${formatInt(this.lockedAt)})`;
       return `Locked${lockedText}`;
     }
   },
