@@ -144,7 +144,7 @@ export default {
 .l-alpha-unlocks-and-run {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .l-alpha-unlocks {
