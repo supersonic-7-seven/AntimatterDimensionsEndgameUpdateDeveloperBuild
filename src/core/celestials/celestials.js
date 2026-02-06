@@ -113,6 +113,12 @@ GameDatabase.celestials.descriptions = [
     }
   },
   {
+    name: "Pelle",
+    effects() {
+      return `Your Reality will become Doomed. This will have various effects on gameplay.`;
+    }
+  },
+  {
     name: "Alpha",
     effects() {
       return `All rewards, effects, upgrades, enhancements, buffs, nerfs, and features unlocked or gained after reaching Reality
