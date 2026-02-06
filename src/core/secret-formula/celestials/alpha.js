@@ -22,10 +22,10 @@ export const alphaUnlocks = {
   firstGalaxy: {
     id: 2,
     requirement: 3,
-    nerfDescription: () => `All Galaxies are ${formatPercents(1 - Math.clamp(Decimal.log10(Decimal.log10(Currency.antimatter.add(1)).add(1)).div(20).add(0.5).toNumber(), 0.5, 1), 2)} weaker`,
+    nerfDescription: () => `All Galaxies are ${formatPercents(1 - Math.clamp(Decimal.log10(Decimal.log10(player.antimatter.add(1)).add(1)).div(20).add(0.5).toNumber(), 0.5, 1), 2)} weaker`,
     buffDescription: "The Alternation Effect in Glyph Alchemy affects all Galaxy types",
     effects: {
-      nerf: () => Math.clamp(Decimal.log10(Decimal.log10(Currency.antimatter.add(1)).add(1)).div(20).add(0.5).toNumber(), 0.5, 1)
+      nerf: () => Math.clamp(Decimal.log10(Decimal.log10(player.antimatter.add(1)).add(1)).div(20).add(0.5).toNumber(), 0.5, 1)
     }
   },
   infinity: {
