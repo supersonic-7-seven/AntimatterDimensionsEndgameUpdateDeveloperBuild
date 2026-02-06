@@ -106,6 +106,8 @@ export default {
             setProgress(Currency.antimatter.value, AntimatterDimension(req.tier).costScale.calculateCost(req.amount.div(10).sub(1).toNumber()), "Percentage to 1st Galaxy");
             break;
           case 3:
+          case 4:
+          case 5:
             setProgress(Currency.antimatter.value, DC.NUMMAX, "Percentage to Infinity");
             break;
           default:
