@@ -95,15 +95,15 @@ export default {
         switch (Alpha.currentStage) {
           case 0:
             req = DimBoost.bulkRequirement(new Decimal(4).sub(DimBoost.purchasedBoost));
-            setProgress(Currency.antimatter.value, AntimatterDimension(req.tier).costScale.calculateCost(req.amount.div(10).sub(1).toNumber()), "Percentage to 4th Dim Boost")
+            setProgress(Currency.antimatter.value, AntimatterDimension(req.tier).costScale.calculateCost(req.amount.div(10).sub(1).toNumber()), "Percentage to 4th Dim Boost");
             break;
           case 1:
             req = DimBoost.bulkRequirement(new Decimal(5).sub(DimBoost.purchasedBoost));
-            setProgress(Currency.antimatter.value, AntimatterDimension(req.tier).costScale.calculateCost(req.amount.div(10).sub(1).toNumber()), "Percentage to 5th Dim Boost")
+            setProgress(Currency.antimatter.value, AntimatterDimension(req.tier).costScale.calculateCost(req.amount.div(10).sub(1).toNumber()), "Percentage to 5th Dim Boost");
             break;
           case 2:
             req = Galaxy.requirementAt(0);
-            setProgress(Currency.antimatter.value, AntimatterDimension(req.tier).costScale.calculateCost(req.amount.div(10).sub(1).toNumber()), "Percentage to 1st Galaxy")
+            setProgress(Currency.antimatter.value, AntimatterDimension(req.tier).costScale.calculateCost(req.amount.div(10).sub(1).toNumber()), "Percentage to 1st Galaxy");
             break;
           case 3:
             setProgress(Currency.antimatter.value, DC.NUMMAX, "Percentage to Infinity");
