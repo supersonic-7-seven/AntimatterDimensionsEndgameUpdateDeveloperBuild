@@ -111,7 +111,7 @@ class NormalChallengeState extends GameMechanicState {
     if (this.id === 9) {
       Autobuyer.tickspeed.mode = 100;
     }
-    if (this.id === 12 && Alpha.isRunning && Alpha.currentStage === 4) Alpha.currentStage++;
+    if (this.id === 12 && Alpha.isRunning && Alpha.currentStage === 4) Alpha.advanceLayer();
   }
 
   get goal() {
