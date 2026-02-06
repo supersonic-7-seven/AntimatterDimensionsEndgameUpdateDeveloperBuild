@@ -9229,6 +9229,7 @@ kbd {
   align-items: center;
   border: var(--var-border-width, 0.2rem) solid var(--color-alpha--base);
   border-radius: var(--var-border-radius, 0.5rem);
+  margin-top: 1rem;
   margin-left: 3rem;
   padding: 1rem;
 }
