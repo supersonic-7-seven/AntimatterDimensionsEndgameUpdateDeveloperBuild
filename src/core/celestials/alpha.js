@@ -1044,7 +1044,7 @@ export const Alpha = {
       Math.max(0, (this.currentStage - 23) / 50) + Math.max(0, (this.currentStage - 25) / 20);
   },
   get celestialMatterConversionNerf() {
-    return DC.D1.sub(Decimal.pow(1 - this.alphaDecay, Math.min(
+    return DC.D1.sub(Decimal.pow(1 - this.alphaDecay, Decimal.min(
       TimeSpan.fromMilliseconds(Time.thisEndgameRealTime._ms).totalHours, 5))).toNumber();
   },
   quotes: Quotes.alpha,
