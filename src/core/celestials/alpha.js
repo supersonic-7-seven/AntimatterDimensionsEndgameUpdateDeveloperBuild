@@ -1049,7 +1049,24 @@ export const Alpha = {
   },
   quotes: Quotes.alpha,
   symbol: "α",
-  pauseNerf: false // Used to pause nerf to prevent crash
+  pauseNerf: false, // Used to pause nerf to prevent crash
+  AllBIULayerCheck(isBIUPowerUpGalaxy = false) {
+    if (!Alpha.isRunning || Alpha.currentStage > 7) return;
+    let isAllBIUBoughtMax = true;
+    for (let i = 0; i < BreakInfinityUpgrade.all.length; i++) {
+      const a = BreakInfinityUpgrade.all[i];
+      if (i < 9 && !(a.isBought && a.isCapped)) isAllBIUBoughtMax = false;
+      else if (i >= 9 && !a.isBought) isAllBIUBoughtMax = false;
+    }
+    if (isAllBIUBoughtMax) {
+      Alpha.currentStage = 7; // Prevent Power-up galaxy BIU is the last bought BIU
+      Alpha.advanceLayer();
+    }
+    else if (isBIUPowerUpGalaxy) {
+      Alpha.currentStage = 6; // Prevent Power-up galaxy BIU bought before Break Infinity
+      Alpha.advanceLayer();
+    }
+  }
 };
 
 class AlphaUnlockState extends BitUpgradeState {
