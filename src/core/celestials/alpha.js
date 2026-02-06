@@ -1055,15 +1055,15 @@ export const Alpha = {
     let isAllBIUBoughtMax = true;
     for (let i = 0; i < BreakInfinityUpgrade.all.length; i++) {
       const a = BreakInfinityUpgrade.all[i];
-      if (i < 9 && !(a.isBought && a.isCapped)) isAllBIUBoughtMax = false;
-      else if (i >= 9 && !a.isBought) isAllBIUBoughtMax = false;
+      if (i < 9 && !a.isBought) isAllBIUBoughtMax = false;
+      else if (i >= 9 && !a.isCapped) isAllBIUBoughtMax = false;
+      console.log(a.isBought, a.isCapped);
     }
     if (isAllBIUBoughtMax) {
-      Alpha.currentStage = 7; // Prevent Power-up galaxy BIU is the last bought BIU
+      player.celestials.alpha.stage = 7; // Prevent Power-up galaxy BIU is the last bought BIU
       Alpha.advanceLayer();
-    }
-    else if (isBIUPowerUpGalaxy) {
-      Alpha.currentStage = 6; // Prevent Power-up galaxy BIU bought before Break Infinity
+    } else if (isBIUPowerUpGalaxy) {
+      player.celestials.alpha.stage = 6; // Prevent Power-up galaxy BIU bought before Break Infinity
       Alpha.advanceLayer();
     }
   }

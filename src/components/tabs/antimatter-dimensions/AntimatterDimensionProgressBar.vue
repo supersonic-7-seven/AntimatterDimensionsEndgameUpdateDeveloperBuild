@@ -110,6 +110,30 @@ export default {
           case 5:
             setProgress(Currency.antimatter.value, DC.NUMMAX, "Percentage to Infinity");
             break;
+          case 6:
+            setProgress(Currency.infinityPoints.value, new Decimal(5e14), "Percentage to 5e14 Break Infinity Upgrade");
+            break;
+          case 7:
+          case 8:
+          case 10:
+          {
+            const text = `Percentage to unlock a new ${InfinityDimensions.next().hasIPUnlock
+              ? "type of Dimension"
+              : "Infinity Dimension"}`;
+            const nextID = InfinityDimensions.next();
+            if (nextID.ipRequirementReached) {
+              setProgress(player.records.thisEternity.maxAM, nextID.amRequirement, text);
+            } else {
+              setProgress(player.infinityPoints, nextID.ipRequirement, text);
+            }
+            break;
+          }
+          case 9:
+            setProgress(Currency.infinityPoints.value, new Decimal(1e140), "Percentage to unlock Replicanti");
+            break;
+          case 11:
+            setProgress(Currency.infinityPoints.value, Player.eternityGoal, "Percentage to Eternity");
+            break;
           default:
             setLinearProgress(0, 1, "Percentage that is not implemented");
         }
