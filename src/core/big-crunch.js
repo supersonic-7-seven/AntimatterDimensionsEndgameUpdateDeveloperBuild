@@ -56,6 +56,7 @@ export function bigCrunchReset(
     bigCrunchGiveRewards();
     if (Pelle.isDoomed) PelleStrikes.infinity.trigger();
     if (Alpha.isRunning && player.infinities.eq(1) && Alpha.currentStage === 3) Alpha.advanceLayer();
+    if (Alpha.isRunning && NormalChallenge(12).isCompleted && Alpha.currentStage === 4) Alpha.advanceLayer();
   }
 
   bigCrunchResetValues(enteringAntimatterChallenge);

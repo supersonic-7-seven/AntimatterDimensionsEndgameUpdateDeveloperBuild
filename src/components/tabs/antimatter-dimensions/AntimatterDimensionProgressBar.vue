@@ -109,7 +109,7 @@ export default {
             setProgress(Currency.antimatter.value, DC.NUMMAX, "Percentage to Infinity");
             break;
           default:
-            setLinearProgress(new Decimal(0), new Decimal(1), "Percentage that is not implemented");
+            setLinearProgress(0, 1, "Percentage that is not implemented");
         }
       } else if (GalacticPower.isUnlocked && GalacticPower.nextPowerUnlockGP === undefined) {
         // Show all other goals from the top down, starting at features in the highest prestige layer
