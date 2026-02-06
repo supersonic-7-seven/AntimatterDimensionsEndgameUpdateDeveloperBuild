@@ -9237,6 +9237,7 @@ kbd {
 .c-alpha-run-description {
   font-size: larger;
   margin: 0.5rem 0;
+  color: var(--color-alpha--base);
 }
 
 .l-alpha-run-button {
