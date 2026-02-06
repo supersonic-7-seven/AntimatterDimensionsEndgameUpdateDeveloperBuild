@@ -138,8 +138,8 @@ export class Galaxy {
   static get canBeBought() {
     if (EternityChallenge(6).isRunning && !Enslaved.isRunning) return false;
     if (NormalChallenge(8).isRunning || InfinityChallenge(7).isRunning) return false;
-    if (player.records.thisInfinity.maxAM.gt(Player.infinityGoal) &&
-       (!player.break || Player.isInAntimatterChallenge)) return false;
+    if ((player.records.thisInfinity.maxAM.gt(Player.infinityGoal) &&
+       (!player.break || Player.isInAntimatterChallenge)) || (Alpha.isRunning && player.antimatter.lt(DC.NUMMAX))) return false;
     return true;
   }
 
