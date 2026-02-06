@@ -40,8 +40,8 @@ export default {
       return this.isRunning ? "c-alpha-run-button__inner--running" : "c-alpha-run-button__inner--not-running";
     },
     runDescription() {
-      return `${GameDatabase.celestials.descriptions[6].effects()}\n
-      ${GameDatabase.celestials.descriptions[6].description()}`;
+      return `${GameDatabase.celestials.descriptions[7].effects()}\n
+      ${GameDatabase.celestials.descriptions[7].description()}`;
     },
     isDoomed: () => Pelle.isDoomed,
   },
