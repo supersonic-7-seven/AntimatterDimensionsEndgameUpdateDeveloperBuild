@@ -169,7 +169,7 @@ export const infinityUpgrades = {
     formatEffect: value => {
       if (Teresa.isRunning || V.isRunning) return "Disabled in this reality";
       if (Pelle.isDoomed && !PelleDestructionUpgrade.x2IPUpgrade.isBought) return "Disabled";
-      if (Alpha.isRunning && player.records.bestInfinity.realTime.gte(999999999999)) return "Too slow to generate";
+      if (Alpha.isRunning && player.records.bestInfinity.realTime >= 999999999999) return "Too slow to generate";
       if (player.records.bestInfinity.time.gte(999999999999)) return "Too slow to generate";
       if (Alpha.isRunning) return `${format(value, 2)} every ${TimeSpan.fromMilliseconds(Time.bestInfinityRealTime.totalMilliseconds.times(10)).toStringShort()}`;
       return `${format(value, 2)} every ${TimeSpan.fromMilliseconds(Time.bestInfinity.totalMilliseconds.times(10)).toStringShort()}`;
