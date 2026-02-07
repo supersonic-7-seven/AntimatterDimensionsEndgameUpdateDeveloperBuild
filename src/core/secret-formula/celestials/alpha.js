@@ -51,12 +51,12 @@ export const alphaUnlocks = {
   breakInfinity: {
     id: 5,
     requirement: 6,
-    nerfDescription: () => `Break Infinty Upgrades are ${formatX(1000)} more expensive, post-Break Tickspeed/Dimension cost scalings start at ${formatX(20)}, and the Infinity Power Conversion Rate is divided by ${format(DC.D10.div(Decimal.log10(Decimal.log10(Currency.infinityPoints.value.add(1)).add(1)).pow(2)), 2, 2)} (based on IP)`,
+    nerfDescription: () => `Break Infinty Upgrades are ${formatX(1000)} more expensive, post-Break Tickspeed/Dimension cost scalings start at ${formatX(20)}, IPow Conversion Rate /${format(DC.E1.div(Decimal.log10(Decimal.log10(Currency.infinityPoints.value.add(1)).add(1)).pow(2)), 2, 2)} (based on IP)`,
     buffDescription: () => `Reduce Post-Break Tickspeed cost scaling by ${format(0.15, 2, 2)} and Post-Break Dimension cost scaling by ${format(0.25, 2, 2)}`,
     effects: {
       nerfA: 1000,
       nerfB: 20,
-      nerfC: () => DC.D10.div(Decimal.log10(Decimal.log10(Currency.infinityPoints.value.add(1)).add(1)).pow(2)),
+      nerfC: () => DC.E1.div(Decimal.log10(Decimal.log10(Currency.infinityPoints.value.add(1)).add(1)).pow(2)),
       buffA: 0.15,
       buffB: 0.25
     }
