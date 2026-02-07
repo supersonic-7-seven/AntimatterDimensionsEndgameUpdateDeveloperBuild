@@ -491,6 +491,7 @@ export const InfinityDimensions = {
       BreakEternityUpgrade.infinityPowerConversion
     );
     const exponent = Effects.product(EndgameMastery(102), Ra.unlocks.spaceTheoremIPowConversion);
-    return Math.pow((7 + getAdjustedGlyphEffect("infinityrate") + PelleUpgrade.infConversion.effectOrDefault(0)) * multiplier * multiplier2, exponent);
+    const divisor = Alpha.isRunning ? AlphaUnlocks.breakInfinity.effects.nerfC.effectOrDefault(1) : 1;
+    return Math.pow((7 + getAdjustedGlyphEffect("infinityrate") + PelleUpgrade.infConversion.effectOrDefault(0)) * multiplier * multiplier2, exponent) / divisor;
   }
 };
