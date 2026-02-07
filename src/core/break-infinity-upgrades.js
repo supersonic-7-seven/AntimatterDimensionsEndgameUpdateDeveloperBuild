@@ -18,6 +18,7 @@ export class BreakInfinityUpgradeState extends SetPurchasableMechanicState {
     if (this.id === "postGalaxy") {
       SpeedrunMilestones(7).tryComplete();
       PelleStrikes.powerGalaxies.trigger();
+      if (Alpha.isRunning && Alpha.currentStage === 6) Alpha.advanceLayer();
     }
   }
 }
