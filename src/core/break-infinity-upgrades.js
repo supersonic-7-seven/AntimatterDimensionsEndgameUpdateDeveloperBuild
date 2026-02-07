@@ -2,7 +2,7 @@ import { RebuyableMechanicState, SetPurchasableMechanicState } from "./game-mech
 import { SpeedrunMilestones } from "./speedrun";
 
 function AllBIULayerCheck() {
-  if (!Alpha.isRunning || Alpha.currentStage !== 7) return;
+  if (!(Alpha.isRunning && Alpha.currentStage === 7)) return;
   for (let i = 0; i < BreakInfinityUpgrade.all.length; i++) {
     const a = BreakInfinityUpgrade.all[i];
     if (i < 9 && !a.isBought) return;
