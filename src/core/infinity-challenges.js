@@ -48,6 +48,7 @@ class InfinityChallengeState extends GameMechanicState {
   }
 
   start() {
+    if (this.id === 8 && Alpha.isRunning && Alpha.currentStage < 8) return;
     if (!this.isUnlocked || this.isRunning) return;
     // Forces big crunch reset but ensures IP gain, if any.
     bigCrunchReset(true, true);
