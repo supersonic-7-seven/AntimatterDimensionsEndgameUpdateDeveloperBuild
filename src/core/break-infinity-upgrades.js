@@ -40,9 +40,9 @@ class RebuyableBreakInfinityUpgradeState extends RebuyableMechanicState {
     return this.boughtAmount === this.config.maxUpgrades();
   }
 
-  purchase() {
-    if (this.id === "autoBuyerUpgrade" && Alpha.isRunning && Alpha.currentStage < 7) return;
-    super.purchase();
+  get isAvailableForPurchase() {
+    if (this.id === "autoBuyerUpgrade" && Alpha.isRunning && Alpha.currentStage < 7) return false;
+    return true;
   }
 
   onPurchased() {
