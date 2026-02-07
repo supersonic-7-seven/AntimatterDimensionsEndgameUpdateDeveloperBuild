@@ -15,10 +15,10 @@ function rebuyable(config) {
       (value => {
         const afterECText = config.afterEC ? config.afterEC() : "";
         return (Alpha.isRunning && Alpha.currentStage >= 6)
-          ? (value === config.maxUpgrades
+          ? (value === config.maxUpgrades()
           ? `Currently: ${formatX(20 - value)} ${afterECText}`
           : `Currently: ${formatX(20 - value)} | Next: ${formatX(20 - value - 1)}`)
-          : (value === config.maxUpgrades
+          : (value === config.maxUpgrades()
           ? `Currently: ${formatX(10 - value)} ${afterECText}`
           : `Currently: ${formatX(10 - value)} | Next: ${formatX(10 - value - 1)}`);
       }),
