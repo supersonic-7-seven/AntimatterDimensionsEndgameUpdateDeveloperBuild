@@ -40,6 +40,11 @@ class RebuyableBreakInfinityUpgradeState extends RebuyableMechanicState {
     return this.boughtAmount === this.config.maxUpgrades();
   }
 
+  purchase() {
+    if (this.id === "autoBuyerUpgrade" && Alpha.isRunning && Alpha.currentStage < 7) return;
+    super.purchase();
+  }
+
   onPurchased() {
     this.config.onPurchased?.();
     Alpha.AllBIULayerCheck(false);

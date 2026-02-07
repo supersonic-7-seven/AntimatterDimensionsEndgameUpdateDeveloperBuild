@@ -973,7 +973,8 @@ function passivePrestigeGen(realDiff) {
     let infGen = DC.D0;
     if (BreakInfinityUpgrade.infinitiedGen.isBought && (!Pelle.isDoomed || PelleDestructionUpgrade.passiveInfGen.isBought)) {
       // Multipliers are done this way to explicitly exclude ach87 and TS32
-      infGen = infGen.plus(new Decimal(0.5).times(Time.deltaTimeMs).div(Decimal.clampMin(50, player.records.bestInfinity.time)));
+      if (Alpha.isRunning) infGen = infGen.plus(new Decimal(0.5).times(Time.unscaledDeltaTime.totalMilliseconds).div(Decimal.clampMin(50, player.records.bestInfinity.time)));
+      if (!Alpha.isRunning) infGen = infGen.plus(new Decimal(0.5).times(Time.deltaTimeMs).div(Decimal.clampMin(50, player.records.bestInfinity.time)));
       infGen = infGen.timesEffectsOf(
         RealityUpgrade(5),
         RealityUpgrade(7),
@@ -1246,8 +1247,8 @@ export function simulateTime(seconds, real, fast) {
     totalGameTime = getGameSpeedupFactor().times(seconds);
   }
 
-  const infinitiedMilestone = getInfinitiedMilestoneReward(totalGameTime.times(1000));
-  const eternitiedMilestone = getEternitiedMilestoneReward(totalGameTime.times(1000));
+  const infinitiedMilestone = getInfinitiedMilestoneReward(Alpha.isRunning ? seconds * 1000 : totalGameTime.times(1000));
+  const eternitiedMilestone = getEternitiedMilestoneReward(Alpha.isRunning ? seconds * 1000 : totalGameTime.times(1000));
 
   if (eternitiedMilestone.gt(0)) {
     Currency.eternities.add(eternitiedMilestone);

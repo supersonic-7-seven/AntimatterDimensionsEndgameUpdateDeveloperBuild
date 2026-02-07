@@ -264,7 +264,7 @@ function maxBuyDimBoosts() {
   } else if (tier === 8) {
     multiplierPerDB = DC.D15.sub(discount);
   }
-  if (Alpha.isRunning) multiplierPerDB = multiplierPerDB.mul(AlphaUnlocks.fifthDimboost.effects.nerf.effectOrDefault(1));
+  if (Alpha.isRunning) multiplierPerDB = multiplierPerDB.times(AlphaUnlocks.fifthDimboost.effects.nerf.effectOrDefault(1));
 
   amount = amount.sub(Effects.sum(InfinityUpgrade.resetBoost));
   if (InfinityChallenge(5).isCompleted) amount = amount.sub(1);

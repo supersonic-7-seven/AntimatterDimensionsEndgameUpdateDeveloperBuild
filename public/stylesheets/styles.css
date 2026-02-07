@@ -9220,6 +9220,249 @@ kbd {
 
 /* #endregion laitela tab */
 
+/* #startregion alpha tab */
+
+.l-alpha-run {
+  display: inline-flex;
+  flex-direction: column;
+  width: 400px;
+  align-items: center;
+  border: var(--var-border-width, 0.2rem) solid var(--color-alpha--base);
+  border-radius: var(--var-border-radius, 0.5rem);
+  margin-top: 1rem;
+  margin-left: 3rem;
+  padding: 1rem;
+}
+
+.c-alpha-run-description {
+  font-size: larger;
+  margin: 0.5rem 0;
+  color: var(--color-alpha--base);
+}
+
+.l-alpha-run-button {
+  display: flex;
+  flex-direction: column;
+  width: 15rem;
+  height: 15rem;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  border-style: none;
+  border-radius: 50%;
+  margin: 2rem;
+}
+
+.c-alpha-run-button {
+  font-size: 10rem;
+  font-weight: bold;
+  transition-duration: 0.2s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.c-alpha-run-button--not-running {
+  z-index: 0;
+  color: black;
+  background-color: var(--color-alpha--base);
+  animation: a-alpha-run-button--not-running-glow 2s ease-in-out infinite alternate;
+}
+
+.c-alpha-run-button--not-running:hover {
+  color: var(--color-alpha--base);
+  background-color: black;
+}
+
+@keyframes a-alpha-run-button--not-running-glow {
+  from {
+    text-shadow:
+      0 0 1rem black,
+      0 0 2rem black,
+      0 0 3rem #800000,
+      0 0 4rem #800000,
+      0 0 5rem #800000,
+      0 0 6rem #800000,
+      0 0 7rem #800000;
+    box-shadow: 0 0 0.5rem #800000, 0 0 1rem #800000, 0 0 1.5rem #800000;
+  }
+
+  to {
+    text-shadow:
+      0 0 2rem black,
+      0 0 3rem #c00000,
+      0 0 4rem #c00000,
+      0 0 5rem #c00000,
+      0 0 6rem #c00000,
+      0 0 7rem #c00000,
+      0 0 8rem #c00000;
+    box-shadow: 0 0 0.5rem #c00000, 0 0 1rem #c00000, 0 0 1.5rem #c00000, 0 0 2rem #c00000;
+  }
+}
+
+.c-alpha-run-button--running {
+  z-index: 0;
+  background: black;
+  animation: a-alpha-run-button--running-glow 2s infinite alternate;
+}
+
+.c-alpha-run-button--running:hover {
+  background: #200000;
+}
+
+.c-alpha-run-button__inner--running,
+.c-alpha-run-button__inner--not-running {
+  margin-top: -3rem;
+}
+
+.c-alpha-run-button__inner--running {
+  position: relative;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: url("../images/noise.png");
+  animation: a-alpha-run-button--running-noise 15s infinite alternate;
+
+  -webkit-text-fill-color: rgba(0, 255, 0, 50%);
+}
+
+.c-alpha-run-button__inner--running::after {
+  content: attr(button-symbol);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background: none;
+  animation: a-alpha-run-button__inner--running-glow 2s infinite alternate;
+}
+
+@keyframes a-alpha-run-button--running-noise {
+  0% {
+    -webkit-text-fill-color: rgba(0, 255, 0, 100%);
+  }
+
+  20% {
+    background-position: -50px 0;
+
+    -webkit-text-fill-color: rgba(0, 255, 0, 100%);
+  }
+
+  22% {
+    background-position: 100px -10px;
+
+    -webkit-text-fill-color: rgba(0, 255, 0, 50%);
+  }
+
+  24% {
+    background-position: 0 -150px;
+
+    -webkit-text-fill-color: rgba(0, 255, 0, 100%);
+  }
+
+  50% {
+    background-position: -50px 0;
+
+    -webkit-text-fill-color: rgba(0, 255, 0, 100%);
+  }
+
+  51% {
+    background-position: 100px -10px;
+
+    -webkit-text-fill-color: rgba(0, 255, 0, 50%);
+  }
+
+  52% {
+    background-position: 0 -150px;
+
+    -webkit-text-fill-color: rgba(0, 255, 0, 100%);
+  }
+
+  54% {
+    background-position: 50px 0;
+
+    -webkit-text-fill-color: rgba(0, 255, 0, 100%);
+  }
+
+  56% {
+    background-position: -100px 10px;
+
+    -webkit-text-fill-color: rgba(0, 255, 0, 50%);
+  }
+
+  58% {
+    background-position: 0 50px;
+
+    -webkit-text-fill-color: rgba(0, 255, 0, 100%);
+  }
+
+  90% {
+    background-position: 50px 50px;
+
+    -webkit-text-fill-color: rgba(0, 255, 0, 100%);
+  }
+
+  91% {
+    background-position: 100px -110px;
+
+    -webkit-text-fill-color: rgba(0, 255, 0, 50%);
+  }
+
+  92% {
+    background-position: 0 70px;
+
+    -webkit-text-fill-color: rgba(0, 255, 0, 100%);
+  }
+
+  100% {
+    -webkit-text-fill-color: rgba(0, 255, 0, 100%);
+  }
+}
+
+@keyframes a-alpha-run-button--running-glow {
+  from {
+    box-shadow:
+      0 0 0.5rem #a00000 inset,
+      0 0 1rem #a00000 inset,
+      0 0 1.5rem #a00000 inset,
+      0 0 1.5rem #a00000,
+      0 0 1.5rem #a00000,
+      0 0 1.5rem #a00000;
+  }
+
+  to {
+    box-shadow:
+      0 0 0.5rem #e00000 inset,
+      0 0 1rem #e00000 inset,
+      0 0 1.5rem #e00000 inset,
+      0 0 1.5rem #e00000,
+      0 0 1.5rem #e00000,
+      0 0 1.5rem #e00000,
+      0 0 2rem #e00000 inset,
+      0 0 2rem #e00000;
+  }
+}
+
+@keyframes a-alpha-run-button__inner--running-glow {
+  from {
+    text-shadow: 0 0 0.5rem #a00000, 0 0 1rem #a00000, 0 0 1.5rem #a00000;
+  }
+
+  to {
+    text-shadow: 0 0 0.5rem #e00000, 0 0 1rem #e00000, 0 0 1.5rem #e00000, 0 0 2rem #e00000;
+  }
+}
+
+.l-alpha-run-button__bg {
+  width: 80%;
+  height: 80%;
+  position: absolute;
+}
+
+.l-alpha-run-button__fg {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0%);
+}
+
+/* #endregion alpha tab */
+
 .c-performance-stats {
   width: 25rem;
   position: fixed;

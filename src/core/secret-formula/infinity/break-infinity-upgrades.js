@@ -14,10 +14,13 @@ function rebuyable(config) {
     formatEffect: config.formatEffect ||
       (value => {
         const afterECText = config.afterEC ? config.afterEC() : "";
-        const a = (Alpha.isRunning ? AlphaUnlocks.breakInfinity.effects.nerfB.effectOrDefault(10) : 10);
-        return value === config.maxUpgrades()
-          ? `Currently: ${formatX(a - value)} ${afterECText}`
-          : `Currently: ${formatX(a - value)} | Next: ${formatX(a - value - 1)}`;
+        return (Alpha.isRunning && Alpha.currentStage >= 6)
+          ? (value === config.maxUpgrades
+          ? `Currently: ${formatX(20 - value)} ${afterECText}`
+          : `Currently: ${formatX(20 - value)} | Next: ${formatX(20 - value - 1)}`)
+          : (value === config.maxUpgrades
+          ? `Currently: ${formatX(10 - value)} ${afterECText}`
+          : `Currently: ${formatX(10 - value)} | Next: ${formatX(10 - value - 1)}`);
       }),
     formatCost: value => format(value, 2, 0),
     noLabel,
@@ -30,7 +33,7 @@ export const breakInfinityUpgrades = {
     id: "totalMult",
     cost: () => 1e4 * (Alpha.isRunning ? AlphaUnlocks.breakInfinity.effects.nerfA.effectOrDefault(1) : 1),
     description: "Antimatter Dimensions gain a multiplier based on total antimatter produced",
-    effect: () => Decimal.pow(player.records.totalAntimatter.add(1).log10().add(1), 1.5),
+    effect: () => Decimal.pow(player.records.totalEndgameAntimatter.add(1).log10().add(1), 1.5),
     formatEffect: value => formatX(value, 2, 2)
   },
   currentAMMult: {
