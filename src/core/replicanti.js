@@ -642,6 +642,7 @@ export const Replicanti = {
     };
   },
   unlock(freeUnlock = false) {
+    if (Alpha.isRunning && Alpha.currentStage < 9) return;
     const cost = DC.E140.dividedByEffectOf(PelleRifts.vacuum.milestones[1]);
     if (player.replicanti.unl) return;
     if (freeUnlock || Currency.infinityPoints.gte(cost)) {
