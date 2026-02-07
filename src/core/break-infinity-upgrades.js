@@ -25,6 +25,10 @@ export class BreakInfinityUpgradeState extends SetPurchasableMechanicState {
       PelleStrikes.powerGalaxies.trigger();
       if (Alpha.isRunning && Alpha.currentStage === 6) Alpha.advanceLayer();
     }
+    if (BreakInfinityUpgrade.all.filter(u => u.isBought).length === BreakInfinityUpgrade.all.length &&
+      player.infinityRebuyables === [18, 17, 10] && Alpha.isRunning && Alpha.currentStage === 7) {
+      Alpha.advanceLayer();
+    }
   }
 }
 
@@ -47,6 +51,10 @@ class RebuyableBreakInfinityUpgradeState extends RebuyableMechanicState {
 
   onPurchased() {
     this.config.onPurchased?.();
+    if (BreakInfinityUpgrade.all.filter(u => u.isBought).length === BreakInfinityUpgrade.all.length &&
+      player.infinityRebuyables === [18, 17, 10] && Alpha.isRunning && Alpha.currentStage === 7) {
+      Alpha.advanceLayer();
+    }
   }
 }
 
