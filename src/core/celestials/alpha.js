@@ -1048,24 +1048,7 @@ export const Alpha = {
       TimeSpan.fromMilliseconds(Time.thisEndgameRealTime._ms).totalHours, 5))).toNumber();
   },
   quotes: Quotes.alpha,
-  symbol: "α",
-  AllBIULayerCheck(isBIUPowerUpGalaxy = false) {
-    if (!Alpha.isRunning || Alpha.currentStage > 7) return;
-    let isAllBIUBoughtMax = true;
-    for (let i = 0; i < BreakInfinityUpgrade.all.length; i++) {
-      const a = BreakInfinityUpgrade.all[i];
-      if (i < 9 && !a.isBought) isAllBIUBoughtMax = false;
-      else if (i >= 9 && !a.isCapped) isAllBIUBoughtMax = false;
-      console.log(a.isBought, a.isCapped);
-    }
-    if (isAllBIUBoughtMax) {
-      player.celestials.alpha.stage = 7; // Prevent Power-up galaxy BIU is the last bought BIU
-      Alpha.advanceLayer();
-    } else if (isBIUPowerUpGalaxy) {
-      player.celestials.alpha.stage = 6; // Prevent Power-up galaxy BIU bought before Break Infinity
-      Alpha.advanceLayer();
-    }
-  }
+  symbol: "α"
 };
 
 class AlphaUnlockState extends BitUpgradeState {

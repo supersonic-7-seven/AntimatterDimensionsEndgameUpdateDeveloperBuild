@@ -1,6 +1,15 @@
 import { RebuyableMechanicState, SetPurchasableMechanicState } from "./game-mechanics";
 import { SpeedrunMilestones } from "./speedrun";
 
+function AllBIULayerCheck() {
+  if (!Alpha.isRunning || Alpha.currentStage !== 7) return;
+  for (let i = 0; i < BreakInfinityUpgrade.all.length; i++) {
+    const a = BreakInfinityUpgrade.all[i];
+    if (i < 9 && !a.isBought) return;
+    if (i >= 9 && !a.isCapped) return;
+  }
+  Alpha.advanceLayer();
+}
 export class BreakInfinityUpgradeState extends SetPurchasableMechanicState {
   get currency() {
     return Currency.infinityPoints;
@@ -14,12 +23,18 @@ export class BreakInfinityUpgradeState extends SetPurchasableMechanicState {
     return this.config.cost();
   }
 
+  get canBeBought() {
+    if (Alpha.isRunning && Alpha.currentStage < 6 && this.id === "postGalaxy") return false;
+    return super.canBeBought;
+  }
+
   onPurchased() {
     if (this.id === "postGalaxy") {
       SpeedrunMilestones(7).tryComplete();
       PelleStrikes.powerGalaxies.trigger();
-      Alpha.AllBIULayerCheck(true);
-    } else Alpha.AllBIULayerCheck(false);
+      if (Alpha.isRunning && Alpha.currentStage === 6) Alpha.advanceLayer();
+    }
+    AllBIULayerCheck();
   }
 }
 
@@ -47,7 +62,7 @@ class RebuyableBreakInfinityUpgradeState extends RebuyableMechanicState {
 
   onPurchased() {
     this.config.onPurchased?.();
-    Alpha.AllBIULayerCheck(false);
+    AllBIULayerCheck();
   }
 }
 
