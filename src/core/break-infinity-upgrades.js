@@ -37,6 +37,10 @@ export class BreakInfinityUpgradeState extends SetPurchasableMechanicState {
     }
     AllBIULayerCheck();
   }
+
+  get _isAllBought() {
+    return this.isBought;
+  }
 }
 
 class RebuyableBreakInfinityUpgradeState extends RebuyableMechanicState {
@@ -59,6 +63,10 @@ class RebuyableBreakInfinityUpgradeState extends RebuyableMechanicState {
   onPurchased() {
     this.config.onPurchased?.();
     AllBIULayerCheck();
+  }
+
+  get _isAllBought() {
+    return this.isCapped;
   }
 }
 
