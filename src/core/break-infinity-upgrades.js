@@ -15,6 +15,7 @@ export class BreakInfinityUpgradeState extends SetPurchasableMechanicState {
   }
 
   get isAvailableForPurchase() {
+    if (Alpha.isRunning && !player.break) return false;
     if (this.id === "autoBuyerUpgrade" && Alpha.isRunning && Alpha.currentStage < 7) return false;
     return true;
   }
@@ -47,6 +48,11 @@ class RebuyableBreakInfinityUpgradeState extends RebuyableMechanicState {
 
   get isCapped() {
     return this.boughtAmount === this.config.maxUpgrades();
+  }
+
+  get isAvailableForPurchase() {
+    if (Alpha.isRunning && !player.break) return false;
+    return true;
   }
 
   onPurchased() {
