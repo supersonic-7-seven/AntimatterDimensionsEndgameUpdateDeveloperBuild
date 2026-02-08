@@ -134,6 +134,48 @@ export default {
           case 11:
             setProgress(Currency.infinityPoints.value, Player.eternityGoal, "Percentage to Eternity");
             break;
+          case 12:
+            // TS62 needs to be unlocks after complete EC5x1 which needs 127 more TT. Is balance needed?
+            setLinearProgress(Currency.timeTheorems.max.toNumber(), 14, "Percentage to Purchase Time Study 62");
+            break;
+          case 13:
+            setProgress(Currency.eternityPoints.value, TimeDimension(4).baseCost, "Percentage to purchase the 4th Time Dimension");
+            break;
+          case 14:
+            setProgress(Currency.eternityPoints.value, new Decimal(EternityUpgrade.idMultICRecords.cost), "Percentage to purchase the 3rd Eternity Upgrade");
+            break;
+          case 15:
+            setLinearProgress(Currency.timeTheorems.max.toNumber(), 115, "Percentage to reach 115 Total Time Theorems");
+            break;
+          case 16:
+          case 17:
+          case 18:
+            setLinearProgress(Currency.timeTheorems.max.toNumber(), 293, "Percentage to Purchase Time Study 181");
+            break;
+          case 19:
+            if (Currency.timeTheorems.max.toNumber() >= 843) setProgress(Currency.eternityPoints.value, new Decimal(1e100), "Percentage to unlock Eternity Challenge 10");
+            else setLinearProgress(Currency.timeTheorems.max.toNumber(), 843, "Percentage to unlock Eternity Challenge 10");
+            break;
+          case 20:
+            setLinearProgress(Currency.timeTheorems.max.toNumber(), 1023, "Percentage to Purchase Time Study 181");
+            break;
+          case 21:
+          case 22: // EC11 progress bar is in if (inSpecialRun)
+            setLinearProgress(Currency.timeTheorems.max.toNumber(), 2214, "Percentage to unlock Eternity Challenge 11");
+            break;
+          case 23:
+          case 24: // Dilation progress bar is in if (inSpecialRun)
+            setLinearProgress(Currency.timeTheorems.max.toNumber(), 15013, "Percentage to unlock Time Dilation");
+            break;
+          case 25:
+            setProgress(Currency.dilatedTime.value, new Decimal(DilationUpgrade.ttGenerator.cost), "Percentage to purchase the 3rd Eternity Upgrade");
+            break;
+          case 26:
+            setProgress(Currency.timeTheorems.max, new Decimal(1e9), "Percentage to unlock the 8th Time Dimension");
+            break;
+          case 27:
+          case 28: // if you want to revisit Alpha after fully complete it
+            setProgress(Currency.eternityPoints.value, DC.E4000, "Percentage to Reality");
           default:
             setLinearProgress(0, 1, "Percentage that is not implemented");
         }
