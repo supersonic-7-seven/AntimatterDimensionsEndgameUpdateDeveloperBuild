@@ -1019,7 +1019,7 @@ export const Alpha = {
   },
   get stageNames() {
     return ["Reach the 4th Dimension Boost", "Reach the 5th Dimension Boost", "Reach the 1st Antimatter Galaxy", "Reach Infinity",
-            "Complete Normal Challenge 12", "Break Infinity", "Purchase the 5e11 Break Infinity Upgrade",
+            "Complete Normal Challenge 12", "Break Infinity", "Purchase the Power-up Galaxies Break Infinity Upgrade",
             "Purchase All Break Infinity Upgrades", "Complete All Infinity Challenges", "Unlock Replicanti",
             "Purchase the 8th Infinity Dimension", "Reach Eternity", "Purchase Time Study 62", "Purchase the 4th Time Dimension",
             "Purchase the 3rd Eternity Upgrade", "Reach 115 Total Time Theorems", "Complete any Eternity Challenge Once",
@@ -1028,7 +1028,7 @@ export const Alpha = {
             "Perform a Dilated Eternity", "Begin Generation of Time Theorems", "Purchase the 8th Time Dimension", "Reach Reality"];
   },
   get shortStageNames() {
-    return ["4th Dimboost", "5th Dimboost", "1st Galaxy", "Infinity", "NC12", "Break Infinity", "5e11 BIU", "All BIU", "All ICs",
+    return ["4th Dimboost", "5th Dimboost", "1st Galaxy", "Infinity", "NC12", "Break Infinity", "Power-up Galaxies BIU", "All BIU", "All ICs",
             "Replicanti", "ID8", "Eternity", "TS62", "TD4", "Eternity Upgrade 3", "115 Total TT", "ECx1", "ECx5", "TS181", "EC10x1",
             "TS192", "EC11", "EC11x5", "Dilation", "Dilated Eternity", "TT Generation", "TD8", "Reality"];
   },

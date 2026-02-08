@@ -115,7 +115,7 @@ export const MachineHandler = {
   },
 
   get isDMUnlocked() {
-    Currency.imaginaryMachines.value.gte(this.hardcapIM) || Currency.dualMachines.gt(0);
+    return Currency.imaginaryMachines.value.gte(this.hardcapIM) || Currency.dualMachines.gt(0);
   },
 
   get baseDMCap() {
