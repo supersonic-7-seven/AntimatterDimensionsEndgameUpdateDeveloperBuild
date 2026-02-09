@@ -1045,7 +1045,8 @@ export const Alpha = {
   },
   get celestialMatterConversionNerf() {
     return DC.D1.sub(Decimal.pow(1 - this.alphaDecay, Decimal.min(
-      TimeSpan.fromMilliseconds(Time.thisEndgameRealTime._ms).totalHours, 5))).toNumber() + Math.pow(Ethereal.cosmicSector, 2) / 100;
+      TimeSpan.fromMilliseconds(Time.thisEndgameRealTime._ms).totalHours, 5).add(
+      Decimal.pow(Ethereal.cosmicSector, 2).div(100)))).toNumber();
   },
   quotes: Quotes.alpha,
   symbol: "α"
