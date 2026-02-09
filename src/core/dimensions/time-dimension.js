@@ -448,6 +448,10 @@ export const TimeDimensions = {
       TimeDimension(1).produceCurrency(Currency.timeShards, diff);
     }
 
+    if (!TimeDimensions.all.every(d => d.amount === 0) || !TimeDimensions.all.every(d => d.continuumAmount === 0)) {
+      player.requirementChecks.endgame.onlyLowDims = false;
+    }
+
     EternityChallenge(7).reward.applyEffect(production => {
       InfinityDimension(8).amount = InfinityDimension(8).amount.plus(production.times(diff).div(1000));
     });
