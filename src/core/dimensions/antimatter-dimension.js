@@ -702,6 +702,9 @@ export const AntimatterDimensions = {
     if (AntimatterDimension(1).amount.gt(0)) {
       player.requirementChecks.eternity.noAD1 = false;
     }
+    if (AntimatterDimension(8).amount.gt(0) || AntimatterDimension(8).continuumAmount.gt(0)) {
+      player.requirementChecks.endgame.onlyLowDims = false;
+    }
     AntimatterDimension(1).produceCurrency(Currency.antimatter, diff);
     if (NormalChallenge(12).isRunning) {
       AntimatterDimension(2).produceCurrency(Currency.antimatter, diff);
