@@ -317,6 +317,7 @@ window.player = {
       maxStudies: 0,
       maxGlyphs: 0,
       slowestBH: 1,
+      noCelMatter: true,
     },
     endgame: {
       noGlyphsDoomed: true,
