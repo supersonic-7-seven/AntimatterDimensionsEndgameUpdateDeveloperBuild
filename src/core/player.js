@@ -322,6 +322,8 @@ window.player = {
       noGlyphsDoomed: true,
       onlyLowDims: true,
       maxStudies: 0,
+      noContinuum: true,
+      noGlyphs: true,
     },
     permanent: {
       emojiGalaxies: 0,
