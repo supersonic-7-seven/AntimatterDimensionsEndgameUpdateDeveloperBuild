@@ -651,6 +651,9 @@ export const Replicanti = {
       player.replicanti.timer = 0;
       Replicanti.amount = DC.D1;
     }
+    if (Alpha.isRunning && Alpha.currentStage === 9) {
+      Alpha.advanceLayer();
+    }
   },
   get amount() {
     return player.replicanti.amount;
