@@ -1544,7 +1544,7 @@ export const normalAchievements = [
     get reward() {
       return `Gain a small multiplier to Ethereal Power based on Imaginary Machines.`;
     },
-    effect: () => player.disablePostReality ? DC.D1 : Decimal.pow(Decimal.log10(player.reality.imaginaryMachines).div(1000), 5).times(1000),
+    effect: () => player.disablePostReality ? DC.D1 : Decimal.pow(Decimal.log10(player.reality.imaginaryMachines.add(1)).div(1000), 5).times(1000),
     formatEffect: value => `${formatX(value, 3)}`
   },
   {
