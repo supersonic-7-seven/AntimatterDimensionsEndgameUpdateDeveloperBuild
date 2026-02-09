@@ -320,6 +320,7 @@ window.player = {
     },
     endgame: {
       noGlyphsDoomed: true,
+      onlyLowDims: true
     },
     permanent: {
       emojiGalaxies: 0,
