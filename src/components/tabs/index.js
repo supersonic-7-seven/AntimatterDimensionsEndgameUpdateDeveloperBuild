@@ -10,6 +10,7 @@ import BreakEternityTab from "./break-eternity/BreakEternityTab";
 import CelestialDimensionsTab from "./celestial-dimensions/CelestialDimensionsTab";
 import CelestialNavigationTab from "./celestial-navigation/CelestialNavigationTab";
 import ChallengeRecordsTab from "./challenge-records/ChallengeRecordsTab";
+import DualityUpgradesTab from "./duality-upgrades/DualityUpgradesTab";
 import EffarigTab from "./celestial-effarig/EffarigTab";
 import EndgameTab from "./endgame/EndgameTab";
 import EndgameMasteriesTab from "./endgame-masteries/EndgameMasteriesTab";
@@ -94,6 +95,7 @@ const TabComponents = {
   GlyphsTab,
   RealityUpgradesTab,
   ImaginaryUpgradesTab,
+  DualityUpgradesTab,
   PerksTab,
   BlackHoleTab,
   AlchemyTab,
