@@ -29,7 +29,7 @@ export const imaginaryUpgrades = [
     id: 1,
     initialCost: 3,
     costMult: 60,
-    textTemplate: () => `Increase Temporal Amplifier multiplier by +{value}`,
+    textTemplate: "Increase Temporal Amplifier multiplier by +{value}",
     effect: 0.15,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.temporalIntensifier.isBought
   }),
@@ -38,7 +38,7 @@ export const imaginaryUpgrades = [
     id: 2,
     initialCost: 4,
     costMult: 60,
-    textTemplate: () => `Increase Replicative Amplifier multiplier by +{value}`,
+    textTemplate: "Increase Replicative Amplifier multiplier by +{value}",
     effect: 0.15,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.replicativeIntensifier.isBought
   }),
@@ -47,7 +47,7 @@ export const imaginaryUpgrades = [
     id: 3,
     initialCost: 1,
     costMult: 40,
-    textTemplate: () => `Increase Eternal Amplifier multiplier by +{value}`,
+    textTemplate: "Increase Eternal Amplifier multiplier by +{value}",
     effect: 0.4,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.eternalIntensifier.isBought
   }),
@@ -56,7 +56,7 @@ export const imaginaryUpgrades = [
     id: 4,
     initialCost: 5,
     costMult: 80,
-    textTemplate: () => `Increase Superluminal Amplifier multiplier by +{value}`,
+    textTemplate: "Increase Superluminal Amplifier multiplier by +{value}",
     effect: 0.15,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.superluminalIntensifier.isBought
   }),
@@ -65,7 +65,7 @@ export const imaginaryUpgrades = [
     id: 5,
     initialCost: 1,
     costMult: 30,
-    textTemplate: () => `Increase Boundless Amplifier multiplier by +{value}`,
+    textTemplate: "Increase Boundless Amplifier multiplier by +{value}",
     effect: 0.6,
     isDisabledInDoomed: () => !PelleImaginaryUpgrade.boundlessIntensifier.isBought
   }),
