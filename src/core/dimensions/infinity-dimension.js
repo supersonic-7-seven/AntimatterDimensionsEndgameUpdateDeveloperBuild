@@ -460,6 +460,10 @@ export const InfinityDimensions = {
       InfinityDimension(1).produceCurrency(Currency.infinityPower, diff);
     }
 
+    if (!InfinityDimensions.all.every(d => d.amount === 0) || !InfinityDimensions.all.every(d => d.continuumAmount === 0)) {
+      player.requirementChecks.endgame.onlyLowDims = false;
+    }
+
     player.requirementChecks.reality.maxID1 = player.requirementChecks.reality.maxID1
       .clampMin(InfinityDimension(1).amount);
   },

@@ -317,9 +317,14 @@ window.player = {
       maxStudies: 0,
       maxGlyphs: 0,
       slowestBH: 1,
+      noCelMatter: true,
     },
     endgame: {
       noGlyphsDoomed: true,
+      onlyLowDims: true,
+      maxStudies: 0,
+      noContinuum: true,
+      noGlyphs: true,
     },
     permanent: {
       emojiGalaxies: 0,
@@ -584,9 +589,24 @@ window.player = {
       9: 0,
       10: 0,
     },
+    dualityUpgradeBits: 0,
+    dualityUpgReqs: 0,
+    dualityRebuyables: {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+      9: 0,
+      10: 0,
+    },
     reqLock: {
       reality: 0,
       imaginary: 0,
+      duality: 0
     },
     perks: new Set(),
     respec: false,
@@ -1458,6 +1478,7 @@ export const Player = {
           // before this part of the code is reached in the Reality reset. Nevertheless, we want to keep its old value.
           maxGlyphs: glyphCount,
           slowestBH: BlackHoles.areNegative ? player.blackHoleNegative : 1,
+          noCelMatter: player.endgame.celestialMatterMultiplier.isActive,
         };
       // eslint-disable-next-line no-fallthrough
       case "eternity":
