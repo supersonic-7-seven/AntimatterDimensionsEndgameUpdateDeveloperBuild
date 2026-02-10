@@ -174,7 +174,7 @@ class InfinityDimensionState extends DimensionState {
     mult = mult.powEffectOf(Ra.unlocks.allDimPowTT);
     mult = mult.powEffectOf(Ra.unlocks.infinityDimPower);
 
-    if (ExpansionPack.pellePack.isBought && !player.disablePostReality) mult = mult.pow(Decimal.pow(Decimal.log10(player.records.bestEndgame.galaxies).div(100), 3).add(1));
+    if (ExpansionPack.pellePack.isBought && !player.disablePostReality) mult = mult.pow(Decimal.pow(Decimal.log10(player.records.bestEndgame.galaxies).div(100), 1.5).add(1));
 
     if (player.dilation.active || (PelleStrikes.dilation.hasStrike && !PelleStrikes.dilation.isDestroyed())) {
       mult = dilatedValueOf(mult);
