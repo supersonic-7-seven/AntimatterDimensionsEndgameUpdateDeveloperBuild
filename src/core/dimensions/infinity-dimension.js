@@ -315,6 +315,9 @@ class InfinityDimensionState extends DimensionState {
     if (this.tier === 1 && !PlayerProgress.eternityUnlocked()) {
       Tab.dimensions.infinity.show();
     }
+    if (this.tier === 8 && Alpha.isRunning && Alpha.currentStage === 10) {
+      Alpha.advanceLayer();
+    }
     return true;
   }
 
