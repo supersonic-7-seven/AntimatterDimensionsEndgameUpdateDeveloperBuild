@@ -1478,7 +1478,7 @@ export const Player = {
           // before this part of the code is reached in the Reality reset. Nevertheless, we want to keep its old value.
           maxGlyphs: glyphCount,
           slowestBH: BlackHoles.areNegative ? player.blackHoleNegative : 1,
-          noCelMatter: player.celestialMatterMultiplier.isActive,
+          noCelMatter: player.endgame.celestialMatterMultiplier.isActive,
         };
       // eslint-disable-next-line no-fallthrough
       case "eternity":
