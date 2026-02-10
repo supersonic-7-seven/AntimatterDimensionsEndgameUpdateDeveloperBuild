@@ -60,7 +60,7 @@ export const MachineHandler = {
   },
 
   get hardcapIM() {
-    return this.baseIMHardcap;
+    return this.baseIMHardcap.times(DualityUpgrade(6).effectOrDefault(1));
   },
 
   get uncappedIM() {

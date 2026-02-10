@@ -182,7 +182,7 @@ function applyNDPowers(mult, tier) {
       Ra.unlocks.allDimPowTT
     );
 
-  if (ExpansionPack.pellePack.isBought && !player.disablePostReality) multiplier = multiplier.pow(Decimal.pow(Decimal.log10(player.records.bestEndgame.galaxies).div(100), 3).add(1));
+  if (ExpansionPack.pellePack.isBought && !player.disablePostReality) multiplier = multiplier.pow(Decimal.pow(Decimal.log10(player.records.bestEndgame.galaxies).div(100), 1.5).add(1));
 
   multiplier = multiplier.pow(getAdjustedGlyphEffect("curseddimensions"));
 
