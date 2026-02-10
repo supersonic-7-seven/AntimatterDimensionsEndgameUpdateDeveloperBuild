@@ -12,7 +12,7 @@ export default {
       const updateRateMs = player.options.updateRate;
       const ticksPerSecond = 1000 / updateRateMs;
       const speedFactor = new Decimal(Alpha.isRunning
-        ? Decimal.pow(getGameSpeedupForDisplay().times(player.options.updateRate), 0.01)
+        ? getGameSpeedupForDisplay().times(player.options.updateRate).pow(0.05)
         : getGameSpeedupForDisplay().times(player.options.updateRate));
       const logGainFactorPerTick = Decimal.divide(speedFactor.times(
         (Math.log(player.replicanti.chance + 1))), getReplicantiInterval());
