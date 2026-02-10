@@ -320,6 +320,7 @@ class InfinityDimensionState extends DimensionState {
 
   // Only ever called from manual actions
   buySingle() {
+    if (Laitela.continuumActive) return;
     if (!this.isUnlocked) return this.unlock();
     if (!this.isAvailableForPurchase) return false;
     if (ImaginaryUpgrade(15).isLockingMechanics) {
@@ -344,6 +345,7 @@ class InfinityDimensionState extends DimensionState {
   }
 
   buyMax(auto) {
+    if (Laitela.continuumActive) return;
     if (!this.isAvailableForPurchase) return false;
     if (ImaginaryUpgrade(15).isLockingMechanics) {
       const lockString = this.tier === 1
@@ -480,6 +482,7 @@ export const InfinityDimensions = {
 
   // Called from "Max All" UI buttons and nowhere else
   buyMax() {
+    if (Laitela.continuumActive) return;
     // Try to unlock dimensions
     const unlockedDimensions = this.all.filter(dimension => dimension.unlock());
 
