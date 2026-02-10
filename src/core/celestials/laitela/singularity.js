@@ -226,7 +226,7 @@ export const Singularity = {
   get singularitiesGained() {
     const entropicCondensing = (EndgameMastery(131).isBought && !player.disablePostReality) ? Decimal.pow(new Decimal(ImaginaryUpgrade(10).effectOrDefault(1)).add(1), Decimal.max(new Decimal(ImaginaryUpgrade(10).effectOrDefault(1)), 1)) : new Decimal(ImaginaryUpgrade(10).effectOrDefault(0)).add(1);
     return Decimal.floor(Decimal.pow(this.gainPerCapIncrease, player.celestials.laitela.singularityCapIncreases).times(
-      SingularityMilestone.singularityMult.effectOrDefault(new Decimal(1)).times(entropicCondensing)));
+      SingularityMilestone.singularityMult.effectOrDefault(new Decimal(1)).times(entropicCondensing).times(DualityUpgrade(10).effectOrDefault(1))));
   },
 
   // Time (in seconds) to go from 0 DE to the condensing requirement
