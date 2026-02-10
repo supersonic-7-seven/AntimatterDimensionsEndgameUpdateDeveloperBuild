@@ -85,7 +85,7 @@ export const alphaUnlocks = {
   infinityChallenges: {
     id: 8,
     requirement: 9,
-    nerfDescription: () => `The Repeatable IP Multiplier Upgrade is capped at ${formatInt(140)} Purchases`,
+    nerfDescription: () => `The Repeatable IP Multiplier Upgrade is capped at ${formatInt(140)} Purchases`, // The nerf is always applied to prevent stuck. See src\core\secret-formula\infinity\infinity-upgrades.js Line231
     buffDescription: () => `Reduce Infinity Dimension Compression by ${formatPercents(0.25, 2)} and convert Infinity Dimensions to Continuum`,
     effects: {
       nerf: 140,
