@@ -800,7 +800,7 @@ export function gameLoop(passedDiff, options = {}) {
 
   EternityChallenges.autoComplete.tick();
 
-  replicantiLoop(Alpha.isRunning ? Decimal.pow(diff, 0.01), diff);
+  replicantiLoop(Alpha.isRunning ? Decimal.pow(diff, 0.01) : diff);
 
   Currency.dilatedTime.add(getDilationGainPerSecond().times(player.options.updateRate).div(1000));
 
