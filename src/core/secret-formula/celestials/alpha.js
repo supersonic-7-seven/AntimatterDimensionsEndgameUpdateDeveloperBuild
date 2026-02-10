@@ -74,7 +74,7 @@ export const alphaUnlocks = {
   breakUpgrades: {
     id: 7,
     requirement: 8,
-    nerfDescription: () => `The Infinity Dimension Purchase cap is decreased to ${formatInt(25)}`,
+    nerfDescription: () => `The Infinity Dimension Purchase cap is decreased to ${formatInt(25)}`, // The nerf is always applied to prevent stuck. See src\core\dimensions\infinity-dimension.js Line394
     buffDescription: () => `Reduce Post-Break Tickspeed cost scaling by ${format(0.15, 2, 2)} and Post-Break Dimension cost scaling by ${format(0.25, 2, 2)}`,
     effects: {
       nerf: 25,
