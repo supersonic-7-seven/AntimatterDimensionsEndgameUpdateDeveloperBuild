@@ -11,7 +11,7 @@ const rebuyable = props => {
   );
   const { effect } = props;
   if (props.isDecimal) props.effect = () => player.disablePostReality ? DC.D1 : Decimal.pow(effect, player.reality.dualityRebuyables[props.id]);
-  if (props.isQuadratic) props.effect = () => player.disablePostReality ? DC.D1 : Decimal.pow(effect, (player.reality.dualityRebuyables[props.id] + 1) * (player.reality.dualityRebuyables[props.id] / 2));
+  else if (props.isQuadratic) props.effect = () => player.disablePostReality ? DC.D1 : Decimal.pow(effect, (player.reality.dualityRebuyables[props.id] + 1) * (player.reality.dualityRebuyables[props.id] / 2));
   else props.effect = () => player.disablePostReality ? 1 : effect * player.reality.dualityRebuyables[props.id];
   if (!props.formatEffect) props.formatEffect = value => `+${format(value, 2, 2)}`;
   props.formatCost = value => format(value, 2, 0);
@@ -85,7 +85,7 @@ export const dualityUpgrades = [
     costMult: 1500,
     description: () => `Raise Infinity Dimensions to ${formatPow(1.25, 2, 3)}`,
     effect: 1.25,
-    formatEffect: value => `${formatX(value, 2, 2)}`,
+    formatEffect: value => `${formatPow(value, 2, 3)}`,
     isDecimal: true
   }),
   rebuyable({
