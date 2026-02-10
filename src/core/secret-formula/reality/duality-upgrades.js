@@ -206,7 +206,7 @@ export const dualityUpgrades = [
   {
     name: "Designated Emanation",
     id: 19,
-    cost: new Decimal(2.8e10),
+    cost: new Decimal(4.2e13),
     formatCost: x => format(x, 1),
     requirement: () => `Have ${format(1e37)}? Tickspeed Continuum without ever having Time Studies in this Endgame`,
     hasFailed: () => player.requirementChecks.endgame.maxStudies > 0,
