@@ -155,7 +155,7 @@ export default {
           getAdjustedGlyphEffect("replicationdtgain")),
         1
       );
-      this.hasIPMult = AlchemyResource.exponential.amount > 0 && !this.isDoomed;
+      this.hasIPMult = !player.disablePostReality && AlchemyResource.exponential.amount > 0 && !this.isDoomed;
       this.multIP = Replicanti.amount.powEffectOf(AlchemyResource.exponential);
       this.hasDEMult = !player.disablePostReality && Alpha.currentStage >= 21;
       this.multDE = Decimal.pow(Decimal.log2(Replicanti.amount.add(1)), 10).add(1);
