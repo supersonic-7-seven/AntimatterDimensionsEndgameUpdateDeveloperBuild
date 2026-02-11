@@ -693,6 +693,7 @@ export const Endgame = {
     player.records.thisReality.maxDT = DC.D0;
     player.records.thisReality.bestRSmin = DC.D0;
     player.records.thisReality.bestRSminVal = DC.D0;
+    player.records.thisReality.galaxies = DC.D0;
     player.records.bestReality.time = DC.E9E15;
     player.records.bestReality.realTime = Number.MAX_VALUE;
     player.records.bestReality.glyphStrength = 0;
