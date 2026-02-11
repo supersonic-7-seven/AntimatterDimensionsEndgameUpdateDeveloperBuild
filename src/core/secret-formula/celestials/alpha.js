@@ -95,7 +95,7 @@ export const alphaUnlocks = {
   replicanti: {
     id: 9,
     requirement: 10,
-    nerfDescription: () => `Replicanti Interval is squared and is only boosted by ${formatPercents(0.05, 2, 2)} of Game Speed`,
+    nerfDescription: () => `Replicanti Interval is squared and is only boosted by ${formatPercents(0.1)} of Game Speed`,
     buffDescription: "Replicanti Interval is square-rooted",
     effects: {
       nerf: 2,
