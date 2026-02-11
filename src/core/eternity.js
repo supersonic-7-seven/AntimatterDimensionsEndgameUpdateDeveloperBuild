@@ -64,6 +64,7 @@ export function eternityResetRequest() {
 }
 
 export function eternity(force, auto, specialConditions = {}) {
+  if (Alpha.isRunning && Alpha.currentStage < 11) return;
   if (specialConditions.switchingDilation && !Player.canEternity) {
     // eslint-disable-next-line no-param-reassign
     force = true;

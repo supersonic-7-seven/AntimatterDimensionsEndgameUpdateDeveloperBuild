@@ -85,17 +85,17 @@ export const alphaUnlocks = {
   infinityChallenges: {
     id: 8,
     requirement: 9,
-    nerfDescription: () => `The Repeatable IP Multiplier Upgrade is capped at ${formatInt(140)} Purchases`, // The nerf is always applied to prevent stuck. See src\core\secret-formula\infinity\infinity-upgrades.js Line231
+    nerfDescription: () => `The Repeatable IP Multiplier Upgrade is capped at ${formatInt(150)} Purchases`, // The nerf is always applied to prevent stuck. See src\core\secret-formula\infinity\infinity-upgrades.js Line231
     buffDescription: () => `Reduce Infinity Dimension Compression by ${formatPercents(0.25, 2)} and convert Infinity Dimensions to Continuum`,
     effects: {
-      nerf: 140,
+      nerf: 150,
       buff: 0.75
     }
   },
   replicanti: {
     id: 9,
     requirement: 10,
-    nerfDescription: "Replicanti Interval is squared",
+    nerfDescription: () => `Replicanti Interval is squared and is only boosted by ${formatPercents(0.1)} of Game Speed`,
     buffDescription: "Replicanti Interval is square-rooted",
     effects: {
       nerf: 2,
