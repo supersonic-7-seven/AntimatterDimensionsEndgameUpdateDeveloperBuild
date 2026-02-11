@@ -74,10 +74,10 @@ export const alphaUnlocks = {
   breakUpgrades: {
     id: 7,
     requirement: 8,
-    nerfDescription: () => `The Infinity Dimension Purchase cap is decreased to ${formatInt(30)}`,
+    nerfDescription: () => `The Infinity Dimension Purchase cap is decreased to ${formatInt(player.records.thisReality.galaxies)} (based on Galaxies)`,
     buffDescription: () => `Reduce Post-Break Tickspeed cost scaling by ${format(0.15, 2, 2)} and Post-Break Dimension cost scaling by ${format(0.25, 2, 2)}`,
     effects: {
-      nerf: 30,
+      nerf: () => player.records.thisReality.galaxies,
       buffA: 0.15,
       buffB: 0.25
     }
