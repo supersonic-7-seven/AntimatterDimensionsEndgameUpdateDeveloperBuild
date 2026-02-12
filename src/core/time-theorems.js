@@ -48,7 +48,7 @@ export class TimeTheoremPurchaseType {
   purchase(bulk) {
     if (!this.canAfford) return false;
     let purchased = false;
-    const amount = (Alpha.isRunning && Alpha.currentStage < 15) ? this.bulkPossible : Math.min(this.bulkPossible, 38 - this.amount);
+    const amount = (Alpha.isRunning && Alpha.currentStage < 15) ? Math.min(this.bulkPossible, 38 - this.amount) : this.bulkPossible;
     if (this.willInfinity(amount)) return false;
     const buyFn = cost => ((Perk.ttFree.canBeApplied && !player.disablePostReality) ? this.currency.gte(cost) : this.currency.purchase(cost));
     // This will sometimes buy one too few for EP, so we just have to buy 1 after.
