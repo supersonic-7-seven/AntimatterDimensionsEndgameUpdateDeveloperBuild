@@ -247,7 +247,7 @@ export function addInfinityTime(time, realTime, ip, infinities) {
 export function resetInfinityRuns() {
   player.records.recentInfinities = Array.from(
     { length: 10 },
-    () => [Number.MAX_VALUE, Number.MAX_VALUE, DC.D1, DC.D1, ""]
+    () => [DC.E9E15, Number.MAX_VALUE, DC.D1, DC.D1, ""]
   );
   GameCache.bestRunIPPM.invalidate();
 }
@@ -279,7 +279,7 @@ export function addEternityTime(time, realTime, ep, eternities) {
 export function resetEternityRuns() {
   player.records.recentEternities = Array.from(
     { length: 10 },
-    () => [Number.MAX_VALUE, Number.MAX_VALUE, DC.D1, DC.D1, "", DC.D0]
+    () => [DC.E9E15, Number.MAX_VALUE, DC.D1, DC.D1, "", DC.D0]
   );
   GameCache.averageRealTimePerEternity.invalidate();
 }
