@@ -280,6 +280,11 @@ class EternityUpgradeState extends SetPurchasableMechanicState {
   get set() {
     return player.eternityUpgrades;
   }
+
+  get isAvailableForPurchase() {
+    if (this.id === 3 && Alpha.isRunning && Alpha.currentStage < 14) return false;
+    return true;
+  }
 }
 
 class EPMultiplierState extends GameMechanicState {
