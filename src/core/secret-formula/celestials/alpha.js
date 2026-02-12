@@ -74,10 +74,10 @@ export const alphaUnlocks = {
   breakUpgrades: {
     id: 7,
     requirement: 8,
-    nerfDescription: () => `The Infinity Dimension Purchase cap is decreased to ${formatInt(25)}`, // The nerf is always applied to prevent stuck. See src\core\dimensions\infinity-dimension.js Line394
+    nerfDescription: () => `The Infinity Dimension Purchase cap is decreased to ${formatInt(player.records.thisReality.galaxies.toNumber())} (based on Galaxies)`, // The nerf is always applied to prevent stuck. See src\core\dimensions\infinity-dimension.js Line394
     buffDescription: () => `Reduce Post-Break Tickspeed cost scaling by ${format(0.15, 2, 2)} and Post-Break Dimension cost scaling by ${format(0.25, 2, 2)}`,
     effects: {
-      nerf: 25,
+      nerf: () => player.records.thisReality.galaxies.toNumber(),
       buffA: 0.15,
       buffB: 0.25
     }
@@ -105,10 +105,10 @@ export const alphaUnlocks = {
   infinityDimensions: {
     id: 10,
     requirement: 11,
-    nerfDescription: () => `Infinity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(Currency.infinityPoints.value.add(1)).sub(280).div(100).toNumber(), 0, 1), 2, 3)} (only applies first Eternity)`,
+    nerfDescription: () => `Infinity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(player.records.thisInfinity.maxAM.add(1)).sub(72500).div(200000).toNumber(), 0, 1), 2, 3)} (only applies first Eternity)`,
     buffDescription: () => `The ${formatInt(8)}th Infinity Dimension is powered ${formatInt(100)}`,
     effects: {
-      nerf: () => Math.clamp(1 - Decimal.log10(Currency.infinityPoints.value.add(1)).sub(280).div(100).toNumber(), 0, 1),
+      nerf: () => Math.clamp(1 - Decimal.log10(player.records.thisInfinity.maxAM.add(1)).sub(72500).div(200000).toNumber(), 0, 1),
       buff: 100
     }
   },
