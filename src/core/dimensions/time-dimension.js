@@ -255,7 +255,7 @@ class TimeDimensionState extends DimensionState {
       bought = new Decimal(dim.bought);
     }
 
-    bought = (tier === 8 && (player.disablePostReality || Alpha.currentStage <= 12)) ? Decimal.clampMax(bought, 1e8).times(Laitela.matterExtraPurchaseFactor) : bought;
+    bought = (tier === 8 && (player.disablePostReality || Alpha.currentStage < 12)) ? Decimal.clampMax(bought, 1e8).times(Laitela.matterExtraPurchaseFactor) : bought;
     mult = mult.times(Decimal.pow(dim.powerMultiplier, bought));
 
     mult = mult.pow(getAdjustedGlyphEffect("timepow"));
