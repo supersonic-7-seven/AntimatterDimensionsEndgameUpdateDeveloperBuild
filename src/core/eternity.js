@@ -285,6 +285,12 @@ class EternityUpgradeState extends SetPurchasableMechanicState {
     if (this.id === 3 && Alpha.isRunning && Alpha.currentStage < 14) return false;
     return true;
   }
+
+  onPurchased() {
+    if (this.id === 3 && Alpha.isRunning && Alpha.currentStage === 14) {
+      Alpha.advanceLayer();
+    }
+  }
 }
 
 class EPMultiplierState extends GameMechanicState {
