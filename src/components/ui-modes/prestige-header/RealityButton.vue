@@ -37,10 +37,11 @@ export default {
       if (this.machinesGained.eq(0) && this.newIMCap.eq(0)) {
         return `(Projected: ${format(this.projectedRM, 2)} RM)`;
       }
-      if (this.newIMCap.neq(0) && this.newIMCap.lt(MachineHandler.hardcapIM) && this.newDMCap.eq(0)) {
+      if (this.newIMCap.neq(0) && this.newDMCap.eq(0)) {
+        if (this.newIMCap.gte(DC.E1000)) return `+ ${formatMachines(0, this.newIMCap, 0)}`;
         return `(iM Cap: ${formatMachines(0, this.newIMCap, 0)})`;
       }
-      if (this.newDMCap.neq(0) || this.newIMCap.eq(MachineHandler.hardcapIM)) {
+      if (this.newDMCap.neq(0)) {
         return `(εM Cap: ${formatMachines(0, 0, this.newDMCap)})`;
       }
       if (this.machinesGained.lt(Number.MAX_VALUE)) {
