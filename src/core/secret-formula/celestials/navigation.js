@@ -1805,7 +1805,7 @@ export const celestialNavigation = {
     ]
   },
   "pelle-unlock": {
-    visible: () => Laitela.difficultyTier > 4,
+    visible: () => Laitela.difficultyTier > 4 || Laitela.hadronizes >= 1,
     complete: () => {
       if (Pelle.isUnlocked) return 1;
       const imCost = Math.clampMax(emphasizeEnd(Decimal.log10(Currency.imaginaryMachines.value.add(1)).div(Math.log10(1.6e15)).toNumber()), 1);
