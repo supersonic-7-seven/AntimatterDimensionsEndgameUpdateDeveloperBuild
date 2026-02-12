@@ -1,6 +1,7 @@
 import { DimensionState } from "./dimension";
 
 export function buySingleTimeDimension(tier, auto = false) {
+  if (tier === 4 && Alpha.isRunning && Alpha.currentStage < 13) return;
   if (Laitela.continuumActive && Alpha.currentStage >= 17 && !player.disablePostReality) return;
   const dim = TimeDimension(tier);
   if (tier > 4) {
@@ -88,6 +89,7 @@ export function calcHighestPurchaseableTD(tier, currency) {
 }
 
 export function buyMaxTimeDimension(tier, portionToSpend = 1, isMaxAll = false) {
+  if (tier === 4 && Alpha.isRunning && Alpha.currentStage < 13) return;
   if (Laitela.continuumActive && Alpha.currentStage >= 17 && !player.disablePostReality) return;
   const canSpend = Currency.eternityPoints.value.times(portionToSpend);
   const dim = TimeDimension(tier);
@@ -118,6 +120,7 @@ export function buyMaxTimeDimension(tier, portionToSpend = 1, isMaxAll = false) 
 }
 
 export function maxAllTimeDimensions() {
+  if (tier === 4 && Alpha.isRunning && Alpha.currentStage < 13) return;
   if (Laitela.continuumActive && Alpha.currentStage >= 17 && !player.disablePostReality) return;
   // Try to buy single from the highest affordable new dimensions
   for (let i = 8; i > 0 && TimeDimension(i).bought === 0; i--) {
