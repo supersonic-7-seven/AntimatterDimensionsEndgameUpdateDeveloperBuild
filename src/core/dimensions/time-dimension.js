@@ -25,6 +25,9 @@ export function buySingleTimeDimension(tier, auto = false) {
   dim.amount = dim.amount.plus(1);
   dim.bought += 1;
   dim.cost = dim.nextCost(dim.bought);
+  if (TimeDimension(4).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 13) {
+    Alpha.advanceLayer();
+  }
   return true;
 }
 
@@ -116,6 +119,9 @@ export function buyMaxTimeDimension(tier, portionToSpend = 1, isMaxAll = false) 
   dim.amount = dim.amount.plus(pur);
   dim.bought += pur;
   dim.cost = dim.nextCost(dim.bought);
+  if (TimeDimension(4).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 13) {
+    Alpha.advanceLayer();
+  }
   return true;
 }
 
@@ -138,6 +144,9 @@ export function maxAllTimeDimensions() {
   for (let stop = 0; stop < 1000; stop++) {
     const cheapestDim = purchasableDimensions.reduce((a, b) => (b.cost.gte(a.cost) ? a : b));
     if (!buySingleTimeDimension(cheapestDim.tier, true)) break;
+  }
+  if (TimeDimension(4).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 13) {
+    Alpha.advanceLayer();
   }
 }
 
