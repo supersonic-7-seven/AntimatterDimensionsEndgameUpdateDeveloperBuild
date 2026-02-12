@@ -141,6 +141,10 @@ export function eternity(force, auto, specialConditions = {}) {
 
   PelleStrikes.eternity.trigger();
 
+  if (Alpha.isRunning && Alpha.currentStage === 11) {
+    Alpha.advanceLayer();
+  }
+
   EventHub.dispatch(GAME_EVENT.ETERNITY_RESET_AFTER);
   return true;
 }
