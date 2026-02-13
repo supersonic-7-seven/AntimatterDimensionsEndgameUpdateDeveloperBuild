@@ -140,7 +140,7 @@ export const normalTimeStudies = [
   {
     id: 71,
     cost: 4,
-    requirement: [61, () => (Perk.studyECRequirement.isBought && !player.disablePostReality) || !EternityChallenge(12).isUnlocked],
+    requirement: [61, () => Perk.studyECRequirement.isBought || !EternityChallenge(12).isUnlocked],
     reqType: TS_REQUIREMENT_TYPE.DIMENSION_PATH,
     description: "Dimensional Sacrifice affects all other Antimatter Dimensions with reduced effect",
     effect: () => Sacrifice.totalBoost.pow(0.25).clampMin(1),
@@ -151,7 +151,7 @@ export const normalTimeStudies = [
     id: 72,
     cost: 6,
     requirement: [61,
-      () => (Perk.studyECRequirement.isBought && !player.disablePostReality) ||
+      () => Perk.studyECRequirement.isBought ||
         (!EternityChallenge(11).isUnlocked && !EternityChallenge(12).isUnlocked)],
     reqType: TS_REQUIREMENT_TYPE.DIMENSION_PATH,
     description: "Dimensional Sacrifice affects 4th Infinity Dimension with greatly reduced effect",
@@ -162,7 +162,7 @@ export const normalTimeStudies = [
   {
     id: 73,
     cost: 5,
-    requirement: [61, () => (Perk.studyECRequirement.isBought && !player.disablePostReality) || !EternityChallenge(11).isUnlocked],
+    requirement: [61, () => Perk.studyECRequirement.isBought || !EternityChallenge(11).isUnlocked],
     reqType: TS_REQUIREMENT_TYPE.DIMENSION_PATH,
     description: "Dimensional Sacrifice affects 3rd Time Dimension with greatly reduced effect",
     effect: () => Sacrifice.totalBoost.pow(0.005).clampMin(1),
