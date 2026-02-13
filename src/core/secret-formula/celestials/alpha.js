@@ -121,7 +121,7 @@ export const alphaUnlocks = {
       nerf: 2
     }
   },
-  timestudy62: {
+  timestudy61: {
     id: 12,
     requirement: 13,
     nerfDescription: "Square all Time Theorem costs",
