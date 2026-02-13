@@ -19,7 +19,7 @@ export function buyStudiesUntil(id, ec = -1) {
   const currTree = GameCache.currentStudyTree.value;
   // Makes an array [start, start+1, ... , end], empty if end < start
   const range = (start, end) => [...Array(Math.clampMin(end - start + 1, 0)).keys()].map(i => i + start);
-  const ecHasRequirement = (!Perk.studyECRequirement.isBought || player.disablePostReality);
+  const ecHasRequirement = !Perk.studyECRequirement.isBought;
 
   // If the player tries to buy a study which is immediately buyable, we try to buy it first in case buying other
   // studies up to that point renders it unaffordable. Effectively the clicked study is higher priority than all others
