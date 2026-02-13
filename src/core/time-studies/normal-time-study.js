@@ -68,6 +68,7 @@ export class NormalTimeStudyState extends TimeStudyState {
   }
 
   get canBeBought() {
+    if (Alpha.isRunning && Alpha.currentStage < 18) return false;
     return this.checkRequirement() && this.checkSetRequirement();
   }
 
