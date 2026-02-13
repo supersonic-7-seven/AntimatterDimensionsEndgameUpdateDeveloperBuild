@@ -126,7 +126,6 @@ export function buyMaxTimeDimension(tier, portionToSpend = 1, isMaxAll = false) 
 }
 
 export function maxAllTimeDimensions() {
-  if (tier === 4 && Alpha.isRunning && Alpha.currentStage < 13) return;
   if (Laitela.continuumActive && Alpha.currentStage >= 17 && !player.disablePostReality) return;
   // Try to buy single from the highest affordable new dimensions
   for (let i = 8; i > 0 && TimeDimension(i).bought === 0; i--) {
@@ -139,7 +138,7 @@ export function maxAllTimeDimensions() {
   }
 
   // Loop buying the cheapest dimension possible; explicit infinite loops make me nervous
-  const tierCheck = tier => (RealityUpgrade(13).isLockingMechanics ? tier < 5 : true);
+  const tierCheck = tier => ((Alpha.isRunning && Alpha.currentStage < 13) ? tier < 4 : (RealityUpgrade(13).isLockingMechanics ? tier < 5 : true));
   const purchasableDimensions = TimeDimensions.all.filter(d => d.isUnlocked && tierCheck(d.tier));
   for (let stop = 0; stop < 1000; stop++) {
     const cheapestDim = purchasableDimensions.reduce((a, b) => (b.cost.gte(a.cost) ? a : b));
