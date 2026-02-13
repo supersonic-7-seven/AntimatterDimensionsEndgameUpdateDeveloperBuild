@@ -93,7 +93,7 @@ export class NormalTimeStudyState extends TimeStudyState {
     GameCache.timeStudies.invalidate();
     TimeStudyTree.commitToGameState([TimeStudy(this.id)]);
     if (this.id === 181 && Pelle.isDoomed) Achievement(186).unlock();
-    if (this.id === 62 && Alpha.isRunning && Alpha.currentStage === 12) {
+    if (this.id === 61 && Alpha.isRunning && Alpha.currentStage === 12) {
       Alpha.advanceLayer();
     }
     return true;
