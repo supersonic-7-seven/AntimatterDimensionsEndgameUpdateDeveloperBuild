@@ -124,10 +124,10 @@ export const alphaUnlocks = {
   timestudy61: {
     id: 12,
     requirement: 13,
-    nerfDescription: "Square all Time Theorem costs",
+    nerfDescription: () => `Raise all Time Theorem costs to ${formatPow(1.5, 2, 3)}`,
     buffDescription: () => `Eternity Point gain is multiplied by ${formatX(Decimal.pow10(Decimal.log10(Currency.infinityPoints.value.add(1)).div(1000)), 2, 2)} (based on IP)`,
     effects: {
-      nerf: 2,
+      nerf: 1.5,
       buff: () => Decimal.pow10(Decimal.log10(Currency.infinityPoints.value.add(1)).div(1000))
     }
   },
