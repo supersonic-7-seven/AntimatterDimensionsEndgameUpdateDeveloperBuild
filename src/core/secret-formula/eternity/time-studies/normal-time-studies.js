@@ -304,7 +304,7 @@ export const normalTimeStudies = [
       const perkEffect = (player.disablePostReality
         ? TimeSpan.fromMinutes(DC.D0)
         : TimeSpan.fromMinutes(new Decimal(Perk.studyIdleEP.effectOrDefault(0))));
-      const totalSeconds = Time.thisEternity.plus(perkEffect).totalSeconds;
+      const totalSeconds = Alpha.isRunning ? Time.thisEternityRealTime.totalSeconds : Time.thisEternity.plus(perkEffect).totalSeconds;
       return Decimal.sqrt(new Decimal(1.39).times(totalSeconds));
     },
     formatEffect: value => formatX(value, 1, 1)
@@ -385,7 +385,7 @@ export const normalTimeStudies = [
       const perkEffect = (player.disablePostReality
         ? TimeSpan.fromMinutes(DC.D0)
         : TimeSpan.fromMinutes(new Decimal(Perk.studyIdleEP.effectOrDefault(0))));
-      const totalSeconds = Time.thisInfinity.plus(perkEffect).totalSeconds;
+      const totalSeconds = Alpha.isRunning ? Time.thisInfinityRealTime.totalSeconds : Time.thisInfinity.plus(perkEffect).totalSeconds;
       return thisInfinityMult(totalSeconds);
     },
     formatEffect: value => formatX(value, 2, 1),
