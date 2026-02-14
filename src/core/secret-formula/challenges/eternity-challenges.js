@@ -78,6 +78,7 @@ export const eternityChallenges = [
     goal: DC.E750,
     pelleGoal: DC.E1400,
     goalIncrease: DC.E400,
+    alphaGoal: DC.E1650,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC5Nerf,
     reward: {
       description: "Distant Galaxy cost scaling starts later",
