@@ -67,10 +67,10 @@ export const glyphEffects = {
     totalDesc: "Eternity gain ×{value}",
     genericDesc: "Eternity gain multiplier",
     shortDesc: "Eternities ×{value}",
-    effect: (level, strength) => Math.pow((strength + 3) * level, 0.9) *
-      Math.pow(3, GlyphAlteration.sacrificeBoost("time")),
+    effect: (level, strength) => Decimal.pow((strength + 3) * level, 0.9)
+      .times(Decimal.pow(3, GlyphAlteration.sacrificeBoost("time"))),
     formatEffect: x => format(x, 2, 2),
-    combine: GlyphCombiner.multiply,
+    combine: GlyphCombiner.multiplyDecimal,
     alteredColor: () => GlyphAlteration.getBoostColor("time"),
     alterationType: ALTERATION_TYPE.BOOST,
     enabledInDoomed: () => PelleDestructionUpgrade.destroyedGlyphEffects.isBought

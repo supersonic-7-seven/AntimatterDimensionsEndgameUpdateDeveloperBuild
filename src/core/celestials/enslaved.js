@@ -14,13 +14,13 @@ export const ENSLAVED_UNLOCKS = {
     id: 1,
     price: TimeSpan.fromYears(new Decimal(1e40)).totalMilliseconds,
     secondaryRequirement() {
-      const hasLevelRequirement = player.records.bestReality.glyphLevel >= 5000;
-      const hasRarityRequirement = strengthToRarity(player.records.bestReality.glyphStrength) >= 100;
+      const hasLevelRequirement = Math.max(player.records.bestReality.glyphLevel, EndgameMastery(71).isBought ? EndgameMastery(71).effectValue : 1) >= 5000;
+      const hasRarityRequirement = EndgameMastery(71).isBought || strengthToRarity(player.records.bestReality.glyphStrength) >= 100;
       return hasLevelRequirement && hasRarityRequirement;
     },
     description() {
-      const hasLevelRequirement = player.records.bestReality.glyphLevel >= 5000;
-      const hasRarityRequirement = strengthToRarity(player.records.bestReality.glyphStrength) >= 100;
+      const hasLevelRequirement = Math.max(player.records.bestReality.glyphLevel, EndgameMastery(71).isBought ? EndgameMastery(71).effectValue : 1) >= 5000;
+      const hasRarityRequirement = EndgameMastery(71).isBought || strengthToRarity(player.records.bestReality.glyphStrength) >= 100;
       return `Unlock The Nameless Ones' Reality (requires ${hasLevelRequirement ? "[✓]" : "[✗]"} a level
       ${formatInt(5000)} Glyph and ${hasRarityRequirement ? "[✓]" : "[✗]"} a ${formatRarity(100)} rarity Glyph)`;
     }

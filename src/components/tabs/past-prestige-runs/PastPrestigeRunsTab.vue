@@ -9,6 +9,19 @@ export default {
   data() {
     return {
       layers: {
+        endgame: {
+          name: "Endgame",
+          plural: "Endgames",
+          currency: "CelP",
+          condition: () => PlayerProgress.endgameUnlocked(),
+          getRuns: () => player.records.recentEndgames,
+          extra: ["DP"],
+          showExtra: [() => true],
+          formatExtra: [x => formatInt(x) + " DP"],
+          allowRate: [true],
+          rateString: ["DP Rate"],
+          hasChallenge: false,
+        },
         reality: {
           name: "Reality",
           plural: "Realities",
