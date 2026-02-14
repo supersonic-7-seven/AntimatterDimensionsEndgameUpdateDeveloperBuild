@@ -5,7 +5,10 @@ const specialInfinityGlyphDisabledEffectText = () => (PelleRifts.chaos.milestone
 export const eternityChallenges = [
   {
     id: 1,
-    description: "Time Dimensions are disabled.",
+    description: () => {
+      if (Alpha.isRunning) return "Time Dimensions are disabled. Double the Infinity Dimension purchase cap.";
+      return "Time Dimensions are disabled.";
+    },
     goal: DC.E1800,
     goalIncrease: DC.E200,
     reward: {
@@ -23,6 +26,8 @@ export const eternityChallenges = [
     goal: DC.E975,
     pelleGoal: DC.E1750,
     goalIncrease: DC.E175,
+    alphaGoal: DC.E3600,
+    alphaGoalIncrease: DC.E300,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC2Nerf,
     reward: {
       description: "1st Infinity Dimension multiplier based on Infinity Power",
@@ -37,6 +42,8 @@ export const eternityChallenges = [
     goal: DC.E600,
     pelleGoal: DC.E925,
     goalIncrease: DC.E75,
+    alphaGoal: DC.E1200,
+    alphaGoalIncrease: DC.E100,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC3Nerf,
     reward: {
       description: () => `Increase the multiplier for buying ${formatInt(10)} Antimatter Dimensions`,
