@@ -68,6 +68,7 @@ export class NormalTimeStudyState extends TimeStudyState {
   }
 
   get canBeBought() {
+    if (Alpha.isRunning && Alpha.currentStage < 18) return this.id <= 180 && this.checkRequirement() && this.checkSetRequirement();
     return this.checkRequirement() && this.checkSetRequirement();
   }
 
@@ -93,6 +94,9 @@ export class NormalTimeStudyState extends TimeStudyState {
     GameCache.timeStudies.invalidate();
     TimeStudyTree.commitToGameState([TimeStudy(this.id)]);
     if (this.id === 181 && Pelle.isDoomed) Achievement(186).unlock();
+    if (this.id === 61 && Alpha.isRunning && Alpha.currentStage === 12) {
+      Alpha.advanceLayer();
+    }
     return true;
   }
 

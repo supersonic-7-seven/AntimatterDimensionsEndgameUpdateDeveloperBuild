@@ -51,12 +51,12 @@ export const alphaUnlocks = {
   breakInfinity: {
     id: 5,
     requirement: 6,
-    nerfDescription: () => `Break Infinty Upgrades are ${formatX(1000)} more expensive, post-Break Tickspeed/Dimension cost scalings start at ${formatX(20)}, IPow Conversion Rate /${format(Decimal.max(DC.D8.div(Decimal.log10(Decimal.log10(Currency.infinityPoints.value.add(1)).add(1)).pow(2)), 1).toNumber(), 2, 2)} (based on IP)`,
+    nerfDescription: () => `Break Infinty Upgrades are ${formatX(1000)} more expensive, post-Break Tickspeed/Dimension cost scalings start at ${formatX(20)}, IPow Conversion Rate /${format(Decimal.max(DC.D8.div(Decimal.log10(Decimal.log10(Currency.infinityPoints.value.add(1)).add(1)).pow(2).clampMin(0.001)), 1).toNumber(), 2, 2)} (based on IP)`,
     buffDescription: () => `Reduce Post-Break Tickspeed cost scaling by ${format(0.15, 2, 2)} and Post-Break Dimension cost scaling by ${format(0.25, 2, 2)}`,
     effects: {
       nerfA: 1000,
       nerfB: 20,
-      nerfC: () => Decimal.max(DC.D8.div(Decimal.log10(Decimal.log10(Currency.infinityPoints.value.add(1)).add(1)).pow(2)), 1).toNumber(),
+      nerfC: () => Decimal.max(DC.D8.div(Decimal.log10(Decimal.log10(Currency.infinityPoints.value.add(1)).add(1)).pow(2).clampMin(0.001)), 1).toNumber(),
       buffA: 0.15,
       buffB: 0.25
     }
@@ -105,10 +105,10 @@ export const alphaUnlocks = {
   infinityDimensions: {
     id: 10,
     requirement: 11,
-    nerfDescription: () => `Infinity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(player.records.thisInfinity.maxAM.add(1)).sub(72500).div(200000).toNumber(), 0, 1), 2, 3)} (only applies first Eternity)`,
+    nerfDescription: () => `Infinity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(player.records.thisInfinity.maxAM.add(1)).sub(72500).div(206250).toNumber(), 0, 1), 2, 3)} (only applies first Eternity)`,
     buffDescription: () => `The ${formatInt(8)}th Infinity Dimension is powered ${formatInt(100)}`,
     effects: {
-      nerf: () => Math.clamp(1 - Decimal.log10(player.records.thisInfinity.maxAM.add(1)).sub(72500).div(200000).toNumber(), 0, 1),
+      nerf: () => Math.clamp(1 - Decimal.log10(player.records.thisInfinity.maxAM.add(1)).sub(72500).div(206250).toNumber(), 0, 1),
       buff: 100
     }
   },
@@ -121,13 +121,13 @@ export const alphaUnlocks = {
       nerf: 2
     }
   },
-  timestudy62: {
+  timestudy61: {
     id: 12,
     requirement: 13,
-    nerfDescription: "Square all Time Theorem costs",
+    nerfDescription: () => `Raise all Time Theorem costs to ${formatPow(1.5, 2, 3)}`,
     buffDescription: () => `Eternity Point gain is multiplied by ${formatX(Decimal.pow10(Decimal.log10(Currency.infinityPoints.value.add(1)).div(1000)), 2, 2)} (based on IP)`,
     effects: {
-      nerf: 2,
+      nerf: 1.5,
       buff: () => Decimal.pow10(Decimal.log10(Currency.infinityPoints.value.add(1)).div(1000))
     }
   },

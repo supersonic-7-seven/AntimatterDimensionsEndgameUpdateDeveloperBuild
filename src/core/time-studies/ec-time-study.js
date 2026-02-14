@@ -102,7 +102,7 @@ export class ECTimeStudyState extends TimeStudyState {
   }
 
   get allSecondaryRequirementsMet() {
-    return (Perk.studyECRequirement.isBought && !player.disablePostReality) || !this.hasForbiddenStudies && this.isEntryGoalMet;
+    return Perk.studyECRequirement.isBought || !this.hasForbiddenStudies && this.isEntryGoalMet;
   }
 
   get hasForbiddenStudies() {

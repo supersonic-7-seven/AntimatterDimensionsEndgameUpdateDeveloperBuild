@@ -234,7 +234,7 @@ export class TimeStudyTree {
     }
     if (study instanceof ECTimeStudyState) {
       if (this.purchasedStudies.some(s => s instanceof ECTimeStudyState)) return false;
-      const hasForbiddenStudies = (!Perk.studyECRequirement.isBought || player.disablePostReality) &&
+      const hasForbiddenStudies = !Perk.studyECRequirement.isBought &&
         study.config.secondary.forbiddenStudies?.some(s => check(s));
       // We want to only check the structure for script template error instructions
       if (checkOnlyStructure) {
@@ -242,7 +242,7 @@ export class TimeStudyTree {
       }
       const totalTT = player.timestudy.theorem.plus(TimeTheorems.calculateTimeStudiesCost());
       const hasEnoughTT = totalTT.subtract(this.spentTheorems[0]).gte(study.cost);
-      const secondaryGoal = (Perk.studyECRequirement.isBought && !player.disablePostReality) || study.isEntryGoalMet;
+      const secondaryGoal = Perk.studyECRequirement.isBought || study.isEntryGoalMet;
       return reqSatisfied && !hasForbiddenStudies && (study.isBought || (secondaryGoal && hasEnoughTT));
     }
     return reqSatisfied;

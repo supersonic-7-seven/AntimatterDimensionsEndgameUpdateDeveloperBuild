@@ -309,7 +309,7 @@ class InfinityDimensionState extends DimensionState {
   unlock() {
     if (this.isUnlocked) return true;
     if (!this.canUnlock) return false;
-    if (Alpha.isRunning && !Replicanti.areUnlocked && this.tier > 4) return false;
+    if (Alpha.isRunning && Alpha.currentStage < 10 && this.tier > 4) return false;
     this.isUnlocked = true;
     EventHub.dispatch(GAME_EVENT.INFINITY_DIMENSION_UNLOCKED, this.tier);
     if (this.tier === 1 && !PlayerProgress.eternityUnlocked()) {

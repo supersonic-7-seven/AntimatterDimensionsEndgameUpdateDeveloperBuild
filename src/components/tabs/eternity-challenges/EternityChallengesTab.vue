@@ -63,7 +63,7 @@ export default {
         this.untilNextEC.setFrom(new Decimal(untilNextEC));
         this.untilAllEC.setFrom(new Decimal(untilNextEC + (autoECInterval * (remainingCompletions - 1))));
       }
-      this.hasECR = (Perk.studyECRequirement.isBought && !player.disablePostReality);
+      this.hasECR = Perk.studyECRequirement.isBought;
     },
     isChallengeVisible(challenge) {
       return challenge.completions > 0 || challenge.isUnlocked || challenge.hasUnlocked ||

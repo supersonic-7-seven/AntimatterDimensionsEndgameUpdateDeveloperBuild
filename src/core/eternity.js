@@ -141,6 +141,10 @@ export function eternity(force, auto, specialConditions = {}) {
 
   PelleStrikes.eternity.trigger();
 
+  if (Alpha.isRunning && Alpha.currentStage === 11) {
+    Alpha.advanceLayer();
+  }
+
   EventHub.dispatch(GAME_EVENT.ETERNITY_RESET_AFTER);
   return true;
 }
@@ -275,6 +279,17 @@ class EternityUpgradeState extends SetPurchasableMechanicState {
 
   get set() {
     return player.eternityUpgrades;
+  }
+
+  get isAvailableForPurchase() {
+    if (this.id === 3 && Alpha.isRunning && Alpha.currentStage < 14) return false;
+    return true;
+  }
+
+  onPurchased() {
+    if (this.id === 3 && Alpha.isRunning && Alpha.currentStage === 14) {
+      Alpha.advanceLayer();
+    }
   }
 }
 

@@ -1,6 +1,7 @@
 import { DimensionState } from "./dimension";
 
 export function buySingleTimeDimension(tier, auto = false) {
+  if (tier === 4 && Alpha.isRunning && Alpha.currentStage < 13) return;
   if (Laitela.continuumActive && Alpha.currentStage >= 17 && !player.disablePostReality) return;
   const dim = TimeDimension(tier);
   if (tier > 4) {
@@ -24,6 +25,9 @@ export function buySingleTimeDimension(tier, auto = false) {
   dim.amount = dim.amount.plus(1);
   dim.bought += 1;
   dim.cost = dim.nextCost(dim.bought);
+  if (TimeDimension(4).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 13) {
+    Alpha.advanceLayer();
+  }
   return true;
 }
 
@@ -88,6 +92,7 @@ export function calcHighestPurchaseableTD(tier, currency) {
 }
 
 export function buyMaxTimeDimension(tier, portionToSpend = 1, isMaxAll = false) {
+  if (tier === 4 && Alpha.isRunning && Alpha.currentStage < 13) return;
   if (Laitela.continuumActive && Alpha.currentStage >= 17 && !player.disablePostReality) return;
   const canSpend = Currency.eternityPoints.value.times(portionToSpend);
   const dim = TimeDimension(tier);
@@ -114,6 +119,9 @@ export function buyMaxTimeDimension(tier, portionToSpend = 1, isMaxAll = false) 
   dim.amount = dim.amount.plus(pur);
   dim.bought += pur;
   dim.cost = dim.nextCost(dim.bought);
+  if (TimeDimension(4).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 13) {
+    Alpha.advanceLayer();
+  }
   return true;
 }
 
@@ -130,11 +138,14 @@ export function maxAllTimeDimensions() {
   }
 
   // Loop buying the cheapest dimension possible; explicit infinite loops make me nervous
-  const tierCheck = tier => (RealityUpgrade(13).isLockingMechanics ? tier < 5 : true);
+  const tierCheck = tier => ((Alpha.isRunning && Alpha.currentStage < 13) ? tier < 4 : (RealityUpgrade(13).isLockingMechanics ? tier < 5 : true));
   const purchasableDimensions = TimeDimensions.all.filter(d => d.isUnlocked && tierCheck(d.tier));
   for (let stop = 0; stop < 1000; stop++) {
     const cheapestDim = purchasableDimensions.reduce((a, b) => (b.cost.gte(a.cost) ? a : b));
     if (!buySingleTimeDimension(cheapestDim.tier, true)) break;
+  }
+  if (TimeDimension(4).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 13) {
+    Alpha.advanceLayer();
   }
 }
 
@@ -255,7 +266,7 @@ class TimeDimensionState extends DimensionState {
       bought = new Decimal(dim.bought);
     }
 
-    bought = (tier === 8 && (player.disablePostReality || Alpha.currentStage <= 12)) ? Decimal.clampMax(bought, 1e8).times(Laitela.matterExtraPurchaseFactor) : bought;
+    bought = (tier === 8 && (player.disablePostReality || Alpha.currentStage < 12)) ? Decimal.clampMax(bought, 1e8).times(Laitela.matterExtraPurchaseFactor) : bought;
     mult = mult.times(Decimal.pow(dim.powerMultiplier, bought));
 
     mult = mult.pow(getAdjustedGlyphEffect("timepow"));

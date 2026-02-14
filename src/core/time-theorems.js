@@ -48,7 +48,7 @@ export class TimeTheoremPurchaseType {
   purchase(bulk) {
     if (!this.canAfford) return false;
     let purchased = false;
-    const amount = this.bulkPossible;
+    const amount = (Alpha.isRunning && Alpha.currentStage < 15) ? Math.min(this.bulkPossible, 38 - this.amount) : this.bulkPossible;
     if (this.willInfinity(amount)) return false;
     const buyFn = cost => ((Perk.ttFree.canBeApplied && !player.disablePostReality) ? this.currency.gte(cost) : this.currency.purchase(cost));
     // This will sometimes buy one too few for EP, so we just have to buy 1 after.
@@ -64,6 +64,9 @@ export class TimeTheoremPurchaseType {
     }
     if (purchased) player.requirementChecks.reality.noPurchasedTT = false;
     if (TimeTheorems.totalPurchased() > 114) PelleStrikes.ECs.trigger();
+    if (TimeTheorems.totalPurchased() > 114 && Alpha.isRunning && Alpha.currentStage === 15) {
+      Alpha.advanceLayer();
+    }
     return purchased;
   }
 
@@ -82,7 +85,7 @@ TimeTheoremPurchaseType.am = new class extends TimeTheoremPurchaseType {
 
   get currency() { return Currency.antimatter; }
   get costBase() { return DC.E20000; }
-  get costIncrement() { return DC.E20000.pow(Alpha.isRunning ? AlphaUnlocks.timestudy62.effects.nerf.effectOrDefault(1) : 1); }
+  get costIncrement() { return DC.E20000.pow(Alpha.isRunning ? AlphaUnlocks.timestudy61.effects.nerf.effectOrDefault(1) : 1); }
 }();
 
 TimeTheoremPurchaseType.ip = new class extends TimeTheoremPurchaseType {
@@ -91,7 +94,7 @@ TimeTheoremPurchaseType.ip = new class extends TimeTheoremPurchaseType {
 
   get currency() { return Currency.infinityPoints; }
   get costBase() { return DC.D1; }
-  get costIncrement() { return DC.E100.pow(Alpha.isRunning ? AlphaUnlocks.timestudy62.effects.nerf.effectOrDefault(1) : 1); }
+  get costIncrement() { return DC.E100.pow(Alpha.isRunning ? AlphaUnlocks.timestudy61.effects.nerf.effectOrDefault(1) : 1); }
 }();
 
 TimeTheoremPurchaseType.ep = new class extends TimeTheoremPurchaseType {
@@ -100,7 +103,7 @@ TimeTheoremPurchaseType.ep = new class extends TimeTheoremPurchaseType {
 
   get currency() { return Currency.eternityPoints; }
   get costBase() { return DC.D1; }
-  get costIncrement() { return DC.D2.pow(Alpha.isRunning ? AlphaUnlocks.timestudy62.effects.nerf.effectOrDefault(1) : 1); }
+  get costIncrement() { return DC.D2.pow(Alpha.isRunning ? AlphaUnlocks.timestudy61.effects.nerf.effectOrDefault(1) : 1); }
 
   bulkCost(amount) {
     if (Perk.ttFree.canBeApplied && !player.disablePostReality) return this.cost.times(this.costIncrement.pow(amount - 1));

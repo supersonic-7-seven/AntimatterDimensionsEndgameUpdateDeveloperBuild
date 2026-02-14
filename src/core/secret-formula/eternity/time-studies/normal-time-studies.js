@@ -140,7 +140,7 @@ export const normalTimeStudies = [
   {
     id: 71,
     cost: 4,
-    requirement: [61, () => (Perk.studyECRequirement.isBought && !player.disablePostReality) || !EternityChallenge(12).isUnlocked],
+    requirement: [61, () => Perk.studyECRequirement.isBought || !EternityChallenge(12).isUnlocked],
     reqType: TS_REQUIREMENT_TYPE.DIMENSION_PATH,
     description: "Dimensional Sacrifice affects all other Antimatter Dimensions with reduced effect",
     effect: () => Sacrifice.totalBoost.pow(0.25).clampMin(1),
@@ -151,7 +151,7 @@ export const normalTimeStudies = [
     id: 72,
     cost: 6,
     requirement: [61,
-      () => (Perk.studyECRequirement.isBought && !player.disablePostReality) ||
+      () => Perk.studyECRequirement.isBought ||
         (!EternityChallenge(11).isUnlocked && !EternityChallenge(12).isUnlocked)],
     reqType: TS_REQUIREMENT_TYPE.DIMENSION_PATH,
     description: "Dimensional Sacrifice affects 4th Infinity Dimension with greatly reduced effect",
@@ -162,7 +162,7 @@ export const normalTimeStudies = [
   {
     id: 73,
     cost: 5,
-    requirement: [61, () => (Perk.studyECRequirement.isBought && !player.disablePostReality) || !EternityChallenge(11).isUnlocked],
+    requirement: [61, () => Perk.studyECRequirement.isBought || !EternityChallenge(11).isUnlocked],
     reqType: TS_REQUIREMENT_TYPE.DIMENSION_PATH,
     description: "Dimensional Sacrifice affects 3rd Time Dimension with greatly reduced effect",
     effect: () => Sacrifice.totalBoost.pow(0.005).clampMin(1),
@@ -304,7 +304,7 @@ export const normalTimeStudies = [
       const perkEffect = (player.disablePostReality
         ? TimeSpan.fromMinutes(DC.D0)
         : TimeSpan.fromMinutes(new Decimal(Perk.studyIdleEP.effectOrDefault(0))));
-      const totalSeconds = Time.thisEternity.plus(perkEffect).totalSeconds;
+      const totalSeconds = Alpha.isRunning ? Time.thisEternityRealTime.totalSeconds : Time.thisEternity.plus(perkEffect).totalSeconds;
       return Decimal.sqrt(new Decimal(1.39).times(totalSeconds));
     },
     formatEffect: value => formatX(value, 1, 1)
@@ -359,7 +359,9 @@ export const normalTimeStudies = [
       : "Multiplier to Infinity Points, which decays over this Infinity"),
     effect: () => ((Perk.studyActiveEP.isBought && !player.disablePostReality)
       ? DC.E45
-      : DC.E45.divide(thisInfinityMult(Time.thisInfinity.totalSeconds)).clampMin(1)),
+      : DC.E45.divide(thisInfinityMult(Alpha.isRunning
+        ? Time.thisInfinityRealTime.totalSeconds
+        : Time.thisInfinity.totalSeconds)).clampMin(1)),
     formatEffect: value => ((Perk.studyActiveEP.isBought && !player.disablePostReality) ? undefined : formatX(value, 2, 1))
   },
   {
@@ -385,7 +387,7 @@ export const normalTimeStudies = [
       const perkEffect = (player.disablePostReality
         ? TimeSpan.fromMinutes(DC.D0)
         : TimeSpan.fromMinutes(new Decimal(Perk.studyIdleEP.effectOrDefault(0))));
-      const totalSeconds = Time.thisInfinity.plus(perkEffect).totalSeconds;
+      const totalSeconds = Alpha.isRunning ? Time.thisInfinityRealTime.totalSeconds : Time.thisInfinity.plus(perkEffect).totalSeconds;
       return thisInfinityMult(totalSeconds);
     },
     formatEffect: value => formatX(value, 2, 1),
