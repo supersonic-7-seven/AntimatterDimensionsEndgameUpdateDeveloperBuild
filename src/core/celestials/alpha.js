@@ -532,6 +532,8 @@ export const Alpha = {
       player.dilation.rebuyables[12] = player.celestials.alpha.records.dilation.rebuyables[12];
       player.dilation.rebuyables[13] = player.celestials.alpha.records.dilation.rebuyables[13];
       player.dilation.lastEP = player.celestials.alpha.records.dilation.lastEP;
+      player.celestials.alpha.records.timestudy.studies = [];
+      player.celestials.alpha.records.dilation.studies = [];
     }
   },
   escapeTheMatrix() {
