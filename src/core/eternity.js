@@ -27,14 +27,6 @@ function giveEternityRewards(auto) {
     }
     player.challenge.eternity.requirementBits &= ~(1 << challenge.id);
     respecTimeStudies(auto);
-    for (let c = 1; c < 13; c++) {
-      if (Alpha.isRunning && Alpha.currentStage === 16 && EternityChallenge(c).completions >= 1) {
-        Alpha.advanceLayer();
-      }
-      if (Alpha.isRunning && Alpha.currentStage === 17 && EternityChallenge(c).completions >= 5) {
-        Alpha.advanceLayer();
-      }
-    }
   }
 
   addEternityTime(
@@ -151,6 +143,15 @@ export function eternity(force, auto, specialConditions = {}) {
 
   if (Alpha.isRunning && Alpha.currentStage === 11) {
     Alpha.advanceLayer();
+  }
+
+  for (let c = 1; c < 13; c++) {
+    if (Alpha.isRunning && Alpha.currentStage === 16 && EternityChallenge(c).completions >= 1) {
+      Alpha.advanceLayer();
+    }
+    if (Alpha.isRunning && Alpha.currentStage === 17 && EternityChallenge(c).completions >= 5) {
+      Alpha.advanceLayer();
+    }
   }
 
   EventHub.dispatch(GAME_EVENT.ETERNITY_RESET_AFTER);
