@@ -28,10 +28,10 @@ function giveEternityRewards(auto) {
     player.challenge.eternity.requirementBits &= ~(1 << challenge.id);
     respecTimeStudies(auto);
     for (let c = 1; c < 13; c++) {
-      if (Alpha.isRunning && Alpha.currentStage === 17 && EternityChallenge(c).completions >= 1) {
+      if (Alpha.isRunning && Alpha.currentStage === 16 && EternityChallenge(c).completions >= 1) {
         Alpha.advanceLayer();
       }
-      if (Alpha.isRunning && Alpha.currentStage === 18 && EternityChallenge(c).completions >= 5) {
+      if (Alpha.isRunning && Alpha.currentStage === 17 && EternityChallenge(c).completions >= 5) {
         Alpha.advanceLayer();
       }
     }
