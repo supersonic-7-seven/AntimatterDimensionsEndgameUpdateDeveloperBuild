@@ -151,6 +151,7 @@ window.DC = deepFreeze({
   E1300:                new Decimal("1e1300"),
   E1400:                new Decimal("1e1400"),
   E1500:                new Decimal("1e1500"),
+  E1650:                new Decimal("1e1650"),
   E1750:                new Decimal("1e1750"),
   E1800:                new Decimal("1e1800"),
   E1900:                new Decimal("1e1900"),
