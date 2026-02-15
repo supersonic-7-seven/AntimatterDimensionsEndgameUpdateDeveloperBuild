@@ -26,7 +26,7 @@ export const eternityChallenges = [
     goal: DC.E975,
     pelleGoal: DC.E1750,
     goalIncrease: DC.E175,
-    alphaGoal: DC.E2000,
+    alphaGoal: DC.E2200,
     alphaGoalIncrease: DC.E300,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC2Nerf,
     reward: {
@@ -97,6 +97,7 @@ export const eternityChallenges = [
     goal: DC.E750,
     pelleGoal: DC.E1500,
     goalIncrease: DC.E200,
+    alphaGoal: DC.E800,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC6Nerf,
     reward: {
       description: "Further reduce Antimatter Dimension cost multiplier growth",
