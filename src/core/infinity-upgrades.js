@@ -138,11 +138,11 @@ export function disChargeAll() {
 // GameDatabase.infinity.upgrades.ipMult
 class InfinityIPMultUpgrade extends GameMechanicState {
   get cost() {
-    if (this.purchaseCount >= this.purchasesAtIncrease) {
+    if (this.purchaseCount.gte(this.purchasesAtIncrease)) {
       return this.costIncreaseThreshold
-        .times(Decimal.pow(this.costIncrease, this.purchaseCount - this.purchasesAtIncrease));
+        .times(Decimal.pow(this.costIncrease, this.purchaseCount.sub(this.purchasesAtIncrease)));
     }
-    return Decimal.pow(this.costIncrease, this.purchaseCount + 1);
+    return Decimal.pow(this.costIncrease, this.purchaseCount.add(1));
   }
 
   get purchaseCount() {
@@ -158,7 +158,7 @@ class InfinityIPMultUpgrade extends GameMechanicState {
   }
 
   get hasIncreasedCost() {
-    return this.purchaseCount >= this.purchasesAtIncrease;
+    return this.purchaseCount.gte(this.purchasesAtIncrease);
   }
 
   get costIncrease() {
@@ -193,7 +193,7 @@ class InfinityIPMultUpgrade extends GameMechanicState {
       Autobuyer.bigCrunch.bumpAmount(DC.D2.pow(amount));
     }
     Currency.infinityPoints.subtract(Decimal.sumGeometricSeries(amount, this.cost, this.costIncrease, 0));
-    player.IPMultPurchases += amount;
+    player.IPMultPurchases = player.IPMultPurchases.add(amount);
     GameUI.update();
   }
 

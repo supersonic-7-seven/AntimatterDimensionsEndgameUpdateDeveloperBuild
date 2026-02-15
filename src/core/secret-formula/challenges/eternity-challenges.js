@@ -5,7 +5,10 @@ const specialInfinityGlyphDisabledEffectText = () => (PelleRifts.chaos.milestone
 export const eternityChallenges = [
   {
     id: 1,
-    description: "Time Dimensions are disabled.",
+    description: () => {
+      if (Alpha.isRunning) return "Time Dimensions are disabled. Double the Infinity Dimension purchase cap.";
+      return "Time Dimensions are disabled.";
+    },
     goal: DC.E1800,
     goalIncrease: DC.E200,
     reward: {
@@ -23,6 +26,8 @@ export const eternityChallenges = [
     goal: DC.E975,
     pelleGoal: DC.E1750,
     goalIncrease: DC.E175,
+    alphaGoal: DC.E2200,
+    alphaGoalIncrease: DC.E300,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC2Nerf,
     reward: {
       description: "1st Infinity Dimension multiplier based on Infinity Power",
@@ -37,6 +42,8 @@ export const eternityChallenges = [
     goal: DC.E600,
     pelleGoal: DC.E925,
     goalIncrease: DC.E75,
+    alphaGoal: DC.E750,
+    alphaGoalIncrease: DC.E100,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC3Nerf,
     reward: {
       description: () => `Increase the multiplier for buying ${formatInt(10)} Antimatter Dimensions`,
@@ -50,6 +57,7 @@ export const eternityChallenges = [
       number of Infinities or else you will fail the Challenge.`,
     goal: DC.E2750,
     goalIncrease: DC.E550,
+    alphaGoal: DC.E3200,
     restriction: completions => Math.max(16 - 4 * completions, 0),
     checkRestriction: restriction => Currency.infinities.lte(restriction),
     formatRestriction: restriction => (restriction === 0
@@ -70,6 +78,7 @@ export const eternityChallenges = [
     goal: DC.E750,
     pelleGoal: DC.E1400,
     goalIncrease: DC.E400,
+    alphaGoal: DC.E1650,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC5Nerf,
     reward: {
       description: "Distant Galaxy cost scaling starts later",
@@ -88,6 +97,7 @@ export const eternityChallenges = [
     goal: DC.E750,
     pelleGoal: DC.E1500,
     goalIncrease: DC.E200,
+    alphaGoal: DC.E800,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC6Nerf,
     reward: {
       description: "Further reduce Antimatter Dimension cost multiplier growth",
@@ -122,6 +132,7 @@ export const eternityChallenges = [
     goal: DC.E1300,
     pelleGoal: DC.E2800,
     goalIncrease: DC.E750,
+    alphaGoal: DC.E2400,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC8Nerf,
     reward: {
       description: "Infinity Power strengthens Replicanti Galaxies",

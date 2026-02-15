@@ -128,6 +128,9 @@ export class EternityChallengeState extends GameMechanicState {
   }
 
   get initialGoal() {
+    if (Alpha.isRunning && this.config.alphaGoal) {
+      return this.config.alphaGoal;
+    }
     if (Pelle.isDoomed && this.config.pelleGoal && this.config.hasPelleGoal()) {
       return this.config.pelleGoal;
     }
@@ -135,6 +138,9 @@ export class EternityChallengeState extends GameMechanicState {
   }
 
   get goalIncrease() {
+    if (Alpha.isRunning && this.config.alphaGoalIncrease) {
+      return this.config.alphaGoalIncrease;
+    }
     if (Pelle.isDoomed && this.config.pelleGoalIncrease && this.config.hasPelleGoal()) {
       return this.config.pelleGoalIncrease;
     }

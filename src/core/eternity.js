@@ -145,6 +145,15 @@ export function eternity(force, auto, specialConditions = {}) {
     Alpha.advanceLayer();
   }
 
+  for (let c = 1; c < 13; c++) {
+    if (Alpha.isRunning && Alpha.currentStage === 16 && EternityChallenge(c).completions >= 1) {
+      Alpha.advanceLayer();
+    }
+    if (Alpha.isRunning && Alpha.currentStage === 17 && EternityChallenge(c).completions >= 5) {
+      Alpha.advanceLayer();
+    }
+  }
+
   EventHub.dispatch(GAME_EVENT.ETERNITY_RESET_AFTER);
   return true;
 }
@@ -198,7 +207,7 @@ export function initializeResourcesAfterEternity() {
   player.galaxies = (EternityMilestone.keepInfinityUpgrades.isReached) ? DC.D1 : DC.D0;
   player.partInfinityPoint = DC.D0;
   player.partInfinitied = 0;
-  player.IPMultPurchases = 0;
+  player.IPMultPurchases = DC.D0;
   Currency.infinityPower.reset();
   Currency.timeShards.reset();
   player.records.thisEternity.time = DC.D0;

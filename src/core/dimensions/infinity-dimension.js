@@ -203,14 +203,6 @@ class InfinityDimensionState extends DimensionState {
     }
 
     if (Alpha.isRunning) mult = mult.pow(AlphaUnlocks.eternityUpgrades.effects.nerf.effectOrDefault(1));
-    if (Alpha.isRunning && player.challenge.eternity.current > 0) {
-      mult = mult.pow(Effects.min(
-        1,
-        AlphaUnlocks.eternityChallengeUnlock.effects.nerf,
-        AlphaUnlocks.ecCompletion1.effects.nerf,
-        AlphaUnlocks.ecCompletion5.effects.nerf
-      ));
-    }
 
     mult = mult.powEffectOf(DualityUpgrade(8));
 

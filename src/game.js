@@ -150,6 +150,15 @@ export function gainedInfinityPoints() {
     ip = ip.pow(AlphaUnlocks.infinityDimensions.effects.nerf.effectOrDefault(1));
   }
 
+  if (Alpha.isRunning && player.challenge.eternity.current > 0) {
+    ip = ip.pow(Effects.min(
+      1,
+      AlphaUnlocks.eternityChallengeUnlock.effects.nerf,
+      AlphaUnlocks.ecCompletion1.effects.nerf,
+      AlphaUnlocks.ecCompletion5.effects.nerf
+    ));
+  }
+
   return ip.floor();
 }
 

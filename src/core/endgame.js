@@ -601,7 +601,7 @@ export const Endgame = {
     player.challenge.eternity.requirementBits = 0;
     Lazy.invalidateAll();
     ECTimeStudyState.invalidateCachedRequirements();
-    player.IPMultPurchases = 0;
+    player.IPMultPurchases = DC.D0;
     Currency.infinityPower.reset();
     player.postC4Tier = 0;
     Currency.timeShards.reset();
