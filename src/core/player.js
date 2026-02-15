@@ -1107,7 +1107,7 @@ window.player = {
             galaxies: DC.D0,
           },
         },
-        IPMultPurchases: 0,
+        IPMultPurchases: DC.D0,
         infinityPower: DC.D1,
         postC4Tier: 0,
         eternityPoints: DC.D0,
