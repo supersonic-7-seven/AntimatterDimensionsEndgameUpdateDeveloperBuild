@@ -132,6 +132,7 @@ export const eternityChallenges = [
     goal: DC.E1300,
     pelleGoal: DC.E2800,
     goalIncrease: DC.E750,
+    alphaGoal: DC.E2400,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC8Nerf,
     reward: {
       description: "Infinity Power strengthens Replicanti Galaxies",
