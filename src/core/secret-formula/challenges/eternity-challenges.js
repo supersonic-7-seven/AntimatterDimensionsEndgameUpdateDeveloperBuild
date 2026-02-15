@@ -26,7 +26,7 @@ export const eternityChallenges = [
     goal: DC.E975,
     pelleGoal: DC.E1750,
     goalIncrease: DC.E175,
-    alphaGoal: DC.E2400,
+    alphaGoal: DC.E2000,
     alphaGoalIncrease: DC.E300,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC2Nerf,
     reward: {
