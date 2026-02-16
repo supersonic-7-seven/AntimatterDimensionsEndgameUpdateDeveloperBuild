@@ -10727,6 +10727,15 @@ input.o-automator-block-input {
   background: var(--color-celestials);
 }
 
+.c-hide-modal-tab-button--endgame {
+  color: var(--color-endgame);
+  border-color: var(--color-endgame);
+}
+
+.c-hide-modal-tab-button--endgame:hover {
+  background: var(--color-endgame);
+}
+
 /* Prevent any themes overriding font awesome */
 .fa,
 .far,
