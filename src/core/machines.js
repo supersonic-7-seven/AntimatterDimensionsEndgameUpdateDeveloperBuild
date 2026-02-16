@@ -130,7 +130,7 @@ export const MachineHandler = {
 
   // This is εM cap based on in-game values at that instant, may be lower than the actual cap
   get projectedDMCap() {
-    return this.baseDMCap;
+    return this.baseDMCap.times(DualityUpgrade(13).effectOrDefault(1));
   },
 
   // Use DMCap to store the base cap; applying multipliers separately avoids some design issues the 3xTP upgrade has
