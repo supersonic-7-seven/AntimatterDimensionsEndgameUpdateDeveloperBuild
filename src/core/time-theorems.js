@@ -137,7 +137,7 @@ export const TimeTheorems = {
     const ttAM = TimeTheoremPurchaseType.am.purchase(true);
     const ttIP = TimeTheoremPurchaseType.ip.purchase(true);
     const ttEP = TimeTheoremPurchaseType.ep.purchase(true);
-    return ttAM.add(ttIP).add(ttEP);
+    return new Decimal(ttAM + ttIP + ttEP);
   },
 
   totalPurchased() {
