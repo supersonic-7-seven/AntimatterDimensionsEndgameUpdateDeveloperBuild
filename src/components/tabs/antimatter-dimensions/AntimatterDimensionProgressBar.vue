@@ -135,8 +135,7 @@ export default {
             setProgress(Currency.infinityPoints.value, Player.eternityGoal, "Percentage to Eternity");
             break;
           case 12:
-            // TS62 needs to be unlocks after complete EC5x1 which needs 127 more TT. Is balance needed?
-            setLinearProgress(Currency.timeTheorems.max.toNumber(), 14, "Percentage to Purchase Time Study 62");
+            setLinearProgress(Currency.timeTheorems.max.toNumber(), 17, "Percentage to Purchase Time Study 61");
             break;
           case 13:
             setProgress(Currency.eternityPoints.value, TimeDimension(4).baseCost, "Percentage to purchase the 4th Time Dimension");
