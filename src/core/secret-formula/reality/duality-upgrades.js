@@ -132,7 +132,7 @@ export const dualityUpgrades = [
       gainedGlyphLevel().actualLevel >= 102250,
     checkEvent: GAME_EVENT.REALITY_RESET_BEFORE,
     description: "Raise free Dimboost gain to a power based on repeatable Duality Upgrade purchases",
-    effect: () => player.disablePostReality ? 1 : 1 + DualityUpgrades.totalRebuyables / 20,
+    effect: () => player.disablePostReality ? 1 : 1 + Math.log(DualityUpgrades.totalRebuyables) * 1.5,
     formatEffect: value => `${formatPow(value, 2, 3)}`
   },
   {
