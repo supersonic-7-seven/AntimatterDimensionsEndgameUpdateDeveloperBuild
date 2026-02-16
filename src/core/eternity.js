@@ -324,7 +324,7 @@ class EPMultiplierState extends GameMechanicState {
   set boughtAmount(value) {
     // Reality resets will make this bump amount negative, causing it to visually appear as 0 even when it isn't.
     // A dev migration fixes bad autobuyer states and this change ensures it doesn't happen again
-    const diff = Math.clampMin(value - player.epmultUpgrades, 0);
+    const diff = Decimal.clampMin(value.sub(player.epmultUpgrades), 0);
     player.epmultUpgrades = value;
     this.cachedCost.invalidate();
     this.cachedEffectValue.invalidate();
@@ -342,7 +342,7 @@ class EPMultiplierState extends GameMechanicState {
   purchase() {
     if (!this.isAffordable) return false;
     Currency.eternityPoints.subtract(this.cost);
-    ++this.boughtAmount;
+    this.boughtAmount = this.boughtAmount.add(1);
     return true;
   }
 
@@ -352,28 +352,28 @@ class EPMultiplierState extends GameMechanicState {
     let cur = Currency.eternityPoints.value.max(1);
     if (cur.gt(this.costIncreaseThresholds[3]) && (!EndgameMastery(152).isBought || player.disablePostReality)) {
       cur = Decimal.log(cur.div(500), 1e3);
-      return Decimal.max(Decimal.floor(Decimal.pow(cur.add(Decimal.pow(1332, 1.2)), 1 / 1.2)), 1332).toNumber();
+      return Decimal.max(Decimal.floor(Decimal.pow(cur.add(Decimal.pow(1332, 1.2)), 1 / 1.2)), 1332);
       // eslint-disable-next-line no-else-return
     }
     if (cur.gt(this.costIncreaseThresholds[2])) {
       bulk = Decimal.floor(this.costIncreaseThresholds[2].div(500).log(500));
       tempVal = DC.E3.pow(bulk).times(500);
       cur = cur.div(tempVal.max(1 / 1e3));
-      return Decimal.floor(bulk.add(cur.log(1e3)).add(1)).toNumber();
+      return Decimal.floor(bulk.add(cur.log(1e3)).add(1));
     }
     if (cur.gt(this.costIncreaseThresholds[1])) {
       bulk = Decimal.floor(this.costIncreaseThresholds[1].div(500).log(100));
       tempVal = (DC.E2.times(5)).pow(bulk).times(500);
       cur = cur.div(tempVal.max(1 / 500));
-      return Decimal.floor(bulk.add(cur.log(500)).add(1)).toNumber();
+      return Decimal.floor(bulk.add(cur.log(500)).add(1));
     }
     if (cur.gt(this.costIncreaseThresholds[0])) {
       bulk = Decimal.floor(this.costIncreaseThresholds[0].div(500).log(50));
       tempVal = DC.E2.pow(bulk).times(500);
       cur = cur.div(tempVal.max(1 / 100));
-      return Decimal.floor(bulk.add(cur.log(100)).add(1)).toNumber();
+      return Decimal.floor(bulk.add(cur.log(100)).add(1));
     }
-    return Decimal.floor(cur.div(500).max(1 / 50).log(50).add(1)).toNumber();
+    return Decimal.floor(cur.div(500).max(1 / 50).log(50).add(1));
   }
 
   buyMax(auto) {
@@ -382,25 +382,25 @@ class EPMultiplierState extends GameMechanicState {
       if (!auto) RealityUpgrade(15).tryShowWarningModal();
       return false;
     }
-    let bulk = Math.floor(this.costInv());
-    if (bulk < 1) return false;
-    const price = this.costAfterCount(bulk - 1);
-    bulk = Math.max(bulk - this.boughtAmount, 0);
-    if (bulk === 0 || !isFinite(bulk)) return false;
+    let bulk = Decimal.floor(this.costInv());
+    if (bulk.lt(1)) return false;
+    const price = this.costAfterCount(bulk.sub(1));
+    bulk = Decimal.max(bulk.sub(this.boughtAmount), 0);
+    if (bulk.eq(0)) return false;
     Currency.eternityPoints.subtract(price);
-    this.boughtAmount = this.boughtAmount + bulk;
+    this.boughtAmount = this.boughtAmount.add(bulk);
     let i = 0;
     while (Currency.eternityPoints.gt(this.costAfterCount(this.boughtAmount)) &&
-    i < 50 && this.boughtAmount <= 9e15) {
-      this.boughtAmount += 1;
-      Currency.eternityPoints.subtract(this.costAfterCount(this.boughtAmount - 1));
+    i < 50 && this.boughtAmount.lte(9e15)) {
+      this.boughtAmount = this.boughtAmount.add(1);
+      Currency.eternityPoints.subtract(this.costAfterCount(this.boughtAmount.sub(1)));
       i += 1;
     }
     return true;
   }
 
   reset() {
-    this.boughtAmount = 0;
+    this.boughtAmount = DC.D0;
   }
 
   get costIncreaseThresholds() {
@@ -419,7 +419,7 @@ class EPMultiplierState extends GameMechanicState {
       const cost = Decimal.pow(multPerUpgrade[i], count).times(500);
       if (cost.lt(costThresholds[i])) return cost;
     }
-    const purchaseScale = (EndgameMastery(152).isBought && !player.disablePostReality) ? count : Math.pow(count, 1.2) - Math.pow(1332, 1.2);
+    const purchaseScale = (EndgameMastery(152).isBought && !player.disablePostReality) ? count : Decimal.pow(count, 1.2).sub(Decimal.pow(1332, 1.2));
     return DC.E3.pow(purchaseScale).times(500);
   }
 }
