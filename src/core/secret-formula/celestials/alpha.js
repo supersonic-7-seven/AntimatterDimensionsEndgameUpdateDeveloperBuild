@@ -172,7 +172,7 @@ export const alphaUnlocks = {
   ecCompletion5: {
     id: 17,
     requirement: 18,
-    nerfDescription: () => `IP nerf in Eternity Challenges is decreased to ${formatPow(0.55, 2, 3)}`,
+    nerfDescription: () => `IP nerf in Eternity Challenges is decreased to ${formatPow(0.55, 2, 3)}, but remove the nerf from Eternity Challenge ${formatInt(1)}`,
     buffDescription: () => `All Time Dimension Multipliers are raised ${formatPow(5)}`,
     effects: {
       nerf: 0.55,
