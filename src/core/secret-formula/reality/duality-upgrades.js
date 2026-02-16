@@ -125,11 +125,11 @@ export const dualityUpgrades = [
     name: "Repercussions of Apparitions",
     id: 12,
     cost: new Decimal(6e9),
-    requirement: () => `Make a level ${formatInt(100000)}? Glyph with all Glyph level factor weights at
+    requirement: () => `Make a level ${formatInt(102500)} Glyph with all Glyph level factor weights at
     ${formatInt(0)}`,
     hasFailed: () => !Object.values(player.celestials.effarig.glyphWeights).every(w => w === 0),
     checkRequirement: () => Object.values(player.celestials.effarig.glyphWeights).every(w => w === 0) &&
-      gainedGlyphLevel().actualLevel >= 1e300,
+      gainedGlyphLevel().actualLevel >= 102500,
     checkEvent: GAME_EVENT.REALITY_RESET_BEFORE,
     description: "Raise free Dimboost gain to a power based on repeatable Duality Upgrade purchases",
     effect: () => player.disablePostReality ? 1 : 1 + DualityUpgrades.totalRebuyables / 20,
