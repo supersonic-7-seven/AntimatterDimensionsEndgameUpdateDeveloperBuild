@@ -152,6 +152,8 @@ export const eternityChallenges = [
     goal: DC.E1750,
     pelleGoal: DC.E2900,
     goalIncrease: DC.E250,
+    alphaGoal: DC.E9000,
+    alphaGoalIncrease: DC.E4000,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC9Nerf,
     reward: {
       description: "Infinity Dimension multiplier based on Time Shards",
