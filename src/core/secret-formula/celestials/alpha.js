@@ -105,10 +105,10 @@ export const alphaUnlocks = {
   infinityDimensions: {
     id: 10,
     requirement: 11,
-    nerfDescription: () => `Infinity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(player.records.thisInfinity.maxAM.add(1)).sub(72500).div(206250).toNumber(), 0, 1), 2, 3)} (only applies first Eternity)`,
+    nerfDescription: () => `Infinity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(player.records.thisInfinity.maxAM.add(1)).sub(72500).div(200000).toNumber(), 0, 1), 2, 3)} (only applies first Eternity)`,
     buffDescription: () => `The ${formatInt(8)}th Infinity Dimension is powered ${formatInt(100)}`,
     effects: {
-      nerf: () => Math.clamp(1 - Decimal.log10(player.records.thisInfinity.maxAM.add(1)).sub(72500).div(206250).toNumber(), 0, 1),
+      nerf: () => Math.clamp(1 - Decimal.log10(player.records.thisInfinity.maxAM.add(1)).sub(72500).div(200000).toNumber(), 0, 1),
       buff: 100
     }
   },
@@ -172,7 +172,7 @@ export const alphaUnlocks = {
   ecCompletion5: {
     id: 17,
     requirement: 18,
-    nerfDescription: () => `IP nerf in Eternity Challenges is decreased to ${formatPow(0.55, 2, 3)}`,
+    nerfDescription: () => `IP nerf in Eternity Challenges is decreased to ${formatPow(0.55, 2, 3)}, but remove the nerf from Eternity Challenge ${formatInt(1)}`,
     buffDescription: () => `All Time Dimension Multipliers are raised ${formatPow(5)}`,
     effects: {
       nerf: 0.55,

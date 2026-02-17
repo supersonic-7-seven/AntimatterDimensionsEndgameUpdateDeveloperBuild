@@ -121,7 +121,7 @@ export const MachineHandler = {
   get baseDMCap() {
     return Decimal.pow(Decimal.clampMin(this.uncappedIM.add(1).log10().sub(1000), 0), Decimal.clampMin(
       Decimal.log10(Currency.realityMachines.value.add(1).log10().add(1)).sub(3), 1).times(
-      Decimal.clampMin(Decimal.log10(Decimal.log10(Decimal.log10(this.uncappedRM.add(1)).add(1)).add(1)).sub(1.75).times(20).add(1), 1)));
+      Decimal.clampMin(Decimal.log10(Decimal.log10(Decimal.log10(this.uncappedRM.add(1)).add(1)).add(1)).sub(1.75).times(12).add(1), 1)));
   },
 
   get currentDMCap() {
@@ -130,7 +130,7 @@ export const MachineHandler = {
 
   // This is εM cap based on in-game values at that instant, may be lower than the actual cap
   get projectedDMCap() {
-    return this.baseDMCap;
+    return this.baseDMCap.times(DualityUpgrade(13).effectOrDefault(1));
   },
 
   // Use DMCap to store the base cap; applying multipliers separately avoids some design issues the 3xTP upgrade has

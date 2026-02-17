@@ -202,8 +202,8 @@ class InfinityIPMultUpgrade extends GameMechanicState {
     if (!this.hasIncreasedCost) {
       // Only allow IP below the softcap to be used
       const availableIP = Currency.infinityPoints.value.clampMax(this.costIncreaseThreshold);
-      const purchases = Decimal.affordGeometricSeries(availableIP, this.cost, this.costIncrease, 0).toNumber();
-      if (purchases <= 0) return;
+      const purchases = Decimal.affordGeometricSeries(availableIP, this.cost, this.costIncrease, 0);
+      if (purchases.lte(0)) return;
       this.purchase(purchases);
     }
     // Do not replace it with `if else` - it's specifically designed to process two sides of threshold separately
@@ -211,8 +211,8 @@ class InfinityIPMultUpgrade extends GameMechanicState {
     // it will go in this part)
     if (this.hasIncreasedCost) {
       const availableIP = Currency.infinityPoints.value.clampMax(this.costCap);
-      const purchases = Decimal.affordGeometricSeries(availableIP, this.cost, this.costIncrease, 0).toNumber();
-      if (purchases <= 0) return;
+      const purchases = Decimal.affordGeometricSeries(availableIP, this.cost, this.costIncrease, 0);
+      if (purchases.lte(0)) return;
       this.purchase(purchases);
     }
   }

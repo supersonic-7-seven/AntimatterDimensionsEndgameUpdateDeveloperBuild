@@ -112,10 +112,10 @@ export const dualityUpgrades = [
     name: "Interference of Forever",
     id: 11,
     cost: new Decimal(1e9),
-    requirement: () => `${format("1e1800")}? total Relic Shards
+    requirement: () => `${format("1e1600")} total Relic Shards
       (You have ${format(player.celestials.effarig.relicShards, 2)})`,
     hasFailed: () => false,
-    checkRequirement: () => player.celestials.effarig.relicShards.gte(DC.E9E15),
+    checkRequirement: () => player.celestials.effarig.relicShards.gte(DC.E1600),
     checkEvent: GAME_EVENT.REALITY_RESET_AFTER,
     description: "Multiply Continuum purchases by Hadronization amount",
     effect: () => player.disablePostReality ? 1 : Laitela.hadronizes,
@@ -125,23 +125,23 @@ export const dualityUpgrades = [
     name: "Repercussions of Apparitions",
     id: 12,
     cost: new Decimal(6e9),
-    requirement: () => `Make a level ${formatInt(100000)}? Glyph with all Glyph level factor weights at
+    requirement: () => `Make a level ${formatInt(102250)} Glyph with all Glyph level factor weights at
     ${formatInt(0)}`,
     hasFailed: () => !Object.values(player.celestials.effarig.glyphWeights).every(w => w === 0),
     checkRequirement: () => Object.values(player.celestials.effarig.glyphWeights).every(w => w === 0) &&
-      gainedGlyphLevel().actualLevel >= 1e300,
+      gainedGlyphLevel().actualLevel >= 102250,
     checkEvent: GAME_EVENT.REALITY_RESET_BEFORE,
     description: "Raise free Dimboost gain to a power based on repeatable Duality Upgrade purchases",
-    effect: () => player.disablePostReality ? 1 : 1 + DualityUpgrades.totalRebuyables / 20,
+    effect: () => player.disablePostReality ? 1 : 1 + Math.log10(DualityUpgrades.totalRebuyables) * 1.5,
     formatEffect: value => `${formatPow(value, 2, 3)}`
   },
   {
     name: "Ephemerality of Duality",
     id: 13,
     cost: new Decimal(2e10),
-    requirement: () => `Hadronize Lai'tela's Reality ${formatInt(12)}? times`,
+    requirement: () => `Hadronize Lai'tela's Reality ${formatInt(12)} times`,
     hasFailed: () => false,
-    checkRequirement: () => Laitela.hadronizes >= 1e300,
+    checkRequirement: () => Laitela.hadronizes >= 12,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Increase Dual Machine Cap based on Duality Upgrade purchases",
     effect: () => player.disablePostReality ? 1 : 1 + DualityUpgrades.totalRebuyables / 20 + DualityUpgrades.totalSinglePurchase / 2,

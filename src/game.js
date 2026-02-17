@@ -150,7 +150,8 @@ export function gainedInfinityPoints() {
     ip = ip.pow(AlphaUnlocks.infinityDimensions.effects.nerf.effectOrDefault(1));
   }
 
-  if (Alpha.isRunning && player.challenge.eternity.current > 0) {
+  const topTier = Alpha.currentStage >= 18 ? 1 : 0;
+  if (Alpha.isRunning && player.challenge.eternity.current > topTier) {
     ip = ip.pow(Effects.min(
       1,
       AlphaUnlocks.eternityChallengeUnlock.effects.nerf,
