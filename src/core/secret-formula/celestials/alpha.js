@@ -64,10 +64,10 @@ export const alphaUnlocks = {
   powerGalaxies: {
     id: 6,
     requirement: 7,
-    nerfDescription: () => `Distant Galaxy Cost Scaling starts at ${formatInt(0)} Galaxies`,
+    nerfDescription: () => `Distant Galaxy Cost Scaling starts at ${formatInt(1)} Galaxy`,
     buffDescription: "Galaxy scalings for Distant/Remote Antimatter Galaxies are doubled",
     effects: {
-      nerf: 0,
+      nerf: 1,
       buff: 2
     }
   },
