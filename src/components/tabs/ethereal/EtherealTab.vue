@@ -9,7 +9,8 @@ export default {
       nextSectorAt: new Decimal(),
       sectorBoost: new Decimal(),
       isExtended: false,
-      canExtend: false
+      canExtend: false,
+      cosmicSectorTimeEstimate: "Calculating..."
     };
   },
   computed: {
@@ -36,6 +37,7 @@ export default {
       this.sectorBoost.copyFrom(Ethereal.sectorBoost);
       this.isExtended = player.endgame.ethereal.isExtended;
       this.canExtend = this.etherealPower.gte(1e10);
+      this.cosmicSectorTimeEstimate = TimeSpan.fromSeconds(Decimal.sub(this.nextSectorAt, this.etherealPower).div(this.etherealPowerPerSecond)).toTimeEstimate();
     },
     extendEthereal() {
       return player.endgame.ethereal.isExtended = true;
@@ -68,7 +70,10 @@ export default {
       </div>
       <div>
         <span class="c-normal-ethereal-text">You will ascend into the next Cosmic Sector at </span>
-        <span class="c-really-cool-ethereal-text">{{ formatHybridLarge(nextSectorAt, 3) }}</span>
+        <span
+          class="c-really-cool-ethereal-text"
+          :ach-tooltip="cosmicSectorTimeEstimate"
+        >{{ formatHybridLarge(nextSectorAt, 3) }}</span>
         <span class="c-normal-ethereal-text"> Ethereal Power.</span>
       </div>
     </div>
@@ -119,5 +124,8 @@ export default {
   text-shadow: 0 0 1.5rem #0000ff;
 
   -webkit-text-fill-color: transparent;
+}
+.c-really-cool-ethereal-text:hover::before{
+  text-shadow: 0 0 white;
 }
 </style>
