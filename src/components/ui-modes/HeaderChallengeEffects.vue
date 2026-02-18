@@ -52,15 +52,16 @@ export default {
           this.laitelaTimer = TimeSpan.fromSeconds(new Decimal(player.celestials.laitela.thisCompletion)).toStringShort();
         }
       }
-      this.isInAlpha = Alpha.isRunning;
-      if (this.isInAlpha) {
-        this.alphaDecayTimeToMax = TimeSpan.fromHours(Decimal.max(Alpha.hoursToMax, 0)).toStringShort();
-      }
 
       this.waitingforHint = Enslaved.canTickHintTimer;
       const rawMsUntilHints = 5 * 3600 * 1000 - player.celestials.enslaved.hintUnlockProgress;
       this.enslavedTimer = TimeSpan.fromMilliseconds(new Decimal(rawMsUntilHints / (Enslaved.isRunning ? 1 : 0.4)))
         .toStringShort();
+
+      this.isInAlpha = Alpha.isRunning;
+      if (this.isInAlpha) {
+        this.alphaDecayTimeToMax = TimeSpan.fromHours(Decimal.max(Alpha.hoursToMax, 0)).toStringShort();
+      }
     },
     updateChallengePower() {
       const isC2Running = NormalChallenge(2).isRunning;
