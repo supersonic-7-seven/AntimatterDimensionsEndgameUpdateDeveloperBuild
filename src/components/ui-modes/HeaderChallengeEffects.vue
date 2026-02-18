@@ -25,7 +25,7 @@ export default {
         they can give you some advice in ${this.enslavedTimer}`;
     },
     alphaText() {
-      if (this.alphaDecayTimeToMax.eq(0)) return `Alpha Decay is capped`;
+      if (Alpha.hoursToMax.lte(0)) return `Alpha Decay is capped`;
       return `Alpha Decay will cap in ${this.alphaDecayTimeToMax}`;
     },
   },
