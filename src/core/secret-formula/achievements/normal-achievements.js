@@ -1511,7 +1511,7 @@ export const normalAchievements = [
     checkRequirement: () => Alpha.isRunning,
     checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE,
     get reward() {
-      return `Alpha Decay increases ${formatX(1.1, 1, 1) faster`;
+      return `Alpha Decay increases ${formatX(1.1, 1, 1)} faster`;
     },
     effect: 1.1
   },
