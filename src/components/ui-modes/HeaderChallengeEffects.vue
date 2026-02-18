@@ -86,6 +86,9 @@ export default {
 
 <template>
   <div>
+    <div v-if="isInAlpha">
+      {{ alphaText }}
+    </div>
     <div v-if="waitingforHint">
       {{ enslavedText }}
     </div>
@@ -96,9 +99,6 @@ export default {
     </div>
     <div v-if="isInLaitela">
       Entropy: {{ laitelaEntropy }} ({{ laitelaTimer }})
-    </div>
-    <div v-if="isInAlpha">
-      {{ alphaText }}
     </div>
     <div v-if="isInMatterChallenge">
       There is {{ format(matter, 2, 1) }} matter.
