@@ -305,7 +305,7 @@ export const Glyphs = {
       throw new Error("Inconsistent inventory indexing");
     }
     let maxSpecialGlyph = 1;
-    if (Achievement(194).isUnlocked && !player.disablePostReality) {
+    if (Achievement(194).canBeApplied) {
       maxSpecialGlyph = 2;
     }
 
@@ -565,7 +565,7 @@ export const Glyphs = {
         (g.level >= glyph.level || g.strength >= glyph.strength) &&
         ((g.effects & glyph.effects) === glyph.effects));
     let maxSpecialGlyph = 1;
-    if (Achievement(194).isUnlocked && !player.disablePostReality) {
+    if (Achievement(194).canBeApplied) {
       maxSpecialGlyph = 2;
     }
     let compareThreshold = glyph.type === "effarig" || glyph.type === "reality" ? maxSpecialGlyph : Math.max(5, threshold);

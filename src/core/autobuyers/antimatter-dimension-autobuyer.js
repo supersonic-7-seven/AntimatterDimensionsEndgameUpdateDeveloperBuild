@@ -52,7 +52,7 @@ export class AntimatterDimensionAutobuyerState extends UpgradeableAutobuyerState
   }
 
   get hasUnlimitedBulk() {
-    return Achievement(61).isUnlocked;
+    return Achievement(61).canBeApplied;
   }
 
   get bulkCap() {

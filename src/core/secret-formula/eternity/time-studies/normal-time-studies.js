@@ -316,7 +316,7 @@ export const normalTimeStudies = [
     requirement: [121],
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     requiresST: [132, 133],
-    description: () => (Achievement(138).isUnlocked
+    description: () => (Achievement(138).canBeApplied
       ? `You can get ${formatPercents(0.5)} more Replicanti Galaxies`
       : `Automatic Replicanti Galaxies are disabled, but you can get ${formatPercents(0.5)} more`),
     effect: () => Decimal.floor(player.replicanti.boughtGalaxyCap.div(2))
@@ -341,7 +341,7 @@ export const normalTimeStudies = [
     requirement: [123],
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     requiresST: [131, 132],
-    description: () => (Achievement(138).isUnlocked
+    description: () => (Achievement(138).canBeApplied
       ? `Replicanti Galaxies are ${formatPercents(0.5)} stronger`
       : `Replicanti are ${formatX(10)} slower until ${format(Number.MAX_VALUE, 2)}` +
     `, but Replicanti Galaxies are ${formatPercents(0.5)} stronger`),
