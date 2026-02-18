@@ -9,6 +9,7 @@ class AchievementState extends GameMechanicState {
     this._column = this.id % 10;
     this._bitmask = 1 << (this.column - 1);
     this._inverseBitmask = ~this._bitmask;
+    this._disabledPostReality = config.disabledPostReality ?? false;
     this.registerEvents(config.checkEvent, args => this.tryUnlock(args));
   }
 
@@ -44,8 +45,12 @@ class AchievementState extends GameMechanicState {
     return (player.achievementBits[this.row - 1] & this._bitmask) !== 0;
   }
 
+  get isDisabledInPreReality() {
+    return player.disablePostReality && (typeof this._disabledPostReality === "function" ? this._disabledPostReality() : this._disabledPostReality);
+  }
+
   get isDisabled() {
-    return Pelle.isDisabled("achievements") && Pelle.disabledAchievements.includes(this.id);
+    return (Pelle.isDisabled("achievements") && Pelle.disabledAchievements.includes(this.id)) || this.isDisabledInPreReality;
   }
 
   get isEffectActive() {

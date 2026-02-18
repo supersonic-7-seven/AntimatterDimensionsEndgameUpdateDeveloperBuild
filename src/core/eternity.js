@@ -190,7 +190,7 @@ export function initializeChallengeCompletions(isReality) {
   if (!isReality && EternityMilestone.keepAutobuyers.isReached || Pelle.isDoomed) {
     NormalChallenges.completeAll();
   }
-  if (Achievement(133).isUnlocked && !player.disablePostReality && (!Pelle.isDoomed || PelleAchievementUpgrade.achievement133.isBought)) InfinityChallenges.completeAll();
+  if (Achievement(133).canBeApplied) InfinityChallenges.completeAll();
   player.challenge.normal.current = 0;
   player.challenge.infinity.current = 0;
 }
