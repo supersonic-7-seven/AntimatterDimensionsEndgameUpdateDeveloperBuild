@@ -133,9 +133,8 @@ GameDatabase.celestials.descriptions = [
       instead it makes Alpha Decay more effective.
       Your Cosmic Sector Reward will be rooted by your current Cosmic Sector, which is a static nerf and cannot be increased\
       through progression in Alpha.
-      Most upgrades based on Game Time are now real-time based.
-      Achievement Multiplier and many Achievements have been destroyed.
-      You gain a small nerf to Antimatter Dimensions based on Antimatter.`;
+      Most game-time based features are now real-time based. Achievement Multiplier and many Achievements have been destroyed.\
+      Gain a small nerf to Antimatter Dimensions based on Antimatter.`;
     },
     description() {
       return `You will exit Alpha's Reality when you complete a Layer of it for the first time.
