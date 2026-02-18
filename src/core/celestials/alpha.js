@@ -1043,7 +1043,7 @@ export const Alpha = {
   },
   get stageNames() {
     return ["Reach the 4th Dimension Boost", "Reach the 5th Dimension Boost", "Reach the 1st Antimatter Galaxy", "Reach Infinity",
-            "Complete Normal Challenge 12", "Break Infinity", "Purchase the Power-up Galaxies Break Infinity Upgrade",
+            "Complete Normal Challenge 12", "Break Infinity", "Purchase the 5e11 Break Infinity Upgrade",
             "Purchase All Break Infinity Upgrades", "Complete All Infinity Challenges", "Unlock Replicanti",
             "Purchase the 8th Infinity Dimension", "Reach Eternity", "Purchase Time Study 61", "Purchase the 4th Time Dimension",
             "Purchase the 3rd Eternity Upgrade", "Reach 115 Total Time Theorems", "Complete any Eternity Challenge Once",
