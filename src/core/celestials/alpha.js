@@ -1088,7 +1088,7 @@ export const Alpha = {
         this.cosmicSectorMinBoost), 24).add(this.cosmicSectorExtraBoost))).toNumber();
   },
   get hoursToMax() {
-    DC.D24.sub(TimeSpan.fromMilliseconds(Time.thisEndgameRealTime._ms).totalHours.times(this.totalSpeedBoost).add(
+    return DC.D24.sub(TimeSpan.fromMilliseconds(Time.thisEndgameRealTime._ms).totalHours.times(this.totalSpeedBoost).add(
       this.cosmicSectorMinBoost * 24));
   },
   quotes: Quotes.alpha,
