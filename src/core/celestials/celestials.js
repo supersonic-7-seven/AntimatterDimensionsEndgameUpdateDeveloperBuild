@@ -125,14 +125,23 @@ GameDatabase.celestials.descriptions = [
       for the first time are disabled, except Celestial Dimensions and Cosmic Sector, both of which are severely nerfed.
       The Celestial Matter Conversion Exponent will be reduced to ${formatInt(0)} and you will\
       gain ${formatPercents(Alpha.alphaDecayByHour, 2)} per real-time hour in Alpha's Reality, up to a cap\
-      of ${formatInt(24)} hours, which can be increased slightly by completing stages of Alpha's Reality.\
+      of ${formatInt(24)} hours, which can be increased slightly by completing stages of Alpha's Reality.
       Various external resources, such as Cosmic Sector, will boost Alpha Decay as if you have spent more time\
-      inside Alpha's Reality.
+      inside Alpha's Reality. Your current Alpha Decay Speed factor is ${formatX(Alpha.totalSpeedBoost, 2, 2)}.\
+      You start layers of Alpha's Reality with ${formatPercents(Alpha.cosmicSectorMinBoost, 2, 2)} of the total
+      time to max already spent. Cosmic Sector boosts Alpha Decay starting and capped values\
+      by ${format(Alpha.cosmicSectorExtraBoost, 2, 2)} hours. This does not reduce the time for Alpha Decay to cap,\
+      instead it makes Alpha Decay more effective.
       Your Cosmic Sector Reward will be rooted by your current Cosmic Sector, which is a static nerf and cannot be increased\
-      through progression in Alpha.`;
+      through progression in Alpha.
+      Most upgrades based on Game Time are now real-time based.
+      Achievement Multiplier and many Achievements have been destroyed.
+      You gain a small nerf to Antimatter Dimensions based on Antimatter.`;
     },
     description() {
-      return `You will exit Alpha's Reality when you complete a Layer of it for the first time.`;
+      return `You will exit Alpha's Reality when you complete a Layer of it for the first time.
+      For every layer of Alpha's Reality completed, you will gain a buff which applies outside Alpha,\
+      and a nerf which applies inside Alpha.`;
     }
   }
 ];
