@@ -65,19 +65,26 @@ export default {
     getRuns() {
       return this.layer.getRuns;
     },
-    getResourceTabFunc() {
-      return this.layer.resourceFunc ?? this.initResource;
-    },
     isEndgame() {
       return this.layer.name === "Endgame";
     },
     hasRealTime: () => PlayerProgress.seenAlteredSpeed(),
   },
   methods: {
-    initResource(resourceType) {
+    update() {
+      this.runs = this.clone(this.getRuns());
+      this.hasEmptyRecord = this.runs[0][1] === Number.MAX_VALUE;
+      this.runs.push(this.averageRun);
+      this.isRealityUnlocked = PlayerProgress.current.isRealityUnlocked;
+      this.shown = player.shownRuns[this.singular];
+      this.resourceType = player.options.statTabResources;
+      this.showRate = this.resourceType === RECENT_PRESTIGE_RESOURCE.RATE;
+      this.hasChallenges = this.layer.hasChallenge ?? this.runs.map(r => this.challengeText(r)).some(t => t);
+      this.hasIM = MachineHandler.currentIMCap.gt(0);
+
       // We have 4 different "useful" stat pairings we could display, but this ends up being pretty boilerplatey
       const names = [this.points, `${this.points} Rate`, this.plural, `${this.singular} Rate`];
-      switch (resourceType) {
+      switch (this.resourceType) {
         case RECENT_PRESTIGE_RESOURCE.ABSOLUTE_GAIN:
           this.selectedResources = [0, 2];
           break;
@@ -94,19 +101,6 @@ export default {
           throw new Error("Unrecognized Statistics tab resource type");
       }
       this.resourceTitles = [names[this.selectedResources[0]], names[this.selectedResources[1]]];
-    },
-    update() {
-      this.runs = this.clone(this.getRuns());
-      this.hasEmptyRecord = this.runs[0][1] === Number.MAX_VALUE;
-      this.runs.push(this.averageRun);
-      this.isRealityUnlocked = PlayerProgress.current.isRealityUnlocked;
-      this.shown = player.shownRuns[this.singular];
-      this.resourceType = player.options.statTabResources;
-      this.showRate = this.resourceType === RECENT_PRESTIGE_RESOURCE.RATE;
-      this.hasChallenges = this.layer.hasChallenge ?? this.runs.map(r => this.challengeText(r)).some(t => t);
-      this.hasIM = MachineHandler.currentIMCap.gt(0);
-
-      this.getResourceTabFunc(this.resourceType);
 
       // Entries always have all values, but sometimes the trailing ones will be blank or zero which we want to hide
       const lastIndex = arr => {
