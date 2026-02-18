@@ -1077,7 +1077,7 @@ export const Alpha = {
     );
   },
   get cosmicSectorMinBoost() {
-    return 24 * (1 - Decimal.pow(0.8, Decimal.log10(Currency.etherealPower.value.add(1))).toNumber());
+    return 1 - Decimal.pow(0.8, Decimal.log10(Currency.etherealPower.value.add(1))).toNumber();
   },
   get cosmicSectorExtraBoost() {
     return Decimal.pow(Ethereal.cosmicSector, 2).div(100).times(4.8);
@@ -1089,7 +1089,7 @@ export const Alpha = {
   },
   get hoursToMax() {
     DC.D24.sub(TimeSpan.fromMilliseconds(Time.thisEndgameRealTime._ms).totalHours.times(this.totalSpeedBoost).add(
-      this.cosmicSectorMinBoost));
+      this.cosmicSectorMinBoost * 24));
   },
   quotes: Quotes.alpha,
   symbol: "α"
