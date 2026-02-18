@@ -1073,7 +1073,7 @@ export const Alpha = {
       Decimal.pow(Decimal.max(Decimal.log10(Currency.etherealPower.value).sub(7), 0).div(7).add(1), 2).timesEffectsOf(
         Achievement(202),
         Achievement(203)
-      )).add(24 * (1 - Math.pow(0.8, Decimal.log10(Currency.etherealPower.value.add(1))))), 24).add(Decimal.pow(Ethereal.cosmicSector, 2).div(100)))).toNumber();
+      )).add(DC.D1.sub(Decimal.pow(0.8, Decimal.log10(Currency.etherealPower.value.add(1)))).times(24)), 24).add(Decimal.pow(Ethereal.cosmicSector, 2).div(100)))).toNumber();
   },
   quotes: Quotes.alpha,
   symbol: "α"
