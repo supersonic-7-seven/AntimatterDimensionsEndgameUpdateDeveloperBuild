@@ -1063,12 +1063,15 @@ export const Alpha = {
     return this.shortStageNames[this.currentStage];
   },
   get alphaDecay() {
-    return (0.01 + (this.currentStage / 200) + Math.max(0, (this.currentStage - 18) / 200) +
+    return 0.01 + (this.currentStage / 200) + Math.max(0, (this.currentStage - 18) / 200) +
       Math.max(0, (this.currentStage - 20) / 100) + Math.max(0, (this.currentStage - 21) / 100) +
-      Math.max(0, (this.currentStage - 23) / 50) + Math.max(0, (this.currentStage - 25) / 20)) / 4.8;
+      Math.max(0, (this.currentStage - 23) / 50) + Math.max(0, (this.currentStage - 25) / 20);
+  },
+  get alphaDecayByHour() {
+    return 1 - Math.pow(1 - this.alphaDecay, 1 / 4.8);
   },
   get celestialMatterConversionNerf() {
-    return DC.D1.sub(Decimal.pow(1 - this.alphaDecay, Decimal.min(
+    return DC.D1.sub(Decimal.pow(1 - this.alphaDecayByHour, Decimal.min(
       TimeSpan.fromMilliseconds(Time.thisEndgameRealTime._ms).totalHours.times(
       Decimal.pow(Decimal.max(Decimal.log10(Currency.etherealPower.value).sub(7), 0).div(7).add(1), 2).timesEffectsOf(
         Achievement(202),
