@@ -1028,7 +1028,8 @@ export const normalAchievements = [
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
       return `You gain Replicanti ${formatInt(2)} times faster under ${format(replicantiCap(), 1)} Replicanti.`;
-    }
+    },
+    disabledPostReality: true
   },
   {
     id: 135,

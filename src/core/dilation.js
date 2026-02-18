@@ -86,7 +86,7 @@ export function buyDilationUpgrade(id, bulk = 1) {
     Currency.dilatedTime.subtract(cost);
     player.dilation.rebuyables[id] += buying;
     if (id === 2) {
-      if (!Perk.bypassTGReset.isBought || (Pelle.isDoomed && !PellePerkUpgrade.perkTGR.isBought) || player.disablePostReality) Currency.dilatedTime.reset();
+      if (!Perk.bypassTGReset.canBeApplied || (Pelle.isDoomed && !PellePerkUpgrade.perkTGR.isBought)) Currency.dilatedTime.reset();
       player.dilation.nextThreshold = DC.E3;
       player.dilation.baseTachyonGalaxies = DC.D0;
       player.dilation.totalTachyonGalaxies = DC.D0;
@@ -101,7 +101,7 @@ export function buyDilationUpgrade(id, bulk = 1) {
       Currency.tachyonParticles.multiply(Decimal.pow(PelleRetroTP, buying));
     }
 
-    if (id === 3 && !Pelle.isDisabled("tpMults") && !player.disablePostReality) {
+    if (id === 3 && !Pelle.isDisabled("tpMults")) {
       let retroactiveTPFactor = Effects.max(
         1,
         Perk.retroactiveTP1,

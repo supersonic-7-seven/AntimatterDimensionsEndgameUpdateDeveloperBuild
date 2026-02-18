@@ -149,8 +149,7 @@ export class DimBoost {
     else boostEffects = `${newUnlock} and ${formattedMultText} ${dimensionRange}`;
 
     if (boostEffects === "") return "Dimension Boosts are currently useless";
-    const areDimensionsKept = (Perk.antimatterNoReset.isBought || Achievement(111).canBeApplied) && !player.disablePostReality &&
-      ((!Pelle.isDoomed || PelleAchievementUpgrade.achievement111.isBought) || PelleUpgrade.dimBoostResetsNothing.isBought);
+    const areDimensionsKept = (Perk.antimatterNoReset.canBeApplied || Achievement(111).canBeApplied) || PelleUpgrade.dimBoostResetsNothing.isBought;
     if (areDimensionsKept) return boostEffects[0].toUpperCase() + boostEffects.substring(1);
     return `Reset your Dimensions to ${boostEffects}`;
   }
@@ -187,7 +186,7 @@ export function softReset(tempBulk, forcedADReset = false, forcedAMReset = false
   resetChallengeStuff();
   const canKeepDimensions = Pelle.isDoomed
     ? PelleUpgrade.dimBoostResetsNothing.canBeApplied
-    : (Perk.antimatterNoReset.canBeApplied && !player.disablePostReality);
+    : Perk.antimatterNoReset.canBeApplied;
   if (forcedADReset || !canKeepDimensions) {
     AntimatterDimensions.reset();
     player.sacrificed = DC.D0;
@@ -196,7 +195,7 @@ export function softReset(tempBulk, forcedADReset = false, forcedAMReset = false
   skipResetsIfPossible(enteringAntimatterChallenge);
   const canKeepAntimatter = Pelle.isDoomed
     ? (PelleUpgrade.dimBoostResetsNothing.canBeApplied || PelleAchievementUpgrade.achievement111.isBought)
-    : (Achievement(111).isUnlocked || Perk.antimatterNoReset.canBeApplied) && !player.disablePostReality;
+    : (Achievement(111).canBeApplied || Perk.antimatterNoReset.canBeApplied);
   if (!forcedAMReset && canKeepAntimatter) {
     Currency.antimatter.bumpTo(Currency.antimatter.startingValue);
   } else {

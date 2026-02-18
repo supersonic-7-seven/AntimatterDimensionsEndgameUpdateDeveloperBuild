@@ -49,6 +49,7 @@ export const perks = {
     bumpCurrency: () => Currency.antimatter.bumpTo(5e130),
     effect: 5e130,
     layoutPosList: [76559, 80600, 80199, 80600, 82191, 75745],
+    disabledPostReality: true
   },
   startIP1: {
     id: 12,
@@ -60,6 +61,7 @@ export const perks = {
     bumpCurrency: () => Currency.infinityPoints.bumpTo(5e15),
     effect: 5e15,
     layoutPosList: [74523, 80599, 79798, 80599, 82594, 91322],
+    disabledPostReality: true
   },
   startIP2: {
     id: 13,
@@ -71,6 +73,7 @@ export const perks = {
     bumpCurrency: () => Currency.infinityPoints.bumpTo(5e130),
     effect: 5e130,
     layoutPosList: [62111, 80598, 79797, 80998, 82597, 91690],
+    disabledPostReality: true
   },
   startEP1: {
     id: 14,
@@ -84,6 +87,7 @@ export const perks = {
     automatorPoints: 5,
     shortDescription: () => `Start with ${formatInt(10)} EP`,
     layoutPosList: [88915, 80999, 79398, 80598, 82197, 103734],
+    disabledPostReality: true
   },
   startEP2: {
     id: 15,
@@ -95,6 +99,7 @@ export const perks = {
     bumpCurrency: () => Currency.eternityPoints.bumpTo(5000),
     effect: 5000,
     layoutPosList: [92484, 81398, 78998, 80597, 82200, 102193],
+    disabledPostReality: true
   },
   startEP3: {
     id: 16,
@@ -108,6 +113,7 @@ export const perks = {
     automatorPoints: 10,
     shortDescription: () => `Start with ${format(5e9)} EP`,
     layoutPosList: [96459, 81798, 78997, 80596, 82203, 106224],
+    disabledPostReality: true
   },
   startTP: {
     id: 17,
@@ -120,6 +126,7 @@ export const perks = {
     automatorPoints: 5,
     shortDescription: () => `Start with ${formatInt(10)} TP`,
     layoutPosList: [102120, 81399, 79399, 80197, 81800, 109376],
+    disabledPostReality: true
   },
   antimatterNoReset: {
     id: 30,
@@ -128,6 +135,7 @@ export const perks = {
     description: `Dimension Boosts and Antimatter Galaxies no longer reset
       Antimatter, Antimatter Dimensions, Tickspeed, or Dimensional Sacrifice.`,
     layoutPosList: [85343, 81000, 79799, 80199, 82194, 92553],
+    disabledPostReality: true
   },
   studyPassive: {
     id: 31,
@@ -139,6 +147,7 @@ export const perks = {
         ${Pelle.isDoomed ? "" : `In addition, Time Study 132 also makes Replicanti ${format(3)} times faster.`}`;
     },
     layoutPosList: [67054, 79400, 80999, 80202, 78594, 52589],
+    disabledPostReality: true
   },
   autounlockEU1: {
     id: 40,
@@ -146,6 +155,7 @@ export const perks = {
     family: PERK_FAMILY.ETERNITY,
     description: `Automatically unlock the first row of Eternity Upgrades for free once you have Eternities.`,
     layoutPosList: [89407, 80601, 80201, 79800, 80591, 73007],
+    disabledPostReality: true
   },
   autounlockEU2: {
     id: 41,
@@ -156,6 +166,7 @@ export const perks = {
         at ${formatX(1e10)} times less than their original price.`;
     },
     layoutPosList: [103008, 81001, 80202, 79400, 80594, 81867],
+    disabledPostReality: true
   },
   autounlockDilation1: {
     id: 42,
@@ -163,6 +174,7 @@ export const perks = {
     family: PERK_FAMILY.DILATION,
     description: "After unlocking Dilation, automatically unlock the second row of Dilation Upgrades for free.",
     layoutPosList: [119833, 81801, 79403, 79398, 80200, 97510],
+    disabledPostReality: true
   },
   autounlockDilation2: {
     id: 43,
@@ -170,6 +182,7 @@ export const perks = {
     family: PERK_FAMILY.DILATION,
     description: "After unlocking Dilation, automatically unlock the third row of Dilation Upgrades for free.",
     layoutPosList: [124260, 82201, 79003, 79397, 80203, 85513],
+    disabledPostReality: true
   },
   autounlockDilation3: {
     id: 44,
@@ -179,6 +192,7 @@ export const perks = {
     automatorPoints: 5,
     shortDescription: () => "Auto-purchase TT generation",
     layoutPosList: [124289, 82601, 79002, 79396, 80206, 72282],
+    disabledPostReality: true
   },
   autounlockTD: {
     id: 45,
@@ -188,6 +202,7 @@ export const perks = {
     automatorPoints: 5,
     shortDescription: () => "Auto-unlock TD 5-8",
     layoutPosList: [127117, 82600, 79001, 79796, 80209, 61869],
+    disabledPostReality: true
   },
   autounlockReality: {
     id: 46,
@@ -200,6 +215,7 @@ export const perks = {
     automatorPoints: 10,
     shortDescription: () => "Auto-unlock Reality",
     layoutPosList: [124343, 83000, 79000, 79795, 80212, 71046],
+    disabledPostReality: true
   },
   bypassIDAntimatter: {
     id: 51,
@@ -207,6 +223,7 @@ export const perks = {
     family: PERK_FAMILY.INFINITY,
     description: "Infinity Dimensions no longer have antimatter requirements.",
     layoutPosList: [51317, 80998, 79397, 80997, 82600, 104489],
+    disabledPostReality: true
   },
   bypassTGReset: {
     id: 52,
@@ -214,6 +231,7 @@ export const perks = {
     family: PERK_FAMILY.DILATION,
     description: "The 2nd rebuyable Dilation Upgrade no longer resets your Dilated Time.",
     layoutPosList: [116568, 81800, 79801, 79798, 81400, 112677],
+    disabledPostReality: true
   },
   bypassECDilation: {
     id: 53,
@@ -224,6 +242,7 @@ export const perks = {
     automatorPoints: 5,
     shortDescription: () => `Unlocking Dilation only requires TT`,
     layoutPosList: [129011, 81802, 80203, 80198, 80600, 109116],
+    disabledPostReality: true
   },
   bypassEC1Lock: {
     id: 54,
@@ -231,6 +250,7 @@ export const perks = {
     family: PERK_FAMILY.ETERNITY,
     description: "Remove the Eternity Challenge 1 requirement from Time Study 181.",
     layoutPosList: [64284, 79000, 81399, 80603, 78597, 44167],
+    disabledPostReality: true
   },
   bypassEC2Lock: {
     id: 55,
@@ -238,6 +258,7 @@ export const perks = {
     family: PERK_FAMILY.ETERNITY,
     description: "Remove the Eternity Challenge 2 requirement from Time Study 181.",
     layoutPosList: [55463, 78999, 80998, 80602, 78197, 48944],
+    disabledPostReality: true
   },
   bypassEC3Lock: {
     id: 56,
@@ -245,6 +266,7 @@ export const perks = {
     family: PERK_FAMILY.ETERNITY,
     description: "Remove the Eternity Challenge 3 requirement from Time Study 181.",
     layoutPosList: [75475, 79001, 81400, 80203, 78997, 47822],
+    disabledPostReality: true
   },
   bypassEC5Lock: {
     id: 57,
@@ -252,6 +274,7 @@ export const perks = {
     family: PERK_FAMILY.ETERNITY,
     description: "Remove the Eternity Challenge 5 requirement from Time Study 62.",
     layoutPosList: [70626, 79800, 81000, 80201, 78591, 62607],
+    disabledPostReality: true
   },
   autocompleteEC1: {
     id: 60,
@@ -266,6 +289,7 @@ export const perks = {
     automatorPoints: 5,
     shortDescription: () => `Auto-complete ECs every ${formatInt(60)} minutes`,
     layoutPosList: [90660, 79402, 81002, 79803, 79397, 46664],
+    disabledPostReality: true
   },
   autocompleteEC2: {
     id: 61,
@@ -277,6 +301,7 @@ export const perks = {
     },
     effect: 40,
     layoutPosList: [95485, 79002, 81402, 79804, 79400, 53486],
+    disabledPostReality: true
   },
   autocompleteEC3: {
     id: 62,
@@ -290,6 +315,7 @@ export const perks = {
     automatorPoints: 10,
     shortDescription: () => `Auto-complete ECs every ${formatInt(20)} minutes`,
     layoutPosList: [96311, 78602, 81401, 80204, 79403, 61903],
+    disabledPostReality: true
   },
   studyActiveEP: {
     id: 70,
@@ -297,6 +323,7 @@ export const perks = {
     family: PERK_FAMILY.ETERNITY,
     description: "Active path multipliers are always maximized.",
     layoutPosList: [56633, 79399, 80599, 80601, 78194, 58565],
+    disabledPostReality: true
   },
   studyIdleEP: {
     id: 71,
@@ -307,6 +334,7 @@ export const perks = {
     },
     effect: 15,
     layoutPosList: [80248, 79401, 81001, 79802, 78994, 56239],
+    disabledPostReality: true
   },
   studyECRequirement: {
     id: 72,
@@ -338,6 +366,7 @@ export const perks = {
     },
     effect: 1.5,
     layoutPosList: [111739, 81799, 79800, 79797, 81403, 115434],
+    disabledPostReality: true
   },
   retroactiveTP2: {
     id: 81,
@@ -349,6 +378,7 @@ export const perks = {
     },
     effect: 2,
     layoutPosList: [103757, 82199, 79401, 80196, 81406, 117382],
+    disabledPostReality: true
   },
   retroactiveTP3: {
     id: 82,
@@ -360,6 +390,7 @@ export const perks = {
     },
     effect: 2.5,
     layoutPosList: [96175, 82599, 79400, 80195, 81409, 116540],
+    disabledPostReality: true
   },
   retroactiveTP4: {
     id: 83,
@@ -373,6 +404,7 @@ export const perks = {
     automatorPoints: 10,
     shortDescription: () => `${formatX(3)} TP upgrade applies retroactively`,
     layoutPosList: [86984, 82598, 78999, 80595, 81412, 114103],
+    disabledPostReality: true
   },
   autobuyerDilation: {
     id: 100,
@@ -382,6 +414,7 @@ export const perks = {
     automatorPoints: 5,
     shortDescription: () => "Dilation Upgrade Autobuyers",
     layoutPosList: [117401, 81401, 79802, 79799, 80597, 96672],
+    disabledPostReality: true
   },
   autobuyerFasterID: {
     id: 101,
@@ -427,6 +460,7 @@ export const perks = {
     automatorPoints: 5,
     shortDescription: () => "Single TT Autobuyer",
     layoutPosList: [44631, 79398, 80598, 81001, 77797, 57325],
+    disabledPostReality: true
   },
   ttFree: {
     id: 105,
@@ -436,6 +470,7 @@ export const perks = {
       return `Purchasing Time Theorems no longer spends your Antimatter, Infinity Points, or Eternity Points.`;
     },
     layoutPosList: [33840, 78998, 80597, 81002, 77800, 67309],
+    disabledPostReality: true
   },
   ttBuyMax: {
     id: 106,
@@ -447,6 +482,7 @@ export const perks = {
     automatorPoints: 10,
     shortDescription: () => "Max TT Autobuyer",
     layoutPosList: [25055, 78598, 80997, 81003, 77803, 65739],
+    disabledPostReality: true
   },
   dilationAutobuyerBulk: {
     id: 107,

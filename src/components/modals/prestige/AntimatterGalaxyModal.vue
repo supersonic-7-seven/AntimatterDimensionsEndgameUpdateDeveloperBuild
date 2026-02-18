@@ -65,7 +65,7 @@ export default {
         }
       }
       this.keepAntimatter = Achievement(111).canBeApplied;
-      this.perkANRBought = (Perk.antimatterNoReset.canBeApplied && !player.disablePostReality);
+      this.perkANRBought = Perk.antimatterNoReset.canBeApplied;
       this.keepDimBoost = Achievement(143).canBeApplied || PelleUpgrade.galaxyNoResetDimboost.canBeApplied;
     },
     handleYesClick() {

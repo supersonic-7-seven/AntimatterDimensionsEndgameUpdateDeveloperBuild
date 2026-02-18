@@ -171,10 +171,10 @@ export function totalReplicantiSpeedMult(overCap) {
   totalMult = totalMult.times(preCelestialEffects);
   totalMult = totalMult.timesEffectOf(RealityUpgrade(2));
   if (TimeStudy(132).isBought) {
-    totalMult = totalMult.times((Perk.studyPassive.isBought && !player.disablePostReality) ? 3 : 1.5);
+    totalMult = totalMult.times((Perk.studyPassive.canBeApplied) ? 3 : 1.5);
   }
 
-  if (!overCap && Achievement(134).isUnlocked && !player.disablePostReality) {
+  if (!overCap && Achievement(134).canBeApplied) {
     totalMult = totalMult.times(2);
   }
   totalMult = totalMult.times(getAdjustedGlyphEffect("replicationspeed"));
