@@ -1063,9 +1063,9 @@ export const Alpha = {
     return this.shortStageNames[this.currentStage];
   },
   get alphaDecay() {
-    return 0.01 + (this.currentStage / 200) + Math.max(0, (this.currentStage - 18) / 200) +
+    return (0.01 + (this.currentStage / 200) + Math.max(0, (this.currentStage - 18) / 200) +
       Math.max(0, (this.currentStage - 20) / 100) + Math.max(0, (this.currentStage - 21) / 100) +
-      Math.max(0, (this.currentStage - 23) / 50) + Math.max(0, (this.currentStage - 25) / 20);
+      Math.max(0, (this.currentStage - 23) / 50) + Math.max(0, (this.currentStage - 25) / 20)) / 4.8;
   },
   get celestialMatterConversionNerf() {
     return DC.D1.sub(Decimal.pow(1 - this.alphaDecay, Decimal.min(
@@ -1073,7 +1073,7 @@ export const Alpha = {
       Decimal.pow(Decimal.max(Decimal.log10(Currency.etherealPower.value).sub(7), 0).div(7).add(1), 2).timesEffectsOf(
         Achievement(202),
         Achievement(203)
-      )), 5).add(Decimal.pow(Ethereal.cosmicSector, 2).div(100)))).toNumber();
+      )).add(24 * (1 - Math.pow(0.8, Decimal.log10(Currency.etherealPower.value.add(1))))), 24).add(Decimal.pow(Ethereal.cosmicSector, 2).div(100)))).toNumber();
   },
   quotes: Quotes.alpha,
   symbol: "α"
