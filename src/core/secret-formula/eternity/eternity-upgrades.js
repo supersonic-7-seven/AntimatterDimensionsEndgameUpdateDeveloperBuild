@@ -55,9 +55,11 @@ export const eternityUpgrades = {
     cost: 1e50,
     description: () => (Pelle.isDoomed
       ? "Time Dimensions are multiplied by days played in this Armageddon"
-      : "Time Dimensions are multiplied by days played"
+      : (Alpha.isRunning ? "Time Dimensions are multiplied by real-time days spent in Alpha's Reality"
+         : "Time Dimensions are multiplied by days played")
     ),
-    effect: () => (Pelle.isDoomed ? Time.thisReality.totalDays.add(1) : Decimal.max(Time.totalTimePlayed.totalDays, 1)),
+    effect: () => (Pelle.isDoomed ? Time.thisReality.totalDays.add(1) : (Alpha.isRunning
+      ? Decimal.max(Time.thisRealityRealTime.totalDays, 1) : Decimal.max(Time.totalTimePlayed.totalDays, 1))),
     formatEffect: value => formatX(value, 2, 1)
   }
 };

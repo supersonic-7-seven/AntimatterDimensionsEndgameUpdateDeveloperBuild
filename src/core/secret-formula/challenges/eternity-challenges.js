@@ -117,6 +117,8 @@ export const eternityChallenges = [
     goal: DC.E2000,
     pelleGoal: DC.E2700,
     goalIncrease: DC.E530,
+    alphaGoal: DC.E1200,
+    alphaGoalIncrease: DC.E200,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC7Nerf,
     effect: () => TimeDimension(1).productionPerSecond,
     reward: {
@@ -150,6 +152,8 @@ export const eternityChallenges = [
     goal: DC.E1750,
     pelleGoal: DC.E2900,
     goalIncrease: DC.E250,
+    alphaGoal: DC.E9000,
+    alphaGoalIncrease: DC.E4000,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC9Nerf,
     reward: {
       description: "Infinity Dimension multiplier based on Time Shards",
@@ -169,6 +173,8 @@ export const eternityChallenges = [
     goal: DC.E3000,
     pelleGoal: DC.E3200,
     goalIncrease: DC.E300,
+    alphaGoal: DC.E15000,
+    alphaGoalIncrease: DC.E3000,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC10Nerf,
     effect: () => Decimal.pow(Currency.infinitiesTotal.value, 950).clampMin(1).pow(TimeStudy(31).effectOrDefault(1)),
     reward: {

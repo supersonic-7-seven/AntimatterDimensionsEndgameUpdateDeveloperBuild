@@ -124,8 +124,10 @@ GameDatabase.celestials.descriptions = [
       return `All rewards, effects, upgrades, enhancements, buffs, nerfs, and features unlocked or gained after reaching Reality\
       for the first time are disabled, except Celestial Dimensions and Cosmic Sector, both of which are severely nerfed.
       The Celestial Matter Conversion Exponent will be reduced to ${formatInt(0)} and you will\
-      gain ${formatPercents(Alpha.alphaDecay, 2)} per real-time hour in Alpha's Reality, which can be increased\
-      slightly by completing stages of Alpha's Reality.
+      gain ${formatPercents(Alpha.alphaDecayByHour, 2)} per real-time hour in Alpha's Reality, up to a cap\
+      of ${formatInt(24)} hours, which can be increased slightly by completing stages of Alpha's Reality.\
+      Various external resources, such as Cosmic Sector, will boost Alpha Decay as if you have spent more time\
+      inside Alpha's Reality.
       Your Cosmic Sector Reward will be rooted by your current Cosmic Sector, which is a static nerf and cannot be increased\
       through progression in Alpha.`;
     },

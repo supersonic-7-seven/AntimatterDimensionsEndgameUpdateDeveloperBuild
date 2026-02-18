@@ -1509,14 +1509,23 @@ export const normalAchievements = [
     name: "The Dark Crunch",
     get description() { return `Reach Infinity in Alpha's Reality.` },
     checkRequirement: () => Alpha.isRunning,
-    checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE
+    checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE,
+    get reward() {
+      return `Alpha Decay increases ${formatX(1.1, 1, 1)} faster`;
+    },
+    effect: 1.1
   },
   {
     id: 203,
     name: "Never Gonna Stop",
     get description() { return `Reach Eternity in Alpha's Reality.` },
     checkRequirement: () => Alpha.isRunning,
-    checkEvent: GAME_EVENT.ETERNITY_RESET_BEFORE
+    checkEvent: GAME_EVENT.ETERNITY_RESET_BEFORE,
+    get reward() {
+      return `Alpha Decay speed is boosted based on Dual Machines`;
+    },
+    effect: () => Decimal.max(Decimal.ln(Decimal.ln(Currency.dualMachines.value.add(1)).add(1)), 1),
+    formatEffect: value => `${formatX(value, 2, 2)}`
   },
   {
     id: 204,
