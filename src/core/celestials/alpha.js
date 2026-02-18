@@ -1069,11 +1069,11 @@ export const Alpha = {
   },
   get celestialMatterConversionNerf() {
     return DC.D1.sub(Decimal.pow(1 - this.alphaDecay, Decimal.min(
-      TimeSpan.fromMilliseconds(Time.thisEndgameRealTime._ms).totalHours, 5).div(
+      TimeSpan.fromMilliseconds(Time.thisEndgameRealTime._ms).totalHours.times(
       Decimal.pow(Decimal.max(Decimal.log10(Currency.etherealPower.value).sub(7), 0).div(7).add(1), 2).timesEffectsOf(
         Achievement(202),
         Achievement(203)
-      )).add(Decimal.pow(Ethereal.cosmicSector, 2).div(100)))).toNumber();
+      )), 5).add(Decimal.pow(Ethereal.cosmicSector, 2).div(100)))).toNumber();
   },
   quotes: Quotes.alpha,
   symbol: "α"
