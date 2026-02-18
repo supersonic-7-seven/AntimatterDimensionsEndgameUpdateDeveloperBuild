@@ -15,13 +15,19 @@ export default {
       laitelaEntropy: "",
       waitingforHint: false,
       enslavedTimer: "",
+      isInAlpha: false,
+      alphaDecayTimeToMax: "",
     };
   },
   computed: {
     enslavedText() {
       return `${Enslaved.displayName} are helping you look for cracks in their Reality -
         they can give you some advice in ${this.enslavedTimer}`;
-    }
+    },
+    alphaText() {
+      if (this.alphaDecayTimeToMax.eq(0)) return `Alpha Decay is capped`;
+      return `Alpha Decay will cap in ${this.alphaDecayTimeToMax}`;
+    },
   },
   methods: {
     update() {
@@ -45,6 +51,10 @@ export default {
           this.laitelaEntropy = `${formatPercents(1, 2, 2)}`;
           this.laitelaTimer = TimeSpan.fromSeconds(new Decimal(player.celestials.laitela.thisCompletion)).toStringShort();
         }
+      }
+      this.isInAlpha = Alpha.isRunning;
+      if (this.isInAlpha) {
+        this.alphaDecayTimeToMax = TimeSpan.fromHours(Decimal.max(Alpha.hoursToMax, 0)).toStringShort();
       }
 
       this.waitingforHint = Enslaved.canTickHintTimer;
@@ -86,6 +96,9 @@ export default {
     </div>
     <div v-if="isInLaitela">
       Entropy: {{ laitelaEntropy }} ({{ laitelaTimer }})
+    </div>
+    <div v-if="isInAlpha">
+      {{ alphaText }}
     </div>
     <div v-if="isInMatterChallenge">
       There is {{ format(matter, 2, 1) }} matter.
