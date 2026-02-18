@@ -18,7 +18,7 @@ export class ReplicantiGalaxyAutobuyerState extends AutobuyerState {
   }
 
   get hasUnlimitedBulk() {
-    return Achievement(126).isUnlocked;
+    return Achievement(126).canBeApplied;
   }
 
   tick() {

@@ -707,7 +707,8 @@ export const normalAchievements = [
     checkRequirement: () =>
       (Replicanti.amount.eq(DC.NUMMAX) || player.replicanti.galaxies.gt(0)) &&
       Time.thisInfinityRealTime.totalHours.toNumber() <= 1,
-    checkEvent: GAME_EVENT.REPLICANTI_TICK_AFTER
+    checkEvent: GAME_EVENT.REPLICANTI_TICK_AFTER,
+    disabledPostReality: true
   },
   {
     id: 96,
@@ -816,7 +817,8 @@ export const normalAchievements = [
       return true;
     },
     checkEvent: GAME_EVENT.BIG_CRUNCH_AFTER,
-    reward: "Your antimatter doesn't reset on Dimension Boosts or Antimatter Galaxies."
+    reward: "Your antimatter doesn't reset on Dimension Boosts or Antimatter Galaxies.",
+    disabledPostReality: true
   },
   {
     id: 112,
@@ -1015,7 +1017,8 @@ export const normalAchievements = [
       player.IPMultPurchases.eq(0) &&
       Currency.infinityPoints.value.add(1).log10().gte(200000),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    reward: "You start Eternities with all Infinity Challenges unlocked and completed."
+    reward: "You start Eternities with all Infinity Challenges unlocked and completed.",
+    disabledPostReality: true
   },
   {
     id: 134,
@@ -1112,7 +1115,8 @@ export const normalAchievements = [
       return true;
     },
     checkEvent: GAME_EVENT.ETERNITY_RESET_AFTER,
-    reward: "Galaxies no longer reset Dimension Boosts."
+    reward: "Galaxies no longer reset Dimension Boosts.",
+    disabledPostReality: true
   },
   {
     id: 144,
@@ -1488,7 +1492,8 @@ export const normalAchievements = [
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
       return `You can equip up to ${formatInt(2)} Effarig and Reality Glyphs each.`;
-    }
+    },
+    disabledPostReality: true
   },
   {
     id: 195,
@@ -1526,7 +1531,8 @@ export const normalAchievements = [
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
       return `Boost Celestial Point Gain.`;
-    }
+    },
+    disabledPostReality: true
   },
   {
     id: 198,
