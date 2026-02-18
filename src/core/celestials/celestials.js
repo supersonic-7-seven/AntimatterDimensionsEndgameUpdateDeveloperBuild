@@ -127,7 +127,7 @@ GameDatabase.celestials.descriptions = [
       gain ${formatPercents(Alpha.alphaDecayByHour, 2)} per real-time hour in Alpha's Reality, up to a cap\
       of ${formatInt(24)} hours, which can be increased slightly by completing stages of Alpha's Reality.
       Your current Alpha Decay Speed factor is ${formatX(Alpha.totalSpeedBoost, 2, 2)}.\
-      You start layers of Alpha's Reality with ${formatPercents(Alpha.cosmicSectorMinBoost, 2, 2)} of the total\
+      You start layers of Alpha's Reality with ${formatPercents(Alpha.cosmicSectorMinBoost, 2, 2)} of the\
       time to max already spent. Cosmic Sector boosts Alpha Decay starting and capped values\
       by ${format(Alpha.cosmicSectorExtraBoost, 2, 2)} hours. This does not reduce the time for Alpha Decay to cap,\
       instead it makes Alpha Decay more effective.
