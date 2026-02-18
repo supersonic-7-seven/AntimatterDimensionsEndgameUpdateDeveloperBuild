@@ -65,6 +65,7 @@ window.DC = deepFreeze({
   D18:                  new Decimal("18"),
   D19:                  new Decimal("19"),
   D20:                  new Decimal("20"),
+  D24:                  new Decimal("24"),
   D60:                  new Decimal("60"),
   D80:                  new Decimal("80"),
   D99:                  new Decimal("99"),
