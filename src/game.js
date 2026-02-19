@@ -575,10 +575,6 @@ export function gameLoop(passedDiff, options = {}) {
   // simply letting it run through simulateTime seems to result in it using zero
   if (player.options.hibernationCatchup && passDiff === undefined && realDiff > 6e4) {
     GameIntervals.gameLoop.stop();
-    if (sha512_256((player.password ? player.password : "").replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
-      Modal.password.show();
-      return;
-    }
     simulateTime(realDiff / 1000, true);
     realTimeMechanics(realDiff);
     return;
@@ -1289,6 +1285,10 @@ function afterSimulation(seconds, playerBefore) {
 }
 
 export function simulateTime(seconds, real, fast) {
+  if (sha512_256((player.password ? player.password : "").replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
+    Modal.password.show();
+    return;
+  }
   // The game is simulated at a base 50ms update rate, with a maximum tick count based on the values of real and fast
   // - Calling with real === true will always simulate at full accuracy with no tick count reduction unless it would
   //   otherwise simulate with more ticks than offline progress would allow
