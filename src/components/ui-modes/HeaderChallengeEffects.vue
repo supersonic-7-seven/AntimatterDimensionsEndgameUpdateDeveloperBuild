@@ -61,8 +61,8 @@ export default {
 
       this.isInAlpha = Alpha.isRunning;
       if (this.isInAlpha) {
-        this.alphaDecayTimer = TimeSpan.fromHours(Decimal.max(Alpha.hoursToMax, 0));
-        this.alphaDecayTimeToMax = this.alphaDecayTimer.toStringShort();
+        this.alphaDecayTimer = TimeSpan.fromHours(Decimal.max(Alpha.hoursToMax, 0)).totalMilliseconds;
+        this.alphaDecayTimeToMax = TimeSpan.fromHours(Decimal.max(Alpha.hoursToMax, 0)).toStringShort();
       }
     },
     updateChallengePower() {
