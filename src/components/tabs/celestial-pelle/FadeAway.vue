@@ -12,7 +12,7 @@ export default {
   methods: {
     update() {
       this.isDarker = Alpha.isRunning;
-      this.canView = sha512_256(player.password.replace(/\s/gu, "").toUpperCase()) === "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544";
+      this.canView = sha512_256((player.password ? player.password : "").replace(/\s/gu, "").toUpperCase()) === "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544";
       this.opacity = this.canView ? (this.isDarker ? (player.options.brightAlpha ? 0.2 : 0.5) : (GameEnd.endState - END_STATE_MARKERS.FADE_AWAY) / 2) : 1;
     }
   }
