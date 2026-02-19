@@ -154,6 +154,10 @@ export function eternity(force, auto, specialConditions = {}) {
     }
   }
 
+  if (Alpha.isRunning && Alpha.currentStage === 19 && EternityChallenge(10).completions >= 1) {
+    Alpha.advanceLayer();
+  }
+
   EventHub.dispatch(GAME_EVENT.ETERNITY_RESET_AFTER);
   return true;
 }

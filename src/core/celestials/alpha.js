@@ -1070,14 +1070,27 @@ export const Alpha = {
   get alphaDecayByHour() {
     return 1 - Math.pow(1 - this.alphaDecay, 1 / 4.8);
   },
+  get totalSpeedBoost() {
+    return Decimal.pow(Decimal.max(Decimal.log10(Currency.etherealPower.value).sub(7), 0).div(7).add(1), 2).timesEffectsOf(
+      Achievement(202),
+      Achievement(203)
+    );
+  },
+  get cosmicSectorMinBoost() {
+    return (1 - Decimal.pow(0.8, Decimal.log10(Currency.etherealPower.value.add(1))).toNumber()) *
+      Math.min((Alpha.currentStage + 1) / 10, 1);
+  },
+  get cosmicSectorExtraBoost() {
+    return Decimal.pow(Ethereal.cosmicSector, 2).div(100).times(4.8);
+  },
   get celestialMatterConversionNerf() {
     return DC.D1.sub(Decimal.pow(1 - this.alphaDecayByHour, Decimal.min(
-      TimeSpan.fromMilliseconds(Time.thisEndgameRealTime._ms).totalHours.times(
-      Decimal.pow(Decimal.max(Decimal.log10(Currency.etherealPower.value).sub(7), 0).div(7).add(1), 2).timesEffectsOf(
-        Achievement(202),
-        Achievement(203)
-      )).add(24 * (1 - Decimal.pow(0.8, Decimal.log10(Currency.etherealPower.value.add(1))).toNumber())), 24).add(
-      Decimal.pow(Ethereal.cosmicSector, 2).div(100)))).toNumber();
+      TimeSpan.fromMilliseconds(Time.thisEndgameRealTime._ms).totalHours.times(this.totalSpeedBoost).add(
+        this.cosmicSectorMinBoost * 24), 24).add(this.cosmicSectorExtraBoost))).toNumber();
+  },
+  get hoursToMax() {
+    return DC.D24.sub(TimeSpan.fromMilliseconds(Time.thisEndgameRealTime._ms).totalHours.times(this.totalSpeedBoost).add(
+      this.cosmicSectorMinBoost * 24)).div(this.totalSpeedBoost);
   },
   quotes: Quotes.alpha,
   symbol: "α"
