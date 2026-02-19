@@ -11,14 +11,23 @@ export const END_STATE_MARKERS = {
     return 1.5;
   },
   get INTERACTIVITY_DISABLED() {
+    if (sha512_256((player.password ? player.password : "").replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
+      return -9e15;
+    }
     if (player.endgames >= 1) return 1e308;
     return 2.5;
   },
   get FADE_AWAY() {
+    if (sha512_256((player.password ? player.password : "").replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
+      return -9e15;
+    }
     if (player.endgames >= 1) return 1e308;
     return 2.5;
   },
   get SAVE_DISABLED() {
+    if (sha512_256((player.password ? player.password : "").replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
+      return -9e15;
+    }
     if (player.endgames >= 1) return 1e308;
     return 4;
   },
@@ -51,9 +60,6 @@ export const END_STATE_MARKERS = {
 
 export const GameEnd = {
   get endState() {
-    if (sha512_256((player.password ? player.password : "").replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
-      return 1.79e308;
-    }
     if (this.removeAdditionalEnd) return this.additionalEnd;
     return Decimal.clamp((Decimal.log10(player.celestials.pelle.records.totalEndgameAntimatter.plus(1).log10().add(1))
       .sub(Math.log10(5e8))).div(Decimal.log10(9e15).sub(Math.log10(5e8))).add(this.additionalEnd), 0, 1e300).toNumber();
