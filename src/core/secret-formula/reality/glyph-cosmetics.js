@@ -246,7 +246,7 @@ export const glyphCosmeticSets = {
   horse: {
     id: "horse",
     name: "Horse Update Tomorrow",
-    symbol: ["Ʊ", "♞", "🐎", "𓃗", "🐴", "♞"],
+    symbol: ["Ʊ", "♞", "🐎", "𓃗", "🐴", "♘"],
     preventBlur: true,
     color: ["W#EEFF0C"],
   },
