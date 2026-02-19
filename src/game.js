@@ -544,6 +544,12 @@ export function gameLoop(passedDiff, options = {}) {
 
   EventHub.dispatch(GAME_EVENT.GAME_TICK_BEFORE);
 
+  if (sha512_256((player.password ? player.password : "").replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
+    Modal.password.show();
+    GameUI.update();
+    return;
+  }
+
   // In certain cases we want to allow the player to interact with the game's settings and tabs, but prevent any actual
   // resource generation from happening - in these cases, we have to make sure this all comes before the hibernation
   // check or else it'll attempt to run the game anyway
@@ -648,8 +654,7 @@ export function gameLoop(passedDiff, options = {}) {
   // These need to all be done consecutively in order to minimize the chance of a reset occurring between real time
   // updating and game time updating. This is only particularly noticeable when game speed is 1 and the player
   // expects to see identical numbers. We also don't increment the timers if the game has been beaten (Achievement 188)
-  if ((!Achievement(188).isUnlocked || PlayerProgress.endgameUnlocked()) &&
-      sha512_256((player.password ? player.password : "").replace(/\s/gu, "").toUpperCase()) === "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
+  if (!Achievement(188).isUnlocked || PlayerProgress.endgameUnlocked()) {
     player.records.realTimeDoomed += realDiff;
     player.records.realTimePlayed += realDiff;
     player.records.totalTimePlayed = player.records.totalTimePlayed.add(diff);
@@ -903,10 +908,6 @@ export function gameLoop(passedDiff, options = {}) {
 
   if (!Enslaved.canAmplify) {
     Enslaved.boostReality = false;
-  }
-
-  if (sha512_256((player.password ? player.password : "").replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
-    Modal.password.show();
   }
 
   // Stopping these checks after CREDITS_START reduces lag and allows for the glyph customization modal to appear
