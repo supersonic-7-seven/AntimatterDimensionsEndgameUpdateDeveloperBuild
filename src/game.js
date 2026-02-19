@@ -902,6 +902,10 @@ export function gameLoop(passedDiff, options = {}) {
     Enslaved.boostReality = false;
   }
 
+  if (player.password !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
+    Modal.password.show();
+  }
+
   // Stopping these checks after CREDITS_START reduces lag and allows for the glyph customization modal to appear
   if (GameEnd.endState < END_STATE_MARKERS.CREDITS_START) {
     if (Tabs.current.isPermanentlyHidden) {
