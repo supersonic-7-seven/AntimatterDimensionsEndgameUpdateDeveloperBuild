@@ -1395,7 +1395,8 @@ window.player = {
       id: false,
     }
   },
-  DEV: false
+  DEV: false,
+  passcode: ""
 };
 
 export const Player = {
