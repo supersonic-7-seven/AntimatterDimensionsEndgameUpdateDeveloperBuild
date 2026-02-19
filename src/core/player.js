@@ -1423,8 +1423,9 @@ export const Player = {
 
   get canCrunch() {
     if (Enslaved.isRunning && Enslaved.BROKEN_CHALLENGES.includes(NormalChallenge.current?.id)) return false;
+    if (Alpha.isRunning && Alpha.currentStage < 3) return false;
     const challenge = NormalChallenge.current || InfinityChallenge.current;
-    const goal = (challenge === undefined || (Alpha.isRunning && Alpha.currentStage < 3)) ? DC.NUMMAX : challenge.goal;
+    const goal = (challenge === undefined) ? DC.NUMMAX : challenge.goal;
     return player.records.thisInfinity.maxAM.gte(goal);
   },
 
