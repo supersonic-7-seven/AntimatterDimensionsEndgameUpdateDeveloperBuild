@@ -132,7 +132,7 @@ export class Currency {
         this.value = (this.value instanceof DecimalCurrency || this.value instanceof Decimal) ? Decimal.floor(this.value.div(1e15)) : Math.floor(this.value / 1e15);
         break;
       default: // amount > value
-        this.value = (this.value instanceof DecimalCurrency || this.value instanceof Decimal) ? DC.D0 : 0;
+        this.value = (this.value instanceof DecimalCurrency || this.value instanceof Decimal) ? Decimal.floor(this.value.div(1e15)) : Math.floor(this.value / 1e15);
     }
   }
 
