@@ -6,6 +6,8 @@ import { migrations } from "./migrations";
 
 import { deepmergeAll } from "@/utility/deepmerge";
 
+import { sha512_256 } from "js-sha512";
+
 export const BACKUP_SLOT_TYPE = {
   ONLINE: 0,
   OFFLINE: 1,
