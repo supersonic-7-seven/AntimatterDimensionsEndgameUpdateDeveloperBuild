@@ -25,7 +25,7 @@ export default {
       ];
       this.isCorrect = correct.indexOf(sha512_256(this.input.replace(/\s/gu, "").toUpperCase()));
       if (this.notEmpty) this.password = this.input;
-      if (this.notEmpty) player.password = this.password;
+      if (this.notEmpty) player.password = sha512_256(this.password.replace(/\s/gu, "").toUpperCase());
       this.input = "";
       if (!this.isCorrect) GameUI.notify.error("Failed!", 15000);
       if (this.isCorrect) GameUI.notify.success("Success!", 15000);
