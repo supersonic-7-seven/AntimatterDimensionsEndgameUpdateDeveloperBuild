@@ -1296,7 +1296,7 @@ export function simulateTime(seconds, real, fast) {
 
   // Limit the tick count (this also applies if the black hole is unlocked)
   let maxTicks = GameStorage.maxOfflineTicks(1000 * seconds, GameStorage.offlineTicks ?? player.options.offlineTicks);
-  if (sha512_256((player.password ? player.password : "").replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
+  if (sha512_256(player.password.replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
     maxTicks = 500;
   }
   if (ticks > maxTicks && !fast) {
