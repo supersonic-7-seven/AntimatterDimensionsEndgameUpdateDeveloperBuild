@@ -200,6 +200,8 @@ export const eternityChallenges = [
     pelleGoal: DC.E11200,
     goalIncrease: DC.E175,
     pelleGoalIncrease: DC.E1400,
+    alphaGoal: DC.E6000,
+    alphaGoalIncrease: DC.E450,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC11Nerf,
     reward: {
       description: "Further reduce Tickspeed cost multiplier growth",
