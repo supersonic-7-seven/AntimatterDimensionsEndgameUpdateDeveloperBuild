@@ -546,8 +546,6 @@ export function gameLoop(passedDiff, options = {}) {
 
   if (sha512_256((player.password ? player.password : "").replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
     Modal.password.show();
-    GameUI.update();
-    return;
   }
 
   // In certain cases we want to allow the player to interact with the game's settings and tabs, but prevent any actual
