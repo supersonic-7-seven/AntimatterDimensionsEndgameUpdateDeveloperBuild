@@ -544,10 +544,6 @@ export function gameLoop(passedDiff, options = {}) {
 
   EventHub.dispatch(GAME_EVENT.GAME_TICK_BEFORE);
 
-  if (sha512_256((player.password ? player.password : "").replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
-    Modal.password.show();
-  }
-
   // In certain cases we want to allow the player to interact with the game's settings and tabs, but prevent any actual
   // resource generation from happening - in these cases, we have to make sure this all comes before the hibernation
   // check or else it'll attempt to run the game anyway
