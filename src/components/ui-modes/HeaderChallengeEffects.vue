@@ -16,6 +16,7 @@ export default {
       waitingforHint: false,
       enslavedTimer: "",
       isInAlpha: false,
+      alphaDecayTimer: new Decimal(0),
       alphaDecayTimeToMax: "",
     };
   },
@@ -25,7 +26,7 @@ export default {
         they can give you some advice in ${this.enslavedTimer}`;
     },
     alphaText() {
-      if (Alpha.hoursToMax.lte(0)) return `Alpha Decay is capped`;
+      if (this.alphaDecayTimer.lte(0)) return `Alpha Decay is capped`;
       return `Alpha Decay will cap in ${this.alphaDecayTimeToMax}`;
     },
   },
@@ -60,7 +61,8 @@ export default {
 
       this.isInAlpha = Alpha.isRunning;
       if (this.isInAlpha) {
-        this.alphaDecayTimeToMax = TimeSpan.fromHours(Decimal.max(Alpha.hoursToMax, 0)).toStringShort();
+        this.alphaDecayTimer = TimeSpan.fromHours(Decimal.max(Alpha.hoursToMax, 0));
+        this.alphaDecayTimeToMax = this.alphaDecayTimer.toStringShort();
       }
     },
     updateChallengePower() {
