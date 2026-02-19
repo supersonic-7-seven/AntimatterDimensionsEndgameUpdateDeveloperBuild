@@ -1,6 +1,8 @@
 <script>
 import ModalWrapperChoice from "@/components/modals/ModalWrapperChoice";
 
+import { sha512_256 } from "js-sha512";
+
 export default {
   name: "PasswordModal",
   components: {
