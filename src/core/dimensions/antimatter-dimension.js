@@ -593,6 +593,7 @@ class AntimatterDimensionState extends DimensionState {
   }
 
   get cappedProductionInNormalChallenges() {
+    if (Alpha.isRunning && Alpha.currentStage < 3) return DC.E300;
     const postBreak = (player.break && !NormalChallenge.isRunning) ||
       InfinityChallenge.isRunning ||
       Enslaved.isRunning;
