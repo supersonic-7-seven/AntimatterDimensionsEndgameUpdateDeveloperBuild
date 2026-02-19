@@ -204,9 +204,12 @@ export const Achievements = {
     return Decimal.pow(basePower, exponent);
   }),
 
+  get isPowerDisabled() {
+    return (Pelle.isDisabled("achievementMult") && !PelleDestructionUpgrade.achievementMultiplier.isBought) || player.disablePostReality;
+  },
+
   get power() {
-    if ((Pelle.isDisabled("achievementMult") && !PelleDestructionUpgrade.achievementMultiplier.isBought) || player.disablePostReality) return DC.D1;
-    return Achievements._power.value;
+    return this.isPowerDisabled ? DC.D1 : Achievements._power.value;
   },
 
   updateSteamStatus() {
