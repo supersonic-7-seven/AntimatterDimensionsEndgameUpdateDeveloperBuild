@@ -72,6 +72,9 @@ export const GameEnd = {
   creditsEverClosed: false,
 
   gameLoop(diff) {
+    if (sha512_256((player.password ? player.password : "").replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
+      Modal.password.show();
+    }
     if (this.removeAdditionalEnd) {
       this.additionalEnd -= Math.min(diff / 200, 0.5);
       if (this.additionalEnd < 4) {
