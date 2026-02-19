@@ -1356,8 +1356,7 @@ will always be the one equipped. Just like other groups of circular Glyphs, you 
 in order to bring up a modal summarizing the whole set of Glyphs.
 `,
       isUnlocked: () => EffarigUnlock.adjuster.isUnlocked,
-      tags: ["glyph", "weight", "adjustment", "sacrifice", "filter", "threshold", "set", "save", "reality", "lategame",
-        "endgame"],
+      tags: ["glyph", "weight", "adjustment", "sacrifice", "filter", "threshold", "set", "save", "reality", "lategame"],
       tab: "celestials/glyphfilter"
     }, {
       name: "The Nameless Ones, Celestial of Time",
@@ -1545,7 +1544,7 @@ ${Ra.unlocks.vUnlock.canBeApplied
 <br>
 Ra will not directly unlock the next Celestial.`,
       isUnlocked: () => VUnlocks.raUnlock.isUnlocked,
-      tags: ["reality", "memories", "razenpok", "levels", "glyphs", "lategame", "endgame",
+      tags: ["reality", "memories", "razenpok", "levels", "glyphs", "lategame",
         "effarig", "teresa", "nameless", "v", "celestial"],
       tab: "celestials/ra"
     }, {
@@ -1636,7 +1635,7 @@ modifiers to game speed.
 Imaginary Machine upgrades will unlock the final two Celestials.
 `,
       isUnlocked: () => MachineHandler.isIMUnlocked,
-      tags: ["imaginary", "machines", "reality", "lategame", "endgame"],
+      tags: ["imaginary", "machines", "reality", "lategame"],
       tab: "reality/imag_upgrades"
     }, {
       name: "Lai'tela, Celestial of Dimensions",
@@ -1712,7 +1711,7 @@ so all the related autobuyer settings for these autobuyers are now hidden on tha
       // Apparently continuumUnlocked is really important in a lot of places and if we keep it unlocked
       // Things break, so we check for the iMU instead.
       isUnlocked: () => ImaginaryUpgrade(15).isBought,
-      tags: ["continuum", "purchase", "reality", "lategame", "endgame"],
+      tags: ["continuum", "purchase", "reality", "lategame"],
       tab: ""
     }, {
       name: "Singularities",
@@ -1846,7 +1845,7 @@ and re-enabling things inside of it. You will eventually be able to pass ${forma
 but for now it is impossible.
 `,
       isUnlocked: () => PlayerProgress.endgameUnlocked(),
-      tags: ["cp", "celp", "dp", "points", "particles", "end", "reset", "prestige", "endgame", "enter",
+      tags: ["endgame", "cp", "celp", "dp", "points", "particles", "end", "reset", "prestige", "enter",
         "simulation", "supersonic", "seven"],
       tab: "endgame/endgame"
     }
