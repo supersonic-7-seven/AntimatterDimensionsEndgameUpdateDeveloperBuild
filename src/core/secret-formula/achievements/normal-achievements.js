@@ -1118,7 +1118,7 @@ export const normalAchievements = [
     },
     checkEvent: GAME_EVENT.ETERNITY_RESET_AFTER,
     reward: "Galaxies no longer reset Dimension Boosts.",
-    disabledPostReality: () => !Alpha.isRunning || Alpha.currentStage <= 22
+    disabledPostReality: () => !Alpha.isRunning || Alpha.currentStage <= 19
   },
   {
     id: 144,
