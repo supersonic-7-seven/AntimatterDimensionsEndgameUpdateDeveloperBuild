@@ -155,8 +155,8 @@ export const dualityUpgrades = [
     hasFailed: () => false,
     checkRequirement: () => Tickspeed.perSecond.log10().gte(DC.E9E15),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    description: () => `Raise the Continuum Purchase boost to ${formatPow(1.5, 0, 1)}`,
-    effect: () => player.disablePostReality ? 1 : 1.5
+    description: () => `Raise the Continuum Purchase boost to ${formatPow(1.2, 0, 1)}`,
+    effect: () => player.disablePostReality ? 1 : 1.2
   },
   {
     name: "Invention of Duplexes",
