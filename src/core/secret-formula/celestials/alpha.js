@@ -224,7 +224,8 @@ export const alphaUnlocks = {
     nerfDescription: () => `The Dilation Study costs ${formatInt(12900)} Time Theorems, but remove the TD4 nerf and reduce the Free Tickspeed threshold to ${format(1.15, 2, 2)}`,
     buffDescription: () => `Reduce Post-Break Tickspeed cost scale by ${format(0.075, 3, 3)}`,
     effects: {
-      nerf: 12900,
+      nerfA: 12900,
+      nerfB: 1.15,
       buff: 0.075
     }
   },
