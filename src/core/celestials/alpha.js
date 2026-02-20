@@ -491,12 +491,6 @@ export const Alpha = {
       player.timestudy.amBought = player.celestials.alpha.records.timestudy.amBought;
       player.timestudy.ipBought = player.celestials.alpha.records.timestudy.ipBought;
       player.timestudy.epBought = player.celestials.alpha.records.timestudy.epBought;
-      for (let ts = 0; ts < 305; ts++) {
-        if (player.celestials.alpha.records.timestudy.studies.includes(ts)) {
-          player.timestudy.theorem = player.timestudy.theorem.add(TimeStudy(ts).cost);
-          TimeStudy(ts).purchase();
-        }
-      }
       player.eternityChalls.eterc1 = player.celestials.alpha.records.eternityChalls.eterc1;
       player.eternityChalls.eterc2 = player.celestials.alpha.records.eternityChalls.eterc2;
       player.eternityChalls.eterc3 = player.celestials.alpha.records.eternityChalls.eterc3;
@@ -512,12 +506,6 @@ export const Alpha = {
       player.respec = player.celestials.alpha.records.respec;
       player.eterc8ids = player.celestials.alpha.records.eterc8ids;
       player.eterc8repl = player.celestials.alpha.records.eterc8repl;
-      for (let dts = 0; dts < 7; dts++) {
-        if (player.celestials.alpha.records.dilation.studies.includes(dts)) {
-          player.timestudy.theorem = player.timestudy.theorem.add(DilationTimeStudyState.studies[dts].cost);
-          DilationTimeStudyState.studies[dts].purchase();
-        }
-      }
       player.dilation.active = player.celestials.alpha.records.dilation.active;
       player.dilation.tachyonParticles = player.celestials.alpha.records.dilation.tachyonParticles;
       player.dilation.dilatedTime = player.celestials.alpha.records.dilation.dilatedTime;
@@ -532,6 +520,18 @@ export const Alpha = {
       player.dilation.rebuyables[12] = player.celestials.alpha.records.dilation.rebuyables[12];
       player.dilation.rebuyables[13] = player.celestials.alpha.records.dilation.rebuyables[13];
       player.dilation.lastEP = player.celestials.alpha.records.dilation.lastEP;
+      for (let ts = 0; ts < 305; ts++) {
+        if (player.celestials.alpha.records.timestudy.studies.includes(ts)) {
+          player.timestudy.theorem = player.timestudy.theorem.add(TimeStudy(ts).cost);
+          TimeStudy(ts).purchase();
+        }
+      }
+      for (let dts = 0; dts < 7; dts++) {
+        if (player.celestials.alpha.records.dilation.studies.includes(dts)) {
+          player.timestudy.theorem = player.timestudy.theorem.add(DilationTimeStudyState.studies[dts].cost);
+          DilationTimeStudyState.studies[dts].purchase();
+        }
+      }
       player.celestials.alpha.records.timestudy.studies = [];
       player.celestials.alpha.records.dilation.studies = [];
     }
