@@ -117,8 +117,8 @@ export const dualityUpgrades = [
     hasFailed: () => false,
     checkRequirement: () => player.celestials.effarig.relicShards.gte(DC.E1640),
     checkEvent: GAME_EVENT.REALITY_RESET_AFTER,
-    description: "Multiply Continuum purchases by Hadronization amount",
-    effect: () => player.disablePostReality ? 1 : Laitela.hadronizes,
+    description: "Multiply Continuum purchases based on Hadronization amount",
+    effect: () => player.disablePostReality ? 1 : Math.sqrt(Laitela.hadronizes),
     formatEffect: value => `${formatX(value, 2)}`
   },
   {
