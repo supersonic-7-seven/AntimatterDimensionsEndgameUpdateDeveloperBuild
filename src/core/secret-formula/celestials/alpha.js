@@ -225,7 +225,7 @@ export const alphaUnlocks = {
     buffDescription: () => `Reduce Post-Break Tickspeed cost scale by ${format(0.075, 3, 3)}`,
     effects: {
       nerfA: 12900,
-      nerfB: 1.15,
+      nerfB: 1.2,
       buff: 0.075
     }
   },
