@@ -630,7 +630,7 @@ export const normalAchievements = [
     },
     effect: 250,
     effectCondition: () => Alpha.isRunning ? Time.thisInfinityRealTime.totalSeconds.gt(5) : Time.thisInfinity.totalSeconds.gt(5),
-    disabledPostReality: () => Alpha.currentStage <= 22
+    disabledPostReality: () => !Alpha.isRunning || Alpha.currentStage <= 22
   },
   {
     id: 88,
@@ -819,7 +819,7 @@ export const normalAchievements = [
     },
     checkEvent: GAME_EVENT.BIG_CRUNCH_AFTER,
     reward: "Your antimatter doesn't reset on Dimension Boosts or Antimatter Galaxies.",
-    disabledPostReality: () => Alpha.currentStage <= 11
+    disabledPostReality: () => !Alpha.isRunning || Alpha.currentStage <= 11
   },
   {
     id: 112,
@@ -891,7 +891,7 @@ export const normalAchievements = [
     checkEvent: GAME_EVENT.SACRIFICE_RESET_AFTER,
     reward: `Dimensional Sacrifice doesn't reset your Antimatter Dimensions
       and the Autobuyer activates every tick if turned on.`,
-    disabledPostReality: () => Alpha.currentStage <= 11
+    disabledPostReality: () => !Alpha.isRunning || Alpha.currentStage <= 11
   },
   {
     id: 121,
@@ -990,7 +990,7 @@ export const normalAchievements = [
       infinitiesGain: 2,
       bankedInfinitiesGain: () => Currency.infinities.value.times(0.05).floor()
     },
-    disabledPostReality: () => Alpha.currentStage <= 22
+    disabledPostReality: () => !Alpha.isRunning || Alpha.currentStage <= 22
   },
   {
     id: 132,
@@ -1118,7 +1118,7 @@ export const normalAchievements = [
     },
     checkEvent: GAME_EVENT.ETERNITY_RESET_AFTER,
     reward: "Galaxies no longer reset Dimension Boosts.",
-    disabledPostReality: () => Alpha.currentStage <= 22
+    disabledPostReality: () => !Alpha.isRunning || Alpha.currentStage <= 22
   },
   {
     id: 144,
