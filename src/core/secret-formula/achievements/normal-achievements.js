@@ -624,12 +624,13 @@ export const normalAchievements = [
     checkRequirement: () => Currency.infinities.gt(DC.D2E6),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
-      return `Infinities more than ${formatInt(5)} seconds long
-      give ${formatX(250)} more Infinities.`;
+      return Alpha.isRunning
+        ? `Infinities more than ${formatInt(5)} real-time seconds long give ${formatX(250)} more Infinities.`
+        : `Infinities more than ${formatInt(5)} seconds long give ${formatX(250)} more Infinities.`;
     },
     effect: 250,
-    effectCondition: () => Time.thisInfinity.totalSeconds.gt(5),
-    disabledPostReality: true
+    effectCondition: () => Alpha.isRunning ? Time.thisInfinityRealTime.totalSeconds.gt(5) : Time.thisInfinity.totalSeconds.gt(5),
+    disabledPostReality: () => Alpha.currentStage <= 22
   },
   {
     id: 88,
@@ -989,7 +990,7 @@ export const normalAchievements = [
       infinitiesGain: 2,
       bankedInfinitiesGain: () => Currency.infinities.value.times(0.05).floor()
     },
-    disabledPostReality: true
+    disabledPostReality: () => Alpha.currentStage <= 22
   },
   {
     id: 132,
@@ -1117,7 +1118,7 @@ export const normalAchievements = [
     },
     checkEvent: GAME_EVENT.ETERNITY_RESET_AFTER,
     reward: "Galaxies no longer reset Dimension Boosts.",
-    disabledPostReality: true
+    disabledPostReality: () => Alpha.currentStage <= 22
   },
   {
     id: 144,
