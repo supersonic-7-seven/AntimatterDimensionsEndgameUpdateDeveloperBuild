@@ -162,6 +162,10 @@ export function eternity(force, auto, specialConditions = {}) {
     Alpha.advanceLayer();
   }
 
+  if (Alpha.isRunning && Alpha.currentStage === 24 && Currency.tachyonParticles.gt(0)) {
+    Alpha.advanceLayer();
+  }
+
   EventHub.dispatch(GAME_EVENT.ETERNITY_RESET_AFTER);
   return true;
 }
