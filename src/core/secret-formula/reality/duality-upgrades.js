@@ -112,10 +112,10 @@ export const dualityUpgrades = [
     name: "Interference of Forever",
     id: 11,
     cost: new Decimal(1e9),
-    requirement: () => `${format("1e1600")} total Relic Shards
+    requirement: () => `${format("1e1650")} total Relic Shards
       (You have ${format(player.celestials.effarig.relicShards, 2)})`,
     hasFailed: () => false,
-    checkRequirement: () => player.celestials.effarig.relicShards.gte(DC.E1600),
+    checkRequirement: () => player.celestials.effarig.relicShards.gte(DC.E1650),
     checkEvent: GAME_EVENT.REALITY_RESET_AFTER,
     description: "Multiply Continuum purchases by Hadronization amount",
     effect: () => player.disablePostReality ? 1 : Laitela.hadronizes,
