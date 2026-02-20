@@ -619,7 +619,8 @@ export const normalAchievements = [
       give ${formatX(250)} more Infinities.`;
     },
     effect: () => player.disablePostReality && !(Alpha.isRunning && Alpha.currentStage >= 23) ? 1 : 250,
-    effectCondition: () => Time.thisInfinity.totalSeconds.gt(5) && !player.disablePostReality
+    effectCondition: () => Time.thisInfinity.totalSeconds.gt(5) &&
+      (!player.disablePostReality || (Alpha.isRunning && Alpha.currentStage >= 23))
   },
   {
     id: 88,
