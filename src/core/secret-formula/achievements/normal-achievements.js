@@ -618,7 +618,7 @@ export const normalAchievements = [
       return `Infinities more than ${formatInt(5)} seconds long
       give ${formatX(250)} more Infinities.`;
     },
-    effect: () => player.disablePostReality ? 1 : 250,
+    effect: () => player.disablePostReality && !(Alpha.isRunning && Alpha.currentStage >= 23) ? 1 : 250,
     effectCondition: () => Time.thisInfinity.totalSeconds.gt(5) && !player.disablePostReality
   },
   {
@@ -963,8 +963,9 @@ export const normalAchievements = [
       after Eternity you permanently keep ${formatPercents(0.05)} of your Infinities as Banked Infinities.`;
     },
     effects: {
-      infinitiesGain: () => player.disablePostReality ? 1 : 2,
-      bankedInfinitiesGain: () => player.disablePostReality ? DC.D0 : Currency.infinities.value.times(0.05).floor()
+      infinitiesGain: () => player.disablePostReality && !(Alpha.isRunning && Alpha.currentStage >= 23) ? 1 : 2,
+      bankedInfinitiesGain: () => player.disablePostReality && !(Alpha.isRunning && Alpha.currentStage >= 23)
+        ? DC.D0 : Currency.infinities.value.times(0.05).floor()
     }
 
   },
