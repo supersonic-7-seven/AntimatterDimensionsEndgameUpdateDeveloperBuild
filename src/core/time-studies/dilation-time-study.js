@@ -44,6 +44,9 @@ export class DilationTimeStudyState extends TimeStudyState {
         Currency.tachyonParticles.bumpTo(getTP(Ra.unlocks.unlockDilationStartingTP.effectOrDefault(0), false));
       }
       TabNotification.dilationAfterUnlock.tryTrigger();
+      if (Alpha.isRunning && Alpha.currentStage === 23) {
+        Alpha.advanceLayer();
+      }
     }
     if (this.id === 6) {
       // ID 6 is the reality unlock study
