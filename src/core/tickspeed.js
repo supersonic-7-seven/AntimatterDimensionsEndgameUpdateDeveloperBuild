@@ -223,7 +223,8 @@ export const FreeTickspeed = {
   },
 
   fromShards(shards) {
-    const tickmult = (1 + (Effects.min(1.33, TimeStudy(171)) - 1) *
+    const alphaMult = Alpha.isRunning ? AlphaUnlocks.ec11Bulk.effects.nerfB.effectOrDefault(1.33) : 1.33;
+    const tickmult = (1 + (Math.min(Effects.min(1.33, TimeStudy(171)), alphaMult) - 1) *
       Math.max(getAdjustedGlyphEffect("cursedtickspeed"), 1));
     const logTickmult = Math.log(tickmult);
     const logShards = Decimal.max(1, shards).ln().toNumber();

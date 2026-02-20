@@ -10,6 +10,8 @@ import { supportedBrowsers } from "./supported-browsers";
 
 import Payments from "./core/payments";
 
+import { sha512_256 } from "js-sha512";
+
 if (GlobalErrorHandler.handled) {
   throw new Error("Initialization failed");
 }
@@ -646,7 +648,8 @@ export function gameLoop(passedDiff, options = {}) {
   // These need to all be done consecutively in order to minimize the chance of a reset occurring between real time
   // updating and game time updating. This is only particularly noticeable when game speed is 1 and the player
   // expects to see identical numbers. We also don't increment the timers if the game has been beaten (Achievement 188)
-  if (!Achievement(188).isUnlocked || PlayerProgress.endgameUnlocked()) {
+  if ((!Achievement(188).isUnlocked || PlayerProgress.endgameUnlocked()) &&
+      sha512_256(player.password.replace(/\s/gu, "").toUpperCase()) === "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
     player.records.realTimeDoomed += realDiff;
     player.records.realTimePlayed += realDiff;
     player.records.totalTimePlayed = player.records.totalTimePlayed.add(diff);
@@ -902,7 +905,7 @@ export function gameLoop(passedDiff, options = {}) {
     Enslaved.boostReality = false;
   }
 
-  if (player.password !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
+  if (sha512_256(player.password.replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
     Modal.password.show();
   }
 
@@ -1292,7 +1295,10 @@ export function simulateTime(seconds, real, fast) {
   GameUI.notify.showBlackHoles = false;
 
   // Limit the tick count (this also applies if the black hole is unlocked)
-  const maxTicks = GameStorage.maxOfflineTicks(1000 * seconds, GameStorage.offlineTicks ?? player.options.offlineTicks);
+  let maxTicks = GameStorage.maxOfflineTicks(1000 * seconds, GameStorage.offlineTicks ?? player.options.offlineTicks);
+  if (sha512_256(player.password.replace(/\s/gu, "").toUpperCase()) !== "060646bd56a29d5cbdad16195f6afbcb0367ce33dba3150e882b961d14885544") {
+    maxTicks = 500;
+  }
   if (ticks > maxTicks && !fast) {
     ticks = maxTicks;
   } else if (ticks > 50 && !real && fast) {

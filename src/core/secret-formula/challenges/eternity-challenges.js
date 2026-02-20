@@ -174,7 +174,7 @@ export const eternityChallenges = [
     pelleGoal: DC.E3200,
     goalIncrease: DC.E300,
     alphaGoal: DC.E15000,
-    alphaGoalIncrease: DC.E3000,
+    alphaGoalIncrease: DC.E2000,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC10Nerf,
     effect: () => Decimal.pow(Currency.infinitiesTotal.value, 950).clampMin(1).pow(TimeStudy(31).effectOrDefault(1)),
     reward: {
@@ -200,6 +200,8 @@ export const eternityChallenges = [
     pelleGoal: DC.E11200,
     goalIncrease: DC.E175,
     pelleGoalIncrease: DC.E1400,
+    alphaGoal: DC.E6000,
+    alphaGoalIncrease: DC.E450,
     hasPelleGoal: () => !PelleDestructionUpgrade.disableEC11Nerf,
     reward: {
       description: "Further reduce Tickspeed cost multiplier growth",

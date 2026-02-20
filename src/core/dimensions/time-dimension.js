@@ -314,7 +314,7 @@ class TimeDimensionState extends DimensionState {
     if (EternityChallenge(11).isRunning) {
       return this.totalAmount;
     }
-    if (this.tier === this.highestProducingDimension && Alpha.isRunning && Alpha.currentStage >= 14) {
+    if (this.tier === this.highestProducingDimension && Alpha.isRunning && Alpha.currentStage >= 14 && Alpha.currentStage < 23) {
       return this.totalAmount;
     }
     let production = this.totalAmount.times(this.multiplier);
