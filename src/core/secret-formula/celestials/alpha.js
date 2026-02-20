@@ -221,7 +221,7 @@ export const alphaUnlocks = {
   ec11Bulk: {
     id: 22,
     requirement: 23,
-    nerfDescription: () => `The Dilation Study costs ${formatInt(12900)} Time Theorems, but remove the TD4 nerf`,
+    nerfDescription: () => `The Dilation Study costs ${formatInt(12900)} Time Theorems, but remove the TD4 nerf and reduce the Free Tickspeed threshold to ${format(1.15, 2, 2)}`,
     buffDescription: () => `Reduce Post-Break Tickspeed cost scale by ${format(0.075, 3, 3)}`,
     effects: {
       nerf: 12900,
