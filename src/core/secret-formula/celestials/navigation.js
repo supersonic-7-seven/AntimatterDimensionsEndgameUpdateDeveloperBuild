@@ -696,7 +696,7 @@ export const celestialNavigation = {
   "v-unlock-achievement": {
     visible: () => EffarigUnlock.reality.isUnlocked,
     complete: () => {
-      if (Achievement(151).isUnlocked) return 1;
+      if (Achievement(151).canBeApplied) return 1;
       if (!player.requirementChecks.infinity.noAD8) return 0;
 
       return player.galaxies.div(800).toNumber();
@@ -739,7 +739,7 @@ export const celestialNavigation = {
     }
   },
   "v-unlock-1": {
-    visible: () => Achievement(151).isUnlocked || VUnlocks.vAchievementUnlock.isUnlocked,
+    visible: () => Achievement(151).canBeApplied || VUnlocks.vAchievementUnlock.isUnlocked,
     complete: () => vUnlockProgress(1),
     drawOrder: -1,
     node: {
@@ -767,7 +767,7 @@ export const celestialNavigation = {
     }
   },
   "v-unlock-2": {
-    visible: () => Achievement(151).isUnlocked || VUnlocks.vAchievementUnlock.isUnlocked,
+    visible: () => Achievement(151).canBeApplied || VUnlocks.vAchievementUnlock.isUnlocked,
     complete: () => vUnlockProgress(2),
     drawOrder: -1,
     node: {
@@ -795,7 +795,7 @@ export const celestialNavigation = {
     }
   },
   "v-unlock-3": {
-    visible: () => Achievement(151).isUnlocked || VUnlocks.vAchievementUnlock.isUnlocked,
+    visible: () => Achievement(151).canBeApplied || VUnlocks.vAchievementUnlock.isUnlocked,
     complete: () => vUnlockProgress(3),
     drawOrder: -1,
     node: {
@@ -823,7 +823,7 @@ export const celestialNavigation = {
     }
   },
   "v-unlock-4": {
-    visible: () => Achievement(151).isUnlocked || VUnlocks.vAchievementUnlock.isUnlocked,
+    visible: () => Achievement(151).canBeApplied || VUnlocks.vAchievementUnlock.isUnlocked,
     complete: () => vUnlockProgress(4),
     drawOrder: -1,
     node: {
@@ -851,7 +851,7 @@ export const celestialNavigation = {
     }
   },
   "v-unlock-5": {
-    visible: () => Achievement(151).isUnlocked || VUnlocks.vAchievementUnlock.isUnlocked,
+    visible: () => Achievement(151).canBeApplied || VUnlocks.vAchievementUnlock.isUnlocked,
     complete: () => vUnlockProgress(5),
     drawOrder: -1,
     node: {
@@ -879,7 +879,7 @@ export const celestialNavigation = {
     }
   },
   "v-unlock-6": {
-    visible: () => Achievement(151).isUnlocked || VUnlocks.vAchievementUnlock.isUnlocked,
+    visible: () => Achievement(151).canBeApplied || VUnlocks.vAchievementUnlock.isUnlocked,
     complete: () => vUnlockProgress(6),
     drawOrder: -1,
     node: {
@@ -1949,7 +1949,7 @@ export const celestialNavigation = {
           }
           let pelleString = "Pelle's Doomed Reality is still intact";
           let progressString = "Disable more nerfs/Strikes to continue";
-          if (!Achievement(195).isUnlocked && !ImaginaryUpgrade(30).isAvailableForPurchase) {
+          if (!Achievement(195).canBeApplied && !ImaginaryUpgrade(30).isAvailableForPurchase) {
             const remainingNerfs = (PelleAchievementUpgrade.all.length + PelleDestructionUpgrade.all.length +
               PelleRealityUpgrade.all.length + PelleImaginaryUpgrade.all.length + PelleCelestialUpgrade.all.length +
               PellePerkUpgrade.all.length + PelleAlchemyUpgrade.all.length) - (PelleAchievementUpgrade.all.filter(u => u.isBought).length +
@@ -1958,7 +1958,7 @@ export const celestialNavigation = {
               PellePerkUpgrade.all.filter(u => u.isBought).length + PelleAchievementUpgrade.all.filter(u => u.isBought).length);
             pelleString = "Pelle's Doomed Reality is still intact";
             progressString = `${formatInt(remainingNerfs)} nerfs remain`;
-          } else if (Achievement(195).isUnlocked && !ImaginaryUpgrade(30).isAvailableForPurchase) {
+          } else if (Achievement(195).canBeApplied && !ImaginaryUpgrade(30).isAvailableForPurchase) {
             const hexString = ["starting to break", "breaking apart", "visibly breaking", "almost broken", "on the verge of breaking"];
             const remainingStrikes = PelleStrikeUpgrade.all.length - PelleStrikeUpgrade.all.filter(u => u.isBought).length;
             pelleString = "Pelle's Doomed Reality is " + hexString[5 - remainingStrikes];

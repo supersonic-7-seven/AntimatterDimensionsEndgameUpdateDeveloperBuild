@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     update() {
-      this.isDisabled = Pelle.disabledAchievements.includes(this.id) && Pelle.isDoomed;
+      this.isDisabled = this.achievement.isDisabled;
       this.isUnlocked = this.achievement.isUnlocked && !this.isDisabled;
       this.isCancer = Theme.current().name === "S4" || player.secretUnlocks.cancerAchievements;
       this.showUnlockState = player.options.showHintText.achievementUnlockStates;

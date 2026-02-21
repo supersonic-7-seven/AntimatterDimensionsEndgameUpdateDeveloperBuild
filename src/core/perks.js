@@ -7,6 +7,7 @@ class PerkState extends SetPurchasableMechanicState {
      * @type {PerkState[]}
      */
     this.connectedPerks = [];
+    this._disabledPostReality = config.disabledPostReality ?? false;
   }
 
   get automatorPoints() {
@@ -37,8 +38,16 @@ class PerkState extends SetPurchasableMechanicState {
     return this.id === 0 || this.connectedPerks.some(p => p.isBought);
   }
 
+  get isDisabledInPreReality() {
+    return player.disablePostReality && (typeof this._disabledPostReality === "function" ? this._disabledPostReality() : this._disabledPostReality)
+  }
+
+  get isDisabled() {
+    return (Pelle.isDoomed && Pelle.uselessPerks.includes(this.id)) || this.isDisabledInPreReality;
+  }
+
   get canBeApplied() {
-    return this.isBought && !(Pelle.isDoomed && Pelle.uselessPerks.includes(this.id));
+    return this.isBought && !this.isDisabled;
   }
 
   initializeConnections() {

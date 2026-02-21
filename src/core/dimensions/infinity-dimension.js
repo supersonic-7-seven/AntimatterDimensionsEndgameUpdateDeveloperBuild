@@ -97,7 +97,7 @@ class InfinityDimensionState extends DimensionState {
   }
 
   get canUnlock() {
-    return ((Perk.bypassIDAntimatter.canBeApplied && !player.disablePostReality) || this.antimatterRequirementReached) &&
+    return (Perk.bypassIDAntimatter.canBeApplied || this.antimatterRequirementReached) &&
       this.ipRequirementReached;
   }
 

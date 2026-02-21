@@ -38,7 +38,6 @@ export class SacrificeAutobuyerState extends AutobuyerState {
   }
 
   tick() {
-    if ((Achievement(118).canBeApplied && (!player.disablePostReality || (Alpha.isRunning && Alpha.currentStage >= 12))) ||
-      Sacrifice.nextBoost.gte(Decimal.max(this.multiplier, 1.01))) sacrificeReset();
+    if (Achievement(118).canBeApplied || Sacrifice.nextBoost.gte(Decimal.max(this.multiplier, 1.01))) sacrificeReset();
   }
 }

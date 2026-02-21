@@ -84,7 +84,7 @@ export class TickspeedAutobuyerState extends UpgradeableAutobuyerState {
   }
 
   get resetTickOn() {
-    return Perk.antimatterNoReset.canBeApplied && !player.disablePostReality
+    return Perk.antimatterNoReset.canBeApplied
       ? PRESTIGE_EVENT.ANTIMATTER_GALAXY : PRESTIGE_EVENT.DIMENSION_BOOST;
   }
 

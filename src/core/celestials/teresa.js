@@ -13,7 +13,7 @@ export const Teresa = {
   possessiveName: "Teresa's",
   get isUnlocked() {
     if (EndgameMilestone.celestialEarlyUnlock.isReached) return true;
-    return Achievement(147).isUnlocked;
+    return Achievement(147).canBeApplied;
   },
   pourRM(diff, auto = false) {
     if (this.pouredAmount.gte(Teresa.pouredAmountCap)) return;

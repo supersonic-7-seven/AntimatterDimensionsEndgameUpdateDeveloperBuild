@@ -153,7 +153,7 @@ export const AD = {
           tier === 8 ? TimeStudy(214) : null,
           tier > 1 && tier < 8 ? InfinityChallenge(8).reward : null
         );
-        if (Achievement(43).isUnlocked) {
+        if (Achievement(43).canBeApplied) {
           dimMults[tier] = dimMults[tier].times(1 + tier / 100);
         }
       }

@@ -12,7 +12,7 @@ export const dilationTimeStudies = [
         return true;
       }
       const tsRequirement = [231, 232, 233, 234].some(id => TimeStudy(id).isBought);
-      if (Perk.bypassECDilation.canBeApplied && !player.disablePostReality) return tsRequirement;
+      if (Perk.bypassECDilation.canBeApplied) return tsRequirement;
       const ecRequirement = EternityChallenge(11).isFullyCompleted && EternityChallenge(12).isFullyCompleted;
       return tsRequirement && ecRequirement && ttRequirement;
     }

@@ -207,7 +207,7 @@ export const alchemyResources = {
     isBaseResource: false,
     effect: amount => {
       const rawValue = 0.3 + 1.7 * Math.sqrt(amount / 25000);
-      return Achievement(175).isUnlocked ? rawValue : Math.min(rawValue, 1);
+      return Achievement(175).canBeApplied ? rawValue : Math.min(rawValue, 1);
     },
     tier: 3,
     uiOrder: 2,
@@ -215,7 +215,7 @@ export const alchemyResources = {
     description: "increases the yield of Alchemy Reactions",
     formatEffect(value) {
       return `Alchemy Reaction efficiency ${formatPercents(0.3)} ➜ ${formatPercents(value, 2, 2)}
-        ${(!Achievement(175).isUnlocked && value >= 1) ? " (Capped)" : ""}`;
+        ${(!Achievement(175).canBeApplied && value >= 1) ? " (Capped)" : ""}`;
     },
     reagents: [
       {

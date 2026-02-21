@@ -214,7 +214,7 @@ export const infinityUpgrades = {
   ipOffline: {
     id: "ipOffline",
     cost: () => Math.pow(1000, Alpha.isRunning ? AlphaUnlocks.infinity.effects.nerf.effectOrDefault(1) : 1),
-    checkRequirement: () => Achievement(41).isUnlocked,
+    checkRequirement: () => Achievement(41).canBeApplied,
     description: () => (player.options.offlineProgress
       ? `Only while offline, gain ${formatPercents(0.5)} of your best IP/min without using Max All`
       : "This upgrade would give offline Infinity Point generation, but offline progress is currently disabled"),
@@ -227,7 +227,7 @@ export const infinityUpgrades = {
   ipMult: {
     id: "ipMult",
     cost: () => InfinityUpgrade.ipMult.cost,
-    checkRequirement: () => Achievement(41).isUnlocked,
+    checkRequirement: () => Achievement(41).canBeApplied,
     costCap: () => Alpha.isRunning ? Decimal.pow10(AlphaUnlocks.infinityChallenges.effects.nerf.effectOrDefault(Decimal.log10((BreakEternityUpgrade.doubleIPUncap.isBought && !player.disablePostReality) ? DC.BEMAX : DC.E6E6).sub(1))).times(10) : ((BreakEternityUpgrade.doubleIPUncap.isBought && !player.disablePostReality) ? DC.BEMAX : DC.E6E6),
     costIncreaseThreshold: () => (EndgameUpgrade(21).isBought && !player.disablePostReality) ? DC.BEMAX : DC.E3E6,
     description: () => `Multiply Infinity Points from all sources by ${formatX(2)}`,
