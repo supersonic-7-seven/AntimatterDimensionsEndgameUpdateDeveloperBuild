@@ -19,8 +19,8 @@ export const Ethereal = {
   get nextStar() {
     return EtherealStars.all.find(x => !x.isUnlocked);
   },
-  get nextStarUnlockStage() {
-    return this.nextStar?.unlockStage;
+  get nextStarDMReq() {
+    return this.nextStar?.dmReq;
   }
 };
 
@@ -37,12 +37,12 @@ export class EtherealStarState {
     return this.config.effect();
   }
 
-  get unlockStage() {
-    return this.config.unlockStage;
+  get dmReq() {
+    return this.config.dmReq;
   }
 
   get isUnlocked() {
-    return Alpha.currentStage >= this.unlockStage;
+    return Currency.dualMachines.value.gte(this.dmReq);
   }
 
   get canGainStar() {
