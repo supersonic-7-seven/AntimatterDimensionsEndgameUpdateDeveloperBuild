@@ -242,10 +242,10 @@ export const alphaUnlocks = {
   dilatedEternity: {
     id: 24,
     requirement: 25,
-    nerfDescription: () => `The base Dilation penalty is increased to ${formatPow(0.4, 2, 3)}`,
+    nerfDescription: () => `The base Dilation penalty is increased to ${formatPow(0.42, 2, 3)}`,
     buffDescription: () => `Tachyon Particle gain is raised ${formatPow(1.4, 2, 3)}`,
     effects: {
-      nerf: 0.4,
+      nerf: 0.42,
       buff: 1.4
     }
   },
