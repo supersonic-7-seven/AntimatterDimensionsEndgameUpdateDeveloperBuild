@@ -112,24 +112,24 @@ export const dualityUpgrades = [
     name: "Interference of Forever",
     id: 11,
     cost: new Decimal(1e9),
-    requirement: () => `${format("1e1600")} total Relic Shards
+    requirement: () => `${format("1e1640")} total Relic Shards
       (You have ${format(player.celestials.effarig.relicShards, 2)})`,
     hasFailed: () => false,
-    checkRequirement: () => player.celestials.effarig.relicShards.gte(DC.E1600),
+    checkRequirement: () => player.celestials.effarig.relicShards.gte(DC.E1640),
     checkEvent: GAME_EVENT.REALITY_RESET_AFTER,
-    description: "Multiply Continuum purchases by Hadronization amount",
-    effect: () => player.disablePostReality ? 1 : Laitela.hadronizes,
-    formatEffect: value => `${formatX(value, 2)}`
+    description: "Multiply Continuum purchases based on Hadronization amount",
+    effect: () => player.disablePostReality ? 1 : Math.sqrt(Laitela.hadronizes),
+    formatEffect: value => `${formatX(value, 2, 2)}`
   },
   {
     name: "Repercussions of Apparitions",
     id: 12,
     cost: new Decimal(6e9),
-    requirement: () => `Make a level ${formatInt(102250)} Glyph with all Glyph level factor weights at
+    requirement: () => `Make a level ${formatInt(102500)} Glyph with all Glyph level factor weights at
     ${formatInt(0)}`,
     hasFailed: () => !Object.values(player.celestials.effarig.glyphWeights).every(w => w === 0),
     checkRequirement: () => Object.values(player.celestials.effarig.glyphWeights).every(w => w === 0) &&
-      gainedGlyphLevel().actualLevel >= 102250,
+      gainedGlyphLevel().actualLevel >= 102500,
     checkEvent: GAME_EVENT.REALITY_RESET_BEFORE,
     description: "Raise free Dimboost gain to a power based on repeatable Duality Upgrade purchases",
     effect: () => player.disablePostReality ? 1 : 1 + Math.log10(DualityUpgrades.totalRebuyables) * 1.5,
@@ -155,8 +155,8 @@ export const dualityUpgrades = [
     hasFailed: () => false,
     checkRequirement: () => Tickspeed.perSecond.log10().gte(DC.E9E15),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    description: () => `Raise the Continuum Purchase boost to ${formatPow(1.5, 0, 1)}`,
-    effect: () => player.disablePostReality ? 1 : 1.5
+    description: () => `Raise the Continuum Purchase boost to ${formatPow(1.2, 0, 1)}`,
+    effect: () => player.disablePostReality ? 1 : 1.2
   },
   {
     name: "Invention of Duplexes",
