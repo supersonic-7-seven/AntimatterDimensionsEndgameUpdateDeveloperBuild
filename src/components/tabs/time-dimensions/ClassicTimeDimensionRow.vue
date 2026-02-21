@@ -65,8 +65,8 @@ export default {
       return `Unlock: ${format(this.ttCost)} TT`;
     },
     formattedEPCost() {
+      if (this.isContinuumActive) return this.isCapped ? `Capped: ${this.continuumString}` : `Continuum: ${this.continuumString}`;
       if (this.isCapped) return "Capped";
-      if (this.isContinuumActive) return `Continuum: ${this.continuumString}`;
       return `${this.showCostTitle ? "Cost: " : ""}${format(this.cost, 2)} EP`;
     },
     continuumString() {

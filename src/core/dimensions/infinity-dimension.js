@@ -390,7 +390,7 @@ export const InfinityDimensions = {
    */
   all: InfinityDimension.index.compact(),
   get HARDCAP_PURCHASES() {
-    return Alpha.isRunning ? AlphaUnlocks.breakUpgrades.effects.nerf.effectOrDefault(2000000) : 2000000;
+    return Alpha.isRunning ? AlphaUnlocks.breakUpgrades.effects.nerf.effectValue : 2000000;
   },
 
   get OVERFLOW() {

@@ -49,8 +49,8 @@ export default {
     },
     costDisplay() {
       if (this.isUnlocked || this.shiftDown) {
+        if (this.isContinuumActive) return this.isCapped ? `Capped: ${this.continuumString}` : `Continuum: ${this.continuumString}`;
         if (this.isCapped) return "Capped";
-        if (this.isContinuumActive) return `Continuum: ${this.continuumString}`;
         return this.showCostTitle ? `Cost: ${format(this.cost)} IP` : `${format(this.cost)} IP`;
       }
 

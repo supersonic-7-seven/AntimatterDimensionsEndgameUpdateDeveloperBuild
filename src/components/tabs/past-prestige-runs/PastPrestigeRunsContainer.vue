@@ -2,7 +2,7 @@
 function averageRun(allRuns) {
   // Filter out all runs which have the default infinite value for time, but if we're left with no valid runs then we
   // take just one entry so that the averages also have the same value and we don't get division by zero.
-  let runs = allRuns.filter(run => run[0] !== Number.MAX_VALUE);
+  let runs = allRuns.filter(run => run[1] !== Number.MAX_VALUE);
   if (runs.length === 0) runs = [allRuns[0]];
 
   const longestRow = allRuns.map(r => r.length).max();
@@ -65,18 +65,21 @@ export default {
     getRuns() {
       return this.layer.getRuns;
     },
+    isEndgame() {
+      return this.layer.name === "Endgame";
+    },
     hasRealTime: () => PlayerProgress.seenAlteredSpeed(),
   },
   methods: {
     update() {
       this.runs = this.clone(this.getRuns());
-      this.hasEmptyRecord = this.runs[0][0] === Number.MAX_VALUE;
+      this.hasEmptyRecord = this.runs[0][1] === Number.MAX_VALUE;
       this.runs.push(this.averageRun);
       this.isRealityUnlocked = PlayerProgress.current.isRealityUnlocked;
       this.shown = player.shownRuns[this.singular];
       this.resourceType = player.options.statTabResources;
       this.showRate = this.resourceType === RECENT_PRESTIGE_RESOURCE.RATE;
-      this.hasChallenges = this.runs.map(r => this.challengeText(r)).some(t => t);
+      this.hasChallenges = this.layer.hasChallenge ?? this.runs.map(r => this.challengeText(r)).some(t => t);
       this.hasIM = MachineHandler.currentIMCap.gt(0);
 
       // We have 4 different "useful" stat pairings we could display, but this ends up being pretty boilerplatey
@@ -131,9 +134,13 @@ export default {
       const resources = [this.prestigeCurrencyGain(run), this.prestigeCurrencyRate(run),
         this.prestigeCountGain(run), this.prestigeCountRate(run)];
       cells.push(resources[this.selectedResources[0]]);
+      if (this.isEndgame) {
+        cells.push((this.layer.allowRate[0] && this.showRate) ? this.rateText(run, run[3]) : this.layer.formatExtra[0](run[3]));
+      }
       cells.push(resources[this.selectedResources[1]]);
 
       if (this.hasChallenges) cells.push(this.challengeText(run));
+      if (this.isEndgame) return cells;
       for (let i = 0; i < this.layer.extra?.length && cells.length <= this.longestRow; i++) {
         if (!this.layer.showExtra[i]()) continue;
         const formatFn = this.layer.formatExtra[i];
@@ -149,7 +156,12 @@ export default {
       if (this.hasRealTime) cells.push("Real Time");
       cells.push(...this.resourceTitles);
       if (this.hasChallenges) cells.push("Challenge");
-
+      if (this.isEndgame && this.layer.showExtra[0]()) {
+        cells.splice(4, 0, (this.layer.allowRate[0] && this.showRate)
+          ? this.layer.rateString[0]
+          : this.layer.extra[0]);
+        return cells;
+      }
       for (let index = 0; index < this.layer.extra?.length && cells.length <= this.longestRow; index++) {
         if (!this.layer.showExtra[index]()) continue;
         cells.push((this.layer.allowRate[index] && this.showRate)
@@ -169,14 +181,14 @@ export default {
       return `${format(run[2], 2)} ${this.points}`;
     },
     prestigeCountGain(run) {
-      return quantify(this.singular, run[3]);
+      return quantify(this.singular, this.isEndgame ? run[4] : run[3]);
     },
     prestigeCurrencyRate(run) {
       if (this.hasIM && this.layer.name === "Reality") return "N/A";
       return this.rateText(run, run[2]);
     },
     prestigeCountRate(run) {
-      return this.rateText(run, run[3]);
+      return this.rateText(run, this.isEndgame ? run[4] : run[3]);
     },
     rateText(run, amount) {
       const time = run[1];
@@ -239,7 +251,10 @@ export default {
         <h3>Last {{ formatInt(10) }} {{ plural }}:</h3>
       </span>
     </div>
-    <div v-show="shown">
+    <div
+      v-show="shown"
+      class="c-past-runs-table"
+    >
       <div class="c-row-container">
         <span
           v-for="(entry, col) in infoCol()"
@@ -254,7 +269,7 @@ export default {
         :key="index"
       >
         <span
-          v-if="run[0] === Number.MAX_VALUE"
+          v-if="run[1] === Number.MAX_VALUE"
           class="c-empty-row"
         >
           <i v-if="index === 10">

@@ -100,7 +100,7 @@ export default {
   color: var(--color-laitela--accent);
   transition-duration: 0.3s;
   cursor: pointer;
-  margin: 0.3rem 0.3rem 0 0;
+  margin: 0 0.3rem 0 0;
 }
 
 .c-annihilation-autobuyer-mode-button:hover {
