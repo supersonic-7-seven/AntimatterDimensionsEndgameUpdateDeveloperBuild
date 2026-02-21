@@ -816,7 +816,7 @@ export function gameLoop(passedDiff, options = {}) {
   const repDiff = Alpha.isRunning ? Decimal.pow(diff, 0.1) : diff;
   replicantiLoop(repDiff);
 
-  Currency.dilatedTime.add(getDilationGainPerSecond().times(player.options.updateRate).div(1000));
+  Currency.dilatedTime.add(getDilationGainPerSecond().times(realDiff).div(1000));
 
   updateTachyonGalaxies();
   Currency.timeTheorems.add(getTTPerSecond().times(diff).div(1000));
