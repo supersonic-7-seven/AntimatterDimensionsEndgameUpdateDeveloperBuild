@@ -119,7 +119,7 @@ export const dualityUpgrades = [
     checkEvent: GAME_EVENT.REALITY_RESET_AFTER,
     description: "Multiply Continuum purchases based on Hadronization amount",
     effect: () => player.disablePostReality ? 1 : Math.sqrt(Laitela.hadronizes),
-    formatEffect: value => `${formatX(value, 2)}`
+    formatEffect: value => `${formatX(value, 2, 2)}`
   },
   {
     name: "Repercussions of Apparitions",
