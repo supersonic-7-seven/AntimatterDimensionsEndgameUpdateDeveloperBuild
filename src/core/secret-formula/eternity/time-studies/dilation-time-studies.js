@@ -2,7 +2,7 @@ export const dilationTimeStudies = [
   {
     id: 1,
     description: "Unlock Time Dilation",
-    cost: () => Alpha.isRunning ? AlphaUnlocks.ec11Bulk.effects.nerf.effectOrDefault(5000) : 5000,
+    cost: () => Alpha.isRunning ? AlphaUnlocks.ec11Bulk.effects.nerfA.effectOrDefault(5000) : 5000,
     requirement: () => {
       const ttRequirement = Currency.timeTheorems.max.gte(TimeStudy.dilation.totalTimeTheoremRequirement);
       if ((Ra.unlocks.autoUnlockDilation.canBeApplied && !player.disablePostReality) &&

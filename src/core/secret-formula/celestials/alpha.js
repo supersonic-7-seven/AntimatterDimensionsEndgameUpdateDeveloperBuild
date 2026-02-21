@@ -221,30 +221,31 @@ export const alphaUnlocks = {
   ec11Bulk: {
     id: 22,
     requirement: 23,
-    nerfDescription: () => `The Dilation Study costs ${formatInt(12900)} Time Theorems`,
+    nerfDescription: () => `The Dilation Study costs ${formatInt(10000)} Time Theorems, but remove the TD4 nerf and reduce the Free Tickspeed threshold to ${format(1.2, 2, 2)}`,
     buffDescription: () => `Reduce Post-Break Tickspeed cost scale by ${format(0.075, 3, 3)}`,
     effects: {
-      nerf: 12900,
+      nerfA: 10000,
+      nerfB: 1.2,
       buff: 0.075
     }
   },
   unlockDilation: {
     id: 23,
     requirement: 24,
-    nerfDescription: () => `The base Dilation penalty is increased to ${formatPow(0.7, 2, 3)}`,
+    nerfDescription: () => `The base Dilation penalty is increased to ${formatPow(0.5, 2, 3)}`,
     buffDescription: () => `The base Dilation penalty is reduced to ${formatPow(0.8, 2, 3)}`,
     effects: {
-      nerf: 0.7,
+      nerf: 0.5,
       buff: 0.8
     }
   },
   dilatedEternity: {
     id: 24,
     requirement: 25,
-    nerfDescription: () => `The base Dilation penalty is increased to ${formatPow(0.65, 2, 3)}`,
+    nerfDescription: () => `The base Dilation penalty is increased to ${formatPow(0.4, 2, 3)}`,
     buffDescription: () => `Tachyon Particle gain is raised ${formatPow(1.4, 2, 3)}`,
     effects: {
-      nerf: 0.65,
+      nerf: 0.4,
       buff: 1.4
     }
   },
