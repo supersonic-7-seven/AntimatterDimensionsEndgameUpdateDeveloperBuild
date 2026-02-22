@@ -11,7 +11,7 @@ export const glyphSacrifice = {
     description: amount => {
       const sacCap = GlyphSacrificeHandler.maxSacrificeForEffects;
       const nextDistantGalaxy = Decimal.pow(10, Decimal.pow((amount.add(1)).div(750), new Decimal(1 / 1.2)).times(100)).sub(1);
-      const nextGalaxyText = amount.lt(750)
+      const nextGalaxyText = nextDistantGalaxy.lte(sacCap)
         ? ` (next at ${format(nextDistantGalaxy, 2, 2)})`
         : "";
       return `Distant Galaxy scaling starts ${formatHybridLarge(amount, 3)} later${nextGalaxyText}`;
@@ -52,7 +52,7 @@ export const glyphSacrifice = {
     description: amount => {
       const sacCap = GlyphSacrificeHandler.maxSacrificeForEffects;
       const nextDistantGalaxy = Decimal.pow(10, Decimal.pow((amount.add(1)).div(1500), new Decimal(1 / 1.2)).times(100)).sub(1);
-      const nextGalaxyText = amount.lt(1500)
+      const nextGalaxyText = nextDistantGalaxy.lte(sacCap)
         ? ` (next at ${format(nextDistantGalaxy, 2, 2)})`
         : "";
       return `Replicanti Galaxy scaling starts ${formatHybridLarge(amount, 3)} later${nextGalaxyText}`;
