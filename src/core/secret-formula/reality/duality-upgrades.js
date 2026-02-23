@@ -177,7 +177,7 @@ export const dualityUpgrades = [
     cost: new Decimal(4e12),
     requirement: () => "Have a fully empowered Hadron",
     hasFailed: () => false,
-    checkRequirement: () => false,
+    checkRequirement: () => Hadrons.timeFactor.times(4).gte(100),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Unlock a 2nd Hadron effect",
   },
