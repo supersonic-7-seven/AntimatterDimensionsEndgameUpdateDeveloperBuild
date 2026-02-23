@@ -3,7 +3,7 @@ export const Hadrons = {
     return player.celestials.laitela.hadrons;
   },
   get timeFactor() {
-    return Time.thisEndgameRealTime._ms.div(36000);
+    return DualityUpgrade(15).isBought ? Time.thisEndgameRealTime._ms.div(36000) : DC.D0;
   },
   get singularityMultiplier() {
     return DualityUpgrade(15).isBought ? Decimal.pow10(new Decimal(this.hadrons.light).times(this.timeFactor.times(4).min(100)).times(10)) : DC.D1;
