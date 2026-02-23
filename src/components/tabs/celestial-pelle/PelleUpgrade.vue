@@ -88,7 +88,7 @@ export default {
       if (this.hasTimeEstimate && (this.hovering || this.shouldEstimateImprovement)) {
         this.currentTimeEstimate = TimeSpan
           .fromSeconds((this.galaxyGenerator && this.config.currencyLabel === "Galaxy")
-            ? Decimal.sub(GalaxyGenerator.realGalaxyToUnnerfGalaxy(this.upgrade.cost.sub(player.galaxies)), GalaxyGenerator.galaxiesOriginal).div(new Decimal("1e600")).div(GalaxyGenerator.gainPerSecondPreCap.div(new Decimal("1e600")))
+            ? this.secondsUntilGalaxy()
             : this.secondsUntilRSCost(Pelle.realityShardGainPerSecond))
           .toTimeEstimate();
         this.projectedTimeEstimate = TimeSpan
@@ -100,6 +100,10 @@ export default {
       const genDB = GameDatabase.celestials.pelle.galaxyGeneratorUpgrades;
       this.notAffordable = (this.config === genDB.additive || this.config === genDB.multiplicative) &&
         (Decimal.gt(this.upgrade.cost, new Decimal(this.galaxyCap).sub(GalaxyGenerator.generatedGalaxies).add(player.galaxies).add(GalaxyGenerator.galaxies)));
+    },
+    secondsUntilGalaxy() {
+      // The accuracy is worse in bigger numbers, but we can't fix it
+      return Decimal.sub(GalaxyGenerator.realGalaxyToUnnerfGalaxy(this.upgrade.cost.sub(player.galaxies)), GalaxyGenerator.galaxiesOriginal).div(GalaxyGenerator.gainPerSecondPreCap);
     },
     secondsUntilRSCost(rate) {
       const value = Currency.realityShards.value;
