@@ -21,39 +21,39 @@ export default {
   },
   computed: {
     effect1Time() {
-      return TimeSpan.fromHours(new Decimal(0.25).sub(this.hadronTimer)).toStringShort();
+      return new Decimal(0.25).sub(this.hadronTimer);
     },
     effect2Time() {
-      return TimeSpan.fromHours(new Decimal(0.5).sub(this.hadronTimer)).toStringShort();
+      return new Decimal(0.5).sub(this.hadronTimer);
     },
     effect3Time() {
-      return TimeSpan.fromHours(new Decimal(1).sub(this.hadronTimer)).toStringShort();
+      return new Decimal(1).sub(this.hadronTimer);
     },
     effect4Time() {
-      return TimeSpan.fromHours(new Decimal(2).sub(this.hadronTimer)).toStringShort();
+      return new Decimal(2).sub(this.hadronTimer);
     },
     effect5Time() {
-      return TimeSpan.fromHours(new Decimal(5).sub(this.hadronTimer)).toStringShort();
+      return new Decimal(5).sub(this.hadronTimer);
     },
     effect1Text() {
       if (this.effect1Time.lte(0)) return `Effect is capped`;
-      return `Time to cap: ${this.effect1Time}`;
+      return `Time to cap: ${TimeSpan.fromHours(this.effect1Time).toStringShort()}`;
     },
     effect2Text() {
       if (this.effect1Time.lte(0)) return `Effect is capped`;
-      return `Time to cap: ${this.effect1Time}`;
+      return `Time to cap: ${TimeSpan.fromHours(this.effect2Time).toStringShort()}`;
     },
     effect3Text() {
       if (this.effect3Time.lte(0)) return `Effect is capped`;
-      return `Time to cap: ${this.effect1Time}`;
+      return `Time to cap: ${TimeSpan.fromHours(this.effect3Time).toStringShort()}`;
     },
     effect4Text() {
       if (this.effect4Time.lte(0)) return `Effect is capped`;
-      return `Time to cap: ${this.effect1Time}`;
+      return `Time to cap: ${TimeSpan.fromHours(this.effect4Time).toStringShort()}`;
     },
     effect5Text() {
       if (this.effect5Time.lte(0)) return `Effect is capped`;
-      return `Time to cap: ${this.effect1Time}`;
+      return `Time to cap: ${TimeSpan.fromHours(this.effect5Time).toStringShort()}`;
     },
     hadronTime() {
       return TimeSpan.fromHours(this.hadronTimer).toStringShort();
