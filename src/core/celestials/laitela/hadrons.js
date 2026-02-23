@@ -12,12 +12,12 @@ export const Hadrons = {
     return DualityUpgrade(16).isBought ? Decimal.pow10(new Decimal(this.hadrons.light).times(this.timeFactor.times(2).min(100)).times(100)) : DC.D1;
   },
   get darkEnergyAscensionBoost() {
-    return DualityUpgrade(17).isBought ? new Decimal(this.hadrons.light).times(this.timeFactor.min(100)).toNumber() : 0;
+    return DualityUpgrade(17).isBought ? new Decimal(this.hadrons.light).times(this.timeFactor.min(100)) : DC.D0;
   },
   get entropyFormulaBoost() {
     return DualityUpgrade(18).isBought ? Decimal.pow(Decimal.log10(this.timeFactor.div(2).max(1).min(100)).times(2).add(1), this.hadrons.light) : DC.D1;
   },
   get continuumMultiplier() {
-    return DualityUpgrade(19).isBought ? Decimal.pow(Decimal.log10(this.timeFactor.div(5).max(1).min(100)).div(2).add(1), this.hadrons.dark) : 1;
+    return DualityUpgrade(19).isBought ? Decimal.pow(Decimal.log10(this.timeFactor.div(5).max(1).min(100)).div(2).add(1), this.hadrons.dark) : DC.D1;
   }
 };
