@@ -151,9 +151,9 @@ export const dualityUpgrades = [
     name: "Reminiscence of Corruption",
     id: 14,
     cost: new Decimal(3e11),
-    requirement: () => `Reach a tickspeed of ${format("e1e700")}?`,
+    requirement: () => `Reach a tickspeed of ${format("e1e666")}?`,
     hasFailed: () => false,
-    checkRequirement: () => Tickspeed.perSecond.log10().gte(DC.E9E15),
+    checkRequirement: () => Tickspeed.perSecond.log10().gte("1e666"),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: () => `Raise the Continuum Purchase boost to ${formatPow(1.2, 0, 1)}`,
     effect: () => player.disablePostReality ? 1 : 1.2
