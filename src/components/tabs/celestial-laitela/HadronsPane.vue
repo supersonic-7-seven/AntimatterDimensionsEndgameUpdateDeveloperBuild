@@ -101,10 +101,10 @@ export default {
   <div class="c-laitela-hadrons-container">
     <div class="c-laitela-hadrons-row">
       <h2>
-        You have {{ quantify("Hadrons", lightHadrons, 2) }}
+        You have {{ quantify("Hadron", lightHadrons, 2) }}
       </h2>
       <h2 v-if="hasDark">
-        You have {{ quantify("Dark Hadrons", darkHadrons, 2) }}
+        You have {{ quantify("Dark Hadron", darkHadrons, 2) }}
       </h2>
       <br>
       <h2>
