@@ -181,7 +181,10 @@ export default {
         {{ effect5Text }}
       </div>
     </div>
-    <div v-if="hasDark">
+    <div
+      v-if="hasDark"
+      class="c-laitela-hadrons-row"
+    >
       <button
         class="c-laitela-hadrons-assign"
         :class="{ 'c-laitela-hadrons-assign--available' : lightHadrons > 0 }"
