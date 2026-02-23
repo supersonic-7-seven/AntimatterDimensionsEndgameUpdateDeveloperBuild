@@ -151,7 +151,7 @@ export const dualityUpgrades = [
     name: "Reminiscence of Corruption",
     id: 14,
     cost: new Decimal(3e11),
-    requirement: () => `Reach a tickspeed of ${format("e1e666")}?`,
+    requirement: () => `Reach a tickspeed of ${format("e1e666")}`,
     hasFailed: () => false,
     checkRequirement: () => Tickspeed.perSecond.log10().gte("1e666"),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
@@ -162,11 +162,11 @@ export const dualityUpgrades = [
     name: "Invention of Duplexes",
     id: 15,
     cost: new Decimal(1e12),
-    requirement: () => `Reach ${format("e1e40")}? antimatter without ever having Infinity, Time, or ${formatInt(8)}th Antimatter
+    requirement: () => `Reach ${format("e5e55")} antimatter without ever having Infinity, Time, or ${formatInt(8)}th Antimatter
       Dimensions this Endgame while Dilated`,
     hasFailed: () => !player.requirementChecks.endgame.onlyLowDims,
     checkRequirement: () => player.requirementChecks.endgame.onlyLowDims && player.dilation.active &&
-      player.antimatter.add(1).log10().gte(DC.E9E15),
+      player.antimatter.add(1).log10().gte(5e55),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     canLock: true,
     description: "Unlock Hadrons",
