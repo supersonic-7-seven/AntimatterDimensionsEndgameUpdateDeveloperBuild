@@ -590,6 +590,11 @@ export const Endgame = {
     player.requirementChecks.reality.maxStudies = 0;
     player.requirementChecks.reality.maxGlyphs = 0;
     player.requirementChecks.reality.slowestBH = 1;
+    player.requirementChecks.endgame.noGlyphsDoomed = true;
+    player.requirementChecks.endgame.onlyLowDims = true;
+    player.requirementChecks.endgame.maxStudies = 0;
+    player.requirementChecks.endgame.noContinuum = true;
+    player.requirementChecks.endgame.noGlyphs = true;
     resetChallengeStuff();
     player.eternityChalls = {};
     player.reality.unlockedEC = 0;
