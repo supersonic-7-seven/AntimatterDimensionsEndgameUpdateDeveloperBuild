@@ -92,7 +92,7 @@ export const Laitela = {
     if (ImaginaryUpgrade(28).isBought) baseCap = DC.E20000;
     if (ImaginaryUpgrade(29).isBought) baseCap = DC.E100000;
     const realityReward = (ExpansionPack.laitelaPack.isBought && !player.disablePostReality) ? this.realityReward : 1;
-    return baseCap.times(EndgameUpgrade(4).effectOrDefault(1)).times(realityReward);
+    return baseCap.times(EndgameUpgrade(4).effectOrDefault(1)).times(realityReward).times(Hadrons.darkMatterCapMultiplier);
   },
   get annihilationUnlocked() {
     return ImaginaryUpgrade(19).isBought;
