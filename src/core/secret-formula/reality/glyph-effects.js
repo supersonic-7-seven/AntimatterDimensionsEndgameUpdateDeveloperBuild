@@ -284,7 +284,8 @@ export const glyphEffects = {
     totalDesc: "Infinity Dimension multipliers ^{value}",
     shortDesc: "ID power +{value}",
     effect: (level, strength) => 1.007 + Math.pow(level, 0.21) * Math.pow(strength, 0.4) / 75 +
-      GlyphAlteration.sacrificeBoost("infinity") / 50,
+      Math.min(GlyphAlteration.sacrificeBoost("infinity") / 50, 2.5) +
+      (Math.pow(Math.max(Math.log10(GlyphAlteration.sacrificeBoost("infinity")) - Math.log10(125), 0) + 1, 2) - 1),
     formatEffect: x => format(x, 3, 3),
     formatSingleEffect: x => format(x - 1, 3, 3),
     combine: GlyphCombiner.addExponents,
