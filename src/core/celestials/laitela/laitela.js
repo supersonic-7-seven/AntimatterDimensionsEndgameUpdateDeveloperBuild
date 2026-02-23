@@ -143,6 +143,8 @@ export const Laitela = {
     this.celestial.fastestCompletion = 3600;
     this.celestial.difficultyTier = 0;
     this.celestial.hadronizes += 1;
+    if (DualityUpgrade(15).isBought) this.celestial.hadrons.total += 1;
+    if (DualityUpgrade(15).isBought) this.celestial.hadrons.light += 1;
     return true;
   },
   reset() {
