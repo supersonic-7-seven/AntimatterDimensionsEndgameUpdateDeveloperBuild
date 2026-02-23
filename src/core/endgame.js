@@ -281,10 +281,8 @@ export const Endgame = {
         10: 0,
       };
     }
-    player.reality.reqLock = {
-      reality: 0,
-      imaginary: 0,
-    };
+    player.reality.reqLock.reality = 0;
+    player.reality.reqLock.imaginary = 0;
     if (!EndgameMastery(112).isBought) {
       player.reality.perks = new Set();
     }
