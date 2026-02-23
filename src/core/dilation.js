@@ -149,7 +149,7 @@ export function getDilationGainPerSecond() {
       .timesEffectsOf(DilationUpgrade.dtGain, DilationUpgrade.dtGainPelle, DilationUpgrade.flatDilationMult)
       .times(ShopPurchase.dilatedTimePurchases.currentMult ** 0.5)
       .times(Pelle.specialGlyphEffect.dilation).times(pelleExtraDT)
-      .times(Alpha.isRunning ? 1 : getGameSpeedupForDisplay());
+      .times(Alpha.isRunning ? getGameSpeedupForDisplay().pow(0.01) : getGameSpeedupForDisplay());
     if (dtRate.gte(DilationSoftcapStart.PRIMARY_THRESHOLD)) {
       dtRate = Decimal.pow(10, (((Decimal.log10(dtRate).sub(Decimal.log10(DilationSoftcapStart.PRIMARY_THRESHOLD))).div(10)).add(
         Decimal.log10(DilationSoftcapStart.PRIMARY_THRESHOLD))));
@@ -172,7 +172,7 @@ export function getDilationGainPerSecond() {
     Decimal.clampMin(Decimal.log10(Replicanti.amount.add(1)).times(getAdjustedGlyphEffect("replicationdtgain")), 1));
   if (Enslaved.isRunning && !dtRate.eq(0)) dtRate = Decimal.pow10(Decimal.pow(dtRate.plus(1).log10(), 0.85).sub(1));
   if (V.isRunning) dtRate = dtRate.pow(0.5);
-  dtRate = dtRate.times(Alpha.isRunning ? 1 : getGameSpeedupForDisplay());
+  dtRate = dtRate.times(Alpha.isRunning ? getGameSpeedupForDisplay().pow(0.01) : getGameSpeedupForDisplay());
   if (dtRate.gte(DilationSoftcapStart.PRIMARY_THRESHOLD)) {
     dtRate = Decimal.pow(10, (((Decimal.log10(dtRate).sub(Decimal.log10(DilationSoftcapStart.PRIMARY_THRESHOLD))).div(10)).add(
       Decimal.log10(DilationSoftcapStart.PRIMARY_THRESHOLD))));
