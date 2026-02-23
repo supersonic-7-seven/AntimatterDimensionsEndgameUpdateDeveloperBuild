@@ -819,7 +819,7 @@ export function gameLoop(passedDiff, options = {}) {
   Currency.dilatedTime.add(getDilationGainPerSecond().times(realDiff).div(1000));
 
   updateTachyonGalaxies();
-  Currency.timeTheorems.add(getTTPerSecond().times(diff).div(1000));
+  Currency.timeTheorems.add(getTTPerSecond().times(Alpha.isRunning ? realDiff : diff).div(1000));
   InfinityDimensions.tryAutoUnlock();
 
   BlackHoles.updatePhases(blackHoleDiff);
