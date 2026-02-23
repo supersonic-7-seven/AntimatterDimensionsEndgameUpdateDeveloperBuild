@@ -84,6 +84,10 @@ class DualityUpgradeState extends BitPurchasableMechanicState {
 
   onPurchased() {
     EventHub.dispatch(GAME_EVENT.REALITY_UPGRADE_BOUGHT);
+    if (this.id === 15) {
+      player.celestials.laitela.hadrons.total = Laitela.hadronizes;
+      player.celestials.laitela.hadrons.light = Laitela.hadronizes;
+    }
   }
 }
 
