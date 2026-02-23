@@ -50,7 +50,7 @@ export const Laitela = {
     if ((Pelle.isDoomed && !PelleDestructionUpgrade.continuumBuff.isBought) || player.disablePostReality) return 1;
     return (Decimal.pow(Decimal.pow(new Decimal(Decimal.log10(Currency.darkMatter.max.add(1))).div(50), 0.4).times(0.5).add(1).times(
       SingularityMilestone.continuumMult.effectOrDefault(new Decimal(0)).add(1)).times(
-      DualityUpgrade(11).effectOrDefault(1))), DualityUpgrade(14).effectOrDefault(1)).toNumber();
+      DualityUpgrade(11).effectOrDefault(1)), DualityUpgrade(14).effectOrDefault(1))).toNumber();
   },
   get hadronizes() {
     return this.celestial.hadronizes;
