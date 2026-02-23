@@ -7,6 +7,25 @@ export const GalaxyGenerator = {
   // are refilling and the single glyph slot (which was lost during the drain) becomes available again
   hasReturnedGlyphSlot: false,
 
+  unnerfGalaxyToRealGalaxy(unnerf) {
+    let gal = unnerf;
+    if (gal.lte(this.instabilityStart)) return gal;
+    gal = gal.div(this.instabilityStart).pow(1 - 0.6 * Math.log10(this.galGenInstability)).mul(this.instabilityStart);
+    if (gal.lte(this.harshInstabilityStart)) return gal;
+    return gal.div(this.harshInstabilityStart).pow(1 - 0.6 * Math.log10(this.harshGalGenInstability)).mul(this.harshInstabilityStart);
+  },
+
+  realGalaxyToUnnerfGalaxy(real) {
+    let gal = real;
+    if (gal.gt(this.harshInstabilityStart)) {
+      gal = gal.div(this.harshInstabilityStart).pow(1 / (1 - 0.6 * Math.log10(this.harshGalGenInstability))).mul(this.harshInstabilityStart);
+    }
+    if (gal.gt(this.instabilityStart)) {
+      gal = gal.div(this.instabilityStart).pow(1 / (1 - 0.6 * Math.log10(this.galGenInstability))).mul(this.instabilityStart);
+    }
+    return gal;
+  },
+
   get generationCaps() {
     return PelleRifts.all
       .map(x => ({ rift: x.config.key, cap: x.config.galaxyGeneratorThreshold }))
@@ -21,14 +40,22 @@ export const GalaxyGenerator = {
     return player.celestials.pelle.galaxyGenerator.generatedGalaxies;
   },
 
-  get galaxies() {
+  get generatedGalaxiesDisplay() {
+    return this.unnerfGalaxyToRealGalaxy(this.generatedGalaxies);
+  },
+
+  get galaxiesOriginal() {
     return this.generatedGalaxies.sub(this.spentGalaxies);
   },
 
+  get galaxies() {
+    return this.unnerfGalaxyToRealGalaxy(this.galaxiesOriginal);
+  },
+
   get gainPerSecondPreCap() {
+    if (!Pelle.hasGalaxyGenerator) return new Decimal(0);
     let extraGain = 1;
     if (EndgameMilestone.moreFasterGalaxies.isReached && !player.disablePostReality) extraGain = Decimal.pow(10, Math.min(Currency.endgames.value / 200, 50)).times(Decimal.pow(10, Math.max((Math.log10(Currency.endgames.value + 1) - 4) * 50, 0)));
-    if (!Pelle.hasGalaxyGenerator) return new Decimal(0);
     return new Decimal(GalaxyGeneratorUpgrades.additive.effectValue).timesEffectsOf(
       GalaxyGeneratorUpgrades.multiplicative,
       GalaxyGeneratorUpgrades.antimatterMult,
@@ -50,15 +77,10 @@ export const GalaxyGenerator = {
     return 1e60;
   },
 
-  harshGalGenInstabilityByGalaxies(currGalaxies) {
-    const extremePower = GalacticPowers.galGenInstability2.isUnlocked ? GalacticPowers.galGenInstability2.reward : 1;
-    const power = (Decimal.log10(Decimal.clamp(currGalaxies.div(this.harshInstabilityStart), 1, 1e50)).div(1000)).times(Effects.product(EndgameUpgrade(14))).times(1 / extremePower).toNumber();
-    return Math.pow(1 + power, Decimal.log10(Decimal.clamp(currGalaxies.div(this.harshInstabilityStart), 1, 1e50)).toNumber());
-  },
-
   get harshGalGenInstability() {
-    const currGalaxies = player.galaxies.add(GalaxyGenerator.galaxies);
-    return this.harshGalGenInstabilityByGalaxies(currGalaxies);
+    const extremePower = GalacticPowers.galGenInstability2.isUnlocked ? GalacticPowers.galGenInstability2.reward : 1;
+    const power = new Decimal(10).times(Effects.product(EndgameUpgrade(14))).times(1 / extremePower).toNumber();
+    return power;
   },
 
   get instabilityStart() {
@@ -66,37 +88,9 @@ export const GalaxyGenerator = {
     return 1e10 * delay;
   },
 
-  gainPerSecondPostCapByGalaxies(currGalaxies) {
-    if (!Pelle.hasGalaxyGenerator) return new Decimal(1);
-    return Decimal.max(1, Decimal.pow(Decimal.pow(this.galGenInstability, this.harshGalGenInstabilityByGalaxies(currGalaxies)), Decimal.log10(Decimal.max(Decimal.pow(currGalaxies.div(this.instabilityStart), 0.75), 1))));
-  },
-
-  get gainPerSecondPostCap() {
-    if (!Pelle.hasGalaxyGenerator) return new Decimal(1);
-    const currGalaxies = player.galaxies.add(GalaxyGenerator.galaxies);
-    return this.gainPerSecondPostCapByGalaxies(currGalaxies);
-  },
-
-  get gainPerSecond() {
+  get gainPerSecondDisplay() {
     if (!Pelle.hasGalaxyGenerator) return new Decimal(0);
-    return this.gainPerSecondPreCap.div(this.gainPerSecondPostCap);
-  },
-
-  gainPerSecondDisplay(neededCount) {
-    // Equals to 1/gainPerSecond
-    function g(x) {
-      return new Decimal(GalaxyGenerator.gainPerSecondPostCapByGalaxies(x)).div(GalaxyGenerator.gainPerSecondPreCap);
-    }
-
-    const currGalaxies = player.galaxies.add(GalaxyGenerator.galaxies);
-    const N = 1000;
-    const h = new Decimal(neededCount).sub(currGalaxies).div(N);
-    let s = g(currGalaxies).add(g(neededCount));
-    for (let i = 1; i <= N - 1; i++) {
-      const x = currGalaxies.add(h.mul(i));
-      s = s.add(g(x).mul((i & 1) ? 4 : 2));
-    }
-    return s.mul(h).div(3);
+    return this.unnerfGalaxyToRealGalaxy(this.galaxiesOriginal.add(this.gainPerSecondPreCap)).sub(this.galaxies);
   },
 
   get capObj() {
@@ -158,7 +152,7 @@ export const GalaxyGenerator = {
       }
 
     }
-    player.celestials.pelle.galaxyGenerator.generatedGalaxies = player.celestials.pelle.galaxyGenerator.generatedGalaxies.add(Decimal.max(this.gainPerSecond.times(diff).div(1000), 0));
+    player.celestials.pelle.galaxyGenerator.generatedGalaxies = player.celestials.pelle.galaxyGenerator.generatedGalaxies.add(Decimal.max(this.gainPerSecondPreCap.times(diff).div(1000), 0));
     player.celestials.pelle.galaxyGenerator.generatedGalaxies = Decimal.min(
       player.celestials.pelle.galaxyGenerator.generatedGalaxies,
       this.generationCap

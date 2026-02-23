@@ -88,7 +88,7 @@ export default {
       if (this.hasTimeEstimate && (this.hovering || this.shouldEstimateImprovement)) {
         this.currentTimeEstimate = TimeSpan
           .fromSeconds((this.galaxyGenerator && this.config.currencyLabel === "Galaxy")
-            ? GalaxyGenerator.gainPerSecondDisplay(this.upgrade.cost)
+            ? Decimal.sub(GalaxyGenerator.realGalaxyToUnnerfGalaxy(this.upgrade.cost.sub(player.galaxies)), GalaxyGenerator.galaxiesOriginal).div(new Decimal("1e600")).div(GalaxyGenerator.gainPerSecondPreCap.div(new Decimal("1e600")))
             : this.secondsUntilRSCost(Pelle.realityShardGainPerSecond))
           .toTimeEstimate();
         this.projectedTimeEstimate = TimeSpan

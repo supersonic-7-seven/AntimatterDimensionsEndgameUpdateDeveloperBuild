@@ -2017,7 +2017,7 @@ export const celestialNavigation = {
       legend: {
         text: () => [
           "Galaxy Generator:",
-          `${format(GalaxyGenerator.generatedGalaxies, 2)} / ${format(GalaxyGenerator.generationCap, 2)} Galaxies`
+          `${format(GalaxyGenerator.generatedGalaxiesDisplay, 2)} / ${format(GalaxyGenerator.generationCap, 2)} Galaxies`
         ],
         angle: 290,
         diagonal: 40,
