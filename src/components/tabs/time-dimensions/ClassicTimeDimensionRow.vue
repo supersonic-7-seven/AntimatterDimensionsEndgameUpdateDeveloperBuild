@@ -114,7 +114,7 @@ export default {
       this.showTTCost = !this.isUnlocked && !this.shiftDown;
       if (this.tier > 4) this.ttCost = TimeStudy.timeDimension(this.tier).cost;
       this.currTT.copyFrom(Currency.timeTheorems.value);
-      this.ttGen.copyFrom(getTTPerSecond().times(getGameSpeedupFactor()));
+      this.ttGen.copyFrom(getTTPerSecond().times(Alpha.isRunning ? 1 : getGameSpeedupFactor()));
     },
     buyTimeDimension() {
       if (!this.isUnlocked) {

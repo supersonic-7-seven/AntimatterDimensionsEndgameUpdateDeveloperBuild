@@ -113,7 +113,7 @@ export default {
     },
     update() {
       this.theoremAmount.copyFrom(Currency.timeTheorems);
-      this.theoremGeneration.copyFrom(getTTPerSecond().times(getGameSpeedupForDisplay()));
+      this.theoremGeneration.copyFrom(getTTPerSecond().times(Alpha.isRunning ? 1 : getGameSpeedupForDisplay()));
       this.totalTimeTheorems.copyFrom(Currency.timeTheorems.max);
       this.shopMinimized = player.timestudy.shopMinimized;
       this.hasTTAutobuyer = Autobuyer.timeTheorem.isUnlocked;
