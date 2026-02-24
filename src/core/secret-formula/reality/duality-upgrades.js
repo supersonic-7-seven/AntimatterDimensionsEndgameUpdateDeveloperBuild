@@ -196,7 +196,7 @@ export const dualityUpgrades = [
     id: 18,
     cost: new Decimal(1.6e13),
     formatCost: x => format(x, 1),
-    requirement: () => `Have ${format(2.4e9, 1)}? total Galaxies outside Pelle`,
+    requirement: () => `Have ${format(2.4e9, 1)} total Galaxies outside Pelle`,
     hasFailed: () => Pelle.isDoomed,
     checkRequirement: () => Replicanti.galaxies.total.add(player.galaxies).add(
       player.dilation.totalTachyonGalaxies).gte(2.4e9) && !Pelle.isDoomed,
@@ -208,10 +208,10 @@ export const dualityUpgrades = [
     id: 19,
     cost: new Decimal(4.2e13),
     formatCost: x => format(x, 1),
-    requirement: () => `Have ${format(1e37)}? Tickspeed Continuum without ever having Time Studies in this Endgame`,
+    requirement: () => `Have ${format(1e45)} Tickspeed Continuum without ever having Time Studies in this Endgame`,
     hasFailed: () => player.requirementChecks.endgame.maxStudies > 0,
     checkRequirement: () => player.requirementChecks.endgame.maxStudies <= 0 &&
-      Tickspeed.continuumValue.gte(DC.E9E15),
+      Tickspeed.continuumValue.gte(1e45),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     canLock: true,
     lockEvent: () => `purchase more than ${formatInt(0)} Time Studies`,
