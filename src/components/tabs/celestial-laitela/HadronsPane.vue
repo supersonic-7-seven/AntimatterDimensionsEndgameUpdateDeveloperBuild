@@ -78,18 +78,22 @@ export default {
       this.hasDark = DualityUpgrade(19).isBought;
     },
     assignOne() {
+      Laitela.reset();
       player.celestials.laitela.hadrons.light -= 1;
       player.celestials.laitela.hadrons.dark += 1;
     },
     unassignOne() {
+      Laitela.reset();
       player.celestials.laitela.hadrons.light += 1;
       player.celestials.laitela.hadrons.dark -= 1;
     },
     assignAll() {
+      Laitela.reset();
       player.celestials.laitela.hadrons.light = 0;
       player.celestials.laitela.hadrons.dark = player.celestials.laitela.hadrons.total;
     },
     unassignAll() {
+      Laitela.reset();
       player.celestials.laitela.hadrons.light = player.celestials.laitela.hadrons.total;
       player.celestials.laitela.hadrons.dark = 0;
     }
