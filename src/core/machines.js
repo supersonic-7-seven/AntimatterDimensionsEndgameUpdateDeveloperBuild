@@ -121,7 +121,9 @@ export const MachineHandler = {
   get baseDMCap() {
     return Decimal.pow(Decimal.clampMin(this.uncappedIM.add(1).log10().sub(1000), 0), Decimal.clampMin(
       Decimal.log10(Currency.realityMachines.value.add(1).log10().add(1)).sub(3), 1).times(
-      Decimal.clampMin(Decimal.log10(Decimal.log10(Decimal.log10(this.uncappedRM.add(1)).add(1)).add(1)).sub(1.75).times(12).add(1), 1)));
+      Decimal.clampMin(Decimal.log10(Decimal.log10(Decimal.log10(this.uncappedRM.add(1)).add(1)).add(1)).sub(
+      1.75).times(12).min(0.6).add(1), 1).add(Decimal.clampMin(Decimal.log10(Decimal.log10(Decimal.log10(
+      this.uncappedRM.add(1)).add(1)).add(1)).sub(1.8).times(4), 0))));
   },
 
   get currentDMCap() {

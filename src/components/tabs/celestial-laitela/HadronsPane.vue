@@ -40,7 +40,7 @@ export default {
       return `Time to cap: ${TimeSpan.fromHours(this.effect1Time).toStringShort()}`;
     },
     effect2Text() {
-      if (this.effect1Time.lte(0)) return `Effect is capped`;
+      if (this.effect2Time.lte(0)) return `Effect is capped`;
       return `Time to cap: ${TimeSpan.fromHours(this.effect2Time).toStringShort()}`;
     },
     effect3Text() {
