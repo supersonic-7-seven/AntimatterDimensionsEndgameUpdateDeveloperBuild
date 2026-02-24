@@ -1189,7 +1189,7 @@ export function getTTPerSecond() {
 
   // Dilation TT generation
   const dilationTT = DilationUpgrade.ttGenerator.isBought
-    ? DilationUpgrade.ttGenerator.effectValue.times(Pelle.isDoomed ? pelleTTMult : ttMult).times(Alpha.isRunning ? AlphaUnlocks.timeTheoremGeneration.effects.nerf.effectOrDefault(1) : 1)
+    ? DilationUpgrade.ttGenerator.effectValue.times(Pelle.isDoomed ? pelleTTMult : ttMult)
     : DC.D0;
 
   // Lai'tela TT power
