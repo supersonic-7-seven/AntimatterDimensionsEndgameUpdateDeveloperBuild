@@ -213,6 +213,8 @@ export function gainedEternityPoints() {
   if (Alpha.isRunning) ep = ep.pow(AlphaUnlocks.eternityChallenge10.effects.nerf.effectOrDefault(1));
   if (Alpha.isRunning) ep = ep.pow(AlphaUnlocks.timeDimension8.effects.nerf.effectOrDefault(1));
 
+  if (Alpha.isRunning && Alpha.currentStage < 27) ep = ep.min(DC.E3350);
+
   return ep.floor();
 }
 
