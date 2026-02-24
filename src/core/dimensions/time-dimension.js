@@ -462,7 +462,7 @@ export const TimeDimensions = {
       TimeDimension(1).produceCurrency(Currency.timeShards, diff);
     }
 
-    if (!TimeDimensions.all.every(d => d.amount === 0) || !TimeDimensions.all.every(d => d.continuumAmount === 0)) {
+    if (!TimeDimensions.all.every(d => d.amount.eq(0)) || !TimeDimensions.all.every(d => d.continuumAmount.eq(0))) {
       player.requirementChecks.endgame.onlyLowDims = false;
     }
 

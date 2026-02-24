@@ -125,7 +125,7 @@ export const MachineHandler = {
   },
 
   get currentDMCap() {
-    return player.reality.dmCap;
+    return player.reality.dmCap.times(DualityUpgrade(13).effectOrDefault(1));
   },
 
   // This is εM cap based on in-game values at that instant, may be lower than the actual cap

@@ -77,6 +77,10 @@ export class DarkMatterDimensionState extends DimensionState {
     return SingularityMilestone.improvedAscensionDM.effectOrDefault(DC.D0).add(POWER_DM_PER_ASCENSION);
   }
 
+  get powerDEPerAscension() {
+    return Hadrons.darkEnergyAscensionBoost.add(POWER_DE_PER_ASCENSION);
+  }
+
   get powerDM() {
     if (!this.isUnlocked) return DC.D0;
     return Decimal.pow(1.15, this.data.powerDMUpgrades).mul(2).add(1)
@@ -98,7 +102,7 @@ export class DarkMatterDimensionState extends DimensionState {
     return this.data.powerDEUpgrades.div(10).add(1)
       .mul(Decimal.pow(1.005, this.data.powerDEUpgrades)).mul(tierFactor).div(1000)
       .times(this.commonDarkMult)
-      .times(Decimal.pow(POWER_DE_PER_ASCENSION, this.ascensions))
+      .times(Decimal.pow(this.powerDEPerAscension, this.ascensions))
       .times((ExpansionPack.laitelaPack.isBought && !player.disablePostReality) ? Decimal.pow(Decimal.log10(player.celestials.laitela.singularities.add(1)), 2) : 1)
       .timesEffectsOf(
         SingularityMilestone.darkEnergyMult,
