@@ -252,10 +252,10 @@ export const alphaUnlocks = {
   timeTheoremGeneration: {
     id: 25,
     requirement: 26,
-    nerfDescription: () => `Time Theorem Generation is ${formatPercents(Math.clamp(1 - Decimal.log10(Currency.timeTheorems.value.add(1)).toNumber(), 0, 1), 2)} weaker (based on TP)`,
+    nerfDescription: () => `Time Theorem Generation is ${formatPercents(Math.clamp(1 - Decimal.log10(Currency.tachyonParticles.value.add(1)).div(100).toNumber(), 0, 1), 2)} weaker (based on TP)`,
     buffDescription: () => `Time Theorem Generation is raised ${formatPow(10)}`,
     effects: {
-      nerf: () => Math.clamp(Decimal.log10(Currency.timeTheorems.value.add(1)).toNumber(), 0, 1),
+      nerf: () => Math.clamp(Decimal.log10(Currency.tachyonParticles.value.add(1)).div(100).toNumber(), 0, 1),
       buff: 10
     }
   },
