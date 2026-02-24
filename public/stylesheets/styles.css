@@ -9241,6 +9241,7 @@ kbd {
 
 .c-laitela-hadrons-container {
   display: flex;
+  flex-direction: column;
   width: 98rem;
   justify-content: space-around;
   align-items: center;
@@ -9254,9 +9255,10 @@ kbd {
 
 .c-laitela-hadrons-row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-around;
-  align-items: center;
+  width: 98rem;
+  padding: 1rem;
 }
 
 .c-laitela-hadrons-assign {
