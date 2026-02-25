@@ -613,7 +613,7 @@ export function finishProcessReality(realityProps) {
     AutomatorBackend.start(AutomatorBackend.state.topLevelScript);
   }
 
-  const celestialRunState = clearCelestialRuns();
+  if (!Alpha.isRunning) const celestialRunState = clearCelestialRuns();
   recalculateAllGlyphs();
   Glyphs.updateMaxGlyphCount(true);
 
