@@ -241,7 +241,7 @@ export const dualityUpgrades = [
     canLock: true,
     lockEvent: "enable Continuum",
     description: "Dark Hadrons are more powerful based on Dual Machines",
-    effect: () => player.disablePostReality ? 1 : Decimal.log10(Currency.dualMachines.value.add(1)).div(100).toNumber(),
+    effect: () => player.disablePostReality ? 0 : Decimal.log10(Currency.dualMachines.value.add(1)).div(100).toNumber(),
     formatEffect: value => `+${formatPercents(value, 2, 2)}`
   },
   {
