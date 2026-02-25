@@ -50,9 +50,9 @@ export class TimeTheoremPurchaseType {
     const amount = (Alpha.isRunning && Alpha.currentStage < 15) ? Decimal.min(this.bulkPossible, new Decimal(38).sub(this.amount)) : this.bulkPossible;
     const buyFn = cost => ((Perk.ttFree.canBeApplied) ? this.currency.gte(cost) : this.currency.purchase(cost));
     // This will sometimes buy one too few for EP, so we just have to buy 1 after.
-    if (bulk && buyFn(this.bulkCost(amount))) {
-      Currency.timeTheorems.add(amount);
-      this.add(amount);
+    if (bulk && buyFn(this.bulkCost(amount.sub(1)))) {
+      Currency.timeTheorems.add(amount.sub(1));
+      this.add(amount.sub(1));
       purchased = true;
     }
     if (buyFn(this.cost)) {
