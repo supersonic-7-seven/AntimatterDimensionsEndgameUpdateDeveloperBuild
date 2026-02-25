@@ -147,7 +147,8 @@ export const dilationUpgrades = {
     id: 10,
     cost: 1e15,
     description: "Generate Time Theorems based on Tachyon Particles",
-    effect: () => Currency.tachyonParticles.value.div(20000),
+    effect: () => Currency.tachyonParticles.value.div(20000).times(
+      Alpha.isRunning ? AlphaUnlocks.timeTheoremGeneration.effects.nerf.effectOrDefault(1) : 1),
     formatEffect: value => `${format(value, 2, 1)}/sec`
   },
   dtGainPelle: rebuyable({

@@ -213,6 +213,8 @@ export function gainedEternityPoints() {
   if (Alpha.isRunning) ep = ep.pow(AlphaUnlocks.eternityChallenge10.effects.nerf.effectOrDefault(1));
   if (Alpha.isRunning) ep = ep.pow(AlphaUnlocks.timeDimension8.effects.nerf.effectOrDefault(1));
 
+  if (Alpha.isRunning && Alpha.currentStage < 27) ep = ep.min(DC.E3350);
+
   return ep.floor();
 }
 
@@ -1189,7 +1191,7 @@ export function getTTPerSecond() {
 
   // Dilation TT generation
   const dilationTT = DilationUpgrade.ttGenerator.isBought
-    ? DilationUpgrade.ttGenerator.effectValue.times(Pelle.isDoomed ? pelleTTMult : ttMult).times(Alpha.isRunning ? AlphaUnlocks.timeTheoremGeneration.effects.nerf.effectOrDefault(1) : 1)
+    ? DilationUpgrade.ttGenerator.effectValue.times(Pelle.isDoomed ? pelleTTMult : ttMult)
     : DC.D0;
 
   // Lai'tela TT power
