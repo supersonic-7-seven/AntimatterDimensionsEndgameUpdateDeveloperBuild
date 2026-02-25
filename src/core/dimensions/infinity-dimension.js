@@ -459,7 +459,7 @@ export const InfinityDimensions = {
       InfinityDimension(1).produceCurrency(Currency.infinityPower, diff);
     }
 
-    if (!InfinityDimensions.all.every(d => d.amount === 0) || !InfinityDimensions.all.every(d => d.continuumAmount === 0)) {
+    if (!InfinityDimensions.all.every(d => d.amount.eq(0)) || !InfinityDimensions.all.every(d => d.continuumAmount.eq(0))) {
       player.requirementChecks.endgame.onlyLowDims = false;
     }
 

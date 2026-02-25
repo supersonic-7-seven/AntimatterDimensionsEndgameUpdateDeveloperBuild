@@ -28,6 +28,9 @@ export function buySingleTimeDimension(tier, auto = false) {
   if (TimeDimension(4).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 13) {
     Alpha.advanceLayer();
   }
+  if (TimeDimension(8).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 26) {
+    Alpha.advanceLayer();
+  }
   return true;
 }
 
@@ -122,6 +125,9 @@ export function buyMaxTimeDimension(tier, portionToSpend = 1, isMaxAll = false) 
   if (TimeDimension(4).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 13) {
     Alpha.advanceLayer();
   }
+  if (TimeDimension(8).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 26) {
+    Alpha.advanceLayer();
+  }
   return true;
 }
 
@@ -145,6 +151,9 @@ export function maxAllTimeDimensions() {
     if (!buySingleTimeDimension(cheapestDim.tier, true)) break;
   }
   if (TimeDimension(4).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 13) {
+    Alpha.advanceLayer();
+  }
+  if (TimeDimension(8).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 26) {
     Alpha.advanceLayer();
   }
 }
@@ -462,7 +471,7 @@ export const TimeDimensions = {
       TimeDimension(1).produceCurrency(Currency.timeShards, diff);
     }
 
-    if (!TimeDimensions.all.every(d => d.amount === 0) || !TimeDimensions.all.every(d => d.continuumAmount === 0)) {
+    if (!TimeDimensions.all.every(d => d.amount.eq(0)) || !TimeDimensions.all.every(d => d.continuumAmount.eq(0))) {
       player.requirementChecks.endgame.onlyLowDims = false;
     }
 

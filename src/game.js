@@ -213,6 +213,8 @@ export function gainedEternityPoints() {
   if (Alpha.isRunning) ep = ep.pow(AlphaUnlocks.eternityChallenge10.effects.nerf.effectOrDefault(1));
   if (Alpha.isRunning) ep = ep.pow(AlphaUnlocks.timeDimension8.effects.nerf.effectOrDefault(1));
 
+  if (Alpha.isRunning && Alpha.currentStage < 27) ep = ep.min(DC.E3350);
+
   return ep.floor();
 }
 
@@ -816,10 +818,10 @@ export function gameLoop(passedDiff, options = {}) {
   const repDiff = Alpha.isRunning ? Decimal.pow(diff, 0.1) : diff;
   replicantiLoop(repDiff);
 
-  Currency.dilatedTime.add(getDilationGainPerSecond().times(player.options.updateRate).div(1000));
+  Currency.dilatedTime.add(getDilationGainPerSecond().times(realDiff).div(1000));
 
   updateTachyonGalaxies();
-  Currency.timeTheorems.add(getTTPerSecond().times(diff).div(1000));
+  Currency.timeTheorems.add(getTTPerSecond().times(Alpha.isRunning ? realDiff : diff).div(1000));
   InfinityDimensions.tryAutoUnlock();
 
   BlackHoles.updatePhases(blackHoleDiff);
@@ -1189,7 +1191,7 @@ export function getTTPerSecond() {
 
   // Dilation TT generation
   const dilationTT = DilationUpgrade.ttGenerator.isBought
-    ? DilationUpgrade.ttGenerator.effectValue.times(Pelle.isDoomed ? pelleTTMult : ttMult).times(Alpha.isRunning ? AlphaUnlocks.timeTheoremGeneration.effects.nerf.effectOrDefault(1) : 1)
+    ? DilationUpgrade.ttGenerator.effectValue.times(Pelle.isDoomed ? pelleTTMult : ttMult)
     : DC.D0;
 
   // Lai'tela TT power

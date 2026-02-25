@@ -48,8 +48,9 @@ export const Laitela = {
   },
   get matterExtraPurchaseFactor() {
     if ((Pelle.isDoomed && !PelleDestructionUpgrade.continuumBuff.isBought) || player.disablePostReality) return 1;
-    return (Decimal.pow(new Decimal(Decimal.log10(Currency.darkMatter.max.add(1))).div(50), 0.4).times(0.5).add(1).times(
-      SingularityMilestone.continuumMult.effectOrDefault(new Decimal(0)).add(1)).times(DualityUpgrade(11).effectOrDefault(1))).toNumber();
+    return (Decimal.pow(Decimal.pow(new Decimal(Decimal.log10(Currency.darkMatter.max.add(1))).div(50), 0.4).times(0.5).add(1).times(
+      SingularityMilestone.continuumMult.effectOrDefault(new Decimal(0)).add(1)).times(
+      DualityUpgrade(11).effectOrDefault(1)).times(Hadrons.continuumMultiplier), DualityUpgrade(14).effectOrDefault(1))).toNumber();
   },
   get hadronizes() {
     return this.celestial.hadronizes;
@@ -69,7 +70,7 @@ export const Laitela = {
   get entropyGainPerSecond() {
     const maxSpeed = (ExpansionPack.laitelaPack.isBought && !player.disablePostReality) ? 1000 : 100;
     const hadronizeBump = this.hadronizes > 0 ? 1e12 : 1;
-    const hadronizeAntimatter = Decimal.pow(1000, this.hadronizes).times(hadronizeBump).times(1e11);
+    const hadronizeAntimatter = Decimal.pow(1000, this.hadronizes).times(hadronizeBump).times(1e11).div(Hadrons.entropyFormulaBoost);
     return Decimal.clamp(Decimal.pow(new Decimal(Currency.antimatter.value.add(1).log10()).div(hadronizeAntimatter), 2), 0, maxSpeed).div(200);
   },
   get darkMatterMultGain() {
@@ -91,7 +92,7 @@ export const Laitela = {
     if (ImaginaryUpgrade(28).isBought) baseCap = DC.E20000;
     if (ImaginaryUpgrade(29).isBought) baseCap = DC.E100000;
     const realityReward = (ExpansionPack.laitelaPack.isBought && !player.disablePostReality) ? this.realityReward : 1;
-    return baseCap.times(EndgameUpgrade(4).effectOrDefault(1)).times(realityReward);
+    return baseCap.times(EndgameUpgrade(4).effectOrDefault(1)).times(realityReward).times(Hadrons.darkMatterCapMultiplier);
   },
   get annihilationUnlocked() {
     return ImaginaryUpgrade(19).isBought;
@@ -142,6 +143,8 @@ export const Laitela = {
     this.celestial.fastestCompletion = 3600;
     this.celestial.difficultyTier = 0;
     this.celestial.hadronizes += 1;
+    if (DualityUpgrade(15).isBought) this.celestial.hadrons.total += 1;
+    if (DualityUpgrade(15).isBought) this.celestial.hadrons.light += 1;
     return true;
   },
   reset() {

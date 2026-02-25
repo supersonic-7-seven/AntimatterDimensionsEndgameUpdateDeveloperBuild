@@ -2,6 +2,7 @@
 import AnnihilationButton from "./AnnihilationButton";
 import CelestialQuoteHistory from "@/components/CelestialQuoteHistory";
 import DarkMatterDimensionGroup from "./DarkMatterDimensionGroup";
+import HadronsPane from "./HadronsPane";
 import LaitelaAutobuyerPane from "./LaitelaAutobuyerPane";
 import LaitelaRunButton from "./LaitelaRunButton";
 import PrimaryButton from "@/components/PrimaryButton";
@@ -18,6 +19,7 @@ export default {
     AnnihilationButton,
     LaitelaAutobuyerPane,
     CelestialQuoteHistory,
+    HadronsPane,
     PrimaryButton
   },
   data() {
@@ -39,6 +41,7 @@ export default {
       darkMatterCap: new Decimal(0),
       softcap1: new Decimal(0),
       softcap2: new Decimal(0),
+      hadronsUnlocked: false,
     };
   },
   computed: {
@@ -72,6 +75,7 @@ export default {
       this.darkMatterCap.copyFrom(Laitela.darkMatterCap);
       this.softcap1.copyFrom(Decimal.pow(10, 10000));
       this.softcap2.copyFrom(Decimal.pow(10, 100000));
+      this.hadronsUnlocked = DualityUpgrade(15).isBought;
 
       const d1 = DarkMatterDimension(1);
       this.darkMatterGain = d1.amount.times(d1.powerDM).divide(d1.interval).times(1000);
@@ -149,6 +153,7 @@ export default {
       ({{ format(darkEnergy, 2, 2) }}/{{ format(singularityCap, 2) }} Dark Energy)
     </h2>
     <SingularityPane v-if="singularitiesUnlocked" />
+    <HadronsPane v-if="hadronsUnlocked" />
     <LaitelaAutobuyerPane v-if="autobuyersUnlocked" />
     <div class="l-laitela-mechanics-container">
       <LaitelaRunButton />

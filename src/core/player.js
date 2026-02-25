@@ -818,6 +818,11 @@ window.player = {
       lastCheckedMilestones: DC.D0,
       milestoneGlow: true,
       hadronizes: 0,
+      hadrons: {
+        total: 0,
+        light: 0,
+        dark: 0,
+      }
     },
     pelle: {
       doomed: false,

@@ -678,6 +678,9 @@ export const Glyphs = {
   get immenseInstabilityThreshold() {
     return 200000 + DualityUpgrade(7).effectOrDefault(0);
   },
+  get extensiveInstabilityThreshold() {
+    return 1000000;
+  },
   get levelCap() {
     return Number.MAX_VALUE;
   },

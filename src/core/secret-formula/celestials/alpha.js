@@ -242,30 +242,30 @@ export const alphaUnlocks = {
   dilatedEternity: {
     id: 24,
     requirement: 25,
-    nerfDescription: () => `The base Dilation penalty is increased to ${formatPow(0.4, 2, 3)}`,
+    nerfDescription: () => `The base Dilation penalty is increased to ${formatPow(0.42, 2, 3)} and Dilated Time is only boosted by ${formatPercents(0.01)} of Game Speed`,
     buffDescription: () => `Tachyon Particle gain is raised ${formatPow(1.4, 2, 3)}`,
     effects: {
-      nerf: 0.4,
+      nerf: 0.42,
       buff: 1.4
     }
   },
   timeTheoremGeneration: {
     id: 25,
     requirement: 26,
-    nerfDescription: () => `Time Theorem Generation is ${formatPercents(Math.clamp(1 - Decimal.log10(Currency.timeTheorems.value.add(1)).toNumber(), 0, 1), 2)} weaker (based on TP)`,
+    nerfDescription: () => `Time Theorem Generation is ${formatPercents(Math.clamp(1 - Decimal.log10(Currency.dilatedTime.value.add(1)).div(100).toNumber(), 0, 1), 2)} weaker (based on DT)`,
     buffDescription: () => `Time Theorem Generation is raised ${formatPow(10)}`,
     effects: {
-      nerf: () => Math.clamp(Decimal.log10(Currency.timeTheorems.value.add(1)).toNumber(), 0, 1),
+      nerf: () => Math.clamp(Decimal.log10(Currency.dilatedTime.value.add(1)).div(100).toNumber(), 0, 1),
       buff: 10
     }
   },
   timeDimension8: {
     id: 26,
     requirement: 27,
-    nerfDescription: () => `Eternity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(Currency.eternityPoints.value.add(1)).sub(3350).div(1000).toNumber(), 0, 1), 2, 3)}`,
+    nerfDescription: () => `Eternity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(player.records.thisEternity.maxIP.add(1)).sub(1.5e6).div(1.75e7).max(0).pow(0.4).toNumber(), 0, 1), 2, 3)}`,
     buffDescription: () => `The ${formatInt(8)}th Time Dimension is powered ${formatInt(1000)}`,
     effects: {
-      nerf: () => Math.clamp(1 - Decimal.log10(Currency.eternityPoints.value.add(1)).sub(3350).div(1000).toNumber(), 0, 1),
+      nerf: () => Math.clamp(1 - Decimal.log10(player.records.thisEternity.maxIP.add(1)).sub(1.5e6).div(1.75e7).max(0).pow(0.4).toNumber(), 0, 1),
       buff: 1000
     }
   },
