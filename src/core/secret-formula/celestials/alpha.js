@@ -262,10 +262,10 @@ export const alphaUnlocks = {
   timeDimension8: {
     id: 26,
     requirement: 27,
-    nerfDescription: () => `Eternity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(player.records.thisEternity.maxIP.add(1)).sub(1.5e6).div(1.75e7).max(0).pow(0.4).toNumber(), 0, 1), 2, 3)}`,
+    nerfDescription: () => `Eternity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(player.records.thisEternity.maxIP.add(1)).sub(1.5e6).div(1.875e7).max(0).pow(0.375).toNumber(), 0, 1), 2, 3)}`,
     buffDescription: () => `The ${formatInt(8)}th Time Dimension is powered ${formatInt(1000)}`,
     effects: {
-      nerf: () => Math.clamp(1 - Decimal.log10(player.records.thisEternity.maxIP.add(1)).sub(1.5e6).div(1.75e7).max(0).pow(0.4).toNumber(), 0, 1),
+      nerf: () => Math.clamp(1 - Decimal.log10(player.records.thisEternity.maxIP.add(1)).sub(1.5e6).div(1.875e7).max(0).pow(0.375).toNumber(), 0, 1),
       buff: 1000
     }
   },
