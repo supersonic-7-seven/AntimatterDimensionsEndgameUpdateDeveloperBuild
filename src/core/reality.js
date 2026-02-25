@@ -613,7 +613,7 @@ export function finishProcessReality(realityProps) {
     AutomatorBackend.start(AutomatorBackend.state.topLevelScript);
   }
 
-  if (!Alpha.isRunning) const celestialRunState = clearCelestialRuns();
+  const celestialRunState = clearCelestialRuns();
   recalculateAllGlyphs();
   Glyphs.updateMaxGlyphCount(true);
 
@@ -844,7 +844,7 @@ export function clearCelestialRuns() {
   player.celestials.v.run = false;
   player.celestials.ra.run = false;
   player.celestials.laitela.run = false;
-  player.celestials.alpha.run = false;
+  if (!Alpha.isRunning || Alpha.currentStage > 27) player.celestials.alpha.run = false;
   return saved;
 }
 
