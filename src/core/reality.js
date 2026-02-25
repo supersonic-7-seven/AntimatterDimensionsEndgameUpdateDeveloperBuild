@@ -759,6 +759,10 @@ export function finishProcessReality(realityProps) {
   if (Pelle.isDoomed && PelleUpgrade.keepAutobuyers.canBeApplied && Autobuyer.bigCrunch.hasMaxedInterval) {
     player.break = true;
   }
+
+  if (Alpha.isRunning && Alpha.currentStage === 27) {
+    Alpha.advanceLayer();
+  }
 }
 
 function restoreCelestialRuns(celestialRunState) {
@@ -774,6 +778,8 @@ function restoreCelestialRuns(celestialRunState) {
   if (player.celestials.ra.run) Ra.initializeRun();
   player.celestials.laitela.run = celestialRunState.laitela;
   if (player.celestials.laitela.run) Laitela.initializeRun();
+  player.celestials.alpha.run = celestialRunState.alpha;
+  if (player.celestials.alpha.run) Alpha.initializeRun();
 }
 
 // This is also called when the upgrade is purchased, be aware of potentially having "default" values overwrite values
