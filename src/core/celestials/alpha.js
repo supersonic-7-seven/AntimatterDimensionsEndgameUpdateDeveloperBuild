@@ -1001,30 +1001,18 @@ export const Alpha = {
         }
       }
     }
-    player.celestials.alpha.records.eternityChalls.eterc1 = player.celestials.alpha.records.eternityChalls.eterc1
-      ? player.eternityChalls.eterc1 : 0;
-    player.celestials.alpha.records.eternityChalls.eterc2 = player.celestials.alpha.records.eternityChalls.eterc2
-      ? player.eternityChalls.eterc2 : 0;
-    player.celestials.alpha.records.eternityChalls.eterc3 = player.celestials.alpha.records.eternityChalls.eterc3
-      ? player.eternityChalls.eterc3 : 0;
-    player.celestials.alpha.records.eternityChalls.eterc4 = player.celestials.alpha.records.eternityChalls.eterc4
-      ? player.eternityChalls.eterc4 : 0;
-    player.celestials.alpha.records.eternityChalls.eterc5 = player.celestials.alpha.records.eternityChalls.eterc5
-      ? player.eternityChalls.eterc5 : 0;
-    player.celestials.alpha.records.eternityChalls.eterc6 = player.celestials.alpha.records.eternityChalls.eterc6
-      ? player.eternityChalls.eterc6 : 0;
-    player.celestials.alpha.records.eternityChalls.eterc7 = player.celestials.alpha.records.eternityChalls.eterc7
-      ? player.eternityChalls.eterc7 : 0;
-    player.celestials.alpha.records.eternityChalls.eterc8 = player.celestials.alpha.records.eternityChalls.eterc8
-      ? player.eternityChalls.eterc8 : 0;
-    player.celestials.alpha.records.eternityChalls.eterc9 = player.celestials.alpha.records.eternityChalls.eterc9
-      ? player.eternityChalls.eterc9 : 0;
-    player.celestials.alpha.records.eternityChalls.eterc10 = player.celestials.alpha.records.eternityChalls.eterc10
-      ? player.eternityChalls.eterc10 : 0;
-    player.celestials.alpha.records.eternityChalls.eterc11 = player.celestials.alpha.records.eternityChalls.eterc11
-      ? player.eternityChalls.eterc11 : 0;
-    player.celestials.alpha.records.eternityChalls.eterc12 = player.celestials.alpha.records.eternityChalls.eterc12
-      ? player.eternityChalls.eterc12 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc1 = player.eternityChalls.eterc1 ? player.eternityChalls.eterc1 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc2 = player.eternityChalls.eterc2 ? player.eternityChalls.eterc2 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc3 = player.eternityChalls.eterc3 ? player.eternityChalls.eterc3 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc4 = player.eternityChalls.eterc4 ? player.eternityChalls.eterc4 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc5 = player.eternityChalls.eterc5 ? player.eternityChalls.eterc5 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc6 = player.eternityChalls.eterc6 ? player.eternityChalls.eterc6 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc7 = player.eternityChalls.eterc7 ? player.eternityChalls.eterc7 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc8 = player.eternityChalls.eterc8 ? player.eternityChalls.eterc8 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc9 = player.eternityChalls.eterc9 ? player.eternityChalls.eterc9 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc10 = player.eternityChalls.eterc10 ? player.eternityChalls.eterc10 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc11 = player.eternityChalls.eterc11 ? player.eternityChalls.eterc11 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc12 = player.eternityChalls.eterc12 ? player.eternityChalls.eterc12 : 0;
     player.celestials.alpha.records.respec = player.respec;
     player.celestials.alpha.records.eterc8ids = player.eterc8ids;
     player.celestials.alpha.records.eterc8repl = player.eterc8repl;
