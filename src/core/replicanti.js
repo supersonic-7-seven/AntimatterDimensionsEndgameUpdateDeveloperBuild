@@ -228,7 +228,7 @@ export function replicantiLoop(diff) {
     }
 
     // Note that remainingGain is in log10 terms.
-    let remainingGain = tickCount.times(Math.log(player.replicanti.chance + 1)).times(LOG10_E);
+    let remainingGain = tickCount.times(Decimal.ln(player.replicanti.chance.add(1))).times(LOG10_E);
     // It is intended to be possible for both of the below conditionals to trigger.
     if (!isUncapped || Replicanti.amount.lte(replicantiCap())) {
       // Some of the gain is "used up" below e308, but if replicanti are uncapped
@@ -252,12 +252,12 @@ export function replicantiLoop(diff) {
     // Multiple ticks but "slow" gain: This happens at low replicanti chance and amount with a fast interval, which
     // can happen often in early cel7. In this case we "batch" ticks together as full doubling events and then draw
     // from a Poisson distribution for how many times to do that. Any leftover ticks are used as binomial samples
-    const batchTicks = Math.floor(tickCount.toNumber() * Math.log2(1 + player.replicanti.chance));
-    const binomialTicks = tickCount.toNumber() - batchTicks / Math.log2(1 + player.replicanti.chance);
+    const batchTicks = Decimal.floor(tickCount.times(Decimal.log2(player.replicanti.chance.add(1)))).toNumber();
+    const binomialTicks = tickCount.toNumber() - batchTicks / Decimal.log2(player.replicanti.chance.add(1)).toNumber();
 
     Replicanti.amount = Replicanti.amount.times(DC.D2.pow(poissonDistribution(batchTicks)));
     for (let t = 0; t < Math.floor(binomialTicks); t++) {
-      const reproduced = binomialDistribution(Replicanti.amount, player.replicanti.chance);
+      const reproduced = binomialDistribution(Replicanti.amount, player.replicanti.chance.toNumber());
       Replicanti.amount = Replicanti.amount.plus(reproduced);
     }
 
@@ -266,7 +266,7 @@ export function replicantiLoop(diff) {
     player.replicanti.timer += interval.times(leftover).toNumber();
   } else if (tickCount.eq(1)) {
     // Single tick: Take a single binomial sample to properly simulate replicanti growth with randomness
-    const reproduced = binomialDistribution(Replicanti.amount, player.replicanti.chance);
+    const reproduced = binomialDistribution(Replicanti.amount, player.replicanti.chance.toNumber());
     Replicanti.amount = Replicanti.amount.plus(reproduced);
   }
 
@@ -666,9 +666,9 @@ export const Replicanti = {
       unl: unlocked,
       amount: unlocked ? DC.D1 : DC.D0,
       timer: 0,
-      chance: 0.01,
+      chance: DC.D1.div(100),
       chanceCost: DC.E150,
-      interval: 1000,
+      interval: DC.E3,
       intervalCost: DC.E140,
       boughtGalaxyCap: DC.D0,
       galaxies: DC.D0,
