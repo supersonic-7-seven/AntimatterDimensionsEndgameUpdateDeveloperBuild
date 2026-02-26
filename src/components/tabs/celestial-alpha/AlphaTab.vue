@@ -45,8 +45,7 @@ export default {
       ${GameDatabase.celestials.descriptions[7].description()}`;
     },
     isDoomed: () => Pelle.isDoomed,
-    isDestroyed: () => Alpha.isDestroyed,
-    noAccess: () => Pelle.isDoomed || Alpha.isDestroyed
+    isDestroyed: () => Alpha.isDestroyed
   },
   watch: {
     isRunning() {
@@ -114,7 +113,7 @@ export default {
       </div>
       <div class="l-alpha-run">
         <div class="c-alpha-run-description">
-          <span :class="{ 'o-pelle-disabled': noAccess }">
+          <span :class="{ 'o-pelle-disabled': isDoomed }">
             Access Alpha's Reality.
           </span>
         </div>
