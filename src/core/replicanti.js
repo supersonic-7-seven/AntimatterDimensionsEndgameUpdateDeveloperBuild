@@ -344,7 +344,7 @@ class ReplicantiUpgradeState {
   purchase() {
     if (!this.canBeBought) return;
     Currency.infinityPoints.subtract(this.cost);
-    this.baseCost = (this.rawValue >= this.costThreshold) ? Decimal.times(this.baseCost, Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, this.rawValue.sub(this.costThreshold)))) : Decimal.times(this.baseCost, this.costIncrease);
+    this.baseCost = this.rawValue.gte(this.costThreshold) ? Decimal.times(this.baseCost, Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, this.rawValue.sub(this.costThreshold)))) : Decimal.times(this.baseCost, this.costIncrease);
     this.value = this.nextValue;
     if (EternityChallenge(8).isRunning) player.eterc8repl--;
     GameUI.update();
