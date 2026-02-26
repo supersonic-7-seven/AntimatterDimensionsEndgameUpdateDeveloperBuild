@@ -9339,6 +9339,17 @@ kbd {
   background-color: black;
 }
 
+.c-alpha-run-button--not-running--dead {
+  z-index: 0;
+  color: rgba(128, 128, 128, 75%);
+  background-image: url("../images/noise.png");
+  animation: a-alpha-run-button--death-noise 0.4s infinite alternate;
+}
+
+.c-alpha-run-button--not-running--dead:hover {
+  background-color: black;
+}
+
 @keyframes a-alpha-run-button--not-running-glow {
   from {
     text-shadow:
@@ -9479,6 +9490,33 @@ kbd {
 
   100% {
     -webkit-text-fill-color: rgba(0, 255, 0, 100%);
+  }
+}
+
+@keyframes a-alpha-run-button--death-noise {
+  0% {
+    -webkit-text-fill-color: rgba(128, 128, 128, 75%);
+    background-position: 0 150px;
+  }
+
+  25% {
+    -webkit-text-fill-color: rgba(128, 128, 128, 75%);
+    background-position: 150px 0;
+  }
+
+  50% {
+    -webkit-text-fill-color: rgba(128, 128, 128, 75%);
+    background-position: 0 -150px;
+  }
+
+  75% {
+    -webkit-text-fill-color: rgba(128, 128, 128, 75%);
+    background-position: -150px 0;
+  }
+
+  100% {
+    -webkit-text-fill-color: rgba(128, 128, 128, 75%);
+    background-position: 0 150px;
   }
 }
 
