@@ -311,12 +311,21 @@ class ReplicantiUpgradeState {
   get nextValue() { throw new NotImplementedError(); }
 
   /** @abstract */
+  get rawValue() { throw new NotImplementedError(); }
+
+  /** @abstract */
   get cost() { throw new NotImplementedError(); }
   /** @abstract */
   set cost(value) { throw new Error("Use baseCost to set cost"); }
 
   /** @abstract */
   get costIncrease() { throw new NotImplementedError(); }
+
+  /** @abstract */
+  get costThreshold() { throw new NotImplementedError(); }
+
+  /** @abstract */
+  get costExponent() { throw new NotImplementedError(); }
 
   get baseCost() { return this.cost; }
   /** @abstract */
@@ -335,7 +344,7 @@ class ReplicantiUpgradeState {
   purchase() {
     if (!this.canBeBought) return;
     Currency.infinityPoints.subtract(this.cost);
-    this.baseCost = Decimal.times(this.baseCost, this.costIncrease);
+    this.baseCost = (this.rawValue >= this.costThreshold) ? Decimal.times(this.baseCost, Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, this.rawValue.sub(this.costThreshold)))) : Decimal.times(this.baseCost, this.costIncrease);
     this.value = this.nextValue;
     if (EternityChallenge(8).isRunning) player.eterc8repl--;
     GameUI.update();
@@ -356,7 +365,11 @@ export const ReplicantiUpgrade = {
     set value(value) { player.replicanti.chance = value; }
 
     get nextValue() {
-      return this.nearestPercent(this.value + 0.01);
+      return this.decimalNearestPercent(this.value.add(0.01));
+    }
+
+    get rawValue() {
+      return this.value.times(100);
     }
 
     get cost() {
@@ -368,13 +381,18 @@ export const ReplicantiUpgrade = {
 
     get costIncrease() { return 1e15; }
 
+    get costThreshold() { return 100; }
+
+    get costExponent() { return 2; }
+
     get cap() {
+      if (Alpha.isDestroyed) return DC.BEMAX;
       // Chance never goes over 100%.
-      return 1;
+      return DC.D1;
     }
 
     get isCapped() {
-      return this.nearestPercent(this.value) >= this.cap;
+      return this.decimalNearestPercent(this.value).gte(this.cap);
     }
 
     get autobuyerMilestone() {
@@ -387,12 +405,19 @@ export const ReplicantiUpgrade = {
       // N = log(IP * (1e15 - 1) / cost + 1) / log(1e15)
       let N = Currency.infinityPoints.value.times(this.costIncrease - 1)
         .dividedBy(this.cost).plus(1).log(this.costIncrease);
-      N = Decimal.round((Decimal.min(Decimal.floor(N).times(0.01).add(this.value), this.cap).sub(this.value)).times(100));
+      N = Decimal.round((Decimal.min(Decimal.floor(N).times(0.01).add(this.value), this.costThreshold / 100).sub(this.value)).times(100));
+      let totalCost = this.cost.times(Decimal.pow(this.costIncrease, N).minus(1).dividedBy(this.costIncrease - 1).max(1));
+      const threshold = DC.E150.times(Decimal.pow(this.costIncrease, this.costThreshold - 2));
+      const aboveThreshold = this.cost.div(threshold);
+      if (aboveThreshold.gt(1)) {
+        N = N.add(Decimal.floor(Currency.infinityPoints.value.div(threshold).max(1).log(this.costIncrease).add(1).log(costExponent).sub(this.value.times(100).sub(this.costThreshold))));
+        const purchasedAboveThreshold = aboveThreshold.log(this.costIncrease).add(1).log(costExponent).sub(1);
+        totalCost = threshold.times(Decimal.pow(this.costIncrease, Decimal.pow(costExponent, N.add(purchasedAboveThreshold)).sub(1)));
+      }
       if (N.lte(0)) return;
-      const totalCost = this.cost.times(Decimal.pow(this.costIncrease, N).minus(1).dividedBy(this.costIncrease - 1));
       Currency.infinityPoints.subtract(totalCost);
-      this.baseCost = this.baseCost.times(Decimal.pow(this.costIncrease, N));
-      this.value = this.decimalNearestPercent(N.times(0.01).add(this.value)).toNumber();
+      this.baseCost = this.baseCost.times(Decimal.pow(this.costIncrease, N.add(this.value.times(100)).min(this.costThreshold).sub(this.value.times(100)))).times(Decimal.pow(this.costIncrease, Decimal.pow(costExponent, N.add(purchasedAboveThreshold)).sub(1))).div(Decimal.pow(this.costIncrease, Decimal.pow(costExponent, purchasedAboveThreshold).sub(1)));
+      this.value = this.decimalNearestPercent(N.times(0.01).add(this.value));
     }
 
     // Rounding errors suck
@@ -410,7 +435,11 @@ export const ReplicantiUpgrade = {
     set value(value) { player.replicanti.interval = value; }
 
     get nextValue() {
-      return Math.max(this.value * 0.9, this.cap);
+      return Decimal.max(this.value.times(0.9), this.cap);
+    }
+
+    get rawValue() {
+      return Decimal.round(DC.E3.div(this.value).log(1 / 0.9).add(0.1));
     }
 
     get cost() {
@@ -422,12 +451,17 @@ export const ReplicantiUpgrade = {
 
     get costIncrease() { return 1e10; }
 
+    get costThreshold() { return Math.ceil(Decimal.log(1000 / Effects.min(50, TimeStudy(22)), 1 / 0.9).toNumber()); }
+
+    get costExponent() { return 2; }
+
     get cap() {
-      return Effects.min(50, TimeStudy(22));
+      if (Alpha.isDestroyed) return DC.D1.div(DC.BEMAX);
+      return new Decimal(Effects.min(50, TimeStudy(22)));
     }
 
     get isCapped() {
-      return this.value <= this.cap;
+      return this.value.lte(this.cap);
     }
 
     get autobuyerMilestone() {
