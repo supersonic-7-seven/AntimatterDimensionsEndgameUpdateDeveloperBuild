@@ -9,6 +9,9 @@ export const Alpha = {
   get isUnlocked() {
     return ImaginaryUpgrade(30).isBought;
   },
+  get isDestroyed() {
+    return this.currentStage >= 28;
+  },
   initializeRun() {
     player.disablePostReality = true;
     Endgame.resetNoReward();
