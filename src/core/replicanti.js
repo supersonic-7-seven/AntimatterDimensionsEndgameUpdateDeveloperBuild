@@ -411,7 +411,7 @@ export const ReplicantiUpgrade = {
       const aboveThreshold = this.cost.div(threshold);
       const purchasedAboveThreshold = aboveThreshold.max(1).log(this.costIncrease).add(1).log(this.costExponent).sub(1);
       if (aboveThreshold.gt(1)) {
-        N = N.add(Decimal.floor(Currency.infinityPoints.value.div(threshold).max(1).log(this.costIncrease).add(1).log(this.costExponent).sub(this.value.times(100).sub(this.costThreshold))));
+        N = N.add(Decimal.floor(Currency.infinityPoints.value.div(threshold).max(1).log(this.costIncrease).add(1).log(this.costExponent).sub(this.value.times(100).sub(this.costThreshold - 1))));
         totalCost = threshold.times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, N.add(purchasedAboveThreshold)).sub(1)));
       }
       if (N.lte(0)) return;
