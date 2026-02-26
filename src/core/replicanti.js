@@ -405,7 +405,7 @@ export const ReplicantiUpgrade = {
       // N = log(IP * (1e15 - 1) / cost + 1) / log(1e15)
       let N = Currency.infinityPoints.value.times(this.costIncrease - 1)
         .dividedBy(this.cost).plus(1).log(this.costIncrease);
-      N = Decimal.round((Decimal.min(Decimal.floor(N).times(0.01).add(this.value), this.costThreshold / 100).sub(this.value)).times(100));
+      N = Decimal.round((Decimal.min(Decimal.floor(N).times(0.01).add(this.value.min(1)), this.costThreshold / 100).sub(this.value.min(1))).times(100));
       let totalCost = this.cost.times(Decimal.pow(this.costIncrease, N).minus(1).dividedBy(this.costIncrease - 1).max(1));
       const threshold = DC.E150.times(Decimal.pow(this.costIncrease, this.costThreshold - 2));
       const aboveThreshold = this.cost.div(threshold);
