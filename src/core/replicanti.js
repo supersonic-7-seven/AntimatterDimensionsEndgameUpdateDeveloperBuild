@@ -383,7 +383,7 @@ export const ReplicantiUpgrade = {
 
     get costThreshold() { return 100; }
 
-    get costExponent() { return 2; }
+    get costExponent() { return 1.0002; }
 
     get cap() {
       if (Alpha.isDestroyed) return DC.BEMAX;
@@ -457,7 +457,7 @@ export const ReplicantiUpgrade = {
 
     get costThreshold() { return Math.ceil(Decimal.log(1000 / Effects.min(50, TimeStudy(22)), 1 / 0.9).toNumber()); }
 
-    get costExponent() { return 2; }
+    get costExponent() { return 1.0002; }
 
     get cap() {
       if (Alpha.isDestroyed) return DC.D1.div(DC.BEMAX);
