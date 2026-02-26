@@ -405,7 +405,7 @@ export const ReplicantiUpgrade = {
       // N = log(IP * (1e15 - 1) / cost + 1) / log(1e15)
       let N = Currency.infinityPoints.value.times(this.costIncrease - 1)
         .dividedBy(this.cost).plus(1).log(this.costIncrease);
-      N = Decimal.round((Decimal.min(Decimal.floor(N).times(0.01).add(this.value.min(1)), this.costThreshold / 100).sub(this.value.min(1))).times(100));
+      N = Decimal.round((Decimal.min(Decimal.floor(N).times(0.01).add(this.value.min(this.costThreshold / 100)), this.costThreshold / 100).sub(this.value.min(this.costThreshold / 100))).times(100));
       let totalCost = this.cost.times(Decimal.pow(this.costIncrease, N).minus(1).dividedBy(this.costIncrease - 1).max(1));
       const threshold = DC.E150.times(Decimal.pow(this.costIncrease, this.costThreshold - 2));
       const aboveThreshold = this.cost.div(threshold);
@@ -416,9 +416,9 @@ export const ReplicantiUpgrade = {
       }
       if (N.lte(0)) return;
       Currency.infinityPoints.subtract(totalCost);
-      let costGain = this.baseCost.times(Decimal.pow(this.costIncrease, N.add(this.value.times(100)).min(this.costThreshold).sub(this.value.times(100))));
+      let costGain = this.baseCost.times(Decimal.pow(this.costIncrease, N.add(this.value.times(100).min(this.costThreshold)).sub(this.value.times(100).min(this.costThreshold))));
       if (aboveThreshold.gt(1)) {
-        costGain = costGain.times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, N.add(affordableAboveThreshold)).sub(1))).div(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, affordableAboveThreshold).sub(1)));
+        costGain = costGain.times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, N.add(affordableAboveThreshold)).sub(1)));
       }
       this.baseCost = costGain;
       this.value = this.decimalNearestPercent(N.times(0.01).add(this.value));
@@ -476,7 +476,7 @@ export const ReplicantiUpgrade = {
       // Fixed price increase of 1e10; so total cost for N upgrades is:
       // cost + cost * 1e10 + cost * 1e20 + ... + cost * 1e10^(N-1) == cost * (1e10^N - 1) / (1e10 - 1)
       // N = log(IP * (1e10 - 1) / cost + 1) / log(1e10)
-      let N = Currency.infinityPoints.value.times(this.costIncrease - 1)
+      /*let N = Currency.infinityPoints.value.times(this.costIncrease - 1)
         .dividedBy(this.cost).plus(1).log(this.costIncrease);
       N = Decimal.round((Decimal.min(Decimal.floor(N).times(0.01).add(this.value.min(1)), this.costThreshold / 100).sub(this.value.min(1))).times(100));
       let totalCost = this.cost.times(Decimal.pow(this.costIncrease, N).minus(1).dividedBy(this.costIncrease - 1).max(1));
@@ -494,7 +494,7 @@ export const ReplicantiUpgrade = {
         costGain = costGain.times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, N.add(purchasedAboveThreshold)).sub(1))).div(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, purchasedAboveThreshold).sub(1)));
       }
       this.baseCost = costGain;
-      this.value = this.decimalNearestPercent(N.times(0.01).add(this.value));
+      this.value = this.decimalNearestPercent(N.times(0.01).add(this.value));*/
     }
 
     applyModifiers(value) {
