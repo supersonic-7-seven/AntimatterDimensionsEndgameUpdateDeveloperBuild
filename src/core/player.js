@@ -465,9 +465,9 @@ window.player = {
   replicanti: {
     unl: false,
     amount: DC.D0,
-    chance: 0.01,
+    chance: DC.D1.div(100),
     chanceCost: DC.E150,
-    interval: 1000,
+    interval: DC.E3,
     intervalCost: DC.E140,
     boughtGalaxyCap: DC.D0,
     galaxies: DC.D0,
@@ -1125,9 +1125,9 @@ window.player = {
         replicanti: {
           unl: false,
           amount: DC.D0,
-          chance: 0.01,
+          chance: DC.D1.div(100),
           chanceCost: DC.E150,
-          interval: 1000,
+          interval: DC.E3,
           intervalCost: DC.E140,
           boughtGalaxyCap: DC.D0,
           galaxies: DC.D0,
