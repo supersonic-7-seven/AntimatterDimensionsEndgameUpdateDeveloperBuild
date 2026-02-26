@@ -416,7 +416,11 @@ export const ReplicantiUpgrade = {
       }
       if (N.lte(0)) return;
       Currency.infinityPoints.subtract(totalCost);
-      this.baseCost = this.baseCost.times(Decimal.pow(this.costIncrease, N.add(this.value.times(100)).min(this.costThreshold).sub(this.value.times(100)))).times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, N.add(purchasedAboveThreshold)).sub(1))).div(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, purchasedAboveThreshold).sub(1)));
+      let costGain = this.baseCost.times(Decimal.pow(this.costIncrease, N.add(this.value.times(100)).min(this.costThreshold).sub(this.value.times(100))));
+      if (aboveThreshold.gt(1)) {
+        costGain = costGain.times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, N.add(purchasedAboveThreshold)).sub(1))).div(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, purchasedAboveThreshold).sub(1)));
+      }
+      this.baseCost = costGain;
       this.value = this.decimalNearestPercent(N.times(0.01).add(this.value));
     }
 
