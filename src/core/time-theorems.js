@@ -64,6 +64,7 @@ export class TimeTheoremPurchaseType {
     if (TimeTheorems.totalPurchased().gt(114)) PelleStrikes.ECs.trigger();
     if (TimeTheorems.totalPurchased().gt(114) && Alpha.isRunning && Alpha.currentStage === 15) {
       Alpha.advanceLayer();
+      Alpha.quotes.prepareEternityChalls.show();
     }
     return purchased;
   }
