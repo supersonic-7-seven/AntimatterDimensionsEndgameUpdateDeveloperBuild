@@ -511,6 +511,10 @@ export const ReplicantiUpgrade = {
       return this.value.add(1);
     }
 
+    get rawValue() {
+      return this.value;
+    }
+
     get cost() {
       return this.baseCost.dividedByEffectsOf(TimeStudy(233), PelleRifts.vacuum.milestones[1]);
     }
@@ -546,6 +550,10 @@ export const ReplicantiUpgrade = {
       }
       return increase;
     }
+
+    get costThreshold() { return Infinity; }
+
+    get costExponent() { return 1; }
 
     get autobuyerMilestone() {
       return EternityMilestone.autobuyerReplicantiMaxGalaxies;
