@@ -412,13 +412,13 @@ export const ReplicantiUpgrade = {
       const affordableAboveThreshold = Decimal.floor(Currency.infinityPoints.value.div(threshold).max(1).log(this.costIncrease).add(1).log(this.costExponent));
       if (aboveThreshold) {
         N = N.add(affordableAboveThreshold.sub(this.value.times(100).sub(this.costThreshold - 1)));
-        totalCost = threshold.times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, affordableAboveThreshold)));
+        totalCost = threshold.times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, affordableAboveThreshold).add(affordableAboveThreshold).sub(1)));
       }
       if (N.lte(0)) return;
       Currency.infinityPoints.subtract(totalCost);
-      let costGain = this.baseCost.times(Decimal.pow(this.costIncrease, N.min(this.rawValue.min(this.costThreshold).neg().add(this.costThreshold))));
+      let costGain = DC.E150.times(Decimal.pow(this.costIncrease, this.rawValue.add(N).min(this.costThreshold).sub(1)));
       if (aboveThreshold) {
-        costGain = costGain.times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, affordableAboveThreshold)));
+        costGain = costGain.times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, affordableAboveThreshold).add(affordableAboveThreshold).sub(1)));
       }
       this.baseCost = costGain;
       this.value = this.decimalNearestPercent(N.times(0.01).add(this.value));
@@ -485,13 +485,13 @@ export const ReplicantiUpgrade = {
       const affordableAboveThreshold = Decimal.floor(Currency.infinityPoints.value.div(threshold).max(1).log(this.costIncrease).add(1).log(this.costExponent));
       if (aboveThreshold) {
         N = N.add(affordableAboveThreshold.sub(this.rawValue.sub(this.costThreshold)));
-        totalCost = threshold.times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, affordableAboveThreshold)));
+        totalCost = threshold.times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, affordableAboveThreshold).add(affordableAboveThreshold).sub(1)));
       }
       if (N.lte(0)) return;
       Currency.infinityPoints.subtract(totalCost);
-      let costGain = this.baseCost.times(Decimal.pow(this.costIncrease, N.min(this.rawValue.min(this.costThreshold).neg().add(this.costThreshold))));
+      let costGain = DC.E140.times(Decimal.pow(this.costIncrease, this.rawValue.add(N).min(this.costThreshold).sub(1)));
       if (aboveThreshold) {
-        costGain = costGain.times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, affordableAboveThreshold)));
+        costGain = costGain.times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, affordableAboveThreshold).add(affordableAboveThreshold).sub(1)));
       }
       this.baseCost = costGain;
       this.value = this.value.times(Decimal.pow(0.9, N));
