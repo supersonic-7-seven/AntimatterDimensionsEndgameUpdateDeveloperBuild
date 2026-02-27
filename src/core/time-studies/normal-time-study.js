@@ -104,6 +104,7 @@ export class NormalTimeStudyState extends TimeStudyState {
     }
     if (this.id === 192 && Alpha.isRunning && Alpha.currentStage === 20) {
       Alpha.advanceLayer();
+      Alpha.quotes.uncapReplicanti.show();
     }
     return true;
   }
