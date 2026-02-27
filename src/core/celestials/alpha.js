@@ -22,6 +22,7 @@ export const Alpha = {
     player.celestials.alpha.run = true;
     recalculateAllGlyphs();
     Tab.dimensions.antimatter.show(false);
+    if (this.currentStage === 0) Alpha.quotes.enter.show();
     if (player.celestials.alpha.records.records.totalEndgameAntimatter.gt(DC.E1)) {
       player.antimatter = player.celestials.alpha.records.antimatter;
       player.dimensions.antimatter[0].bought = player.celestials.alpha.records.dimensions.antimatter[0].bought;
