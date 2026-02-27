@@ -309,6 +309,7 @@ class InfinityDimensionState extends DimensionState {
     }
     if (this.tier === 8 && Alpha.isRunning && Alpha.currentStage === 10) {
       Alpha.advanceLayer();
+      Alpha.quotes.eighthInfinityDimension.show();
     }
     return true;
   }
