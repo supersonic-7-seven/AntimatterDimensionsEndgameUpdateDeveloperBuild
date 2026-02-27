@@ -149,9 +149,11 @@ export function eternity(force, auto, specialConditions = {}) {
   for (let c = 1; c < 13; c++) {
     if (Alpha.isRunning && Alpha.currentStage === 16 && EternityChallenge(c).completions >= 1) {
       Alpha.advanceLayer();
+      Alpha.quotes.firstEternityChall.show();
     }
     if (Alpha.isRunning && Alpha.currentStage === 17 && EternityChallenge(c).completions >= 5) {
       Alpha.advanceLayer();
+      Alpha.quotes.bulkEternityChall.show();
     }
   }
 
