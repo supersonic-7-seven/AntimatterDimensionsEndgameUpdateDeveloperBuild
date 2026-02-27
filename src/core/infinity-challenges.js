@@ -68,6 +68,7 @@ class InfinityChallengeState extends GameMechanicState {
     EventHub.dispatch(GAME_EVENT.INFINITY_CHALLENGE_COMPLETED);
     if (player.challenge.infinity.completedBits === 510 && Alpha.isRunning && Alpha.currentStage === 8) {
       Alpha.advanceLayer();
+      Alpha.quotes.allInfinityChalls.show();
     }
   }
 
