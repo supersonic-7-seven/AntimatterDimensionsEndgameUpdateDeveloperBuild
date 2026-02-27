@@ -31,6 +31,7 @@ export function buySingleTimeDimension(tier, auto = false) {
   }
   if (TimeDimension(8).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 26) {
     Alpha.advanceLayer();
+    Alpha.quotes.eighthTimeDimension.show();
   }
   return true;
 }
@@ -129,6 +130,7 @@ export function buyMaxTimeDimension(tier, portionToSpend = 1, isMaxAll = false) 
   }
   if (TimeDimension(8).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 26) {
     Alpha.advanceLayer();
+    Alpha.quotes.eighthTimeDimension.show();
   }
   return true;
 }
@@ -158,6 +160,7 @@ export function maxAllTimeDimensions() {
   }
   if (TimeDimension(8).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 26) {
     Alpha.advanceLayer();
+    Alpha.quotes.eighthTimeDimension.show();
   }
 }
 
