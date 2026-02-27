@@ -159,6 +159,7 @@ export function eternity(force, auto, specialConditions = {}) {
 
   if (Alpha.isRunning && Alpha.currentStage === 19 && EternityChallenge(10).completions >= 1) {
     Alpha.advanceLayer();
+    Alpha.quotes.eternityChallTen.show();
   }
 
   if (Alpha.isRunning && Alpha.currentStage === 22 && EternityChallenge(11).completions >= 5) {
