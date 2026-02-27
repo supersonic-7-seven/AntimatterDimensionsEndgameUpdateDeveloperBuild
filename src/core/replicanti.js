@@ -489,7 +489,7 @@ export const ReplicantiUpgrade = {
       }
       if (N.lte(0)) return;
       Currency.infinityPoints.subtract(totalCost);
-      let costGain = DC.E140.times(Decimal.pow(this.costIncrease, this.rawValue.add(N).min(this.costThreshold).sub(1)));
+      let costGain = DC.E140.times(Decimal.pow(this.costIncrease, this.rawValue.add(N).min(this.costThreshold)));
       if (aboveThreshold) {
         costGain = costGain.times(Decimal.pow(this.costIncrease, Decimal.pow(this.costExponent, affordableAboveThreshold.sub(1))));
       }
