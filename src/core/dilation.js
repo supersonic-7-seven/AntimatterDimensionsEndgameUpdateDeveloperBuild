@@ -296,6 +296,7 @@ class DilationUpgradeState extends SetPurchasableMechanicState {
       SpeedrunMilestones(15).tryComplete();
       if (Alpha.isRunning && Alpha.currentStage === 25) {
         Alpha.advanceLayer();
+        Alpha.quotes.ttGen.show();
       }
     }
   }
