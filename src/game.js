@@ -85,7 +85,10 @@ export function breakInfinity() {
   TabNotification.ICUnlock.tryTrigger();
   EventHub.dispatch(player.break ? GAME_EVENT.BREAK_INFINITY : GAME_EVENT.FIX_INFINITY);
   GameUI.update();
-  if (Alpha.isRunning && Alpha.currentStage === 5) Alpha.advanceLayer();
+  if (Alpha.isRunning && Alpha.currentStage === 5) {
+    Alpha.advanceLayer();
+    Alpha.quotes.breakInfinity.show();
+  }
 }
 
 export function breakEternity() {
