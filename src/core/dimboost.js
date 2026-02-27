@@ -235,8 +235,14 @@ export function requestDimensionBoost(bulk) {
   Tutorial.turnOffEffect(TUTORIAL_STATE.DIMBOOST);
   if (BreakInfinityUpgrade.autobuyMaxDimboosts.isBought && bulk) maxBuyDimBoosts();
   else softReset(1);
-  if (Alpha.isRunning && DimBoost.purchasedBoosts.gte(4) && Alpha.currentStage === 0) Alpha.advanceLayer();
-  if (Alpha.isRunning && DimBoost.purchasedBoosts.gte(5) && Alpha.currentStage === 1) Alpha.advanceLayer();
+  if (Alpha.isRunning && DimBoost.purchasedBoosts.gte(4) && Alpha.currentStage === 0) {
+    Alpha.advanceLayer();
+    Alpha.quotes.fourthDB.show();
+  }
+  if (Alpha.isRunning && DimBoost.purchasedBoosts.gte(5) && Alpha.currentStage === 1) {
+    Alpha.advanceLayer();
+    Alpha.quotes.fifthDB.show();
+  }
 }
 
 function maxBuyDimBoosts() {
