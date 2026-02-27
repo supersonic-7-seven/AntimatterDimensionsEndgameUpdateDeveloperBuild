@@ -214,7 +214,10 @@ export function requestGalaxyReset(bulk, limit = DC.BEMAX) {
   if (player.galaxies.gte(restrictedLimit) || !Galaxy.canBeBought || !Galaxy.requirement.isSatisfied) return false;
   Tutorial.turnOffEffect(TUTORIAL_STATE.GALAXY);
   galaxyReset();
-  if (Alpha.isRunning && player.galaxies.gte(1) && Alpha.currentStage === 2) Alpha.advanceLayer();
+  if (Alpha.isRunning && player.galaxies.gte(1) && Alpha.currentStage === 2) {
+    Alpha.advanceLayer();
+    Alpha.quotes.galaxy.show();
+  }
   return true;
 }
 
