@@ -41,6 +41,7 @@ export class ECTimeStudyState extends TimeStudyState {
       TimeStudyTree.commitToGameState([TimeStudy.eternityChallenge(this.id)]);
       if (this.id === 11 && Alpha.isRunning && Alpha.currentStage === 21) {
         Alpha.advanceLayer();
+        Alpha.quotes.eternityChallEleven.show();
       }
       return true;
     }
