@@ -46,6 +46,7 @@ export class DilationTimeStudyState extends TimeStudyState {
       TabNotification.dilationAfterUnlock.tryTrigger();
       if (Alpha.isRunning && Alpha.currentStage === 23) {
         Alpha.advanceLayer();
+        Alpha.quotes.unlockDilation.show();
       }
     }
     if (this.id === 6) {
