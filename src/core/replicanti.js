@@ -408,7 +408,7 @@ export const ReplicantiUpgrade = {
       N = Decimal.round((Decimal.min(Decimal.floor(N).times(0.01).add(this.value.min(this.costThreshold / 100)), this.costThreshold / 100).sub(this.value.min(this.costThreshold / 100))).times(100));
       let totalCost = DC.E150.times(Decimal.pow(this.costIncrease, this.rawValue.min(this.costThreshold).sub(1))).times(Decimal.pow(this.costIncrease, N).minus(1).dividedBy(this.costIncrease - 1).max(1));
       const threshold = DC.E150.times(Decimal.pow(this.costIncrease, this.costThreshold - 2));
-      const aboveThreshold = this.cost.gt(threshold);
+      const aboveThreshold = this.cost.gt(threshold) && Alpha.isDestroyed;
       const affordableAboveThreshold = Decimal.floor(Currency.infinityPoints.value.div(threshold).max(1e15).log(this.costIncrease).log(this.costExponent).add(1));
       if (aboveThreshold) {
         N = N.add(affordableAboveThreshold.add(1).sub(this.value.times(100).sub(this.costThreshold - 1)));
@@ -481,7 +481,7 @@ export const ReplicantiUpgrade = {
       N = Decimal.round((Decimal.min(Decimal.floor(N).add(this.rawValue.min(this.costThreshold)), this.costThreshold).sub(this.rawValue.min(this.costThreshold))));
       let totalCost = DC.E140.times(Decimal.pow(this.costIncrease, this.rawValue.min(this.costThreshold))).times(Decimal.pow(this.costIncrease, N).minus(1).dividedBy(this.costIncrease - 1).max(1));
       const threshold = DC.E140.times(Decimal.pow(this.costIncrease, this.costThreshold - 1));
-      const aboveThreshold = this.cost.gt(threshold);
+      const aboveThreshold = this.cost.gt(threshold) && Alpha.isDestroyed;
       const affordableAboveThreshold = Decimal.floor(Currency.infinityPoints.value.div(threshold).max(1e10).log(this.costIncrease).log(this.costExponent).add(1));
       if (aboveThreshold) {
         N = N.add(affordableAboveThreshold.add(1).sub(this.rawValue.sub(this.costThreshold)));
