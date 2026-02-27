@@ -27,6 +27,7 @@ export function buySingleTimeDimension(tier, auto = false) {
   dim.cost = dim.nextCost(dim.bought);
   if (TimeDimension(4).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 13) {
     Alpha.advanceLayer();
+    Alpha.quotes.fourthTimeDimension.show();
   }
   if (TimeDimension(8).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 26) {
     Alpha.advanceLayer();
@@ -124,6 +125,7 @@ export function buyMaxTimeDimension(tier, portionToSpend = 1, isMaxAll = false) 
   dim.cost = dim.nextCost(dim.bought);
   if (TimeDimension(4).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 13) {
     Alpha.advanceLayer();
+    Alpha.quotes.fourthTimeDimension.show();
   }
   if (TimeDimension(8).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 26) {
     Alpha.advanceLayer();
@@ -152,6 +154,7 @@ export function maxAllTimeDimensions() {
   }
   if (TimeDimension(4).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 13) {
     Alpha.advanceLayer();
+    Alpha.quotes.fourthTimeDimension.show();
   }
   if (TimeDimension(8).amount.gte(1) && Alpha.isRunning && Alpha.currentStage === 26) {
     Alpha.advanceLayer();
