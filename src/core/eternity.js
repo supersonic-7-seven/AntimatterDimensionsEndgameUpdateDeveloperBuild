@@ -164,6 +164,7 @@ export function eternity(force, auto, specialConditions = {}) {
 
   if (Alpha.isRunning && Alpha.currentStage === 22 && EternityChallenge(11).completions >= 5) {
     Alpha.advanceLayer();
+    Alpha.quotes.completeEternityChallEleven.show();
   }
 
   if (Alpha.isRunning && Alpha.currentStage === 24 && Currency.tachyonParticles.gt(0)) {
