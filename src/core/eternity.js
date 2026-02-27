@@ -143,6 +143,7 @@ export function eternity(force, auto, specialConditions = {}) {
 
   if (Alpha.isRunning && Alpha.currentStage === 11) {
     Alpha.advanceLayer();
+    Alpha.quotes.eternity.show();
   }
 
   for (let c = 1; c < 13; c++) {
