@@ -311,6 +311,7 @@ class EternityUpgradeState extends SetPurchasableMechanicState {
   onPurchased() {
     if (this.id === 3 && Alpha.isRunning && Alpha.currentStage === 14) {
       Alpha.advanceLayer();
+      Alpha.quotes.infinityChallTimeBoost.show();
     }
   }
 }
