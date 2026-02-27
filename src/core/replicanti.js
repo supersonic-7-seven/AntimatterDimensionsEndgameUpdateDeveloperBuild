@@ -724,6 +724,7 @@ export const Replicanti = {
     }
     if (Alpha.isRunning && Alpha.currentStage === 9) {
       Alpha.advanceLayer();
+      Alpha.quotes.replicanti.show();
     }
   },
   get amount() {
