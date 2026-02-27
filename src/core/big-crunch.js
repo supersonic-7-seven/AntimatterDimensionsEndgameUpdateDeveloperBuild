@@ -58,7 +58,10 @@ export function bigCrunchReset(
   }
 
   bigCrunchResetValues(enteringAntimatterChallenge);
-  if (Alpha.isRunning && player.infinities.eq(1) && Alpha.currentStage === 3) Alpha.advanceLayer();
+  if (Alpha.isRunning && player.infinities.eq(1) && Alpha.currentStage === 3) {
+    Alpha.advanceLayer();
+    Alpha.quotes.infinity.show();
+  }
   EventHub.dispatch(GAME_EVENT.BIG_CRUNCH_AFTER);
 }
 
