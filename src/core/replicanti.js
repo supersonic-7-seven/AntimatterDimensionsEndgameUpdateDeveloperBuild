@@ -576,7 +576,7 @@ export const ReplicantiUpgrade = {
       const extraIncrements = DC.D5;
       const contingentScalingFactor = 1.0002;
 
-      const cur = new Decimal(Currency.infinityPoints.value.times(TimeStudy(233).effectOrDefault(1)).max(1).log10());
+      const cur = new Decimal(Currency.infinityPoints.value.times(TimeStudy(233).effectOrDefault(1)).timesEffectOf(PelleRifts.vacuum.milestones[1]).max(1).log10());
 
       if (logBase.gt(cur)) return;
       let a = logCostScaling.div(2);
