@@ -1092,7 +1092,8 @@ export const Alpha = {
   },
   get cosmicSectorMinBoost() {
     return (1 - Decimal.pow(0.8, Decimal.log10(Currency.etherealPower.value.add(1))).toNumber()) *
-      (1 - (Math.floor(Math.pow(0.8, Alpha.currentStage) * 10) / 10));
+      Math.max(1 - (Math.floor(Math.pow(0.8, Alpha.currentStage) * 10) / 10) - Math.max((4 - Alpha.currentStage) / 10, 0) +
+      (Math.pow(Math.max(2 - Alpha.currentStage, 0), 2) / 10), 0);
   },
   get cosmicSectorExtraBoost() {
     return Decimal.pow(Ethereal.cosmicSector, 2).div(100).times(4.8);
