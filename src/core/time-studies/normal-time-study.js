@@ -96,6 +96,7 @@ export class NormalTimeStudyState extends TimeStudyState {
     if (this.id === 181 && Pelle.isDoomed) Achievement(186).unlock();
     if (this.id === 61 && Alpha.isRunning && Alpha.currentStage === 12) {
       Alpha.advanceLayer();
+      Alpha.quotes.improveEP.show();
     }
     if (this.id === 181 && Alpha.isRunning && Alpha.currentStage === 18) {
       Alpha.advanceLayer();
