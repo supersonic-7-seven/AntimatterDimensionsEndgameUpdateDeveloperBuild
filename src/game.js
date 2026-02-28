@@ -433,7 +433,7 @@ export function getGameSpeedupFactor(effectsToConsider, _applyMaxThisEndgame, bl
           ? blackHole.isActive
           : blackHole.id <= blackHolesActiveOverride;
         if (!isActive) break;
-        factor = factor.times(Math.pow(blackHole.power, BlackHoles.unpauseAccelerationFactor));
+        factor = factor.times(Decimal.pow(blackHole.power, BlackHoles.unpauseAccelerationFactor));
         factor = factor.times(VUnlocks.achievementBH.effectOrDefault(1));
         if (Pelle.isDoomed && PelleCelestialUpgrade.vMilestones3.isBought) factor = factor.times(VUnlocks.achievementBH.effectValue);
       }
