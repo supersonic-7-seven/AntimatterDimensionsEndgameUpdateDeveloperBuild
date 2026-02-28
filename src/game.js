@@ -1163,7 +1163,7 @@ function updateDualMachines(diff) {
 
 function updateTachyonGalaxies() {
   const tachyonGalaxyMult = Effects.max(1, DilationUpgrade.doubleGalaxies);
-  const tachyonGalaxyThreshold = 1000;
+  const tachyonGalaxyThreshold = Alpha.isDestroyed ? Infinity : 1000;
   const thresholdMult = getTachyonGalaxyMult();
   player.dilation.baseTachyonGalaxies = Decimal.max(player.dilation.baseTachyonGalaxies,
     Decimal.floor(Decimal.log(Currency.dilatedTime.value.dividedBy(1000), thresholdMult)).add(1));
