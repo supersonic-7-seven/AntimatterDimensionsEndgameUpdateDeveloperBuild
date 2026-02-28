@@ -47,9 +47,9 @@ export class EndgameSkillPurchaseType {
     const amount = this.bulkPossible;
     const buyFn = cost => this.currency.purchase(cost);
     // This will sometimes buy one too few for CP/DP, so we just have to buy 1 after.
-    if (bulk && buyFn(this.bulkCost(amount))) {
-      Currency.endgameSkills.add(amount);
-      this.add(amount);
+    if (bulk && buyFn(this.bulkCost(amount - 1))) {
+      Currency.endgameSkills.add(amount - 1);
+      this.add(amount - 1);
       purchased = true;
     }
     if (buyFn(this.cost)) {
