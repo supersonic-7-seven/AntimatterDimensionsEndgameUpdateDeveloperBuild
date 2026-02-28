@@ -274,7 +274,7 @@ export const CelestialDimensions = {
   },
 
   get alphaDecayRemnant() {
-    return Time.thisEndgameRealTime._ms.div(18000000).min(1);
+    return Alpha.isDestroyed ? Time.thisEndgameRealTime._ms.div(18000000).min(1) : 1;
   },
 
   get conversionExponent() {
