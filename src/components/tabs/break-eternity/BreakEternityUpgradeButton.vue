@@ -84,6 +84,7 @@ export default {
       <DescriptionDisplay :config="upgrade.config" />
       <EffectDisplay :config="upgrade.config" />
       <CostDisplay
+        v-if="!isCapped"
         :config="upgrade.config"
         name="Antimatter"
       />
