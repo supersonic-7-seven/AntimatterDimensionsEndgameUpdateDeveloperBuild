@@ -212,6 +212,12 @@ window.player = {
       })),
       isActive: true,
     },
+    dualityUpgrades: {
+      all: Array.range(0, 10).map(() => ({
+        isActive: false,
+      })),
+      isActive: true,
+    },
     darkMatterDims: {
       isActive: false,
       lastTick: 0,
