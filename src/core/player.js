@@ -466,8 +466,8 @@ window.player = {
   eternityUpgrades: new Set(),
   epmultUpgrades: DC.D0,
   timeShards: DC.D0,
-  totalTickGained: 0,
-  totalTickBought: 0,
+  totalTickGained: DC.D0,
+  totalTickBought: DC.D0,
   replicanti: {
     unl: false,
     amount: DC.D0,
@@ -1126,8 +1126,8 @@ window.player = {
         eternityUpgrades: new Set(),
         epmultUpgrades: DC.D0,
         timeShards: DC.D0,
-        totalTickGained: 0,
-        totalTickBought: 0,
+        totalTickGained: DC.D0,
+        totalTickBought: DC.D0,
         replicanti: {
           unl: false,
           amount: DC.D0,
