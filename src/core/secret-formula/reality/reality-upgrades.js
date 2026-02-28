@@ -331,8 +331,8 @@ export const realityUpgrades = [
     checkRequirement: () => Time.thisReality.totalMinutes.lt(15),
     checkEvent: GAME_EVENT.REALITY_RESET_BEFORE,
     description: "Replicanti speed is boosted based on your fastest game-time Reality",
-    effect: () => player.disablePostReality ? 1 : DC.D15.div(Decimal.clamp(Time.bestReality.totalMinutes, new Decimal(1 / 12), DC.D15)).toNumber(),
-    cap: 180,
+    effect: () => player.disablePostReality ? 1 : DC.D15.div(Decimal.min(Time.bestReality.totalMinutes, DC.D15)).toNumber(),
+    cap: () => Alpha.isDestroyed ? Infinity : 180,
     formatEffect: value => formatX(value, 2, 2)
   },
   {
