@@ -91,16 +91,12 @@ class CelestialDimensionState extends DimensionState {
     return production.times(this.multiplier);
   }
 
-  get alphaDecayRemnant() {
-    return Time.thisEndgameRealTime._ms.div(18000000).min(1);
-  }
-
   get multiplier() {
     const tier = this.tier;
     let mult = GameCache.celestialDimensionCommonMultiplier.value;
     mult = mult.times(Decimal.pow(this.powerMultiplier, Math.floor(this.baseAmount)));
     mult = mult.powEffectsOf(SingularityMilestone.dimensionPow, Ra.unlocks.celestialDimensionPower);
-    mult = mult.pow(this.alphaDecayRemnant);
+    mult = mult.pow(CelestialDimensions.alphaDecayRemnant);
     return mult;
   }
 
@@ -275,6 +271,10 @@ export const CelestialDimensions = {
 
     // Try to buy max from the lowest dimension (since lower dimensions have bigger multiplier per purchase)
     unlockedDimensions.forEach(dimension => dimension.buyMax(false));
+  },
+
+  get alphaDecayRemnant() {
+    return Time.thisEndgameRealTime._ms.div(18000000).min(1);
   },
 
   get conversionExponent() {
