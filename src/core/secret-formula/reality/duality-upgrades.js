@@ -233,10 +233,10 @@ export const dualityUpgrades = [
     name: "Empyrean Eradication",
     id: 21,
     cost: new Decimal(3e17),
-    requirement: () => `Reach ${format("e1e50")}? antimatter with Continuum disabled for the entire Endgame`,
+    requirement: () => `Reach ${format("e8e88")}? antimatter with Continuum disabled for the entire Endgame`,
     hasFailed: () => !player.requirementChecks.endgame.noContinuum,
     checkRequirement: () => player.requirementChecks.endgame.noContinuum &&
-      Currency.antimatter.value.add(1).log10().gte(DC.E9E15),
+      Currency.antimatter.value.add(1).log10().gte(8e88),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     canLock: true,
     lockEvent: "enable Continuum",
