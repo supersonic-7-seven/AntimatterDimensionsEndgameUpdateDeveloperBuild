@@ -84,7 +84,7 @@ export function buyTickSpeed() {
   }
   Tutorial.turnOffEffect(TUTORIAL_STATE.TICKSPEED);
   Currency.antimatter.subtract(Tickspeed.cost);
-  player.totalTickBought++;
+  player.totalTickBought = player.totalTickBought.add(1);
   player.records.thisInfinity.lastBuyTime = player.records.thisInfinity.time;
   player.requirementChecks.permanent.singleTickspeed++;
   if (NormalChallenge(2).isRunning) player.chall2Pow = 0;
@@ -103,17 +103,17 @@ export function buyMaxTickSpeed() {
     while (Currency.antimatter.gt(cost) && cost.lt(goal)) {
       Tickspeed.multiplySameCosts();
       Currency.antimatter.subtract(cost);
-      player.totalTickBought++;
+      player.totalTickBought = player.totalTickBought.add(1);
       boughtTickspeed = true;
       cost = Tickspeed.cost;
     }
   } else {
-    const purchases = Tickspeed.costScale.getMaxBought(player.totalTickBought, Currency.antimatter.value, 1);
+    const purchases = Tickspeed.costScale.getMaxBoughtDecimal(player.totalTickBought, Currency.antimatter.value, 1);
     if (purchases === null) {
       return;
     }
     Currency.antimatter.subtract(Decimal.pow10(purchases.logPrice));
-    player.totalTickBought += purchases.quantity;
+    player.totalTickBought = player.totalTickBought.add(purchases.quantity);
     boughtTickspeed = true;
   }
 
@@ -124,7 +124,7 @@ export function buyMaxTickSpeed() {
 }
 
 export function resetTickspeed() {
-  player.totalTickBought = 0;
+  player.totalTickBought = DC.D0;
   player.chall9TickspeedCostBumps = 0;
 }
 
@@ -158,7 +158,7 @@ export const Tickspeed = {
   },
 
   get cost() {
-    return this.costScale.calculateCost(player.totalTickBought + player.chall9TickspeedCostBumps);
+    return this.costScale.calculateCostDecimal(player.totalTickBought.add(player.chall9TickspeedCostBumps));
   },
 
   get costScale() {
@@ -189,7 +189,7 @@ export const Tickspeed = {
     let boughtTickspeed;
     if (Laitela.continuumActive) boughtTickspeed = this.continuumValue;
     else boughtTickspeed = player.totalTickBought;
-    return new Decimal(boughtTickspeed).add(player.totalTickGained).toNumber();
+    return new Decimal(boughtTickspeed).add(player.totalTickGained);
   },
 
   get perSecond() {
