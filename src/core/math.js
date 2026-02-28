@@ -469,6 +469,16 @@ window.ExponentialCostScaling = class ExponentialCostScaling {
     return DC.E1.pow(logCost);
   }
 
+  calculateCostDecimal(currentPurchases) {
+    const logMult = this._logBaseIncreaseDecimal;
+    const logBase = this._logBaseCost;
+    const excess = currentPurchases.sub(this._purchasesBeforeScaling);
+    const logCost = excess.gt(0)
+      ? new Decimal(currentPurchases).times(logMult).add(logBase).add(excess.times(excess.add(1)).times(this._logCostScale).div(2))
+      : new Decimal(currentPurchases).times(logMult).add(logBase);
+    return DC.E1.pow(logCost);
+  }
+
   decimalCalculateCost(currentPurchases) {
     // Define these here just cause theyre easier to type
     const base = this.log._baseCost;
