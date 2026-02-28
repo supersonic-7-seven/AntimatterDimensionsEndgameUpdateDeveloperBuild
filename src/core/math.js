@@ -418,13 +418,15 @@ window.ExponentialCostScaling = class ExponentialCostScaling {
     this._logBaseCost = new Decimal(ExponentialCostScaling.log10(param.baseCost));
     this._logBaseIncrease = ExponentialCostScaling.log10(param.baseIncrease);
     this._logCostScale = ExponentialCostScaling.log10(param.costScale);
+    this._logBaseIncreaseDecimal = new Decimal(ExponentialCostScaling.log10(param.baseIncrease));
+    this._logCostScaleDecimal = new Decimal(ExponentialCostScaling.log10(param.costScale));
     if (param.purchasesBeforeScaling !== undefined) {
-      this._purchasesBeforeScaling = param.purchasesBeforeScaling;
+      this._purchasesBeforeScaling = new Decimal(param.purchasesBeforeScaling);
     // eslint-disable-next-line no-negated-condition
     } else if (param.scalingCostThreshold !== undefined) {
       this._purchasesBeforeScaling = Decimal.ceil(
         (new Decimal(ExponentialCostScaling.log10(param.scalingCostThreshold)).sub(this._logBaseCost)).div(
-          this._logBaseIncrease)).toNumber();
+          this._logBaseIncrease));
     } else throw new Error("Must specify either scalingCostThreshold or purchasesBeforeScaling");
     this.updateCostScale();
     this.log = {
@@ -450,7 +452,7 @@ window.ExponentialCostScaling = class ExponentialCostScaling {
   updateCostScale() {
     this._precalcDiscriminant = Decimal.pow((2 * this._logBaseIncrease + this._logCostScale), 2).sub(
       DC.D8.times(this._logCostScale).times(new Decimal(this._purchasesBeforeScaling).times(this._logBaseIncrease).add(this._logBaseCost)));
-    this._precalcCenter = -this._logBaseIncrease / this._logCostScale + this._purchasesBeforeScaling + 0.5;
+    this._precalcCenter = new Decimal(this._logBaseIncrease).neg().div(this._logCostScale).add(this._purchasesBeforeScaling).add(0.5);
   }
 
   /**
@@ -460,7 +462,7 @@ window.ExponentialCostScaling = class ExponentialCostScaling {
   calculateCost(currentPurchases) {
     const logMult = this._logBaseIncrease;
     const logBase = this._logBaseCost;
-    const excess = currentPurchases - this._purchasesBeforeScaling;
+    const excess = currentPurchases - this._purchasesBeforeScaling.toNumber();
     const logCost = excess > 0
       ? new Decimal(currentPurchases).times(logMult).add(logBase).add(0.5 * excess * (excess + 1) * this._logCostScale)
       : new Decimal(currentPurchases).times(logMult).add(logBase);
@@ -513,23 +515,54 @@ window.ExponentialCostScaling = class ExponentialCostScaling {
     let newPurchases = Decimal.floor((logMoney.sub(logBase)).div(logMult).add(1)).toNumber();
     // We can use the linear method up to one purchase past the threshold, because the first purchase
     // past the threshold doesn't have cost scaling in it yet.
-    if (newPurchases > this._purchasesBeforeScaling) {
+    if (newPurchases > this._purchasesBeforeScaling.toNumber()) {
       const discrim = this._precalcDiscriminant.toNumber() + 8 * this._logCostScale * logMoney.toNumber();
       if (discrim < 0) return null;
-      newPurchases = Math.floor(this._precalcCenter + Math.sqrt(discrim) / (2 * this._logCostScale));
+      newPurchases = Math.floor(this._precalcCenter.toNumber() + Math.sqrt(discrim) / (2 * this._logCostScale));
     }
     if (newPurchases <= currentPurchases) return null;
     // There's a narrow edge case where the linear method returns > this._purchasesBeforeScaling + 1
     // but the quadratic method returns less than that. Having this be a separate check covers that
     // case:
     let logPrice;
-    if (newPurchases <= this._purchasesBeforeScaling + 1) {
+    if (newPurchases <= this._purchasesBeforeScaling.toNumber() + 1) {
       logPrice = new Decimal(newPurchases - 1).times(logMult).add(logBase).toNumber();
     } else {
-      const pExcess = newPurchases - this._purchasesBeforeScaling;
+      const pExcess = newPurchases - this._purchasesBeforeScaling.toNumber();
       logPrice = new Decimal(newPurchases - 1).times(logMult).add(logBase).add(0.5 * pExcess * (pExcess - 1) * this._logCostScale).toNumber();
     }
     return { quantity: newPurchases - currentPurchases, logPrice: logPrice + Math.log10(numberPerSet) };
+  }
+
+  getMaxBoughtDecimal(currentPurchases, rawMoney, numberPerSet) {
+    // We need to divide money by the number of things we need to buy per set
+    // so that we don't, for example, buy all of a set of 10 dimensions
+    // when we can only afford 1.
+    const money = rawMoney.div(numberPerSet);
+    const logMoney = money.clampMin(1).log10();
+    const logMult = this._logBaseIncreaseDecimal;
+    const logBase = this._logBaseCost;
+    // The 1 + is because the multiplier isn't applied to the first purchase
+    let newPurchases = Decimal.floor((logMoney.sub(logBase)).div(logMult).add(1));
+    // We can use the linear method up to one purchase past the threshold, because the first purchase
+    // past the threshold doesn't have cost scaling in it yet.
+    if (newPurchases.gt(this._purchasesBeforeScaling)) {
+      const discrim = this._precalcDiscriminant.add(DC.D8.times(this._logCostScaleDecimal).times(logMoney));
+      if (discrim.lt(0)) return null;
+      newPurchases = Decimal.floor(this._precalcCenter.add(Decimal.sqrt(discrim).div(this._logCostScaleDecimal.times(2))));
+    }
+    if (newPurchases.lte(currentPurchases)) return null;
+    // There's a narrow edge case where the linear method returns > this._purchasesBeforeScaling + 1
+    // but the quadratic method returns less than that. Having this be a separate check covers that
+    // case:
+    let logPrice;
+    if (newPurchases.lte(this._purchasesBeforeScaling.add(1))) {
+      logPrice = newPurchases.sub(1).times(logMult).add(logBase);
+    } else {
+      const pExcess = newPurchases.sub(this._purchasesBeforeScaling);
+      logPrice = newPurchases.sub(1).times(logMult).add(logBase).add(pExcess.times(pExcess.sub(1)).times(this._logCostScaleDecimal).div(2));
+    }
+    return { quantity: newPurchases.sub(currentPurchases), logPrice: logPrice.add(Decimal.log10(new Decimal(numberPerSet))) };
   }
 
   decimalGetMaxBought(currentPurchases, currency, purchasesPerIncrease, roundDown = true) {
