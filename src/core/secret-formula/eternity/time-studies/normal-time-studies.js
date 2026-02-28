@@ -194,7 +194,8 @@ export const normalTimeStudies = [
     requirement: [73],
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     description: "Dimension Boost multiplier based on tick upgrades gained from TDs",
-    effect: () => DC.D1_0004.pow(player.totalTickGained).min(1e30).times(Decimal.pow(Math.max(player.totalTickGained - 172728, 1), 1000)),
+    effect: () => DC.D1_0004.pow(player.totalTickGained).min(1e30).times(
+      Decimal.pow(Decimal.max(player.totalTickGained.sub(172728), 1), 1000)),
     cap: () => Alpha.isDestroyed ? DC.BEMAX : DC.E30,
     formatEffect: value => formatX(value, 2, 1)
   },
