@@ -713,6 +713,10 @@ export const Endgame = {
     player.records.thisEndgame.realTime = 0;
     player.records.thisEndgame.peakGameSpeed = DC.D1;
     Glyphs.refreshActive();
+    if (!player.auto.disableContinuum) {
+      player.requirementChecks.reality.noContinuum = false;
+      player.requirementChecks.endgame.noContinuum = false;
+    }
     if (EndgameMastery(112).isBought) {
       Achievement(146).unlock();
     }
