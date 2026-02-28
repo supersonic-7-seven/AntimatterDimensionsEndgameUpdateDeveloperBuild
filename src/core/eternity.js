@@ -232,7 +232,7 @@ export function initializeResourcesAfterEternity() {
   player.records.thisEternity.realTime = 0;
   player.records.totalInfinityAntimatter = DC.E1;
   player.records.totalEternityAntimatter = DC.E1;
-  player.totalTickGained = 0;
+  player.totalTickGained = DC.D0;
   player.eterc8ids = 50;
   player.eterc8repl = 40;
   Player.resetRequirements("eternity");
