@@ -67,10 +67,12 @@ export const breakInfinityUpgrades = {
     id: "challengeMult",
     cost: () => 5e6 * (Alpha.isRunning ? AlphaUnlocks.breakInfinity.effects.nerfA.effectOrDefault(1) : 1),
     description: "Antimatter Dimensions gain a multiplier based on how fast your slowest challenge run is",
-    effect: () => Decimal.clampMin(new Decimal(300).div(Time.worstChallenge.totalMinutes.clampMin(0.001)), 1),
+    effect: () => Alpha.isDestroyed
+      ? new Decimal(300).div(Time.worstChallenge.totalMinutes)
+      : Decimal.clampMin(new Decimal(300).div(Time.worstChallenge.totalMinutes.clampMin(0.001)), 1),
     formatEffect: value => formatX(value, 2, 2),
     hasCap: true,
-    cap: DC.D2E5
+    cap: () => Alpha.isDestroyed ? DC.BEMAX : DC.D2E5
   },
   infinitiedGen: {
     id: "infinitiedGeneration",
@@ -86,7 +88,7 @@ export const breakInfinityUpgrades = {
         Ra.unlocks.continuousTTBoost.effects.infinity
       );
       infinities = infinities.times(getAdjustedGlyphEffect("infinityinfmult"));
-      const timeStr = Time.bestInfinity.totalMilliseconds.lte(50)
+      const timeStr = Time.bestInfinity.totalMilliseconds.lte(50) && !Alpha.isDestroyed
         ? `${TimeSpan.fromMilliseconds(new Decimal(100)).toStringShort()} (capped)`
         : `${Time.bestInfinity.times(new Decimal(2)).toStringShort()}`;
       return `${quantify("Infinity", infinities)} every ${timeStr}`;
