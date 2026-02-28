@@ -2,9 +2,9 @@ export const endgameMilestones = {
   riftFill: {
     endgames: 1,
     reward: () => {
-      return `Rift Fill is ${formatPercents(0.05)} faster per Endgame, capping at ${formatPercents(0.45)} after ${formatInt(9)} Endgames ` + 
+      return `Rift Fill is ${formatPercents(0.05)} faster per Endgame, capping at ${formatPercents(Alpha.isDestroyed ? 0.9 : 0.45)} after ${formatInt(9)} Endgames ` + 
         (player.disablePostReality ? "(Destroyed)" : (player.endgames >= 1
-         ? (player.endgames >= 9 ? "(Capped: " : "(Currently: ") + `+${formatPercents(Math.min(0.45, player.endgames * 0.05))})`
+         ? (player.endgames >= 9 ? "(Capped: " : "(Currently: ") + `+${formatPercents(Math.min(0.45, player.endgames * 0.05) + (Alpha.isDestroyed ? 0.45 : 0))})`
          : "(You have not yet reached this milestone)"));
     }
   },
@@ -22,7 +22,7 @@ export const endgameMilestones = {
     reward: () => {
       return `Galaxy Generator Animations are ${formatX(1.2, 0, 1)} faster every ${formatInt(5)} Endgames, capping after ${formatInt(100)} Endgames ` + 
         (player.disablePostReality ? "(Destroyed)" : (player.endgames >= 5
-         ? (player.endgames >= 100 ? "(Capped: " : "(Currently: ") + `${formatX(Math.pow(1.2, Math.floor(Math.min(Currency.endgames.value, 100) / 5)), 2, 2)})`
+         ? (player.endgames >= 100 && !Alpha.isDestroyed ? "(Capped: " : "(Currently: ") + Alpha.isDestroyed ? "Instant" : `${formatX(Math.pow(1.2, Math.floor(Math.min(Currency.endgames.value, 100) / 5)), 2, 2)})`
          : "(You have not yet reached this milestone)"));
     }
   },
