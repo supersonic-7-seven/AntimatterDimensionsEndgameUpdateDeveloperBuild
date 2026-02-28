@@ -7,6 +7,7 @@ import { DarkMatterDimensionAscensionAutobuyerState } from "./dark-matter-dimens
 import { DarkMatterDimensionAutobuyerState } from "./dark-matter-dimension-autobuyer";
 import { DilationUpgradeAutobuyerState } from "./dilation-upgrade-autobuyer";
 import { DimBoostAutobuyerState } from "./dimboost-autobuyer";
+import { DualityUpgradeAutobuyerState } from "./duality-upgrade-autobuyer";
 import { EndgameAutobuyerState } from "./endgame-autobuyer";
 import { EternityAutobuyerState } from "./eternity-autobuyer";
 import { GalaxyAutobuyerState } from "./galaxy-autobuyer";
@@ -37,6 +38,7 @@ export const Autobuyer = {
   darkMatterDims: new DarkMatterDimensionAutobuyerState(),
   dilationUpgrade: DilationUpgradeAutobuyerState.createAccessor(),
   dimboost: new DimBoostAutobuyerState(),
+  dualityUpgrade: DualityUpgradeAutobuyerState.createAccessor(),
   endgame: new EndgameAutobuyerState(),
   eternity: new EternityAutobuyerState(),
   galaxy: new GalaxyAutobuyerState(),
@@ -101,6 +103,7 @@ export const Autobuyers = (function() {
     Autobuyer.blackHolePower.zeroIndexed,
     Autobuyer.realityUpgrade.zeroIndexed,
     Autobuyer.imaginaryUpgrade.zeroIndexed,
+    Autobuyer.dualityUpgrade.zeroIndexed,
     Autobuyer.galaxyGenerator.zeroIndexed,
   ];
   const all = dimensions.concat(prestige, singleComplex, arrays);
@@ -114,6 +117,7 @@ export const Autobuyers = (function() {
     Autobuyer.blackHolePower,
     Autobuyer.realityUpgrade,
     Autobuyer.imaginaryUpgrade,
+    Autobuyer.dualityUpgrade,
     Autobuyer.galaxyGenerator,
   ];
 
