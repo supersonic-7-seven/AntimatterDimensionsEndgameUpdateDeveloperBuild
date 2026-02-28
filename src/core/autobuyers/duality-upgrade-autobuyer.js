@@ -26,3 +26,4 @@ export class DualityUpgradeAutobuyerState extends AutobuyerState {
   static get autobuyerGroupName() { return "Duality Upgrade"; }
   static get isActive() { return player.auto.dualityUpgrades.isActive; }
   static set isActive(value) { player.auto.dualityUpgrades.isActive = value; }
+}
