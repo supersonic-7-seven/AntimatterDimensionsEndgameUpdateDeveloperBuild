@@ -43,7 +43,7 @@ export const normalTimeStudies = [
       const secondPart = tickspeed.pow(0.00048).times(0.05);
       return firstPart.plus(secondPart).reciprocate();
     },
-    cap: DC.E4000,
+    cap: () => Alpha.isDestroyed ? DC.BEMAX : DC.E4000,
     formatEffect: value => formatX(value, 2, 1)
   },
   {
@@ -144,7 +144,7 @@ export const normalTimeStudies = [
     reqType: TS_REQUIREMENT_TYPE.DIMENSION_PATH,
     description: "Dimensional Sacrifice affects all other Antimatter Dimensions with reduced effect",
     effect: () => Sacrifice.totalBoost.pow(0.25).clampMin(1),
-    cap: DC.E210000,
+    cap: () => Alpha.isDestroyed ? DC.BEMAX : DC.E210000,
     formatEffect: value => formatX(value, 2, 1)
   },
   {
@@ -156,7 +156,7 @@ export const normalTimeStudies = [
     reqType: TS_REQUIREMENT_TYPE.DIMENSION_PATH,
     description: "Dimensional Sacrifice affects 4th Infinity Dimension with greatly reduced effect",
     effect: () => Sacrifice.totalBoost.pow(0.04).clampMin(1),
-    cap: DC.E30000,
+    cap: () => Alpha.isDestroyed ? DC.BEMAX : DC.E30000,
     formatEffect: value => formatX(value, 2, 1)
   },
   {
@@ -166,7 +166,7 @@ export const normalTimeStudies = [
     reqType: TS_REQUIREMENT_TYPE.DIMENSION_PATH,
     description: "Dimensional Sacrifice affects 3rd Time Dimension with greatly reduced effect",
     effect: () => Sacrifice.totalBoost.pow(0.005).clampMin(1),
-    cap: DC.E1300,
+    cap: () => Alpha.isDestroyed ? DC.BEMAX : DC.E1300,
     formatEffect: value => formatX(value, 2, 1)
   },
   {
@@ -183,8 +183,9 @@ export const normalTimeStudies = [
     requirement: [72],
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     description: "Dimension Boosts affect Infinity Dimensions",
-    effect: () => DC.D1_0000109.pow(Decimal.pow(DimBoost.totalBoosts, 2)),
-    cap: DC.E1E7,
+    effect: () => DC.D1_0000109.pow(Decimal.pow(DimBoost.totalBoosts, 2)).min(Decimal.pow10(1e50)).times(
+      DC.D1_0000109.pow(DimBoost.totalBoosts.times(1e25))),
+    cap: () => Alpha.isDestroyed ? DC.BEMAX : DC.E1E7,
     formatEffect: value => formatX(value, 2, 1)
   },
   {
@@ -193,8 +194,8 @@ export const normalTimeStudies = [
     requirement: [73],
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     description: "Dimension Boost multiplier based on tick upgrades gained from TDs",
-    effect: () => DC.D1_0004.pow(player.totalTickGained),
-    cap: DC.E30,
+    effect: () => DC.D1_0004.pow(player.totalTickGained).min(1e30).times(Decimal.pow(Math.max(player.totalTickGained - 172728, 1), 1000)),
+    cap: () => Alpha.isDestroyed ? DC.BEMAX : DC.E30,
     formatEffect: value => formatX(value, 2, 1)
   },
   {
@@ -203,8 +204,9 @@ export const normalTimeStudies = [
     requirement: [81],
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     description: "Antimatter Dimension multiplier based on time spent in this Eternity",
-    effect: () => Decimal.pow10(Decimal.min(Time.thisEternity.totalMinutes, 20).times(15).toNumber()),
-    cap: DC.E300,
+    effect: () => Decimal.pow10(Decimal.min(Time.thisEternity.totalMinutes, 20).times(15).toNumber()).times(
+      Time.thisEternity.totalMinutes.sub(20).times(15).max(1)),
+    cap: () => Alpha.isDestroyed ? DC.BEMAX : DC.E300,
     formatEffect: value => formatX(value, 2, 1)
   },
   {
@@ -213,8 +215,8 @@ export const normalTimeStudies = [
     requirement: [82],
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     description: "Infinity Dimension multiplier based on fastest Eternity time",
-    effect: () => DC.D2.pow(new Decimal(60).div(Decimal.max(Time.bestEternity.totalSeconds, 2))),
-    cap: DC.C2P30,
+    effect: () => DC.D2.pow(new Decimal(60).div(Time.bestEternity.totalSeconds)),
+    cap: () => Alpha.isDestroyed ? DC.BEMAX : DC.C2P30,
     formatEffect: value => formatX(value, 2, 1)
   },
   {
@@ -465,8 +467,9 @@ export const normalTimeStudies = [
     requirement: [181, () => EternityChallenge(10).completions > 0],
     reqType: TS_REQUIREMENT_TYPE.ALL,
     description: "Antimatter Dimension multiplier based on Eternities",
-    effect: () => (DC.E2000.pow(Currency.eternities.value.div(1e5).clampMax(15))),
-    cap: DC.E30000,
+    effect: () => DC.E2000.pow(Currency.eternities.value.div(1e5).clampMax(15)).times(
+      DC.E2000.pow(Decimal.log10(Currency.eternities.value.sub(1.4e6).div(1e5).max(1)))),
+    cap: () => Alpha.isDestroyed ? DC.BEMAX : DC.E30000,
     formatEffect: value => formatX(value, 2, 1)
   },
   {
@@ -490,8 +493,9 @@ export const normalTimeStudies = [
     requirement: [191],
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     description: "All Galaxies are stronger based on your Time Shards",
-    effect: () => Decimal.pow(Currency.timeShards.value.clampMin(2).log2(), 0.008).toNumber(),
-    cap: 1.2,
+    effect: () => Decimal.pow(Currency.timeShards.value.clampMin(2).log2(), 0.008).min(1.2).times(
+      Currency.timeShards.value.clampMin(2).log2().add(1).log2().add(1).log2().sub(2.1).div(3).max(1)).toNumber(),
+    cap: () => Alpha.isDestroyed ? Infinity : 1.2,
     formatEffect: value => `+${formatPercents(value - 1, 3)}`
   },
   {
@@ -510,11 +514,11 @@ export const normalTimeStudies = [
     description: "Dimensional Sacrifice boosts the 8th Antimatter Dimension even more",
     effect: () => {
       const totalBoost = Sacrifice.totalBoost;
-      const firstPart = totalBoost.pow(18).clampMaxExponent(300000);
-      const secondPart = totalBoost.pow(3.5).clampMaxExponent(700000);
+      const firstPart = totalBoost.pow(18).clampMaxExponent(Alpha.isDestroyed ? Infinity : 300000);
+      const secondPart = totalBoost.pow(3.5).clampMaxExponent(Alpha.isDestroyed ? Infinity : 700000);
       return firstPart.times(secondPart);
     },
-    cap: DC.E1E6,
+    cap: () => Alpha.isDestroyed ? DC.BEMAX : DC.E1E6,
     formatEffect: value => formatX(value, 2, 1)
   },
   {
@@ -592,8 +596,8 @@ export const normalTimeStudies = [
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     requiresST: [228],
     description: "Dimensional Sacrifice affects 4th Time Dimension with reduced effect",
-    effect: () => Decimal.max(Decimal.pow(Sacrifice.totalBoost.add(1).pLog10(), 20), 1).toNumber(),
-    cap: 1e300,
+    effect: () => Decimal.max(Decimal.pow(Sacrifice.totalBoost.add(1).pLog10(), 20), 1),
+    cap: () => Alpha.isDestroyed ? DC.BEMAX : DC.E300,
     formatEffect: value => formatX(value, 2, 2)
   },
   {
