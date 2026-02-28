@@ -1004,8 +1004,10 @@ function passivePrestigeGen(realDiff) {
     let infGen = DC.D0;
     if (BreakInfinityUpgrade.infinitiedGen.isBought && (!Pelle.isDoomed || PelleDestructionUpgrade.passiveInfGen.isBought)) {
       // Multipliers are done this way to explicitly exclude ach87 and TS32
-      if (Alpha.isRunning) infGen = infGen.plus(new Decimal(0.5).times(Time.unscaledDeltaTime.totalMilliseconds).div(Decimal.clampMin(50, player.records.bestInfinity.time)));
-      if (!Alpha.isRunning) infGen = infGen.plus(new Decimal(0.5).times(Time.deltaTimeMs).div(Decimal.clampMin(50, player.records.bestInfinity.time)));
+      if (Alpha.isRunning) infGen = infGen.plus(new Decimal(0.5).times(Time.unscaledDeltaTime.totalMilliseconds).div(
+        Alpha.isDestroyed ? player.records.bestInfinity.time : Decimal.clampMin(50, player.records.bestInfinity.time)));
+      if (!Alpha.isRunning) infGen = infGen.plus(new Decimal(0.5).times(Time.deltaTimeMs).div(
+        Alpha.isDestroyed ? player.records.bestInfinity.time : Decimal.clampMin(50, player.records.bestInfinity.time)));
       infGen = infGen.timesEffectsOf(
         RealityUpgrade(5),
         RealityUpgrade(7),
