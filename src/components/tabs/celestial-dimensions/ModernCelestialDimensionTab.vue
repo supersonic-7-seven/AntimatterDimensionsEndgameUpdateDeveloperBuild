@@ -24,6 +24,8 @@ export default {
       softcap: new Decimal(0),
       unstable: false,
       isEffectActive: false,
+      alphaDecayRemnant: 0,
+      hasRemnant: false,
     };
   },
   methods: {
@@ -41,6 +43,8 @@ export default {
       this.softcap.copyFrom(CelestialDimensions.SOFTCAP);
       this.unstable = this.celestialMatter.gte(this.softcap);
       this.isEffectActive = player.endgame.celestialMatterMultiplier.isActive;
+      this.alphaDecayRemnant = CelestialDimensions.alphaDecayRemnant;
+      this.hasRemnant = Alpha.isDestroyed;
     },
     maxAll() {
       CelestialDimensions.buyMax();
@@ -104,6 +108,11 @@ export default {
           <span :class="instabilityClassObject()">{{ format(softcapPow, 2, 3) }}</span>.
         </div>
       </p>
+    </div>
+    <div v-if="hasRemnant">
+      Remnants of Alpha Decay are raising all Celestial Dimensions to the power of
+      <span class="c-celestial-dim-description__accent-unstable">{{ format(alphaDecayRemnant, 2, 3) }}</span>,
+      which increases to a cap of {{ formatInt(1) }} over {{ formatInt(5) }} real-time hours this Endgame.
     </div>
     <div>
       All Celestial Dimensions can be purchased until {{ format(totalDimCap, 2, 2) }} Celestial Points.
