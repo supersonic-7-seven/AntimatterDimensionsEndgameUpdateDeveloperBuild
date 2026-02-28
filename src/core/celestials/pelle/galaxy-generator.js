@@ -165,7 +165,7 @@ export const GalaxyGenerator = {
     );
 
     if (!this.capRift) {
-      PelleRifts.all.forEach(r => r.reducedTo = new Decimal(diff).div(1e5).times(3).add(r.reducedTo).clampMax(2).toNumber());
+      PelleRifts.all.forEach(r => r.reducedTo = new Decimal(diff).div(1e5).times(3).add(r.reducedTo).clampMax(Alpha.isDestroyed ? Infinity : 2).toNumber());
       if (PelleRifts.vacuum.milestones[0].canBeApplied && !this.hasReturnedGlyphSlot) {
         Glyphs.refreshActive();
         EventHub.dispatch(GAME_EVENT.GLYPHS_EQUIPPED_CHANGED);
