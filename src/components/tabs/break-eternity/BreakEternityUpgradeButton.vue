@@ -20,7 +20,7 @@ export default {
   },
   data() {
     return {
-      isBought: false,
+      isCapped: false,
       isAffordable: false,
       isAvailable: false
     };
@@ -32,16 +32,16 @@ export default {
     classObject() {
       return {
         "o-break-eternity-upgrade": true,
-        "o-break-eternity-upgrade--bought": this.isBought,
-        "o-break-eternity-upgrade--available": !this.isBought && this.isAffordable && this.isAvailable,
-        "o-break-eternity-upgrade--unavailable": !this.isBought && !this.isAffordable || !this.isBought && !this.isAvailable
+        "o-break-eternity-upgrade--bought": this.isCapped,
+        "o-break-eternity-upgrade--available": !this.isCapped && this.isAffordable && this.isAvailable,
+        "o-break-eternity-upgrade--unavailable": !this.isCapped && !this.isAffordable || !this.isBought && !this.isAvailable
       };
     }
   },
   methods: {
     update() {
       const upgrade = this.upgrade;
-      this.isBought = upgrade.isBought;
+      this.isCapped = upgrade.isCapped;
       this.isAffordable = upgrade.isAffordable && upgrade.isAvailable;
       this.isAvailable = upgrade.isAvailable;
     }
