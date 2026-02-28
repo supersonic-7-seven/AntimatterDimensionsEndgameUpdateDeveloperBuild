@@ -87,7 +87,7 @@ export default {
       this.logTotalSacrifice = GameCache.logTotalGlyphSacrifice.value;
 
       this.pelleChaosEffect = Pelle.specialGlyphEffect;
-      this.maxSpecialGlyphs = (Achievement(194).isUnlocked && !player.disablePostReality) ? 2 : 1;
+      this.maxSpecialGlyphs = (Achievement(194).canBeApplied) ? 2 : 1;
     },
     glyphsChanged() {
       this.effects = getActiveGlyphEffects();

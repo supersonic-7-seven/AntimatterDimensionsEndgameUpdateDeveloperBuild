@@ -40,7 +40,7 @@ export function replicantiGalaxy(auto) {
   const galaxyGain = Replicanti.galaxies.gain;
   if (galaxyGain.lt(1)) return;
   player.replicanti.timer = 0;
-  Replicanti.amount = Achievement(126).isUnlocked
+  Replicanti.amount = Achievement(126).canBeApplied
     ? Decimal.pow10(Replicanti.amount.add(1).log10().sub(new Decimal(LOG10_MAX_VALUE).times(galaxyGain)))
     : DC.D1;
   addReplicantiGalaxies(galaxyGain);
@@ -171,10 +171,10 @@ export function totalReplicantiSpeedMult(overCap) {
   totalMult = totalMult.times(preCelestialEffects);
   totalMult = totalMult.timesEffectOf(RealityUpgrade(2));
   if (TimeStudy(132).isBought) {
-    totalMult = totalMult.times((Perk.studyPassive.isBought && !player.disablePostReality) ? 3 : 1.5);
+    totalMult = totalMult.times((Perk.studyPassive.canBeApplied) ? 3 : 1.5);
   }
 
-  if (!overCap && Achievement(134).isUnlocked && !player.disablePostReality) {
+  if (!overCap && Achievement(134).canBeApplied) {
     totalMult = totalMult.times(2);
   }
   totalMult = totalMult.times(getAdjustedGlyphEffect("replicationspeed"));
@@ -768,7 +768,7 @@ export const Replicanti = {
     },
     get gain() {
       if (!this.canBuyMore) return DC.D0;
-      if (Achievement(126).isUnlocked) {
+      if (Achievement(126).canBeApplied) {
         const maxGain = Replicanti.galaxies.max.sub(player.replicanti.galaxies);
         const logReplicanti = Replicanti.amount.add(1).log10();
         return Decimal.min(maxGain, Decimal.floor(logReplicanti.div(LOG10_MAX_VALUE)));

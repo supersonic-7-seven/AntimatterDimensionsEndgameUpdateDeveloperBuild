@@ -481,7 +481,7 @@ export const tabs = [
         name: "V",
         symbol: "⌬",
         component: "VTab",
-        condition: () => Achievement(151).isUnlocked || EndgameMilestone.celestialEarlyUnlock.isReached,
+        condition: () => Achievement(151).canBeApplied || EndgameMilestone.celestialEarlyUnlock.isReached,
         id: 4,
         hidable: true,
       },

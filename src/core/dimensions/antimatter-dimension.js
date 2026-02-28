@@ -147,7 +147,7 @@ function applyNDMultipliers(mult, tier) {
     tier === 8 ? TimeStudy(214) : null,
     tier > 1 && tier < 8 ? InfinityChallenge(8).reward : null
   );
-  if (Achievement(43).isUnlocked) {
+  if (Achievement(43).canBeApplied) {
     multiplier = multiplier.times(1 + tier / 100);
   }
 

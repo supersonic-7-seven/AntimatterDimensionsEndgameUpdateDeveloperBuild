@@ -198,7 +198,7 @@ export const PerkNetwork = {
       return container;
     }
     // Just for a bit of fun, tangle it up a bit unless the player specifically chooses not to
-    const isDisabled = perk => Pelle.isDoomed && Pelle.uselessPerks.includes(perk.id);
+    const isDisabled = perk => perk.isDisabled;
     const selectPos = config => PerkLayouts[player.options.perkLayout].position(config);
     this.nodes = new DataSet(Perks.all.map(perk => ({
       id: perk.id,
@@ -328,7 +328,7 @@ export const PerkNetwork = {
       const primaryColor = perkColor.primary;
       const secondaryColor = perkColor.secondary;
 
-      const pelleUseless = Pelle.isDoomed && Pelle.uselessPerks.includes(perk.id);
+      const pelleUseless = perk.isDisabled;
       if (pelleUseless) {
         const backgroundColor = "#00bcd4";
         const hoverColor = "crimson";

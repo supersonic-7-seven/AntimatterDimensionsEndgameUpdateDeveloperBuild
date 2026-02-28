@@ -801,7 +801,7 @@ export function gameLoop(passedDiff, options = {}) {
   const masteryGain = Effects.sum(EndgameMastery(11)) * Time.unscaledDeltaTime.totalSeconds.div(60).toNumber();
   Currency.perkPoints.add(masteryGain);
   
-  if ((Perk.autocompleteEC1.canBeApplied || EndgameMastery(22).isBought) && !player.disablePostReality) player.reality.lastAutoEC += realDiff;
+  if (Perk.autocompleteEC1.canBeApplied || (EndgameMastery(22).isBought && !player.disablePostReality)) player.reality.lastAutoEC += realDiff;
 
   EternityChallenge(12).tryFail();
   Achievements._power.invalidate();
@@ -1035,11 +1035,11 @@ function passivePrestigeGen(realDiff) {
 
 // Applies all perks which automatically unlock things when passing certain thresholds, needs to be checked every tick
 function applyAutoUnlockPerks() {
-  if (!TimeDimension(8).isUnlocked && (Perk.autounlockTD.canBeApplied && !player.disablePostReality)) {
+  if (!TimeDimension(8).isUnlocked && (Perk.autounlockTD.canBeApplied)) {
     for (let dim = 5; dim <= 8; ++dim) TimeStudy.timeDimension(dim).purchase();
   }
-  if (Perk.autounlockDilation3.canBeApplied && !player.disablePostReality) buyDilationUpgrade(DilationUpgrade.ttGenerator.id);
-  if (Perk.autounlockReality.canBeApplied && !player.disablePostReality) TimeStudy.reality.purchase(true);
+  if (Perk.autounlockDilation3.canBeApplied) buyDilationUpgrade(DilationUpgrade.ttGenerator.id);
+  if (Perk.autounlockReality.canBeApplied) TimeStudy.reality.purchase(true);
   applyEU2();
 }
 
@@ -1218,7 +1218,7 @@ export function getTTPerSecond() {
 export function gainedCelestialPoints() {
   if (!player.break2) return DC.D1;
   let cp = player.celestials.pelle.records.totalEndgameAntimatter.add(1).log10().div(9e15);
-  if (Achievement(197).isUnlocked && !player.disablePostReality) {
+  if (Achievement(197).canBeApplied) {
     cp = cp.times(Decimal.max(9e115, player.celestials.pelle.records.totalEndgameAntimatter.add(1).log10()).div(9e115));
   }
   cp = Alpha.isDestroyed ? cp : Decimal.min(cp, DC.NUMMAX.sub(player.endgame.celestialPoints));

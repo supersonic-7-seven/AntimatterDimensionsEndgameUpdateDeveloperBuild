@@ -201,7 +201,8 @@ export const normalAchievements = [
     checkRequirement: () => Time.thisInfinityRealTime.totalHours.toNumber() <= 2,
     checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE,
     get reward() { return `Start with ${formatInt(5000)} antimatter.`; },
-    effect: () => player.disablePostReality ? 100 : 5000
+    effect: 5000,
+    disabledPostReality: true
   },
   {
     id: 38,
@@ -333,7 +334,8 @@ export const normalAchievements = [
     checkRequirement: () => Time.thisInfinityRealTime.totalMinutes.toNumber() <= 10,
     checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE,
     get reward() { return `Start with ${format(5e5)} antimatter.`; },
-    effect: () => player.disablePostReality ? 100 : 5e5
+    effect: 5e5,
+    disabledPostReality: true
   },
   {
     id: 55,
@@ -342,7 +344,8 @@ export const normalAchievements = [
     checkRequirement: () => Time.thisInfinityRealTime.totalMinutes.toNumber() <= 1,
     checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE,
     get reward() { return `Start with ${format(5e10)} antimatter.`; },
-    effect: () => player.disablePostReality ? 100 : 5e10
+    effect: 5e10,
+    disabledPostReality: true
   },
   {
     id: 56,
@@ -432,9 +435,10 @@ export const normalAchievements = [
       return `All Antimatter Dimensions are stronger in the first ${formatInt(3)} minutes of Infinities,
       but only in Challenges.`;
     },
-    effect: () => (Player.isInAnyChallenge && !player.disablePostReality ? Decimal.max(DC.D4.div(Time.thisInfinity.totalMinutes.plus(1)), 1) : DC.D1),
-    effectCondition: () => Player.isInAnyChallenge && Time.thisInfinity.totalMinutes.lt(3) && !player.disablePostReality,
-    formatEffect: value => `${formatX(value, 2, 2)}`
+    effect: () => (Player.isInAnyChallenge ? Decimal.max(DC.D4.div(Time.thisInfinity.totalMinutes.plus(1)), 1) : DC.D1),
+    effectCondition: () => Player.isInAnyChallenge && Time.thisInfinity.totalMinutes.lt(3),
+    formatEffect: value => `${formatX(value, 2, 2)}`,
+    disabledPostReality: true
   },
   {
     id: 66,
@@ -507,8 +511,9 @@ export const normalAchievements = [
     checkRequirement: () => Time.challengeSum.totalSeconds.lt(5),
     checkEvent: [GAME_EVENT.BIG_CRUNCH_AFTER, GAME_EVENT.REALITY_RESET_AFTER],
     get reward() { return `All Antimatter Dimensions are ${formatPercents(0.4)} stronger, but only in challenges.`; },
-    effect: () => player.disablePostReality ? 1 : 1.4,
-    effectCondition: () => Player.isInAnyChallenge && !player.disablePostReality
+    effect: 1.4,
+    effectCondition: () => Player.isInAnyChallenge,
+    disabledPostReality: true
   },
   {
     id: 75,
@@ -526,8 +531,9 @@ export const normalAchievements = [
     checkRequirement: () => Time.totalTimePlayed.totalHours.gte(8),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     reward: "Extremely small multiplier to Antimatter Dimensions based on time played.",
-    effect: () => player.disablePostReality ? DC.D1 : Decimal.max(Decimal.pow(Time.totalTimePlayed.totalDays.times(12), 0.05), 1),
-    formatEffect: value => `${formatX(value, 2, 2)}`
+    effect: () => Decimal.max(Decimal.pow(Time.totalTimePlayed.totalDays.times(12), 0.05), 1),
+    formatEffect: value => `${formatX(value, 2, 2)}`,
+    disabledPostReality: true
   },
   {
     id: 77,
@@ -549,7 +555,8 @@ export const normalAchievements = [
     get reward() {
       return `Start with ${format(5e25)} antimatter.`;
     },
-    effect: () => player.disablePostReality ? 100 : 5e25
+    effect: 5e25,
+    disabledPostReality: true
   },
   {
     id: 81,
@@ -560,7 +567,8 @@ export const normalAchievements = [
     get reward() {
       return `You gain Replicanti ${formatInt(3)} times faster.`;
     },
-    effect: () => player.disablePostReality ? 1 : 3
+    effect: 3,
+    disabledPostReality: true
   },
   {
     id: 82,
@@ -597,7 +605,8 @@ export const normalAchievements = [
     checkRequirement: () => gainedInfinityPoints().add(1).log10().gte(150),
     checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE,
     get reward() { return `Additional ${formatX(4)} multiplier to Infinity Points.`; },
-    effect: () => player.disablePostReality ? 1 : 4
+    effect: 4,
+    disabledPostReality: true
   },
   {
     id: 86,
@@ -615,12 +624,13 @@ export const normalAchievements = [
     checkRequirement: () => Currency.infinities.gt(DC.D2E6),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
-      return `Infinities more than ${formatInt(5)} seconds long
-      give ${formatX(250)} more Infinities.`;
+      return Alpha.isRunning
+        ? `Infinities more than ${formatInt(5)} real-time seconds long give ${formatX(250)} more Infinities.`
+        : `Infinities more than ${formatInt(5)} seconds long give ${formatX(250)} more Infinities.`;
     },
-    effect: () => player.disablePostReality && !(Alpha.isRunning && Alpha.currentStage >= 23) ? 1 : 250,
-    effectCondition: () => Time.thisInfinity.totalSeconds.gt(5) &&
-      (!player.disablePostReality || (Alpha.isRunning && Alpha.currentStage >= 23))
+    effect: 250,
+    effectCondition: () => Alpha.isRunning ? Time.thisInfinityRealTime.totalSeconds.gt(5) : Time.thisInfinity.totalSeconds.gt(5),
+    disabledPostReality: () => !Alpha.isRunning || Alpha.currentStage <= 22
   },
   {
     id: 88,
@@ -649,9 +659,10 @@ export const normalAchievements = [
       return `All Antimatter Dimensions are significantly stronger in the
       first ${formatInt(5)} seconds of Infinities.`;
     },
-    effect: () => player.disablePostReality ? DC.D1 : Decimal.max((DC.D5.sub(Time.thisInfinity.totalSeconds)).times(60), 1),
-    effectCondition: () => Time.thisInfinity.totalSeconds.lt(5) && !player.disablePostReality,
-    formatEffect: value => `${formatX(value, 2, 2)}`
+    effect: () => Decimal.max((DC.D5.sub(Time.thisInfinity.totalSeconds)).times(60), 1),
+    effectCondition: () => Time.thisInfinity.totalSeconds.lt(5),
+    formatEffect: value => `${formatX(value, 2, 2)}`,
+    disabledPostReality: true
   },
   {
     id: 92,
@@ -665,9 +676,10 @@ export const normalAchievements = [
       return `All Antimatter Dimensions are significantly stronger in the
       first ${formatInt(60)} seconds of Infinities.`;
     },
-    effect: () => player.disablePostReality ? DC.D1 : Decimal.max((DC.D1.sub(Time.thisInfinity.totalMinutes)).times(100), 1),
-    effectCondition: () => Time.thisInfinity.totalMinutes.lt(1) && !player.disablePostReality,
-    formatEffect: value => `${formatX(value, 2, 2)}`
+    effect: () => Decimal.max((DC.D1.sub(Time.thisInfinity.totalMinutes)).times(100), 1),
+    effectCondition: () => Time.thisInfinity.totalMinutes.lt(1),
+    formatEffect: value => `${formatX(value, 2, 2)}`,
+    disabledPostReality: true
   },
   {
     id: 93,
@@ -676,7 +688,8 @@ export const normalAchievements = [
     checkRequirement: () => gainedInfinityPoints().add(1).log10().gte(300),
     checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE,
     get reward() { return `Additional ${formatX(4)} multiplier to Infinity Points.`; },
-    effect: () => player.disablePostReality ? 1 : 4
+    effect: 4,
+    disabledPostReality: true
   },
   {
     id: 94,
@@ -695,7 +708,8 @@ export const normalAchievements = [
     checkRequirement: () =>
       (Replicanti.amount.eq(DC.NUMMAX) || player.replicanti.galaxies.gt(0)) &&
       Time.thisInfinityRealTime.totalHours.toNumber() <= 1,
-    checkEvent: GAME_EVENT.REPLICANTI_TICK_AFTER
+    checkEvent: GAME_EVENT.REPLICANTI_TICK_AFTER,
+    disabledPostReality: true
   },
   {
     id: 96,
@@ -732,7 +746,8 @@ export const normalAchievements = [
     checkRequirement: () => EternityMilestone.all.every(m => m.isReached),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() { return `Gain ${formatX(2)} more Eternities.`; },
-    effect: () => player.disablePostReality ? 1 : 2
+    effect: 2,
+    disabledPostReality: true
   },
   {
     id: 103,
@@ -743,7 +758,8 @@ export const normalAchievements = [
     get reward() {
       return `Make the Infinity Point formula better. log(x)/${formatInt(308)} ➜ log(x)/${formatFloat(307.8, 1)}`;
     },
-    effect: () => player.disablePostReality ? 308 : 307.8
+    effect: 307.8,
+    disabledPostReality: true
   },
   {
     id: 104,
@@ -752,7 +768,8 @@ export const normalAchievements = [
     checkRequirement: () => Time.thisEternity.totalSeconds.lte(30),
     checkEvent: GAME_EVENT.ETERNITY_RESET_BEFORE,
     get reward() { return `Start Eternities with ${format(5e25)} Infinity Points.`; },
-    effect: () => player.disablePostReality ? 0 : 5e25
+    effect: 5e25,
+    disabledPostReality: true
   },
   {
     id: 105,
@@ -801,7 +818,8 @@ export const normalAchievements = [
       return true;
     },
     checkEvent: GAME_EVENT.BIG_CRUNCH_AFTER,
-    reward: "Your antimatter doesn't reset on Dimension Boosts or Antimatter Galaxies."
+    reward: "Your antimatter doesn't reset on Dimension Boosts or Antimatter Galaxies.",
+    disabledPostReality: () => !Alpha.isRunning || Alpha.currentStage <= 11
   },
   {
     id: 112,
@@ -817,7 +835,8 @@ export const normalAchievements = [
     checkRequirement: () => Time.thisEternity.totalMilliseconds.lte(250),
     checkEvent: GAME_EVENT.ETERNITY_RESET_BEFORE,
     get reward() { return `Gain ${formatX(3)} more Eternities.`; },
-    effect: () => player.disablePostReality ? 1 : 3
+    effect: 3,
+    disabledPostReality: true
   },
   {
     id: 114,
@@ -841,7 +860,7 @@ export const normalAchievements = [
     checkRequirement: () => Currency.infinities.lte(1),
     checkEvent: GAME_EVENT.ETERNITY_RESET_BEFORE,
     reward: "Multiplier to Infinity Points based on Infinities.",
-    effect: () => player.disablePostReality ? DC.D1 : Decimal.pow(Currency.infinitiesTotal.value.clampMin(1), LOG10_2 / 4).powEffectOf(TimeStudy(31)),
+    effect: () => Decimal.pow(Currency.infinitiesTotal.value.clampMin(1), LOG10_2 / 4).powEffectOf(TimeStudy(31)),
     cap: () => Effarig.eternityCap,
     formatEffect: value => {
       // Since TS31 is already accounted for in the effect prop, we need to "undo" it to display the base value here
@@ -849,7 +868,8 @@ export const normalAchievements = [
       return TimeStudy(31).canBeApplied
         ? `${formatX(value.pow(1 / TimeStudy(31).effectValue), 2, 1)} (After TS31: ${mult})`
         : mult;
-    }
+    },
+    disabledPostReality: true
   },
   {
     id: 117,
@@ -860,7 +880,8 @@ export const normalAchievements = [
     get reward() {
       return `The multiplier from Dimension Boosts to Antimatter Dimensions is ${formatPercents(0.01)} higher.`;
     },
-    effect: () => player.disablePostReality ? 1 : 1.01
+    effect: 1.01,
+    disabledPostReality: true
   },
   {
     id: 118,
@@ -870,6 +891,7 @@ export const normalAchievements = [
     checkEvent: GAME_EVENT.SACRIFICE_RESET_AFTER,
     reward: `Dimensional Sacrifice doesn't reset your Antimatter Dimensions
       and the Autobuyer activates every tick if turned on.`,
+    disabledPostReality: () => !Alpha.isRunning || Alpha.currentStage <= 11
   },
   {
     id: 121,
@@ -920,10 +942,11 @@ export const normalAchievements = [
     reward: "Infinity Point multiplier based on time spent this Infinity.",
     effect() {
       const thisInfinity = Time.thisInfinity.totalSeconds.times(10).plus(1);
-      return player.disablePostReality ? DC.D1 : DC.D2.pow(Decimal.ln(thisInfinity).times(Decimal.min(Decimal.pow(thisInfinity, 0.11), 500)));
+      return DC.D2.pow(Decimal.ln(thisInfinity).times(Decimal.min(Decimal.pow(thisInfinity, 0.11), 500)));
     },
     cap: () => Effarig.eternityCap,
-    formatEffect: value => `${formatX(value, 2, 2)}`
+    formatEffect: value => `${formatX(value, 2, 2)}`,
+    disabledPostReality: true
   },
   {
     id: 126,
@@ -964,11 +987,10 @@ export const normalAchievements = [
       after Eternity you permanently keep ${formatPercents(0.05)} of your Infinities as Banked Infinities.`;
     },
     effects: {
-      infinitiesGain: () => player.disablePostReality && !(Alpha.isRunning && Alpha.currentStage >= 23) ? 1 : 2,
-      bankedInfinitiesGain: () => player.disablePostReality && !(Alpha.isRunning && Alpha.currentStage >= 23)
-        ? DC.D0 : Currency.infinities.value.times(0.05).floor()
-    }
-
+      infinitiesGain: 2,
+      bankedInfinitiesGain: () => Currency.infinities.value.times(0.05).floor()
+    },
+    disabledPostReality: () => !Alpha.isRunning || Alpha.currentStage <= 22
   },
   {
     id: 132,
@@ -980,8 +1002,9 @@ export const normalAchievements = [
     checkRequirement: () => player.galaxies.gte(569) && player.requirementChecks.eternity.noRG,
     checkEvent: GAME_EVENT.GALAXY_RESET_AFTER,
     reward: "Gain a multiplier to Tachyon Particle and Dilated Time gain based on Antimatter Galaxies.",
-    effect: () => player.disablePostReality ? 1 : Decimal.max(Decimal.pow(player.galaxies, 0.04), 1).times(1.22).toNumber(),
-    formatEffect: value => `${formatX(value, 2, 2)}`
+    effect: () => Decimal.max(Decimal.pow(player.galaxies, 0.04), 1).times(1.22).toNumber(),
+    formatEffect: value => `${formatX(value, 2, 2)}`,
+    disabledPostReality: true
   },
   {
     id: 133,
@@ -995,7 +1018,8 @@ export const normalAchievements = [
       player.IPMultPurchases.eq(0) &&
       Currency.infinityPoints.value.add(1).log10().gte(200000),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    reward: "You start Eternities with all Infinity Challenges unlocked and completed."
+    reward: "You start Eternities with all Infinity Challenges unlocked and completed.",
+    disabledPostReality: true
   },
   {
     id: 134,
@@ -1005,7 +1029,8 @@ export const normalAchievements = [
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
       return `You gain Replicanti ${formatInt(2)} times faster under ${format(replicantiCap(), 1)} Replicanti.`;
-    }
+    },
+    disabledPostReality: true
   },
   {
     id: 135,
@@ -1033,7 +1058,8 @@ export const normalAchievements = [
       player.dilation.active,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() { return `Gain ${formatX(2)} Dilated Time and Time Theorems while Dilated.`; },
-    effect: () => player.disablePostReality ? 1 : (player.dilation.active ? 2 : 1)
+    effect: () => (player.dilation.active ? 2 : 1),
+    disabledPostReality: true
   },
   {
     id: 138,
@@ -1059,9 +1085,10 @@ export const normalAchievements = [
       Antimatter Dimensions by +${format(0.1, 0, 1)}.`;
     },
     effects: {
-      ipGain: () => player.disablePostReality ? 1 : 4,
-      buyTenMult: () => player.disablePostReality ? 0 : 0.1
-    }
+      ipGain: () => 4,
+      buyTenMult: () => 0.1
+    },
+    disabledPostReality: true
   },
   {
     id: 142,
@@ -1071,7 +1098,8 @@ export const normalAchievements = [
     checkEvent: [GAME_EVENT.REALITY_RESET_AFTER, GAME_EVENT.REALITY_UPGRADE_BOUGHT, GAME_EVENT.PERK_BOUGHT,
       GAME_EVENT.BLACK_HOLE_UNLOCKED],
     get reward() { return `Dimension Boosts are ${formatPercents(0.5)} stronger.`; },
-    effect: () => player.disablePostReality ? 1 : 1.5,
+    effect: 1.5,
+    disabledPostReality: true
   },
   {
     id: 143,
@@ -1089,7 +1117,8 @@ export const normalAchievements = [
       return true;
     },
     checkEvent: GAME_EVENT.ETERNITY_RESET_AFTER,
-    reward: "Galaxies no longer reset Dimension Boosts."
+    reward: "Galaxies no longer reset Dimension Boosts.",
+    disabledPostReality: () => !Alpha.isRunning || Alpha.currentStage <= 19
   },
   {
     id: 144,
@@ -1105,7 +1134,8 @@ export const normalAchievements = [
     checkRequirement: () => BlackHoles.list.some(bh => bh.interval < bh.duration),
     checkEvent: GAME_EVENT.BLACK_HOLE_UPGRADE_BOUGHT,
     get reward() { return `Black Hole intervals are ${formatPercents(0.1)} shorter.`; },
-    effect: () => player.disablePostReality ? 1 : 0.9
+    effect: 0.9,
+    disabledPostReality: true
   },
   {
     id: 146,
@@ -1114,7 +1144,8 @@ export const normalAchievements = [
     checkRequirement: () => player.reality.perks.size === Perks.all.length,
     checkEvent: GAME_EVENT.PERK_BOUGHT,
     get reward() { return `+${formatPercents(0.01)} Glyph rarity.`; },
-    effect: () => player.disablePostReality ? 0 : 1
+    effect: 1,
+    disabledPostReality: true
   },
   {
     id: 147,
@@ -1132,8 +1163,9 @@ export const normalAchievements = [
       .every(type => Glyphs.activeList.some(g => g.type === type)),
     checkEvent: GAME_EVENT.REALITY_RESET_BEFORE,
     reward: "Gained Glyph level is increased by number of distinct Glyph types equipped.",
-    effect: () => player.disablePostReality ? 0 : (new Set(Glyphs.activeWithoutCompanion.map(g => g.type))).size,
-    formatEffect: value => `+${formatInt(value)}`
+    effect: () => (new Set(Glyphs.activeWithoutCompanion.map(g => g.type))).size,
+    formatEffect: value => `+${formatInt(value)}`,
+    disabledPostReality: true
   },
   {
     id: 151,
@@ -1169,7 +1201,8 @@ export const normalAchievements = [
     get reward() {
       return `${formatPercents(EndgameMastery(41).isBought ? 1 : 0.1)} chance each Reality of ${formatX(2)}
       Realities and Perk Points.`; },
-    effect: () => player.disablePostReality ? 0 : (EndgameMastery(41).isBought ? 1 : 0.1)
+    effect: () => (EndgameMastery(41).isBought ? 1 : 0.1),
+    disabledPostReality: true
   },
   {
     id: 155,
@@ -1178,7 +1211,8 @@ export const normalAchievements = [
     checkRequirement: () => Time.totalTimePlayed.totalYears.gt(13.7e9),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() { return `Black Hole durations are ${formatPercents(0.1)} longer.`; },
-    effect: () => player.disablePostReality ? 1 : 1.1
+    effect: 1.1,
+    disabledPostReality: true
   },
   {
     id: 156,
@@ -1187,7 +1221,8 @@ export const normalAchievements = [
     checkRequirement: () => player.requirementChecks.reality.noPurchasedTT,
     checkEvent: GAME_EVENT.REALITY_RESET_BEFORE,
     get reward() { return `Gain ${formatX(2.5, 0, 1)} generated Time Theorems, and a free coupon to McDonalds™️.`; },
-    effect: () => player.disablePostReality ? 1 : 2.5
+    effect: 2.5,
+    disabledPostReality: true
   },
   {
     id: 157,
@@ -1206,7 +1241,8 @@ export const normalAchievements = [
     checkRequirement: () => BlackHole(1).isPermanent && BlackHole(2).isPermanent,
     checkEvent: GAME_EVENT.BLACK_HOLE_UPGRADE_BOUGHT,
     get reward() { return `Black Hole power increased by ${formatPercents(0.1)}.`; },
-    effect: () => player.disablePostReality ? 1 : 1.1
+    effect: 1.1,
+    disabledPostReality: true
   },
   {
     id: 161,
@@ -1240,7 +1276,8 @@ export const normalAchievements = [
     checkRequirement: () => Currency.infinitiesTotal.gte(DC.NUMMAX),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() { return `Gain ×${formatInt(1024)} more Infinities.`; },
-    effect: () => player.disablePostReality ? 1 : 1024
+    effect: 1024,
+    disabledPostReality: true
   },
   {
     id: 165,
@@ -1259,7 +1296,8 @@ export const normalAchievements = [
     checkRequirement: () => (gainedGlyphLevel().actualLevel % 10000) === 6969,
     checkEvent: GAME_EVENT.REALITY_RESET_BEFORE,
     get reward() { return `+${formatInt(69)} to Glyph level.`; },
-    effect: () => player.disablePostReality ? 0 : 69
+    effect: 69,
+    disabledPostReality: true
   },
   {
     id: 167,
@@ -1268,8 +1306,9 @@ export const normalAchievements = [
     checkRequirement: () => Currency.realityMachines.gte(DC.NUMMAX),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     reward: "Gain more Reality Machines based on your current Reality Machines.",
-    effect: () => player.disablePostReality ? DC.D1 : Decimal.clampMin(1, Currency.realityMachines.value.add(1).log2()),
-    formatEffect: value => `${formatX(value, 2, 2)}`
+    effect: () => Decimal.clampMin(1, Currency.realityMachines.value.add(1).log2()),
+    formatEffect: value => `${formatX(value, 2, 2)}`,
+    disabledPostReality: true
   },
   {
     id: 168,
@@ -1278,7 +1317,8 @@ export const normalAchievements = [
     checkRequirement: () => Ra.totalPetLevel >= 50,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() { return `Get ${formatPercents(0.1)} more memories.`; },
-    effect: () => player.disablePostReality ? 1 : 1.1
+    effect: 1.1,
+    disabledPostReality: true
   },
   {
     id: 171,
@@ -1287,7 +1327,8 @@ export const normalAchievements = [
     checkRequirement: () => Object.values(player.reality.glyphs.sac).every(s => s.gt(0)),
     checkEvent: GAME_EVENT.GLYPHS_CHANGED,
     get reward() { return `Glyph sacrifice is ${formatX(2)} stronger.`; },
-    effect: () => player.disablePostReality ? 1 : 2,
+    effect: 2,
+    disabledPostReality: true
   },
   {
     id: 172,
@@ -1324,7 +1365,8 @@ export const normalAchievements = [
     get reward() {
       return `Synergism can go above ${formatPercents(1)} and Momentum increases ${formatX(10)} faster.`;
     },
-    effect: () => player.disablePostReality ? 1 : 10,
+    effect: 10,
+    disabledPostReality: true
   },
   {
     id: 176,
@@ -1345,7 +1387,8 @@ export const normalAchievements = [
     checkRequirement: () => player.galaxies.gte(100000),
     checkEvent: GAME_EVENT.GALAXY_RESET_AFTER,
     get reward() { return `All Galaxies are ${formatPercents(0.01)} stronger.`; },
-    effect: () => player.disablePostReality ? 1 : 1.01
+    effect: 1.01,
+    disabledPostReality: true
   },
   {
     id: 181,
@@ -1372,7 +1415,8 @@ export const normalAchievements = [
     // Weirdly specific reward? Yes, its V's ST bonus because we forgot to disable it
     // when balancing Pelle and only realised too late.
     get reward() { return `All Antimatter Dimensions are raised to ${formatPow(1.1012920825630384, 0, 3)}`; },
-    effect: () => player.disablePostReality ? 1 : 1.1012920825630384
+    effect: 1.1012920825630384,
+    disabledPostReality: true
   },
   {
     id: 184,
@@ -1406,7 +1450,8 @@ export const normalAchievements = [
       return `Increase the multiplier per repeatable Dilated Time
       multiplier upgrade by ${formatX(1.35, 0, 2)}.`;
     },
-    effect: () => player.disablePostReality ? 1 : 1.35
+    effect: 1.35,
+    disabledPostReality: true
   },
   {
     id: 188,
@@ -1438,7 +1483,8 @@ export const normalAchievements = [
     get reward() {
       return `Galaxies are ${formatPercents(0.1)} stronger.`;
     },
-    effect: () => player.disablePostReality ? 1 : 1.1
+    effect: 1.1,
+    disabledPostReality: true
   },
   {
     id: 194,
@@ -1448,7 +1494,8 @@ export const normalAchievements = [
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
       return `You can equip up to ${formatInt(2)} Effarig and Reality Glyphs each.`;
-    }
+    },
+    disabledPostReality: true
   },
   {
     id: 195,
@@ -1475,7 +1522,8 @@ export const normalAchievements = [
     get reward() {
       return `Decrease Galaxy Generator Instability by ${formatInt(2)}.`;
     },
-    effect: () => player.disablePostReality ? 0 : 2
+    effect: 2,
+    disabledPostReality: true
   },
   {
     id: 197,
@@ -1485,7 +1533,8 @@ export const normalAchievements = [
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
       return `Boost Celestial Point Gain.`;
-    }
+    },
+    disabledPostReality: true
   },
   {
     id: 198,
@@ -1496,8 +1545,9 @@ export const normalAchievements = [
     get reward() {
       return `Gain a small multiplier to the Celestial Matter Conversion Exponent based on unnerfed Celestial Matter.`;
     },
-    effect: () => player.disablePostReality ? 1 : Decimal.pow(Decimal.log10(Currency.unnerfedCelestialMatter.value.add(1).log10().add(1)).add(1), 0.1).toNumber(),
-    formatEffect: value => `${formatX(value, 2, 3)}`
+    effect: () => Decimal.pow(Decimal.log10(Currency.unnerfedCelestialMatter.value.add(1).log10().add(1)).add(1), 0.1).toNumber(),
+    formatEffect: value => `${formatX(value, 2, 3)}`,
+    disabledPostReality: true
   },
   {
     id: 201,
@@ -1555,8 +1605,9 @@ export const normalAchievements = [
     get reward() {
       return `Gain a small multiplier to Ethereal Power based on Imaginary Machines.`;
     },
-    effect: () => player.disablePostReality ? DC.D1 : Decimal.pow(Decimal.log10(player.reality.imaginaryMachines.add(1)).div(1000), 5).times(1000),
-    formatEffect: value => `${formatX(value, 3)}`
+    effect: () => Decimal.pow(Decimal.log10(player.reality.imaginaryMachines.add(1)).div(1000), 5).times(1000),
+    formatEffect: value => `${formatX(value, 3)}`,
+    disabledPostReality: true
   },
   {
     id: 207,
@@ -1567,7 +1618,8 @@ export const normalAchievements = [
     get reward() {
       return `Double the Celestial Matter Conversion Exponent.`;
     },
-    effect: () => player.disablePostReality ? 1 : 2
+    effect: 2,
+    disabledPostReality: true
   },
   {
     id: 208,
