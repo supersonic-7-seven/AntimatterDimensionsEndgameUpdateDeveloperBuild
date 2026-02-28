@@ -76,6 +76,10 @@ EndgameSkillPurchaseType.gg = new class extends EndgameSkillPurchaseType {
   get currency() { return Currency.galaxyGeneratorGalaxies; }
   get costBase() { return DC.E10; }
   get costIncrement() { return DC.E2; }
+
+  bulkCost(amount) {
+    return this.costIncrement.pow(amount + this.amount).subtract(this.cost);
+  }
 }();
 
 EndgameSkillPurchaseType.cp = new class extends EndgameSkillPurchaseType {
@@ -85,6 +89,10 @@ EndgameSkillPurchaseType.cp = new class extends EndgameSkillPurchaseType {
   get currency() { return Currency.celestialPoints; }
   get costBase() { return DC.D1; }
   get costIncrement() { return DC.E1; }
+
+  bulkCost(amount) {
+    return this.costIncrement.pow(amount + this.amount).subtract(this.cost);
+  }
 }();
 
 EndgameSkillPurchaseType.dp = new class extends EndgameSkillPurchaseType {
