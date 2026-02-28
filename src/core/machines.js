@@ -4,7 +4,7 @@ export const MachineHandler = {
   get baseHardcapRM() {
     let effectMultipliers = DC.D1;
     if (ExpansionPack.teresaPack.isBought && !player.disablePostReality) effectMultipliers = effectMultipliers.timesEffectsOf(PerkShopUpgrade.rmMult);
-    if (ExpansionPack.teresaPack.isBought && !player.disablePostReality) effectMultipliers = effectMultipliers.times(Teresa.rmMultiplier);
+    if (ExpansionPack.teresaPack.isBought && !player.disablePostReality && !Alpha.isDestroyed) effectMultipliers = effectMultipliers.times(Teresa.rmMultiplier);
     const smallBoost = DC.D1.timesEffectsOf(EndgameMastery(153));
     const largeBoost = DC.D1.timesEffectsOf(SingularityMilestone.rmCap, Ra.unlocks.realityMachineCap);
     return Decimal.pow(this.baseRMCap.times(effectMultipliers).times(
@@ -12,7 +12,7 @@ export const MachineHandler = {
   },
 
   get hardcapRM() {
-    return this.baseHardcapRM.pow(this.uncappedRM.div(this.baseHardcapRM).add(1).log10().add(1).log10().add(1).log10().add(1));
+    return Alpha.isDestroyed ? this.baseHardcapRM.pow(this.uncappedRM.div(this.baseHardcapRM).add(1).log10().add(1).log10().add(1).log10().add(1)).times(Teresa.rmMultiplier) : this.baseHardcapRM;
   },
 
   get distanceToRMCap() {
