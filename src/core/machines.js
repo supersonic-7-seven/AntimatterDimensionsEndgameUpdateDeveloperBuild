@@ -1,7 +1,7 @@
 export const MachineHandler = {
   get baseRMCap() { return DC.E1000; },
 
-  get hardcapRM() {
+  get baseHardcapRM() {
     let effectMultipliers = DC.D1;
     if (ExpansionPack.teresaPack.isBought && !player.disablePostReality) effectMultipliers = effectMultipliers.timesEffectsOf(PerkShopUpgrade.rmMult);
     if (ExpansionPack.teresaPack.isBought && !player.disablePostReality) effectMultipliers = effectMultipliers.times(Teresa.rmMultiplier);
@@ -9,6 +9,10 @@ export const MachineHandler = {
     const largeBoost = DC.D1.timesEffectsOf(SingularityMilestone.rmCap, Ra.unlocks.realityMachineCap);
     return Decimal.pow(this.baseRMCap.times(effectMultipliers).times(
       Decimal.pow(ImaginaryUpgrade(6).effectOrDefault(1), smallBoost)), largeBoost);
+  },
+
+  get hardcapRM() {
+    this.baseHardcapRM.pow(this.uncappedRM.div(this.baseHardcapRM).add(1).log10().add(1).log10().add(1).log10().add(1));
   },
 
   get distanceToRMCap() {
@@ -59,8 +63,12 @@ export const MachineHandler = {
     return DC.E1000;
   },
 
-  get hardcapIM() {
+  get baseHardcapIM() {
     return this.baseIMHardcap.times(DualityUpgrade(6).effectOrDefault(1));
+  },
+
+  get hardcapIM() {
+    this.baseHardcapIM.pow(this.uncappedIM.div(this.baseHardcapIM).add(1).log10().add(1).log10().add(1).log10().add(1));
   },
 
   get uncappedIM() {
@@ -121,7 +129,7 @@ export const MachineHandler = {
   get baseDMCap() {
     return Decimal.pow(Decimal.clampMin(this.uncappedIM.add(1).log10().sub(1000), 0), Decimal.clampMin(
       Decimal.log10(Currency.realityMachines.value.add(1).log10().add(1)).sub(3), 1).times(
-      Decimal.clampMin(Decimal.log10(Decimal.log10(Decimal.log10(this.uncappedRM.add(1)).add(1)).add(1)).sub(
+      Decimal.clampMin(Decimal.log10(Decimal.log10(Decimal.log10(this.baseHardcapRM.add(1)).add(1)).add(1)).sub(
       1.75).times(12).min(0.6).add(1), 1).add(Decimal.clampMin(Decimal.log10(Decimal.log10(Decimal.log10(
       this.uncappedRM.add(1)).add(1)).add(1)).sub(1.8).times(4), 0))));
   },
