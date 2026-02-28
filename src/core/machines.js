@@ -11,19 +11,6 @@ export const MachineHandler = {
       Decimal.pow(ImaginaryUpgrade(6).effectOrDefault(1), smallBoost)), largeBoost);
   },
 
-  get hardcapRM() {
-    this.baseHardcapRM.pow(this.uncappedRM.div(this.baseHardcapRM).add(1).log10().add(1).log10().add(1).log10().add(1));
-  },
-
-  get distanceToRMCap() {
-    return this.hardcapRM.minus(Currency.realityMachines.value);
-  },
-
-  get realityMachineMultiplier() {
-    return new Decimal(ShopPurchase.RMPurchases.currentMult).timesEffectOf(PerkShopUpgrade.rmMult).times(
-      getAdjustedGlyphEffect("effarigrm")).times(Achievement(167).effectOrDefault(1));
-  },
-
   get uncappedRM() {
     let log10FinalEP = player.records.thisReality.maxEP.plus(gainedEternityPoints()).log10();
     if (!PlayerProgress.realityUnlocked()) {
@@ -39,6 +26,19 @@ export const MachineHandler = {
       rmGain = rmGain.powEffectsOf(EndgameMastery(143));
     }
     return rmGain.floor();
+  },
+
+  get hardcapRM() {
+    this.baseHardcapRM.pow(this.uncappedRM.div(this.baseHardcapRM).add(1).log10().add(1).log10().add(1).log10().add(1));
+  },
+
+  get distanceToRMCap() {
+    return this.hardcapRM.minus(Currency.realityMachines.value);
+  },
+
+  get realityMachineMultiplier() {
+    return new Decimal(ShopPurchase.RMPurchases.currentMult).timesEffectOf(PerkShopUpgrade.rmMult).times(
+      getAdjustedGlyphEffect("effarigrm")).times(Achievement(167).effectOrDefault(1));
   },
 
   get gainedRealityMachines() {
@@ -67,10 +67,6 @@ export const MachineHandler = {
     return this.baseIMHardcap.times(DualityUpgrade(6).effectOrDefault(1));
   },
 
-  get hardcapIM() {
-    this.baseHardcapIM.pow(this.uncappedIM.div(this.baseHardcapIM).add(1).log10().add(1).log10().add(1).log10().add(1));
-  },
-
   get uncappedIM() {
     return Pelle.isDoomed
       ? new Decimal(1.6e15)
@@ -80,6 +76,10 @@ export const MachineHandler = {
         new Decimal(Decimal.log10(this.uncappedRM.add(1).log10())).div(7.5)))).pow(
         new Decimal(Effects.product(EndgameMastery(144), Ra.unlocks.imaginaryMachines, Ra.unlocks.imaginaryMachineEternityPower)).times(
         Decimal.max(Decimal.log10(this.uncappedRM.add(1).log10()).sub(45), 0).div(10).add(1)));
+  },
+
+  get hardcapIM() {
+    this.baseHardcapIM.pow(this.uncappedIM.div(this.baseHardcapIM).add(1).log10().add(1).log10().add(1).log10().add(1));
   },
 
   get currentIMCap() {
