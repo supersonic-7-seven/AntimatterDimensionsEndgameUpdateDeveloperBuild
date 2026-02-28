@@ -184,7 +184,7 @@ export const normalTimeStudies = [
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     description: "Dimension Boosts affect Infinity Dimensions",
     effect: () => DC.D1_0000109.pow(Decimal.pow(DimBoost.totalBoosts, 2)).min(Decimal.pow10(1e50)).times(
-      DC.D1_0000109.pow(DimBoost.totalBoosts.times(1e25))),
+      DC.D1_0000109.pow(DimBoost.totalBoosts.sub(1e25).max(0).times(1e25))),
     cap: () => Alpha.isDestroyed ? DC.BEMAX : DC.E1E7,
     formatEffect: value => formatX(value, 2, 1)
   },
