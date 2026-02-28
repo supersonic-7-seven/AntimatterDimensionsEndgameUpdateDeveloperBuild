@@ -38,6 +38,7 @@ export default {
         return `(Projected: ${format(this.projectedRM, 2)} RM)`;
       }
       if (this.newIMCap.neq(0) && this.newDMCap.eq(0)) {
+        if (this.newIMCap.gte(DC.E1000)) return `+ ${formatMachines(0, this.newIMCap, 0)}`;
         return `(iM Cap: ${formatMachines(0, this.newIMCap, 0)})`;
       }
       if (this.newDMCap.neq(0)) {

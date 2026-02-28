@@ -90,6 +90,94 @@ export default {
         } else {
           setProgress(Currency.antimatter.value, DC.NUMMAX, "Percentage to first Strike");
         }
+      } else if (Alpha.isRunning) {
+        let req;
+        switch (Alpha.currentStage) {
+          case 0:
+            req = DimBoost.bulkRequirement(new Decimal(4).sub(DimBoost.purchasedBoost));
+            setProgress(Currency.antimatter.value, AntimatterDimension(req.tier).costScale.calculateCost(req.amount.div(10).sub(1).toNumber()), "Percentage to 4th Dim Boost");
+            break;
+          case 1:
+            req = DimBoost.bulkRequirement(new Decimal(5).sub(DimBoost.purchasedBoost));
+            setProgress(Currency.antimatter.value, AntimatterDimension(req.tier).costScale.calculateCost(req.amount.div(10).sub(1).toNumber()), "Percentage to 5th Dim Boost");
+            break;
+          case 2:
+            req = Galaxy.requirementAt(0);
+            setProgress(Currency.antimatter.value, AntimatterDimension(req.tier).costScale.calculateCost(req.amount.div(10).sub(1).toNumber()), "Percentage to 1st Galaxy");
+            break;
+          case 3:
+          case 4:
+          case 5:
+            setProgress(Currency.antimatter.value, DC.NUMMAX, "Percentage to Infinity");
+            break;
+          case 6:
+            setProgress(Currency.infinityPoints.value, new Decimal(5e14), "Percentage to 5e14 Break Infinity Upgrade");
+            break;
+          case 7:
+          case 8:
+          case 10:
+          {
+            const text = `Percentage to unlock a new ${InfinityDimensions.next().hasIPUnlock
+              ? "type of Dimension"
+              : "Infinity Dimension"}`;
+            const nextID = InfinityDimensions.next();
+            if (nextID.ipRequirementReached) {
+              setProgress(player.records.thisEternity.maxAM, nextID.amRequirement, text);
+            } else {
+              setProgress(player.infinityPoints, nextID.ipRequirement, text);
+            }
+            break;
+          }
+          case 9:
+            setProgress(Currency.infinityPoints.value, new Decimal(1e140), "Percentage to unlock Replicanti");
+            break;
+          case 11:
+            setProgress(Currency.infinityPoints.value, Player.eternityGoal, "Percentage to Eternity");
+            break;
+          case 12:
+            setLinearProgress(Currency.timeTheorems.max.toNumber(), 17, "Percentage to Purchase Time Study 61");
+            break;
+          case 13:
+            setProgress(Currency.eternityPoints.value, TimeDimension(4).baseCost, "Percentage to purchase the 4th Time Dimension");
+            break;
+          case 14:
+            setProgress(Currency.eternityPoints.value, new Decimal(EternityUpgrade.idMultICRecords.cost), "Percentage to purchase the 3rd Eternity Upgrade");
+            break;
+          case 15:
+            setLinearProgress(Currency.timeTheorems.max.toNumber(), 115, "Percentage to reach 115 Total Time Theorems");
+            break;
+          case 16:
+          case 17:
+          case 18:
+            setLinearProgress(Currency.timeTheorems.max.toNumber(), 293, "Percentage to Purchase Time Study 181");
+            break;
+          case 19:
+            if (Currency.timeTheorems.max.toNumber() >= 843) setProgress(Currency.eternityPoints.value, new Decimal(1e100), "Percentage to unlock Eternity Challenge 10");
+            else setLinearProgress(Currency.timeTheorems.max.toNumber(), 843, "Percentage to unlock Eternity Challenge 10");
+            break;
+          case 20:
+            setLinearProgress(Currency.timeTheorems.max.toNumber(), 1023, "Percentage to Purchase Time Study 181");
+            break;
+          case 21:
+          case 22: // EC11 progress bar is in if (inSpecialRun)
+            setLinearProgress(Currency.timeTheorems.max.toNumber(), 2214, "Percentage to unlock Eternity Challenge 11");
+            break;
+          case 23:
+          case 24: // Dilation progress bar is in if (inSpecialRun)
+            setLinearProgress(Currency.timeTheorems.max.toNumber(), 15013, "Percentage to unlock Time Dilation");
+            break;
+          case 25:
+            setProgress(Currency.dilatedTime.value, new Decimal(DilationUpgrade.ttGenerator.cost), "Percentage to purchase the 3rd Eternity Upgrade");
+            break;
+          case 26:
+            setProgress(Currency.timeTheorems.max, new Decimal(1e9), "Percentage to unlock the 8th Time Dimension");
+            break;
+          case 27:
+          case 28: // if you want to revisit Alpha after fully complete it
+            setProgress(Currency.eternityPoints.value, DC.E4000, "Percentage to Reality");
+          default:
+            setLinearProgress(0, 1, "Percentage that is not implemented");
+        }
       } else if (GalacticPower.isUnlocked && GalacticPower.nextPowerUnlockGP === undefined) {
         // Show all other goals from the top down, starting at features in the highest prestige layer
         setProgress(Currency.imaginaryMachines.value, DC.NUMMAX, "Percentage to Alpha");

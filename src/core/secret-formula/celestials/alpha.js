@@ -74,7 +74,7 @@ export const alphaUnlocks = {
   breakUpgrades: {
     id: 7,
     requirement: 8,
-    nerfDescription: () => `The Infinity Dimension Purchase cap is decreased to ${formatInt(player.records.thisReality.galaxies.toNumber() * (EternityChallenge(1).isRunning ? 2 : 1))} (based on Galaxies)`,
+    nerfDescription: () => `The Infinity Dimension Purchase cap is decreased to ${formatInt(player.records.thisReality.galaxies.toNumber() * (EternityChallenge(1).isRunning ? 2 : 1))} (based on Galaxies)`, // The nerf is always applied to prevent stuck. See src\core\dimensions\infinity-dimension.js Line394
     buffDescription: () => `Reduce Post-Break Tickspeed cost scaling by ${format(0.15, 2, 2)} and Post-Break Dimension cost scaling by ${format(0.25, 2, 2)}`,
     effects: {
       nerf: () => player.records.thisReality.galaxies.toNumber() * (EternityChallenge(1).isRunning ? 2 : 1),
@@ -85,7 +85,7 @@ export const alphaUnlocks = {
   infinityChallenges: {
     id: 8,
     requirement: 9,
-    nerfDescription: () => `The Repeatable IP Multiplier Upgrade is capped at ${formatInt(150)} Purchases`,
+    nerfDescription: () => `The Repeatable IP Multiplier Upgrade is capped at ${formatInt(150)} Purchases`, // The nerf is always applied to prevent stuck. See src\core\secret-formula\infinity\infinity-upgrades.js Line231
     buffDescription: () => `Reduce Infinity Dimension Compression by ${formatPercents(0.25, 2)} and convert Infinity Dimensions to Continuum`,
     effects: {
       nerf: 150,

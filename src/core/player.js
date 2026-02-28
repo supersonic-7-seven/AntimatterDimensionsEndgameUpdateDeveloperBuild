@@ -358,7 +358,7 @@ window.player = {
     recentEternities: Array.range(0, 10).map(() =>
       [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, "", DC.D0]),
     recentRealities: Array.range(0, 10).map(() =>
-      [DC.BEMAX, Number.MAX_VALUE, DC.D1, 1, "", 0, 0]),
+      [DC.BEMAX, Number.MAX_VALUE, DC.D1, 1, "", 0, DC.D0, DC.D0]),
     recentEndgames: Array.range(0, 10).map(() =>
       [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, 1]),
     thisInfinity: {

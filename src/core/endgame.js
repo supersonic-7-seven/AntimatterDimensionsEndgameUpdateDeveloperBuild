@@ -662,7 +662,7 @@ export const Endgame = {
     player.records.recentEternities = Array.range(0, 10).map(() =>
       [DC.E9E15, Number.MAX_VALUE, DC.D1, DC.D1, "", DC.D0]);
     player.records.recentRealities = Array.range(0, 10).map(() =>
-      [DC.E9E15, Number.MAX_VALUE, DC.D1, 1, "", 0, 0]);
+      [DC.E9E15, Number.MAX_VALUE, DC.D1, 1, "", 0, DC.D0, DC.D0]);
     player.records.thisInfinity.time = DC.D0;
     player.records.thisInfinity.realTime = 0;
     player.records.thisInfinity.lastBuyTime = DC.D0;

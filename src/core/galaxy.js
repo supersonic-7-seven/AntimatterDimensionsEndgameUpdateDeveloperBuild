@@ -42,6 +42,9 @@ export class Galaxy {
    * @returns {number} Max number of galaxies (total)
    */
   static buyableGalaxies(currency, currGal = player.galaxies) {
+    // You can't even buy 1 single galaxy
+    if (currency.lt(Galaxy.requirementAt(currGal).amount)) return currGal;
+
     const pow = GlyphAlteration.isAdded("power") ? getSecondaryGlyphEffect("powerpow") : 1;
     const distantStart = Galaxy.costScalingStart;
     const scale = Galaxy.costMult;
@@ -51,7 +54,7 @@ export class Galaxy {
     const firstScale = Decimal.min(Galaxy.costScalingStart, Galaxy.remoteStart);
 
     if (currency.lt(Galaxy.requirementAt(firstScale).amount)) {
-      return Decimal.max(currency.sub(base).div(scale).floor().add(1), currGal);
+      return Decimal.max(currency.sub(base).div(scale).floor(), currGal).add(1);
     }
 
     if (currency.lt(Galaxy.requirementAt(Galaxy.remoteStart).amount)) {
@@ -59,14 +62,14 @@ export class Galaxy {
       const b = new Decimal(scale).add(1).sub(distantStart * 2);
       const c = base.add(new Decimal(Math.pow(distantStart, 2) - distantStart - scale)).sub(currency.div(pow));
       const quad = decimalQuadraticSolution(a, b, c).floor();
-      return Decimal.max(quad, currGal);
+      return Decimal.max(quad, currGal.add(1));
     }
 
     if (Galaxy.requirementAt(Galaxy.remoteStart).amount.lt(currency)) {
       let estimate = new Decimal(Decimal.log(currency.div(Galaxy.requirementAt(Galaxy.remoteStart).amount), Galaxy.remoteGalaxyStrength))
         .add(Galaxy.remoteStart).floor();
       if (Galaxy.requirementAt(estimate).amount.lte(currency) && Galaxy.requirementAt(estimate.add(1)).amount.gt(currency)) {
-        return Decimal.max(estimate.add(1), currGal);
+        return Decimal.max(estimate, currGal).add(1);
       }
       let n = 0;
       while (n < 20 && !(Galaxy.requirementAt(estimate).amount.lte(currency) && Galaxy.requirementAt(estimate.add(1)).amount.gt(currency))) {
@@ -74,20 +77,20 @@ export class Galaxy {
         n++;
       }
       let x = 0;
-      if (Galaxy.requirementAt(estimate).amount.lte(currency) && Galaxy.requirementAt(estimate.add(1)).amount.gt(currency)) return Decimal.max(estimate.add(1), currGal);
+      if (Galaxy.requirementAt(estimate).amount.lte(currency) && Galaxy.requirementAt(estimate.add(1)).amount.gt(currency)) return Decimal.max(estimate, currGal).add(1);
       if (Galaxy.requirementAt(estimate.add(1)).amount.lte(currency)) {
         while (x < 50) {
           estimate = estimate.add(1);
           x++;
         }
-        return Decimal.max(estimate.add(1), currGal);
+        return Decimal.max(estimate, currGal).add(1);
       }
       if (Galaxy.requirementAt(estimate).amount.gt(currency)) {
         while (x < 50) {
           estimate = estimate.sub(1);
           x++;
         }
-        return Decimal.max(estimate.add(1), currGal);
+        return Decimal.max(estimate, currGal).add(1);
       }
       throw new Error("A finite value for Galaxy bulk was not found.");
     }
@@ -95,7 +98,7 @@ export class Galaxy {
     return new Decimal(bulkBuyBinarySearch(new Decimal(currency), {
       costFunction: x => this.requirementAt(x).amount,
       cumulative: false,
-    }, player.galaxies.toNumber())).floor().add(1).max(currGal);
+    }, player.galaxies.toNumber())).floor().max(currGal).add(1);
   }
 
   static requirementAt(galaxies) {
