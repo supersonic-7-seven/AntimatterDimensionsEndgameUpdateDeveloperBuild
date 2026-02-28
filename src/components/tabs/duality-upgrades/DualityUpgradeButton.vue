@@ -56,9 +56,9 @@ export default {
     },
   },
   watch: {
-    /*isAutobuyerOn(newValue) {
-      Autobuyer.imaginaryUpgrade(this.upgrade.id).isActive = newValue;
-    }*/
+    isAutobuyerOn(newValue) {
+      Autobuyer.dualityUpgrade(this.upgrade.id).isActive = newValue;
+    }
   },
   methods: {
     update() {
@@ -71,7 +71,7 @@ export default {
       this.isAutoUnlocked = DualityUpgrade(20).canBeApplied;
       this.canBeLocked = upgrade.config.canLock && !this.isAvailableForPurchase;
       this.hasRequirementLock = upgrade.hasPlayerLock;
-      /*if (this.isRebuyable) this.isAutobuyerOn = Autobuyer.imaginaryUpgrade(upgrade.id).isActive;*/
+      if (this.isRebuyable) this.isAutobuyerOn = Autobuyer.dualityUpgrade(upgrade.id).isActive;
       this.etaText = this.getETAText();
     },
     getETAText() {
