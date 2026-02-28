@@ -190,8 +190,10 @@ export const endgameUpgrades = [
     checkRequirement: () => Currency.antimatter.value.add(1).log10().gte(1e33) && !Pelle.isDoomed,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: () => `Gain a power to the Antimatter Exponent based on Imaginary Machines`,
-    effect: () => player.disablePostReality ? 1 : 1 + (Decimal.pow(Decimal.log10(Decimal.log10(player.reality.imaginaryMachines.add(1)).add(1)), 2).div(200)).toNumber(),
-    formatEffect: value => formatPow(value, 2, 3)
+    effect: () => player.disablePostReality ? 1 : 1 + (Decimal.pow(Decimal.log10(Decimal.log10(
+      player.reality.imaginaryMachines.add(1)).add(1)), 2).min(10).add(Decimal.log10(Decimal.log10(
+      player.reality.imaginaryMachines.add(1)).add(1)).sub(Math.sqrt(10)).max(0)).div(200)).toNumber(),
+    formatEffect: value => formatPow(value, 2, 4)
   },
   {
     name: "Currency Collections",
