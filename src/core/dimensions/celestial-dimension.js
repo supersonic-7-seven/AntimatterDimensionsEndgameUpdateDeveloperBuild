@@ -92,10 +92,12 @@ class CelestialDimensionState extends DimensionState {
   }
 
   get multiplier() {
+    const alphaDecayRemnant = Time.thisEndgameRealTime._ms.div(18000000).min(1);
     const tier = this.tier;
     let mult = GameCache.celestialDimensionCommonMultiplier.value;
     mult = mult.times(Decimal.pow(this.powerMultiplier, Math.floor(this.baseAmount)));
     mult = mult.powEffectsOf(SingularityMilestone.dimensionPow, Ra.unlocks.celestialDimensionPower);
+    mult = mult.pow(alphaDecayRemnant);
     return mult;
   }
 
