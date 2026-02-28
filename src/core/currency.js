@@ -601,7 +601,7 @@ Currency.celestialMatter = new class extends DecimalCurrency {
 Currency.doomedParticles = new class extends DecimalCurrency {
   get value() { return player.endgame.doomedParticles; }
   set value(value) {
-    const newValue = Decimal.min(value, DC.E100);
+    const newValue = Alpha.isDestroyed ? new Decimal(value) : Decimal.min(value, DC.E100);
     player.endgame.doomedParticles = newValue;
   }
 }();
@@ -634,7 +634,7 @@ Currency.endgameSkills = new class extends DecimalCurrency {
 Currency.galacticPower = new class extends DecimalCurrency {
   get value() { return player.endgame.galacticPower; }
   set value(value) {
-    const newValue = Decimal.min(value, DC.NUMMAX);
+    const newValue = Alpha.isDestroyed ? new Decimal(value) : Decimal.min(value, DC.NUMMAX);
     player.endgame.galacticPower = newValue;
   }
 }();
