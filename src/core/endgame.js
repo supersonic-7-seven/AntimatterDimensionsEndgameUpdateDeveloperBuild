@@ -613,8 +613,8 @@ export const Endgame = {
     EternityUpgrade.epMult.reset();
     Currency.eternities.reset();
     player.eternityUpgrades.clear();
-    player.totalTickGained = 0;
-    player.totalTickBought = 0;
+    player.totalTickGained = DC.D0;
+    player.totalTickBought = DC.D0;
     Currency.timeTheorems.reset();
     resetEternityRuns();
     secondSoftReset(false);
