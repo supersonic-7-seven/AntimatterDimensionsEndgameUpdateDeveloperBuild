@@ -251,7 +251,7 @@ export const FreeTickspeed = {
       Decimal.max(bought, 0), FreeTickspeed.GROWTH_EXP)).add(bought);
     const derivativeOfBoughtToCost = x => new Decimal(FreeTickspeed.GROWTH_EXP).times(costFormulaCoefficient).times(Decimal.pow(
       Decimal.max(x, 0), FreeTickspeed.GROWTH_EXP - 1)).add(1);
-    const newtonsMethod = bought => bought.sub(boughtToCost(bought).sub(desiredCost)).div(derivativeOfBoughtToCost(bought));
+    const newtonsMethod = bought => bought.sub(boughtToCost(bought).sub(desiredCost).div(derivativeOfBoughtToCost(bought)));
     let oldApproximation;
     let approximation = Decimal.min(
       desiredCost,
