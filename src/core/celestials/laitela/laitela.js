@@ -63,8 +63,8 @@ export const Laitela = {
       fullLaitelaCompletion, (this.hadronizes * (this.hadronizes + 1)) / 2));
   },
   get realityRewardDE() {
-    const fullDestabilization = this.isFullyDestabilized ? Math.pow(8, this.hadronizes + 1) : 1;
-    return fullDestabilization * Math.pow(8, (this.hadronizes * (this.hadronizes + 1)) / 2);
+    const fullDestabilization = this.isFullyDestabilized ? Decimal.pow(8, this.hadronizes + 1) : 1;
+    return Decimal.pow(8, (this.hadronizes * (this.hadronizes + 1)) / 2).times(fullDestabilization);
   },
   // Note that entropy goes from 0 to 1, with 1 being completion
   get entropyGainPerSecond() {
