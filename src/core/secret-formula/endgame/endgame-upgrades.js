@@ -7,7 +7,7 @@ const rebuyable = props => {
     props.costMult / 10,
     DC.E309,
     1e3,
-    props.costMult
+    props.initialCost * props.costMult
   );
   const { effect } = props;
   if (props.isDecimal) props.effect = () => player.disablePostReality ? DC.D1 : Decimal.pow(effect, player.endgame.rebuyables[props.id]);
