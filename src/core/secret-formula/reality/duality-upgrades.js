@@ -248,10 +248,10 @@ export const dualityUpgrades = [
     name: "Depiction Devastation",
     id: 22,
     cost: new Decimal(2e18),
-    requirement: () => `Reach ${format("e1e66")}? antimatter without ever equipping Glyphs this Endgame`,
+    requirement: () => `Reach ${format("e1e85")} antimatter without ever equipping Glyphs this Endgame`,
     hasFailed: () => !player.requirementChecks.endgame.noGlyphs,
     checkRequirement: () => player.requirementChecks.endgame.noGlyphs &&
-      Currency.antimatter.value.add(1).log10().gte(DC.E9E15),
+      Currency.antimatter.value.add(1).log10().gte(1e85),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     canLock: true,
     lockEvent: "equip Glyphs",
