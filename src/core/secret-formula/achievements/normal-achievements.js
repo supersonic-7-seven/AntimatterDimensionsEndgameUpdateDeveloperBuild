@@ -1442,6 +1442,20 @@ export const normalAchievements = [
   },
   {
     id: 194,
+    name: "TIME. IS. RELATIVE.",
+    description: "Break Eternity.",
+    checkRequirement: () => player.break2,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 195,
+    name: "System Error",
+    description: "Endgame in under an hour.",
+    checkRequirement: () => player.records.bestEndgame.realTime < 3600000,
+    checkEvent: GAME_EVENT.ENDGAME_RESET_AFTER
+  },
+  {
+    id: 196,
     name: "At Long Last",
     description: "Regain all Achievements in Pelle.",
     checkRequirement: () => PelleAchievementUpgrade.all.filter(u => u.isBought).length >= 33,
@@ -1451,7 +1465,42 @@ export const normalAchievements = [
     }
   },
   {
-    id: 195,
+    id: 197,
+    name: "Wait. That's illegal.",
+    get description() { return `Own a Reality Glyph of level ${formatInt(25001)} or higher.` },
+    checkRequirement: () => Glyphs.inventoryList.filter(g => g.type === 'reality' && g.level >= 25001).length > 0,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 198,
+    name: "...eons stacked on eons stacked on...",
+    get description() { return `Have a game speed of ${format(DC.NUMMAX, 1)} with Celestial Matter toggled off.` },
+    checkRequirement: () => getGameSpeedupForDisplay().gte(DC.NUMMAX) && player.endgame.celestialMatterMultiplier.isActive === false,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 201,
+    name: "A New Beginning ^2",
+    description: "Begin generation of Galactic Power.",
+    checkRequirement: () => GalacticPower.isUnlocked,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 202,
+    name: "Reinstalled the game and rejoined the server... again",
+    description: "Have every Endgame Mastery at once.",
+    checkRequirement: () => player.endgameMasteries.masteries.length >= 39,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 203,
+    name: "Faster than a dilated potato",
+    get description() { return `Get more than ${formatPostBreak("ee29")} ticks per second.`; },
+    checkRequirement: () => Tickspeed.current.log10().lte(-1e29),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 204,
     name: "Hard Reset",
     description: "Disable all Pelle Nerfs.",
     checkRequirement: () => PelleAchievementUpgrade.all.filter(u => u.isBought).length >= 33 &&
@@ -1467,7 +1516,14 @@ export const normalAchievements = [
     }
   },
   {
-    id: 196,
+    id: 205,
+    name: "Look to the Stars",
+    description: "Enter the Ethereal.",
+    checkRequirement: () => Ethereal.isUnlocked,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 206,
     name: "Full Control of the Dark",
     description: "Purchase the 8th Dark Matter Dimension.",
     checkRequirement: () => ImaginaryUpgrade(29).isBought,
@@ -1478,7 +1534,7 @@ export const normalAchievements = [
     effect: () => player.disablePostReality ? 0 : 2
   },
   {
-    id: 197,
+    id: 207,
     name: "Gone...",
     description: "Destroy Pelle.",
     checkRequirement: () => PelleStrikeUpgrade.all.filter(u => u.isBought).length >= 5,
@@ -1488,7 +1544,7 @@ export const normalAchievements = [
     }
   },
   {
-    id: 198,
+    id: 208,
     name: "...But Not Forgotten",
     get description() { return `Reach ${format(DC.NUMMAX, 1, 0)} Imaginary Machines.` },
     checkRequirement: () => Currency.imaginaryMachines.value.gte(DC.NUMMAX),
@@ -1500,14 +1556,14 @@ export const normalAchievements = [
     formatEffect: value => `${formatX(value, 2, 3)}`
   },
   {
-    id: 201,
+    id: 211,
     name: "Mistake?",
     get description() { return `Enter Alpha's Reality.` },
     checkRequirement: () => Alpha.isRunning,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
   {
-    id: 202,
+    id: 212,
     name: "The Dark Crunch",
     get description() { return `Reach Infinity in Alpha's Reality.` },
     checkRequirement: () => Alpha.isRunning,
@@ -1518,7 +1574,7 @@ export const normalAchievements = [
     effect: 1.1
   },
   {
-    id: 203,
+    id: 213,
     name: "Never Gonna Stop",
     get description() { return `Reach Eternity in Alpha's Reality.` },
     checkRequirement: () => Alpha.isRunning,
@@ -1530,24 +1586,21 @@ export const normalAchievements = [
     formatEffect: value => `${formatX(value, 2, 2)}`
   },
   {
-    id: 204,
-    name: "Light",
-    get description() { return `Defeat Alpha.` },
-    checkRequirement: () => Alpha.isRunning,
-    checkEvent: GAME_EVENT.REALITY_RESET_BEFORE,
-    get reward() {
-      return `Unlock Celestial Dimension Expansion.`;
-    }
+    id: 214,
+    name: "IT WILL NEVER BE ENOUGH.",
+    get description() { return `Reach ${formatPostBreak("e1e10")} Replicanti.` },
+    checkRequirement: () => player.replicanti.amount.gte("e1e10"),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
   {
-    id: 205,
+    id: 215,
     name: "Domain Error",
     get description() { return `Reach ${format(DC.NUMMAX, 1, 0)} Celestial Points.` },
     checkRequirement: () => Currency.celestialPoints.value.gte(DC.NUMMAX),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
   {
-    id: 206,
+    id: 216,
     name: "Este logro no existe IV",
     get description() { return `Reach ${formatPostBreak(DC.D9_99999E999, 5, 0)} Imaginary Machines.` },
     checkRequirement: () => player.reality.imaginaryMachines.gte(DC.D9_99999E999),
@@ -1559,7 +1612,45 @@ export const normalAchievements = [
     formatEffect: value => `${formatX(value, 3)}`
   },
   {
-    id: 207,
+    id: 217,
+    name: "Why are we still here...",
+    get description() { return `Reach ${format(1e12, 2, 2)} Endgames.` },
+    checkRequirement: () => Currency.endgames.value.gte(1e12),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 218,
+    name: "...just to suffer?",
+    get description() { return `Reach ${formatPostBreak("ee50")} Antimatter inside The Nameless Ones' Reality.` },
+    checkRequirement: () => Currency.antimatter.value.gte("ee50") && Enslaved.isRunning,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 221,
+    name: "Light",
+    get description() { return `Defeat Alpha.` },
+    checkRequirement: () => Alpha.isRunning,
+    checkEvent: GAME_EVENT.REALITY_RESET_BEFORE,
+    get reward() {
+      return `Unlock Celestial Dimension Expansion.`;
+    }
+  },
+  {
+    id: 222,
+    name: "Time is absolute",
+    description: "Have more Tachyon Particles than Dilated Time.",
+    checkRequirement: () => Currency.tachyonParticles.value.gte(Currency.dilatedTime.value),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 223,
+    name: "Power! Unlimited power!",
+    get description() { return `Have your Infinity Dimension purchase cap exceed ${format(DC.NUMMAX, 1, 0)}.` },
+    checkRequirement: () => InfinityDimensions.totalDimCap.gt(DC.NUMMAX),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 224,
     name: "Destroyer of Universes",
     get description() { return `Reach ${formatPostBreak(Decimal.pow10(1e100), 2)} Antimatter outside Pelle.` },
     checkRequirement: () => Currency.antimatter.value.gte(Decimal.pow10(1e100)) && !Pelle.isDoomed,
@@ -1570,10 +1661,44 @@ export const normalAchievements = [
     effect: () => player.disablePostReality ? 1 : 2
   },
   {
-    id: 208,
+    id: 225,
+    name: "299792458 m/s",
+    description: "Uncap Celestial Matter.",
+    checkRequirement: () => false,//player.endgame.celestialMatterBroken,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    get reward() {
+      return `Reduce the Celestial Matter softcap magnitude by ${formatPercents(0.05)}.`;
+    },
+    effect: () => player.disablePostReality ? 1 : 0.95
+  },
+  {
+    id: 226,
+    name: "Thirty thousand degrees",
+    description: "Unlock Stars.",
+    checkRequirement: () => player.endgame.ethereal.isExtended,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 227,
+    name: "How do these work???",
+    description: "Obtain a Penteract.",
+    checkRequirement: () => false,//player.endgame.hypercubes.penteracts >= 1,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 228,
+    name: "Look how far we've come",
+    get description() { return `Reach ${formatPostBreak(DC.ENUMMAX, 2)} Antimatter.` },
+    checkRequirement: () => player.antimatter.gte(DC.ENUMMAX),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  /*
+  {
+    id: 238,
     name: "Limits of Reality",
     get description() { return `Reach ${formatPostBreak(DC.E4000, 2)} Celestial Points of Eternity.` },
     checkRequirement: () => false,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
+  */
 ];
