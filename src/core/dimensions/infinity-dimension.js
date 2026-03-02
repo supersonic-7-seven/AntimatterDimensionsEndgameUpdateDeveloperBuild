@@ -244,10 +244,10 @@ class InfinityDimensionState extends DimensionState {
 
   get purchaseCap() {
     if (Enslaved.isRunning) {
-      return 1;
+      return DC.D1;
     }
-    return InfinityDimensions.capIncrease + (this.tier === 8
-      ? Number.MAX_VALUE
+    return InfinityDimensions.capIncrease.add(this.tier === 8
+      ? DC.BEMAX
       : InfinityDimensions.HARDCAP_PURCHASES);
   }
 
