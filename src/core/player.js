@@ -1225,6 +1225,12 @@ window.player = {
         gray: DC.D0
       },
     },
+    hypercubes: {
+      penteracts: 0,
+      hexeracts: 0,
+      hepteracts: 0,
+      octeracts: 0
+    },
   },
   endgameMasteries: {
     skills: DC.D0,
