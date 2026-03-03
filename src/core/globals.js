@@ -21,6 +21,7 @@ export * from "./endgame";
 export * from "./galactic-power";
 export * from "./expansion-packs";
 export * from "./ethereal";
+export * from "./hypercubes";
 
 export * from "./celestials/quotes";
 export * from "./celestials/teresa";
