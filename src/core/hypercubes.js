@@ -31,12 +31,12 @@ export const Penteracts = {
 
   softcapReduction(count = this.bought, extra = this.extra) {
     const totalCount = count + extra;
-    const base = Decimal.pow(1.05 ** Octeracts.cubeBoost, totalCount);
+    const base = Decimal.pow(1.05 ** Octeracts.cubeBoost(), totalCount);
     return DC.D1.div(base);
   },
 
   get eachPenteractReduction() {
-    return 1.05 ** Octeracts.cubeBoost;
+    return 1.05 ** Octeracts.cubeBoost();
   }
 };
 
@@ -74,12 +74,12 @@ export const Hexeracts = {
 
   softcapReduction(count = this.bought, extra = this.extra) {
     const totalCount = count + extra;
-    const base = Decimal.pow(1.02 ** Octeracts.cubeBoost, totalCount);
+    const base = Decimal.pow(1.02 ** Octeracts.cubeBoost(), totalCount);
     return DC.D1.div(base);
   },
 
   get eachHexeractReduction() {
-    return 1.02 ** Octeracts.cubeBoost;
+    return 1.02 ** Octeracts.cubeBoost();
   }
 };
 
@@ -117,12 +117,12 @@ export const Hepteracts = {
 
   softcapReduction(count = this.bought, extra = this.extra) {
     const totalCount = count + extra;
-    const base = Decimal.pow(1.01 ** Octeracts.cubeBoost, totalCount);
+    const base = Decimal.pow(1.01 ** Octeracts.cubeBoost(), totalCount);
     return DC.D1.div(base);
   },
 
   get eachPenteractReduction() {
-    return 1.01 ** Octeracts.cubeBoost;
+    return 1.01 ** Octeracts.cubeBoost();
   }
 };
 
