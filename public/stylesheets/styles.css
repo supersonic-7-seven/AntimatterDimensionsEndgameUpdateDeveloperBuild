@@ -10492,7 +10492,7 @@ kbd {
 }
 
 .c-hexeract-button--disabled {
-  color: #202020;
+  color: #606060;
   background: black;
   animation: none;
   cursor: default;
@@ -10506,7 +10506,7 @@ kbd {
 }
 
 .c-hexeract-button--disabled:hover {
-  color: #202020;
+  color: #606060;
   background: black;
 }
 
