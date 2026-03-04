@@ -229,6 +229,7 @@ export const FreeTickspeed = {
     const logTickmult = Decimal.ln(tickmult);
     const logShards = Decimal.max(1, shards).ln();
     const uncapped = Decimal.max(0, logShards.div(logTickmult));
+    const exponentIncrease = new Decimal(FreeTickspeed.GROWTH_EXP).pow(Penteracts.softcapReduction());
     if (uncapped.lte(FreeTickspeed.softcap)) {
       this.multToNext = tickmult;
       return {
@@ -241,7 +242,7 @@ export const FreeTickspeed = {
     // In the following we're implicitly applying the function (ln(x) - priceToCap) / logTickmult to all costs,
     // so, for example, if the cost is 1 that means it's actually exp(priceToCap) * tickmult.
     const desiredCost = logShards.sub(priceToCap).div(logTickmult);
-    const costFormulaCoefficient = new Decimal(FreeTickspeed.GROWTH_RATE).div(FreeTickspeed.GROWTH_EXP).div(logTickmult).times(
+    const costFormulaCoefficient = new Decimal(FreeTickspeed.GROWTH_RATE).div(exponentIncrease).div(logTickmult).times(
       Decimal.pow(Effects.product(EndgameMastery(103)), 2));
     // In the following we're implicitly subtracting softcap from bought,
     // so, for example, if bought is 1 that means it's actually softcap + 1.
@@ -249,14 +250,14 @@ export const FreeTickspeed = {
     // but is small initially. The second term allows us to continue the pre-cap free tickspeed upgrade scaling
     // of tickmult per upgrade.
     const boughtToCost = bought => costFormulaCoefficient.times(Decimal.pow(
-      Decimal.max(bought, 0), FreeTickspeed.GROWTH_EXP)).add(bought);
-    const derivativeOfBoughtToCost = x => new Decimal(FreeTickspeed.GROWTH_EXP).times(costFormulaCoefficient).times(Decimal.pow(
-      Decimal.max(x, 0), FreeTickspeed.GROWTH_EXP - 1)).add(1);
+      Decimal.max(bought, 0), exponentIncrease)).add(bought);
+    const derivativeOfBoughtToCost = x => new Decimal(exponentIncrease).times(costFormulaCoefficient).times(Decimal.pow(
+      Decimal.max(x, 0), exponentIncrease.sub(1))).add(1);
     const newtonsMethod = bought => bought.sub(boughtToCost(bought).sub(desiredCost).div(derivativeOfBoughtToCost(bought)));
     let oldApproximation;
     let approximation = Decimal.min(
       desiredCost,
-      Decimal.pow(desiredCost.div(costFormulaCoefficient), DC.D1.div(FreeTickspeed.GROWTH_EXP))
+      Decimal.pow(desiredCost.div(costFormulaCoefficient), DC.D1.div(exponentIncrease))
     );
     let counter = 0;
     // The bought formula is concave upwards. We start with an over-estimate; when using newton's method,
