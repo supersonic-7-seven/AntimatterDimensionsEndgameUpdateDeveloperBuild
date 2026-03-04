@@ -212,7 +212,7 @@ export const CelestialDimensions = {
 
   get softcapPow() {
     const reduction = Effects.product(EndgameMastery(84), Achievement(225));
-    return 10 * reduction;
+    return Decimal.pow(10 * reduction, Hepteracts.softcapReduction()).toNumber();
   },
 
   unlockNext() {
