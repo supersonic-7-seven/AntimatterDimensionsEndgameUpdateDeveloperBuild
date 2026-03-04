@@ -177,7 +177,7 @@ export default {
 <template>
   <div class="l-hypercubes-tab">
     <div class="l-hypercubes-container">
-      <div class="l-infinity-dim-tab__enslaved-reward-container">
+      <div class="l-hypercubes-btn">
         <button
           class="c-infinity-dim-tab__tesseract-button"
           :class="{
@@ -203,7 +203,7 @@ export default {
           @input="handleTesseractAutoToggle"
         />
       </div>
-      <div class="l-infinity-dim-tab__enslaved-reward-container">
+      <div class="l-hypercubes-btn">
         <button
           class="c-penteract-button"
           :class="{
@@ -220,7 +220,7 @@ export default {
           <p>Total Penteract effect: {{ formatPow(totalFreeTickspeedReduction, 2, 4) }}</p>
         </button>
       </div>
-      <div class="l-infinity-dim-tab__enslaved-reward-container">
+      <div class="l-hypercubes-btn">
         <button
           class="c-hexeract-button"
           :class="{
@@ -239,7 +239,7 @@ export default {
       </div>
     </div>
     <div class="l-hypercubes-container">
-      <div class="l-infinity-dim-tab__enslaved-reward-container">
+      <div class="l-hypercubes-btn">
         <button
           class="c-hepteract-button"
           :class="{
@@ -256,7 +256,7 @@ export default {
           <p>Total Hepteract effect: {{ formatPow(totalCelestialDimSoftcapReduction, 2, 4) }}</p>
         </button>
       </div>
-      <div class="l-infinity-dim-tab__enslaved-reward-container">
+      <div class="l-hypercubes-btn">
         <button
           class="c-octeract-button"
           :class="{
@@ -290,5 +290,12 @@ export default {
   flex-direction: row;
   align-items: center;
   color: var(--color-text);
+}
+
+.l-hypercubes-btn {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  width: 35rem;
 }
 </style>
