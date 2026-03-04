@@ -94,7 +94,7 @@ class CelestialDimensionState extends DimensionState {
   get multiplier() {
     const tier = this.tier;
     let mult = GameCache.celestialDimensionCommonMultiplier.value;
-    mult = mult.times(Decimal.pow(this.powerMultiplier, Math.floor(this.baseAmount)));
+    mult = mult.times(Decimal.pow(this.powerMultiplier, Decimal.floor(this.baseAmount)));
     mult = mult.powEffectsOf(SingularityMilestone.dimensionPow, Ra.unlocks.celestialDimensionPower);
     mult = mult.pow(CelestialDimensions.alphaDecayRemnant);
     return mult;
@@ -141,8 +141,8 @@ class CelestialDimensionState extends DimensionState {
   fullReset() {
     this.cost = new Decimal(this.baseCost);
     this.amount = DC.D0;
-    this.bought = 0;
-    this.baseAmount = 0;
+    this.bought = DC.D0;
+    this.baseAmount = DC.D0;
     this.isUnlocked = false;
   }
 
@@ -165,7 +165,7 @@ class CelestialDimensionState extends DimensionState {
     Currency.celestialPoints.purchase(this.cost);
     this.cost = Decimal.round(this.cost.times(this.costMultiplier));
     this.amount = this.amount.plus(1);
-    this.baseAmount += 1;
+    this.baseAmount = this.baseAmount.plus(1);
 
     return true;
   }
@@ -173,21 +173,21 @@ class CelestialDimensionState extends DimensionState {
   buyMax() {
     if (!this.isAvailableForPurchase) return false;
 
-    let purchasesUntilHardcap = this.purchaseCap.toNumber() - this.purchases;
+    let purchasesUntilHardcap = this.purchaseCap.sub(this.purchases);
     
-    const costScaling = new LinearCostScaling(
+    const costScaling = new DecimalLinearCostScaling(
       Currency.celestialPoints.value,
       this.cost,
       this.costMultiplier,
       purchasesUntilHardcap
     );
 
-    if (costScaling.purchases <= 0) return false;
+    if (costScaling.purchases.lte(0)) return false;
 
     Currency.celestialPoints.purchase(costScaling.totalCost);
     this.cost = this.cost.times(costScaling.totalCostMultiplier);
     this.amount = this.amount.plus(costScaling.purchases);
-    this.baseAmount += costScaling.purchases;
+    this.baseAmount = this.baseAmount.plus(costScaling.purchases);
 
     return true;
   }
@@ -266,7 +266,7 @@ export const CelestialDimensions = {
 
     // Try to buy single from the highest affordable new dimensions
     unlockedDimensions.slice().reverse().forEach(dimension => {
-      if (dimension.purchases === 0) dimension.buySingle();
+      if (dimension.purchases.eq(0)) dimension.buySingle();
     });
 
     // Try to buy max from the lowest dimension (since lower dimensions have bigger multiplier per purchase)
