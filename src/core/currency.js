@@ -585,8 +585,28 @@ Currency.celestialPoints = new class extends DecimalCurrency {
 Currency.unnerfedCelestialMatter = new class extends DecimalCurrency {
   get value() { return player.endgame.unnerfedCelestialMatter; }
   set value(value) {
-    const newValue = new Decimal(value);
-    player.endgame.unnerfedCelestialMatter = newValue;
+    player.endgame.unnerfedCelestialMatter = value;
+    player.records.thisCelestialInfinity.maxCM = player.records.thisCelestialInfinity.maxCM.max(value);
+    player.records.thisCelestialEternity.maxCM = player.records.thisCelestialEternity.maxCM.max(value);
+    player.records.thisCelestialReality.maxCM = player.records.thisCelestialReality.maxCM.max(value);
+  }
+
+  add(amount) {
+    super.add(amount);
+    if (amount.gt(0)) {
+      player.records.totalCelMatter = player.records.totalCelMatter.add(amount);
+      player.records.totalCelestialRealityAntimatter = player.records.totalCelestialRealityAntimatter.add(amount);
+      player.records.totalCelestialEternityAntimatter = player.records.totalCelestialEternityAntimatter.add(amount);
+      player.records.totalCelestialInfinityAntimatter = player.records.totalCelestialInfinityAntimatter.add(amount);
+    }
+  }
+
+  get productionPerSecond() {
+    return AntimatterDimension(1).productionPerRealSecond;
+  }
+
+  get startingValue() {
+    return Effects.max(0).toDecimal();
   }
 }();
 
@@ -652,5 +672,28 @@ Currency.dualMachines = new class extends DecimalCurrency {
   set value(value) {
     const newValue = new Decimal(value);
     player.reality.dualMachines = Decimal.clampMax(newValue, MachineHandler.currentDMCap);
+  }
+}();
+
+Currency.celestialInfinities = new class extends DecimalCurrency {
+  get value() { return player.endgame.celDimExpansion.celestialInfinities; }
+  set value(value) { player.endgame.celDimExpansion.celestialInfinities = value; }
+}();
+
+Currency.celestialInfinityPoints = new class extends DecimalCurrency {
+  get value() { return player.endgame.celDimExpansion.celestialInfinityPoints; }
+  set value(value) {
+    player.endgame.celDimExpansion.celestialInfinityPoints = value;
+    player.records.thisCelestialEternity.maxCIP = player.records.thisCelestialEternity.maxCIP.max(value);
+    player.records.thisCelestialReality.maxCIP = player.records.thisCelestialReality.maxCIP.max(value);
+  }
+
+  get startingValue() {
+    return Effects.max(0).toDecimal();
+  }
+
+  reset() {
+    super.reset();
+    player.records.thisCelestialEternity.maxCIP = this.startingValue;
   }
 }();
