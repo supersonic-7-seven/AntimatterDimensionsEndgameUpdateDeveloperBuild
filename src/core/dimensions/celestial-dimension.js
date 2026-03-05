@@ -288,7 +288,7 @@ export const CelestialDimensions = {
   }
 };
 
-export function getCelestialTickspeedMultiplier() {
+export function getCelestialTickSpeedMultiplier() {
   const base = new Decimal(1.5);
   const galaxies = player.endgame.celDimExpansion.galaxies;
   return base.pow(galaxies.add(1));
@@ -300,10 +300,6 @@ export function buyCelestialTickSpeed() {
   player.endgame.celDimExpansion.totalTickBought = player.endgame.celDimExpansion.totalTickBought.add(1);
   GameUI.update();
   return true;
-}
-
-export function resetCelestialTickspeed() {
-  player.endgame.celDimExpansion.totalTickBought = DC.D0;
 }
 
 export function buyMaxCelestialTickSpeed() {
@@ -318,6 +314,10 @@ export function buyMaxCelestialTickSpeed() {
   Currency.celestialMatter.subtract(Decimal.pow10(purchases.logPrice));
   player.endgame.celDimExpansion.totalTickBought = player.endgame.celDimExpansion.totalTickBought.add(purchases.quantity);
   boughtTickspeed = true;
+}
+
+export function resetCelestialTickspeed() {
+  player.endgame.celDimExpansion.totalTickBought = DC.D0;
 }
 
 export const CelestialTickspeed = {
