@@ -39,7 +39,7 @@ export default {
       this.mult.copyFrom(CelestialTickspeed.multiplier);
       this.cost.copyFrom(CelestialTickspeed.cost);
       this.isAffordable = CelestialTickspeed.isAvailableForPurchase && CelestialTickspeed.isAffordable;
-      this.celestialTickspeed.copyFrom(CelestialTickspeed.perSecond);
+      this.celestialTickspeed.copyFrom(CelestialTickspeed.baseValue);
       this.celestialGalaxyCount.copyFrom(player.endgame.celDimExpansion.galaxies);
     },
     buttonClass() {
