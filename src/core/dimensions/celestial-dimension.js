@@ -609,11 +609,11 @@ export class CelestialGalaxy {
     }
 
     if (type === CELESTIAL_GALAXY_TYPE.REMOTE) {
-      amount = amount.times(Decimal.pow(Galaxy.remoteGalaxyStrength, new Decimal(galaxies).sub(Galaxy.remoteStart - 1)));
+      amount = amount.times(Decimal.pow(CelestialGalaxy.remoteGalaxyStrength, new Decimal(galaxies).sub(CelestialGalaxy.remoteStart - 1)));
     }
 
     amount = Decimal.pow10(amount);
-    return new GalaxyRequirement(amount);
+    return new CelestialGalaxyRequirement(amount);
   }
 
   static get costMult() {
