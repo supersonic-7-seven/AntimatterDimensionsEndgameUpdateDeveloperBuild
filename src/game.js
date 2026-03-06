@@ -339,6 +339,12 @@ export function addEndgameTime(time, realTime, cp, dp, endgames) {
   player.records.recentEndgames.unshift([time, realTime, cp, dp, endgames]);
 }
 
+export function addCelestialInfinityTime(time, realTime, cip, celinfinities) {
+  player.records.recentCelestialInfinities.pop();
+  player.records.recentCelestialInfinities.unshift([time, realTime, cip, celinfinities]);
+  GameCache.bestRunCIPPM.invalidate();
+}
+
 export function gainedInfinities() {
   if (EternityChallenge(4).isRunning) {
     return DC.D1;
@@ -376,6 +382,10 @@ export function gainedInfinities() {
   infGain = infGain.powEffectOf(SingularityMilestone.infinitiedPow);
   if (!player.disablePostReality) infGain = infGain.pow(AlphaUnlocks.eternityChallenge10.effects.buff.effectOrDefault(1));
   return infGain;
+}
+
+export function gainedCelestialInfinities() {
+  return DC.D1;
 }
 
 export function updateRefresh() {
