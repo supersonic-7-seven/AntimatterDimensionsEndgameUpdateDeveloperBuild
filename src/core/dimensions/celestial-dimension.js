@@ -448,7 +448,7 @@ export function softCelestialReset(tempBulk, forcedCDReset = false, forcedCMRese
   player.endgame.celDimExpansion.dimBoosts = (Decimal.max(DC.D0, player.endgame.celDimExpansion.dimBoosts.add(bulk)));
   const canKeepDimensions = false;
   if (forcedCDReset || !canKeepDimensions) {
-    CelestialDimensions.reset();
+    CelestialDimensions.resetAmount();
     resetCelestialTickspeed();
   }
   const canKeepCelMatter = false;
