@@ -486,6 +486,24 @@ body.t-s12 {
   background-color: var(--color-infinity);
 }
 
+.btn-celestial-crunch {
+  z-index: 1;
+  font-family: Typewriter;
+  font-size: 5rem;
+  color: var(--color-celestials);
+  background-color: black;
+  border: var(--var-border-width, 0.2rem) solid var(--color-celestials);
+  border-radius: var(--var-border-radius, 0.5rem);
+  padding: 2rem;
+  transition-duration: 0.15s;
+  cursor: pointer;
+}
+
+.btn-celestial-crunch:hover {
+  color: black;
+  background-color: var(--color-celestials);
+}
+
 .t-normal .c-game-header__tesseract-available,
 .t-s12 .c-game-header__tesseract-available {
   background: #eeeeee;
