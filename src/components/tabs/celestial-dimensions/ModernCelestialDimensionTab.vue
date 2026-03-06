@@ -134,8 +134,10 @@ export default {
       <div>
         All Celestial Dimensions can be purchased until {{ format(totalDimCap, 2, 2) }} Celestial Points.
       </div>
+      <div>You are getting {{ format(matterPerSecond, 2, 0) }} {{ incomeType }} per second.</div>
     </div>
     <div v-if="canCrunch && !isBroken">
+      <br>
       <button
         :class="{
           'btn-celestial-crunch': true
@@ -144,8 +146,9 @@ export default {
       >
         Celestial Crunch
       </button>
+      <br>
+      <br>
     </div>
-    <div>You are getting {{ format(matterPerSecond, 2, 0) }} {{ incomeType }} per second.</div>
     <CelestialTickspeedRow v-if="isExpanded"/>
     <div class="l-dimensions-container">
       <CelestialDimensionRow
