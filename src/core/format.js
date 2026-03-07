@@ -169,6 +169,7 @@ const PLURAL_HELPER = new Map([
 const pluralDatabase = new Map([
   ["Antimatter", "Antimatter"],
   ["Dilated Time", "Dilated Time"],
+  ["Celestial Matter", "Celestial Matter"]
 ]);
 
 /**
