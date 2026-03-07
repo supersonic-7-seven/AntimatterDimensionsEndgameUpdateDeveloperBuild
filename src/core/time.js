@@ -319,6 +319,32 @@ export const Time = {
   },
 
   /**
+   * @returns {TimeSpan}
+   */
+  get thisCelestialInfinityRealTime() {
+    return this.fromMilliseconds(() => new Decimal(player.records.thisCelestialInfinity.realTime));
+  },
+  /**
+   * @param {TimeSpan} timespan
+   */
+  set thisCelestialInfinityRealTime(timespan) {
+    this.toMilliseconds(timespan, value => player.records.thisCelestialInfinity.realTime = value.toNumber());
+  },
+
+  /**
+   * @returns {TimeSpan}
+   */
+  get bestCelestialInfinityRealTime() {
+    return this.fromMilliseconds(() => new Decimal(player.records.bestCelestialInfinity.realTime));
+  },
+  /**
+   * @param {TimeSpan} timespan
+   */
+  set bestCelestialInfinityRealTime(timespan) {
+    this.toMilliseconds(timespan, value => player.records.bestCelestialInfinity.realTime = value.toNumber());
+  },
+
+  /**
    * @return {TimeSpan}
    */
   get worstChallenge() {

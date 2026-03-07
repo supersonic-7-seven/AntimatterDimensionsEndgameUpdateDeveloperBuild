@@ -2,6 +2,7 @@
 import HeaderCenterContainer from "./prestige-header/HeaderCenterContainer";
 import HeaderEternityContainer from "./prestige-header/HeaderEternityContainer";
 import HeaderInfinityContainer from "./prestige-header/HeaderInfinityContainer";
+import HeaderCelestialInfinityContainer from "./prestige-header/HeaderCelestialInfinityContainer";
 
 export default {
   name: "HeaderPrestigeGroup",
@@ -9,16 +10,29 @@ export default {
     HeaderCenterContainer,
     HeaderEternityContainer,
     HeaderInfinityContainer,
+    HeaderCelestialInfinityContainer,
+  },
+  computed: {
+    isCelestialDimensionsTab() {
+      return Tab.dimensions.celestial.isOpen;
+    },
   },
 };
 </script>
 
 <template>
-  <div class="c-prestige-info-blocks">
+  <div v-if="!isCelestialDimensionsTab" class="c-prestige-info-blocks">
     <HeaderEternityContainer class="l-game-header__eternity" />
     <HeaderCenterContainer class="l-game-header__center" />
     <HeaderInfinityContainer class="l-game-header__infinity" />
   </div>
+
+  <div v-else class="c-prestige-info-blocks">
+    <HeaderEternityContainer class="l-game-header__eternity" />
+    <HeaderCenterContainer class="l-game-header__center" />
+    <HeaderCelestialInfinityContainer class="l-game-header__infinity" />
+  </div>
+
 </template>
 
 <style scoped>
