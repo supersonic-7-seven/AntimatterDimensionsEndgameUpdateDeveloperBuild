@@ -104,6 +104,7 @@ export default {
           <span v-if="hasInfinities">
             You have <span class="c-celestial-infinity-text">{{ format(infinityPoints, 2) }}</span> Celestial Infinity Points.
           </span>
+          <br>
           You have
           <span :class="instabilityClassObject()">{{ format(celestialMatter, 2, 1) }}</span>
           <span v-if="unstable"> Unstable</span> Celestial Matter,
@@ -176,7 +177,7 @@ export default {
 
 <style scoped>
 .c-celestial-infinity-text {
-  font-size: 1.2rem;
+  font-size: 3.5rem;
   font-weight: bold;
   background: linear-gradient(var(--color-infinity), var(--color-celestials));
   background-clip: text;
