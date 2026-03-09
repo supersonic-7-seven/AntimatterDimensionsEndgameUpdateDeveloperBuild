@@ -122,10 +122,4 @@ export function endgameMigration(player) {
   player.records.bestCelestialEternity.realTime = player.records.bestCelestialEternity.realTime === 0
         ? 999999999999
         : player.records.bestCelestialEternity.realTime;
-  player.records.bestCelestialReality.time = new Decimal(player.records.bestCelestialReality.time).eq(0)
-        ? new Decimal(999999999999)
-        : new Decimal(player.records.bestCelestialReality.time);
-  player.records.bestCelestialReality.realTime = player.records.bestCelestialReality.realTime === 0
-        ? 999999999999
-        : player.records.bestCelestialReality.realTime;
 }
