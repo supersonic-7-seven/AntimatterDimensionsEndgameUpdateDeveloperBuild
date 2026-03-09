@@ -1278,6 +1278,7 @@ window.player = {
       galaxies: DC.D0,
       celestialInfinities: DC.D0,
       celestialInfinityPoints: DC.D0,
+      celestialInfinityUpgrades: new Set(),
       partCelestialInfinityPoint: DC.D0,
       isBroken: false,
     },
