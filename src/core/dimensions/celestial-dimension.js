@@ -208,7 +208,7 @@ export const CelestialDimensions = {
   all: CelestialDimension.index.compact(),
   HARDCAP_PURCHASES: DC.C2P1024,
   get SOFTCAP() {
-    return DC.E100.timesEffectsOf(EndgameMastery(94), EndgameUpgrade(5)).times(Ethereal.sectorBoost);
+    return DC.E100.timesEffectsOf(EndgameMastery(94), EndgameUpgrade(5)).times(Ethereal.sectorBoost).pow(CelestialDimensions.alphaDecayRemnant);
   },
 
   get softcapPow() {
@@ -291,8 +291,9 @@ export const CelestialDimensions = {
 
 export function getCelestialTickSpeedMultiplier() {
   const base = new Decimal(1.05);
+  const eachGalaxy = new Decimal(1.02);
   const galaxies = player.endgame.celDimExpansion.galaxies;
-  return base.pow(galaxies.add(1));
+  return base.times(eachGalaxy.pow(galaxies));
 }
 
 export function buyCelestialTickSpeed() {
@@ -811,3 +812,94 @@ export function totalCIPMult() {
   let cipMult = DC.D1;
   return cipMult;
 }
+
+class CelestialInfinityUpgradeState extends SetPurchasableMechanicState {
+  get currency() {
+    return Currency.celestialInfinityPoints;
+  }
+
+  get set() {
+    return player.endgame.celDimExpansion.celestialInfinityUpgrades;
+  }
+}
+
+class CIPMultiplierState extends GameMechanicState {
+  constructor() {
+    super({});
+    this.cachedCost = new Lazy(() => this.costAfterCount(player.endgame.celDimExpansion.cipMultUpgrades));
+    this.cachedEffectValue = new Lazy(() => DC.D2.pow(player.endgame.celDimExpansion.cipMultUpgrades));
+  }
+
+  get isAffordable() {
+    return Currency.celestialInfinityPoints.gte(this.cost);
+  }
+
+  get cost() {
+    return this.cachedCost.value;
+  }
+
+  get boughtAmount() {
+    return player.endgame.celDimExpansion.cipMultUpgrades;
+  }
+
+  set boughtAmount(value) {
+    const diff = Decimal.clampMin(value.sub(player.endgame.celDimExpansion.epmultUpgrades), 0);
+    player.endgame.celDimExpansion.cipMultUpgrades = value;
+    this.cachedCost.invalidate();
+    this.cachedEffectValue.invalidate();
+  }
+
+  get isCustomEffect() {
+    return true;
+  }
+
+  get effectValue() {
+    return this.cachedEffectValue.value;
+  }
+
+  purchase() {
+    if (!this.isAffordable) return false;
+    Currency.celestialInfinityPoints.subtract(this.cost);
+    this.boughtAmount = this.boughtAmount.add(1);
+    return true;
+  }
+
+  costInv() {
+    let cur = Currency.celestialInfinityPoints.value.max(1);
+    return Decimal.floor(cur.div(10).max(1 / 10).log10().add(1));
+  }
+
+  buyMax(auto) {
+    if (!this.isAffordable) return false;
+    let bulk = Decimal.floor(this.costInv());
+    if (bulk.lt(1)) return false;
+    const price = this.costAfterCount(bulk.sub(1));
+    bulk = Decimal.max(bulk.sub(this.boughtAmount), 0);
+    if (bulk.eq(0)) return false;
+    Currency.celestialInfinityPoints.subtract(price);
+    this.boughtAmount = this.boughtAmount.add(bulk);
+    let i = 0;
+    while (Currency.celestialInfinityPoints.gt(this.costAfterCount(this.boughtAmount)) &&
+    i < 50 && this.boughtAmount.lte(9e15)) {
+      this.boughtAmount = this.boughtAmount.add(1);
+      Currency.celestialInfinityPoints.subtract(this.costAfterCount(this.boughtAmount.sub(1)));
+      i += 1;
+    }
+    return true;
+  }
+
+  reset() {
+    this.boughtAmount = DC.D0;
+  }
+
+  costAfterCount(count) {
+    return Decimal.pow10(count).times(10);
+  }
+}
+
+export const CelestialInfinityUpgrade = mapGameDataToObject(
+  GameDatabase.endgame.celDimExpansion.celestialInfinityUpgrades,
+  config => new CelestialInfinityUpgradeState(config)
+);
+
+CelestialInfinityUpgrade.cipMult = new CIPMultiplierState();

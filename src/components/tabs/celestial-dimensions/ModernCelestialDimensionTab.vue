@@ -35,6 +35,8 @@ export default {
       isExpanded: false,
       canCrunch: false,
       isBroken: false,
+      hasInfinities: false,
+      infinityPoints: new Decimal(0),
     };
   },
   methods: {
@@ -57,6 +59,8 @@ export default {
       this.isExpanded = Achievement(221).isUnlocked;
       this.canCrunch = Currency.celestialMatter.value.gte(DC.NUMMAX);
       this.isBroken = player.endgame.celDimExpansion.isBroken;
+      this.hasInfinities = Currency.celestialInfinities.value.gt(0);
+      this.infinityPoints.copyFrom(player.endgame.celDimExpansion.celestialInfinityPoints);
     },
     maxAll() {
       CelestialDimensions.buyMax();
@@ -97,6 +101,11 @@ export default {
     <div v-if="!canCrunch || isBroken">
       <div>
         <p>
+          <span v-if="hasInfinities">
+            You have <span class="c-celestial-infinity-text">{{ format(infinityPoints, 2) }}</span>
+            {{ pluralize("Celestial Infinity Point", infinityPoints) }}.
+          </span>
+          <br>
           You have
           <span :class="instabilityClassObject()">{{ format(celestialMatter, 2, 1) }}</span>
           <span v-if="unstable"> Unstable</span> Celestial Matter,
@@ -166,3 +175,14 @@ export default {
     </div>
   </div>
 </template>
+
+<style scoped>
+.c-celestial-infinity-text {
+  font-size: 3.5rem;
+  font-weight: bold;
+  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+</style>
