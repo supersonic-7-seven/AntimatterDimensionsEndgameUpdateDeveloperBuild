@@ -474,6 +474,7 @@ export function getGameSpeedupFactor(effectsToConsider, _applyMaxThisEndgame, bl
     if (player.endgame.celestialMatter.gt(0) && player.endgame.celestialMatterMultiplier.isActive) {
       factor = factor.times(Decimal.pow(player.endgame.celestialMatter, celestialMatterExponent));
     }
+    factor = factor.timesEffectOf(CelestialInfinityUpgrade.gameSpeedMultCIP);
   }
 
   if (effects.includes(GAME_SPEED_EFFECT.RA_BUFFS)) {
