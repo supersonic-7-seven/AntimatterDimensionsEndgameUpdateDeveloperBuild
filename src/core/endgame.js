@@ -344,9 +344,7 @@ export const Endgame = {
     player.celestials.teresa.perkShop[2] = charge3;
     player.celestials.teresa.perkShop[3] = charge4;
     player.celestials.teresa.perkShop[6] = maxPerkCharges;
-    if (!Achievement(223).isUnlocked) {
-      player.celestials.effarig.relicShards = EndgameUpgrade(6).isBought ? DC.E12 : DC.D0;
-    }
+    player.celestials.effarig.relicShards = EndgameUpgrade(6).isBought ? DC.E12 : DC.D0;
     player.celestials.effarig.unlockBits = ExpansionPack.effarigPack.isBought ? 15 : 0;
     player.celestials.effarig.run = false;
     if (!ExpansionPacks.areUnlocked) {
@@ -470,7 +468,9 @@ export const Endgame = {
       player.celestials.ra.unlocks = [];
     }
     player.celestials.ra.run = false;
-    player.celestials.ra.charged = new Set();
+    if (!Achievement(223).isUnlocked) {
+      player.celestials.ra.charged = new Set();
+    }
     player.celestials.ra.disCharge = false;
     player.celestials.ra.peakGamespeed = DC.D1;
     player.celestials.ra.petWithRemembrance = "";
