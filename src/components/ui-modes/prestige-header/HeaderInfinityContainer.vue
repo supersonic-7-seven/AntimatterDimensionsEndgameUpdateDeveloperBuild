@@ -54,7 +54,6 @@ export default {
       <BigCrunchButton />
     </div>
     <div v-if="showContainer && hasCelestial">
-      <br>
       <div class="c-infinity-points">
         You have
         <span class="c-game-header__cip-amount">{{ format(celInfinityPoints, 2) }}</span>
