@@ -15,7 +15,7 @@ export const celestialInfinityUpgrades = {
   rawCelestialDimMult: {
     id: 3,
     cost: 20,
-    description: () => `Multiply all Celestial Dimension Multipliers by ${formatInt(10)}`,
+    description: () => `Multiply all Celestial Dimension Multipliers by ${formatInt(10)} after Alpha Decay`,
     effect: 10
   },
   celDimBoostBuff: {
@@ -39,7 +39,7 @@ export const celestialInfinityUpgrades = {
   antimatterCelestialDimBuff: {
     id: 7,
     cost: 1000,
-    description: "Multiply all Celestial Dimensions by the Antimatter Exponent's Exponent",
+    description: "Multiply all Celestial Dimensions by the Antimatter Exponent's Exponent after Alpha Decay",
     effect: () => Decimal.log10(Decimal.log10(player.antimatter.add(1)).add(1)).max(1)
   },
   cipGen: {

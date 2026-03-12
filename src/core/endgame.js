@@ -614,7 +614,7 @@ export const Endgame = {
     Currency.eternityPoints.reset();
     EternityUpgrade.epMult.reset();
     Currency.eternities.reset();
-    if (EndgameMastery(42).isBought) {
+    if (EndgameMastery(42).isBought && !player.disablePostReality) {
       Currency.eternities.bumpTo(100);
     }
     player.eternityUpgrades.clear();

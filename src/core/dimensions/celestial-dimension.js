@@ -3,7 +3,7 @@ import { DimensionState } from "./dimension";
 
 export function celestialDimensionCommonMultiplier() {
   let mult = DC.D1;
-  mult = mult.timesEffectsOf(EndgameUpgrade(11), CelestialInfinityUpgrade.rawCelestialDimMult, CelestialInfinityUpgrade.antimatterCeelstialDimBuff);
+  mult = mult.timesEffectsOf(EndgameUpgrade(11));
   mult = mult.times(Ethereal.sectorBoost);
   mult = mult.times(CelestialDimBoost.multiplierToCDTier());
   return mult;
@@ -99,6 +99,7 @@ class CelestialDimensionState extends DimensionState {
     mult = mult.times(Decimal.pow(this.powerMultiplier, Decimal.floor(this.baseAmount)));
     mult = mult.powEffectsOf(SingularityMilestone.dimensionPow, Ra.unlocks.celestialDimensionPower);
     mult = mult.pow(CelestialDimensions.alphaDecayRemnant);
+    mult = mult.timesEffectsOf(CelestialInfinityUpgrade.rawCelestialDimMult, CelestialInfinityUpgrade.antimatterCelestialDimBuff);
     return mult;
   }
 
