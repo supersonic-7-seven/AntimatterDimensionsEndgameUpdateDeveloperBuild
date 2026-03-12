@@ -635,6 +635,15 @@ export const tabs = [
         id: 9,
         hidable: true,
       },
+      {
+        key: "celestial-infinity",
+        name: "Celestial Infinity Upgrades",
+        symbol: "<i class='fas fa-infinity'></i>",
+        component: "CelestialInfinityUpgradesTab",
+        condition: () => player.endgame.celDimExpansion.celestialInfinities.gt(0),
+        id: 10,
+        hidable: true,
+      },
     ],
   }
 ];

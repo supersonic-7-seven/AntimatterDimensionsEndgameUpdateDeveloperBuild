@@ -424,6 +424,9 @@ export const migrations = {
     //Start with 100 since Endgame is a "new era"
     100: player => {
       endgameMigration(player);
+    },
+    101: player => {
+      endgameMigration(player);
     }
   },
 

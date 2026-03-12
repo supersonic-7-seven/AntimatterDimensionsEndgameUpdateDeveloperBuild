@@ -20,11 +20,11 @@ export default {
   computed: {
     types: () => GLYPH_TYPES.filter(type => type !== "cursed" && type !== "companion"),
     lastMachines() {
-      return this.lastMachines.gte(DC.E20000)
-        ? `${quantify("Dual Machine", this.lastMachines.dividedBy(DC.E20000), 2)}`
-        : (this.lastMachines.lt(DC.E10000)
-          ? `${quantify("Reality Machine", this.lastMachines, 2)}`
-          : `${quantify("Imaginary Machine", this.lastMachines.dividedBy(DC.E10000), 2)}`);
+      return this.lastMachinesTeresa.gte(DC.E20000)
+        ? `${quantify("Dual Machine", this.lastMachinesTeresa.dividedBy(DC.E20000), 2)}`
+        : (this.lastMachinesTeresa.lt(DC.E10000)
+          ? `${quantify("Reality Machine", this.lastMachinesTeresa, 2)}`
+          : `${quantify("Imaginary Machine", this.lastMachinesTeresa.dividedBy(DC.E10000), 2)}`);
     },
     dropDownIconClass() {
       return this.hideAlteration ? "far fa-plus-square" : "far fa-minus-square";

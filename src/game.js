@@ -474,6 +474,7 @@ export function getGameSpeedupFactor(effectsToConsider, _applyMaxThisEndgame, bl
     if (player.endgame.celestialMatter.gt(0) && player.endgame.celestialMatterMultiplier.isActive) {
       factor = factor.times(Decimal.pow(player.endgame.celestialMatter, celestialMatterExponent));
     }
+    factor = factor.timesEffectOf(CelestialInfinityUpgrade.gameSpeedMultCIP);
   }
 
   if (effects.includes(GAME_SPEED_EFFECT.RA_BUFFS)) {
@@ -690,6 +691,12 @@ export function gameLoop(passedDiff, options = {}) {
     player.records.thisReality.time = player.records.thisReality.time.add(diff);
     player.records.thisEndgame.realTime += realDiff;
     player.records.thisEndgame.time = player.records.thisEndgame.time.add(diff);
+    player.records.thisCelestialInfinity.realTime += realDiff;
+    player.records.thisCelestialInfinity.time = player.records.thisCelestialInfinity.time.add(diff);
+    player.records.thisCelestialEternity.realTime += realDiff;
+    player.records.thisCelestialEternity.time = player.records.thisCelestialEternity.time.add(diff);
+    player.records.thisCelestialReality.realTime += realDiff;
+    player.records.thisCelestialReality.time = player.records.thisCelestialReality.time.add(diff);
   }
 
   DeltaTimeState.update(realDiff, diff);
@@ -700,6 +707,7 @@ export function gameLoop(passedDiff, options = {}) {
   // behavior of eternity farming.
   if (!Alpha.isRunning) preProductionGenerateIP(diff);
   if (Alpha.isRunning) preProductionGenerateIP(realDiff);
+  preProductionGenerateCIP(realDiff);
 
   passivePrestigeGen();
 

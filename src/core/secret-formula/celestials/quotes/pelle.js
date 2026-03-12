@@ -34,6 +34,7 @@ const debuffs =      ["Nerfs",         "Debuffs",       "Corruptions"];
 const exhaustion =   ["Exhale",        "Exhaustion",    "Sigh"];
 const filament =     ["Generator",     "Filament",      "Stars"];
 const forever =      ["Infinite",      "Forever",       "Eternal"];
+const hardship =     ["Problem",       "Hardship",      "Struggle"];
 const inevitable =   ["Elementary",    "Inevitable",    "Irreversible"];
 const introduction = ["Speech",        "Introduction",  "Lecture"];
 const lose =         ["Fail",          "Lose",          "Abdicate"];
@@ -736,6 +737,25 @@ export const pelleQuotes = {
       "I think I remember you...",
       "...",
       "%name?"
+    ]
+  },
+  beatAlpha: {
+    id: 30,
+    lines: [
+      "Another end, and a new beginning.",
+      "...",
+      "I can sense surprise in you.",
+      "My powers have returned.",
+      "I would smite you, but...",
+      "Seeing as how you have freed me from Alpha's mental chains...",
+      "I'll give you another chance.",
+      { text: "I'll let you become a $1.", 1: lesser },
+      "On one condition.",
+      "My new domain has an entry fee.",
+      "You must reach 1e4000 Celestial Points of Eternity.",
+      { text: "But for a $1 like you...", 1: destroyer },
+      { text: "That shouldn't be a $1.", 1: hardship },
+      "So I'll expect to see you soon."
     ]
   }
 };

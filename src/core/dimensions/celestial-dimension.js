@@ -1,8 +1,9 @@
+import { GameMechanicState, SetPurchasableMechanicState } from "../game-mechanics";
 import { DimensionState } from "./dimension";
 
 export function celestialDimensionCommonMultiplier() {
   let mult = DC.D1;
-  mult = mult.timesEffectsOf(EndgameUpgrade(11));
+  mult = mult.timesEffectsOf(EndgameUpgrade(11), CelestialInfinityUpgrade.rawCelestialDimMult, CelestialInfinityUpgrade.antimatterCeelstialDimBuff);
   mult = mult.times(Ethereal.sectorBoost);
   mult = mult.times(CelestialDimBoost.multiplierToCDTier());
   return mult;
@@ -116,7 +117,7 @@ class CelestialDimensionState extends DimensionState {
   }
 
   get powerMultiplier() {
-    return new Decimal(this._powerMultiplier).pow(SingularityMilestone.perPurchaseDimMult.effectOrDefault(1));
+    return new Decimal(CelestialInfinityUpgrade.celDimPurchaseBoost.effectOrDefault(this._powerMultiplier)).pow(SingularityMilestone.perPurchaseDimMult.effectOrDefault(1));
   }
 
   get purchases() {
@@ -280,7 +281,7 @@ export const CelestialDimensions = {
 
   get conversionExponent() {
     if (player.disablePostReality && !Alpha.isRunning) return 0;
-    let base = 2;
+    let base = CelestialInfinityUpgrade.celestialMatterConversionBuff.effectOrDefault(2);
     if (Pelle.isDoomed) base /= 10;
     let exponent = 1;
     if (base > 1) exponent *= Effects.product(EndgameMastery(104), Ra.unlocks.celestialDimensionConversionPower);
@@ -291,7 +292,7 @@ export const CelestialDimensions = {
 
 export function getCelestialTickSpeedMultiplier() {
   const base = new Decimal(1.05);
-  const eachGalaxy = new Decimal(1.02);
+  const eachGalaxy = new Decimal(CelestialInfinityUpgrade.celGalaxyBuff.effectOrDefault(1.02));
   const galaxies = player.endgame.celDimExpansion.galaxies;
   return base.times(eachGalaxy.pow(galaxies));
 }
@@ -380,7 +381,7 @@ class CelestialDimBoostRequirement {
 
 export class CelestialDimBoost {
   static get power() {
-    return DC.E1;
+    return new Decimal(CelestialInfinityUpgrade.celDimBoostBuff.effectOrDefault(10));
   }
 
   static multiplierToCDTier() {
@@ -659,7 +660,7 @@ export class CelestialGalaxy {
 function celestialGalaxyReset() {
   EventHub.dispatch(GAME_EVENT.CELESTIAL_GALAXY_RESET_BEFORE);
   player.endgame.celDimExpansion.galaxies = player.endgame.celDimExpansion.galaxies.add(1);
-  if (false) {
+  if (true) {
     player.endgame.celDimExpansion.dimBoosts = new Decimal(0);
   }
   softCelestialReset(0);
@@ -777,8 +778,8 @@ function celestialCrunchTabChange(firstCelestialInfinity) {
 
 export function secondSoftCelestialReset() {
   Endgame.resetNoReward();
-  player.endgame.celDimExpansion.dimBoosts = DC.D0;
-  player.endgame.celDimExpansion.galaxies = DC.D0;
+  player.endgame.celDimExpansion.dimBoosts = new Decimal(CelestialInfinityUpgrade.buffedStart.effectOrDefault(0));
+  player.endgame.celDimExpansion.galaxies = CelestialInfinityUpgrade.buffedStart.isBought ? DC.D1 : DC.D0;
   player.records.thisCelestialInfinity.maxCM = DC.D0;
   Currency.unnerfedCelestialMatter.reset();
   Currency.celestialMatter.reset();
@@ -789,7 +790,7 @@ export function secondSoftCelestialReset() {
 }
 
 export function preProductionGenerateCIP(diff) {
-  if (false) {
+  if (CelestialInfinityUpgrade.cipGen.isBought) {
     const genPeriod = Time.bestCelestialInfinityRealTime.totalMilliseconds.clampMin(1e-100).times(10);
     let genCount;
     if (new Decimal(diff).gte(DC.E100)) {
@@ -801,7 +802,7 @@ export function preProductionGenerateCIP(diff) {
       genCount = Decimal.floor(player.partCelestialInfinityPoint);
       player.endgame.celDimExpansion.partCelestialInfinityPoint = player.endgame.celDimExpansion.partCelestialInfinityPoint.sub(genCount);
     }
-    let gainedPerGen = player.records.bestCelestialInfinity.time.gte(999999999999) ? DC.D0 : DC.D0;//CelestialInfinityUpgrade smth
+    let gainedPerGen = player.records.bestCelestialInfinity.time.gte(999999999999) ? DC.D0 : GameCache.totalCIPMult.value;
     const gainedThisTick = new Decimal(genCount).times(gainedPerGen);
     if (Decimal.isFinite(gainedThisTick)) Currency.celestialInfinityPoints.add(gainedThisTick);
   }

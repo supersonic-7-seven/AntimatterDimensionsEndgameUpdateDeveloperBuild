@@ -57,7 +57,7 @@ export default {
       this.alphaDecayRemnant = CelestialDimensions.alphaDecayRemnant;
       this.hasRemnant = Alpha.isDestroyed;
       this.isExpanded = Achievement(221).isUnlocked;
-      this.canCrunch = Currency.celestialMatter.value.gte(DC.NUMMAX);
+      this.canCrunch = Currency.celestialMatter.value.gte(DC.NUMMAX) && this.isExpanded;
       this.isBroken = player.endgame.celDimExpansion.isBroken;
       this.hasInfinities = Currency.celestialInfinities.value.gt(0);
       this.infinityPoints.copyFrom(player.endgame.celDimExpansion.celestialInfinityPoints);

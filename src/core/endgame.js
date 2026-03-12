@@ -468,7 +468,9 @@ export const Endgame = {
       player.celestials.ra.unlocks = [];
     }
     player.celestials.ra.run = false;
-    player.celestials.ra.charged = new Set();
+    if (!Achievement(223).isUnlocked) {
+      player.celestials.ra.charged = new Set();
+    }
     player.celestials.ra.disCharge = false;
     player.celestials.ra.peakGamespeed = DC.D1;
     player.celestials.ra.petWithRemembrance = "";
@@ -612,6 +614,9 @@ export const Endgame = {
     Currency.eternityPoints.reset();
     EternityUpgrade.epMult.reset();
     Currency.eternities.reset();
+    if (EndgameMastery(42).isBought) {
+      Currency.eternities.bumpTo(100);
+    }
     player.eternityUpgrades.clear();
     player.totalTickGained = DC.D0;
     player.totalTickBought = DC.D0;
@@ -623,7 +628,6 @@ export const Endgame = {
     player.eterc8repl = 40;
     player.auto.bigCrunch.mode = 0;
     player.auto.eternity.mode = 0;
-    Autobuyers.reset();
     InfinityDimensions.fullReset();
     InfinityDimensions.resetAmount();
     fullResetTimeDimensions();
@@ -650,6 +654,7 @@ export const Endgame = {
     if (!EndgameMastery(61).isBought) {
       lockAchievementsOnEndgame();
     }
+    Autobuyers.reset();
     player.records.totalTimePlayed = new Decimal(player.records.realTimePlayed);
     player.records.timePlayedAtBHUnlock = DC.E9E15;
     player.records.realTimeDoomed = 0;
@@ -730,6 +735,9 @@ export const Endgame = {
     }
     if (Achievement(165).isUnlocked) {
       player.celestials.effarig.autoAdjustGlyphWeights = true;
+    }
+    if (EternityMilestone.keepAutobuyers.isReached) {
+      NormalChallenges.completeAll();
     }
   }
 };

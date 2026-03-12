@@ -765,6 +765,7 @@ export function finishProcessReality(realityProps) {
   if (Alpha.isRunning && Alpha.currentStage === 27) {
     Alpha.advanceLayer();
     Alpha.quotes.reality.show();
+    Pelle.quotes.beatAlpha.show();
   }
 }
 

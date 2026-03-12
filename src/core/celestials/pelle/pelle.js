@@ -400,12 +400,12 @@ export const Pelle = {
   },
   calculatePelleInfinity(count) {
     return (count > 0 && (player.challenge.eternity.current <= 8 || PelleDestructionUpgrade.pelleGlyphEffects.isBought))
-        ? Currency.infinityPoints.value.plus(1).pow(0.2).pow(Math.min(1, count)) // Limit to at most 1
+        ? Currency.infinityPoints.value.plus(1).pow(0.2).pow(new Decimal(count).div(Currency.infinityPoints.value.plus(1).log10().plus(1).log10().plus(1).log10().pow(3).max(1)))
         : DC.D1
   },
   calculatePelleTime(count) {
     return count > 0
-        ? Currency.eternityPoints.value.plus(1).pow(0.3).pow(Math.min(1, count)) // Limit to at most 1
+        ? Currency.eternityPoints.value.plus(1).pow(0.3).pow(new Decimal(count).div(Currency.eternityPoints.value.plus(1).log10().plus(1).log10().plus(1).log10().pow(3).max(1)))
         : DC.D1
   },
   calculatePelleReplication(count) {

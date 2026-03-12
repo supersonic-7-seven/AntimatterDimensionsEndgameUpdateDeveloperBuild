@@ -256,7 +256,7 @@ body.t-s12 {
 }
 
 .o-subtab__tooltip {
-  width: 20rem;
+  width: 25rem;
   height: 3rem;
   position: absolute;
   bottom: 100%;
@@ -269,7 +269,7 @@ body.t-s12 {
   background: var(--color-base);
   border: 0.1rem solid var(--color-accent);
   border-radius: var(--var-border-radius, 0.4rem);
-  margin-left: -7.7rem;
+  margin-left: -10.2rem;
   transition-duration: 0.2s;
   pointer-events: none;
 }
@@ -926,7 +926,10 @@ body.t-s12 {
 }
 
 .c-game-header__cip-amount {
-  color: var(--color-celestials)
+  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
 }
 
 .c-game-header__ep-amount {

@@ -125,5 +125,18 @@ export const effarigQuotes = {
       "Anyway, I'll let you get back to your grind.",
       "See you around, mate."
     ]
+  },
+  glyphLevel3: {
+    id: 12,
+    requirement: () => player.records.bestEndgame.glyphLevel >= 1e6,
+    lines: [
+      "Well, you did it anyway.",
+      "One million Glyph Levels.",
+      "I see it took you a lot to get here.",
+      "I'm gonna have to start working on some harsher softcaps, you're beating the existing ones too easily.",
+      "Can't let you inflate into oblivion.",
+      "I mean, do you really need Glyphs with levels above one million?",
+      "Alright, you can get back to grinding."
+    ]
   }
 };

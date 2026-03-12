@@ -8,6 +8,7 @@ import BlackHoleTab from "./black-hole/BlackHoleTab";
 import BreakInfinityTab from "./break-infinity/BreakInfinityTab";
 import BreakEternityTab from "./break-eternity/BreakEternityTab";
 import CelestialDimensionsTab from "./celestial-dimensions/CelestialDimensionsTab";
+import CelestialInfinityUpgradesTab from "./celestial-dimension-expansion/CelestialInfinityUpgradesTab";
 import CelestialNavigationTab from "./celestial-navigation/CelestialNavigationTab";
 import ChallengeRecordsTab from "./challenge-records/ChallengeRecordsTab";
 import DualityUpgradesTab from "./duality-upgrades/DualityUpgradesTab";
@@ -111,6 +112,7 @@ const TabComponents = {
   GalacticPowerTab,
   EtherealTab,
   HypercubesTab,
+  CelestialInfinityUpgradesTab,
   ShopTab,
   MultiplierBreakdownTab
 };

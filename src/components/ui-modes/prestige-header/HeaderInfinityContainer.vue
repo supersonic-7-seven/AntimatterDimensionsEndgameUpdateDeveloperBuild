@@ -13,6 +13,8 @@ export default {
       isTesseractUnlocked: false,
       tesseractCost: new Decimal(0),
       tesseractText: "",
+      hasCelestial: false,
+      celInfinityPoints: new Decimal(0),
     };
   },
   methods: {
@@ -22,6 +24,8 @@ export default {
       this.isTesseractUnlocked = Enslaved.isCompleted && !player.disablePostReality;
       this.tesseractCost = Tesseracts.nextCost;
       this.tesseractText = this.tesseractProgress();
+      this.hasCelestial = player.endgame.celDimExpansion.celestialInfinities.gt(0);
+      this.celInfinityPoints.copyFrom(Currency.celestialInfinityPoints.value.floor());
     },
     tesseractProgress() {
       const progress = this.infinityPoints.add(1).log10().div(this.tesseractCost.log10()).toNumber();
@@ -33,20 +37,29 @@ export default {
 </script>
 
 <template>
-  <div
-    v-if="showContainer"
-    class="c-prestige-button-container"
-  >
-    <div class="c-infinity-points">
-      You have
-      <span class="c-game-header__ip-amount">{{ format(infinityPoints, 2) }}</span>
-      {{ pluralize("Infinity Point", infinityPoints) }}.
-      <span
-        v-if="isTesseractUnlocked"
-        v-html="tesseractText"
-      />
+  <div>
+    <div
+      v-if="showContainer"
+      class="c-prestige-button-container"
+    >
+      <div class="c-infinity-points">
+        You have
+        <span class="c-game-header__ip-amount">{{ format(infinityPoints, 2) }}</span>
+        {{ pluralize("Infinity Point", infinityPoints) }}.
+        <span
+          v-if="isTesseractUnlocked"
+          v-html="tesseractText"
+        />
+      </div>
+      <BigCrunchButton />
     </div>
-    <BigCrunchButton />
+    <div v-if="showContainer && hasCelestial">
+      <div class="c-infinity-points">
+        You have
+        <span class="c-game-header__cip-amount">{{ format(celInfinityPoints, 2) }}</span>
+        {{ pluralize("Celestial Infinity Point", celInfinityPoints) }}.
+      </div>
+    </div>
   </div>
 </template>
 

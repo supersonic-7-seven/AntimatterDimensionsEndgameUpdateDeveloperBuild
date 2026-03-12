@@ -59,9 +59,36 @@ export function endgameMigration(player) {
     player.celestials.v.runRecords = [DC.E1.neg(), DC.D0, DC.D0, DC.D0, DC.D0, DC.D0, DC.D0, DC.D0, DC.D0];
   }
   if (player.endgameMasteries.preferredPaths[1] === 0) player.endgameMasteries.preferredPaths = [[], []];
-  if (Achievement(194).isUnlocked) {
-    Achievement(194).lock();
-    Achievement(196).unlock();
+  if (Achievement(201).isUnlocked) {
+    Achievement(201).lock();
+    Achievement(211).unlock();
+  }
+  if (Achievement(202).isUnlocked) {
+    Achievement(202).lock();
+    Achievement(212).unlock();
+  }
+  if (Achievement(203).isUnlocked) {
+    Achievement(203).lock();
+    Achievement(213).unlock();
+  }
+  if (Achievement(204).isUnlocked) {
+    Achievement(204).lock();
+    Achievement(221).unlock();
+  }
+  if (Achievement(205).isUnlocked) {
+    Achievement(205).lock();
+    Achievement(215).unlock();
+  }
+  if (Achievement(206).isUnlocked) {
+    Achievement(206).lock();
+    Achievement(216).unlock();
+  }
+  if (Achievement(207).isUnlocked) {
+    Achievement(207).lock();
+    Achievement(224).unlock();
+  }
+  if (Achievement(208).isUnlocked) {
+    Achievement(208).lock();
   }
   if (Achievement(195).isUnlocked) {
     Achievement(195).lock();
@@ -79,4 +106,20 @@ export function endgameMigration(player) {
     Achievement(198).lock();
     Achievement(208).unlock();
   }
+  if (Achievement(194).isUnlocked) {
+    Achievement(194).lock();
+    Achievement(196).unlock();
+  }
+  player.records.bestCelestialInfinity.time = new Decimal(player.records.bestCelestialInfinity.time).eq(0)
+        ? new Decimal(999999999999)
+        : new Decimal(player.records.bestCelestialInfinity.time);
+  player.records.bestCelestialInfinity.realTime = player.records.bestCelestialInfinity.realTime === 0
+        ? 999999999999
+        : player.records.bestCelestialInfinity.realTime;
+  player.records.bestCelestialEternity.time = new Decimal(player.records.bestCelestialEternity.time).eq(0)
+        ? new Decimal(999999999999)
+        : new Decimal(player.records.bestCelestialEternity.time);
+  player.records.bestCelestialEternity.realTime = player.records.bestCelestialEternity.realTime === 0
+        ? 999999999999
+        : player.records.bestCelestialEternity.realTime;
 }

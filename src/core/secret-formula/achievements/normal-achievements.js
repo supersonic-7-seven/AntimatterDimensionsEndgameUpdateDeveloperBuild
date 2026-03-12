@@ -1580,7 +1580,7 @@ export const normalAchievements = [
     checkRequirement: () => Alpha.isRunning,
     checkEvent: GAME_EVENT.ETERNITY_RESET_BEFORE,
     get reward() {
-      return `Alpha Decay speed is boosted based on Dual Machines`;
+      return `Alpha Decay speed is boosted based on Dual Machines.`;
     },
     effect: () => Decimal.max(Decimal.ln(Decimal.ln(Currency.dualMachines.value.add(1)).add(1)), 1),
     formatEffect: value => `${formatX(value, 2, 2)}`
@@ -1647,7 +1647,10 @@ export const normalAchievements = [
     name: "Power! Unlimited power!",
     get description() { return `Have your Infinity Dimension purchase cap exceed ${format(DC.NUMMAX, 1, 0)}.` },
     checkRequirement: () => InfinityDimensions.totalDimCap.gt(DC.NUMMAX),
-    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    get reward() {
+      return `Infinity Upgrades stay charged on Endgame.`;
+    }
   },
   {
     id: 224,
@@ -1683,14 +1686,20 @@ export const normalAchievements = [
     name: "How do these work???",
     description: "Obtain a Penteract.",
     checkRequirement: () => player.endgame.hypercubes.penteracts >= 1,
-    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    get reward() {
+      return `Unlock Effarig's second shop.`;
+    }
   },
   {
     id: 228,
     name: "Look how far we've come",
     get description() { return `Reach ${formatPostBreak(DC.ENUMMAX, 2)} Antimatter.` },
     checkRequirement: () => player.antimatter.gte(DC.ENUMMAX),
-    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    get reward() {
+      return `Unlock Divinity.`;
+    }
   },
   /*
   {

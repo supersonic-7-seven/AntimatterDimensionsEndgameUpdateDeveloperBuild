@@ -227,5 +227,33 @@ export const laitelaQuotes = {
       "Don't destroy that one as well, okay?",
       "Thanks."
     ]
+  },
+  hadrons: {
+    id: 16,
+    requirement: () => DualityUpgrade(15).isBought,
+    lines: [
+      "So...",
+      "You managed to condense the entropic quarks in my Reality...",
+      "And create a Hadron.",
+      "Fascinating.",
+      "I never imagined this kind of power to be attainable by any being, much less a mortal like you.",
+      "Although I suppose you aren't simply a mortal anymore.",
+      "You've become something much... greater.",
+      "I wonder what else you can do."
+    ]
+  },
+  darkHadrons: {
+    id: 17,
+    requirement: () => DualityUpgrade(19).isBought,
+    lines: [
+      "What is that?",
+      "Not only do you have these... Hadrons...",
+      "But you also managed to create one out of dark matter!",
+      "I never though my perfect particles to be capable of so much.",
+      "You intrigue me, Destroyer.",
+      "Maybe you can teach me one day.",
+      "I'd like to know more about the capabilities of my own powers.",
+      "Guess I'll get there someday, huh?"
+    ]
   }
 };
