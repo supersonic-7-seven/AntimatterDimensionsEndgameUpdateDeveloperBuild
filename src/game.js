@@ -92,8 +92,8 @@ export function breakInfinity() {
 }
 
 export function breakEternity() {
-  player.break2 = !player.break2;
-  EventHub.dispatch(GAME_EVENT.BREAK_ETERNITY);
+  player.endgame.celDimExpansion.isBroken = !player.endgame.celDimExpansion.isBroken;
+  EventHub.dispatch(GAME_EVENT.CELESTIAL_BREAK_INFINITY);
   GameUI.update();
 }
 
