@@ -97,6 +97,12 @@ export function breakEternity() {
   GameUI.update();
 }
 
+export function celestialBreakInfinity() {
+  player.endgame.celDimExpansion.isBroken = !player.endgame.celDimExpansion.isBroken;
+  EventHub.dispatch(GAME_EVENT.CELESTIAL_BREAK_INFINITY);
+  GameUI.update();
+}
+
 export function gainedInfinityPoints() {
   const div = Effects.min(
     308,
