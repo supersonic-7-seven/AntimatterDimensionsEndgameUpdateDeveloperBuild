@@ -138,8 +138,13 @@ const rarityBorderStyles = {
     },
     {
       lineType: "linear",
-      angles: [0, 45, 90, 135],
+      angles: [45, 135],
       colorSplit: [10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90],
+    },
+    {
+      lineType: "linear",
+      angles: [0, 90],
+      colorSplit: [10, 12, 14, 16, 18, 20, 80, 82, 84, 86, 88, 90],
     }
   ],
   cursed: [
