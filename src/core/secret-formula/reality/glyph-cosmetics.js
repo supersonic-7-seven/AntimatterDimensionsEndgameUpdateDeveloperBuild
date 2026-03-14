@@ -223,4 +223,32 @@ export const glyphCosmeticSets = {
     preventBlur: true,
     color: ["W#0000AA"],
   },
+  zodiac1: {
+    id: "zodiac1",
+    name: "Zodiacs A",
+    symbol: ["♉︎", "♋︎", "♍︎", "♎︎", "♏︎", "♑︎"],
+    color: ["B#4E1C29"],
+  },
+  zodiac2: {
+    id: "zodiac2",
+    name: "Zodiacs B",
+    symbol: ["♈︎", "♊︎", "♌︎", "♐︎", "♒︎", "♓︎"],
+    color: ["B#0715CD"],
+  },
+  planetoid: {
+    id: "planetoid",
+    name: "Planetoid Symbols",
+    symbol: ["⚳", "⚴", "⚵", "⚶", "⚷"],
+  },
+  horse: {
+    id: "horse",
+    name: "Horse Update Tomorrow",
+    symbol: ["Ʊ", "🐎", "𓃗", "🐴", "♘"],
+  },
+  nordic: {
+    id: "nordic",
+    name: "Nordic Runes",
+    symbol: ["ᛟ", "ᛞ", "ᚻ", "ᚠ", "ᛄ", "ᛒ"],
+    color: ["B#B47BBB"],
+  },
 };
