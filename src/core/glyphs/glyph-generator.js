@@ -127,7 +127,7 @@ export const GlyphGenerator = {
   },
 
   realityGlyph(level) {
-    const str = rarityToStrength(100 + Ra.unlocks.realityGlyphRarity.effectOrDefault(0));
+    const str = rarityToStrength(100 + Ra.unlocks.realityGlyphRarity.effectOrDefault(0) + Effarig.rarityCapIncrease);
     const effects = this.generateRealityEffects(level);
     const effectBitmask = makeGlyphEffectBitmask(effects);
     return {
@@ -165,11 +165,12 @@ export const GlyphGenerator = {
     let bitmask = 0;
     for (const effect of effectList) bitmask |= 1 << effect.bitmaskIndex;
     const glyphLevel = Math.max(player.records.bestReality.glyphLevel, 5000);
+    const rarity = EffarigUnlock.glyphGenerationBoost.isBought ? rarityToStrength(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease) : 3.5;
     return {
       id: undefined,
       idx: null,
       type,
-      strength: 3.5,
+      strength: rarity,
       level: glyphLevel,
       rawLevel: glyphLevel,
       effects: bitmask,
@@ -182,11 +183,12 @@ export const GlyphGenerator = {
     let bitmask = 0;
     for (const effect of effectList) bitmask |= 1 << effect.bitmaskIndex;
     const glyphLevel = Effects.max(1, EndgameMastery(71));
+    const rarity = EffarigUnlock.glyphGenerationBoost.isBought ? rarityToStrength(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease) : 3.5;
     return {
       id: undefined,
       idx: null,
       type,
-      strength: 3.5,
+      strength: rarity,
       level: glyphLevel,
       rawLevel: glyphLevel,
       effects: bitmask,
@@ -237,7 +239,7 @@ export const GlyphGenerator = {
   randomStrength(rng) {
     // Technically getting this upgrade really changes glyph gen but at this point almost all
     // the RNG is gone anyway.
-    if (Ra.unlocks.maxGlyphRarityAndShardSacrificeBoost.canBeApplied && !player.disablePostReality) return rarityToStrength(100 + Ra.unlocks.rarityBuff.effectOrDefault(0));
+    if (Ra.unlocks.maxGlyphRarityAndShardSacrificeBoost.canBeApplied && !player.disablePostReality) return rarityToStrength(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease);
     let result = GlyphGenerator.gaussianBellCurve(rng) * GlyphGenerator.strengthMultiplier;
     const relicShardFactor = (Ra.unlocks.extraGlyphChoicesAndRelicShardRarityAlwaysMax.canBeApplied || EndgameMastery(53).isBought) && !player.disablePostReality ? 1 : rng.uniform();
     const increasedRarity = relicShardFactor * Effarig.maxRarityBoost +
@@ -246,7 +248,7 @@ export const GlyphGenerator = {
     result += increasedRarity / 40;
     // Raise the result to the next-highest 0.1% rarity.
     result = Math.ceil(result * 400) / 400;
-    return Math.min(result, rarityToStrength(100 + Ra.unlocks.rarityBuff.effectOrDefault(0)));
+    return Math.min(result, rarityToStrength(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease));
   },
 
   // eslint-disable-next-line max-params

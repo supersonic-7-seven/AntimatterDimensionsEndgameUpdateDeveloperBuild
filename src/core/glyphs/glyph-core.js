@@ -858,7 +858,7 @@ export function calculateGlyph(glyph) {
 
     // Used to randomly generate strength in this case; I don't think we actually care.
     if (glyph.strength === 1) glyph.strength = 1.5;
-    glyph.strength = Math.min(rarityToStrength(100 + Ra.unlocks.rarityBuff.effectOrDefault(0)), glyph.strength);
+    glyph.strength = Math.min(rarityToStrength(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease), glyph.strength);
   }
 }
 

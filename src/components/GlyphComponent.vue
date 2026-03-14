@@ -97,6 +97,56 @@ const rarityBorderStyles = {
       colorSplit: [10, 12, 14, 16, 18, 20, 80, 82, 84, 86, 88, 90],
     }
   ],
+  sublime: [
+    {
+      lineType: "bump",
+      colorSplit: [15, 40],
+    },
+    {
+      lineType: "radial",
+      colorSplit: [60, 85],
+    },
+    {
+      lineType: "linear",
+      angles: [45, 135],
+      colorSplit: [10, 12, 14, 16, 18, 20, 80, 82, 84, 86, 88, 90],
+    }
+  ],
+  superlunary: [
+    {
+      lineType: "bump",
+      colorSplit: [15, 40],
+    },
+    {
+      lineType: "radial",
+      colorSplit: [60, 85],
+    },
+    {
+      lineType: "linear",
+      angles: [45, 135],
+      colorSplit: [10, 12, 14, 16, 18, 20, 22, 24, 76, 78, 80, 82, 84, 86, 88, 90],
+    }
+  ],
+  perfect: [
+    {
+      lineType: "bump",
+      colorSplit: [15, 40],
+    },
+    {
+      lineType: "radial",
+      colorSplit: [60, 85],
+    },
+    {
+      lineType: "linear",
+      angles: [45, 135],
+      colorSplit: [10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90],
+    },
+    {
+      lineType: "linear",
+      angles: [0, 90],
+      colorSplit: [10, 12, 14, 16, 18, 20, 80, 82, 84, 86, 88, 90],
+    }
+  ],
   cursed: [
     {
       lineType: "spike",

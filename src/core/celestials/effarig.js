@@ -77,6 +77,11 @@ export const Effarig = {
   get maxRarityBoost() {
     return 15 * (Decimal.pow(Decimal.log10(Decimal.log10(Currency.relicShards.value.plus(10))).add(1), 1.5).sub(1)).toNumber();
   },
+  get rarityCapIncrease() {
+    return EffarigUnlock.maxRarityBoost.isBought
+      ? Decimal.pow(Decimal.log10(Decimal.log10(Currency.relicShards.value.plus(10))).add(1), 1.5).sub(1).times(15).div(100).pow(3).sub(2.5).times(40).min(0).toNumber()
+      : 0;
+  },
   nerfFactor(power) {
     let c;
     switch (this.currentStage) {
