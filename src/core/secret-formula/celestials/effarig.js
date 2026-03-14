@@ -60,5 +60,32 @@ export const effarigUnlocks = {
     get description() {
       return " You have unlocked Effarig Glyphs (You may equip at most one and some effects are mutually exclusive)";
     },
+  },
+  maintainRS: {
+    id: 7,
+    description: "Keep Relic Shards on Endgame",
+    cost: new Decimal("1e4300")
+  },
+  glyphGenerationBoost: {
+    id: 8,
+    get description() {
+      return `Effarig Level ${formatInt(100)} affects Glyphs generated on Doom and Endgame`;
+    },
+    cost: new Decimal("1e4400")
+  },
+  maxMomentum: {
+    id: 9,
+    description: "Momentum is always maxed",
+    cost: new Decimal("1e4550")
+  },
+  maxRarityBoost: {
+    id: 10,
+    description: "Relic Shards boost Glyph Rarity cap at a reduced rate",
+    cost: new Decimal("1e4750")
+  },
+  extendRun: {
+    id: 11,
+    description: "Unlock Effarig’s Endgame",
+    cost: new Decimal("1e5000")
   }
 };

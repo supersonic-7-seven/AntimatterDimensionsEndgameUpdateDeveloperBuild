@@ -24,7 +24,8 @@ export default {
       quote: "",
       isRunning: false,
       vIsFlipped: false,
-      relicShardRarityAlwaysMax: false
+      relicShardRarityAlwaysMax: false,
+      hasSecondShop: false
     };
   },
   computed: {
@@ -32,6 +33,13 @@ export default {
       EffarigUnlock.adjuster,
       EffarigUnlock.glyphFilter,
       EffarigUnlock.setSaves
+    ],
+    secondShopUnlocks: () => [
+      EffarigUnlock.maintainRS,
+      EffarigUnlock.glyphGenerationBoost,
+      EffarigUnlock.maxMomentum,
+      EffarigUnlock.maxRarityBoost,
+      EffarigUnlock.extendRun
     ],
     runUnlock: () => EffarigUnlock.run,
     runUnlocks: () => [
@@ -82,6 +90,7 @@ export default {
       this.isRunning = Effarig.isRunning;
       this.vIsFlipped = V.isFlipped;
       this.relicShardRarityAlwaysMax = (Ra.unlocks.extraGlyphChoicesAndRelicShardRarityAlwaysMax.canBeApplied || EndgameMastery(53).isBought) && !player.disablePostReality;
+      this.hasSecondShop = Achievement(227).isUnlocked;
     },
     startRun() {
       if (this.isDoomed) return;
@@ -142,6 +151,12 @@ export default {
         <EffarigUnlockButton
           v-if="!runUnlocked"
           :unlock="runUnlock"
+        />
+        <EffarigUnlockButton
+          v-if="hasSecondShop"
+          v-for="(unlock, i) in secondShopUnlocks"
+          :key="i"
+          :unlock="unlock"
         />
         <button
           v-if="vIsFlipped"

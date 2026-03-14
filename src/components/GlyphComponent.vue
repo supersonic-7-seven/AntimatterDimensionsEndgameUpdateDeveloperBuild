@@ -85,7 +85,7 @@ const rarityBorderStyles = {
   empyrean: [
     {
       lineType: "bump",
-      colorSplit: [15, 45],
+      colorSplit: [15, 35],
     },
     {
       lineType: "radial",
@@ -94,7 +94,7 @@ const rarityBorderStyles = {
     {
       lineType: "linear",
       angles: [45, 135],
-      colorSplit: [10, 12, 14, 16, 84, 86, 88, 90],
+      colorSplit: [10, 12, 14, 16, 18, 20, 80, 82, 84, 86, 88, 90],
     }
   ],
   cursed: [
