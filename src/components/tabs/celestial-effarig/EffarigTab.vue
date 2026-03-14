@@ -15,6 +15,7 @@ export default {
       relicShards: new Decimal(0),
       shardRarityBoost: 0,
       shardPower: 0,
+      shardMaxRarityIncrease: 0,
       shardsGained: new Decimal(0),
       currentShardsRate: new Decimal(0),
       amplification: 0,
@@ -80,6 +81,7 @@ export default {
       this.relicShards.copyFrom(Currency.relicShards.value);
       this.shardRarityBoost = Effarig.maxRarityBoost / 100;
       this.shardPower = player.disablePostReality ? 1 : Ra.unlocks.maxGlyphRarityAndShardSacrificeBoost.effectOrDefault(1);
+      this.shardMaxRarityIncrease = Effarig.rarityCapIncrease / 100;
       this.shardsGained.copyFrom(Effarig.shardsGained);
       this.currentShardsRate.copyFrom(this.shardsGained.div(Time.thisRealityRealTime.totalMinutes));
       this.amplification = simulatedRealityCount(false);
@@ -122,6 +124,10 @@ export default {
           <span v-if="shardPower > 1">
             <br>
             Glyph Sacrifice gain is also being raised to {{ formatPow(shardPower, 0, 2) }}.
+          </span>
+          <span v-if="shardMaxRarityIncrease > 0">
+            <br>
+            The Glyph Rarity cap is also being increased by +{{ formatPercents(shardMaxRarityIncrease, 2) }}.
           </span>
         </div>
         <div class="c-effarig-relic-description">
