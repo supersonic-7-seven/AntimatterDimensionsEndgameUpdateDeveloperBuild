@@ -529,9 +529,19 @@ Currency.darkEnergy = new class extends DecimalCurrency {
   }
 
   get productionPerSecond() {
-    return DarkMatterDimensions.all
-      .map(d => d.productionPerSecond)
-      .decimalSum();
+    const updateID = (typeof GameUI !== "undefined") ? GameUI.updateID : null;
+    if (updateID !== null && this.cachedUpdateID === updateID) {
+      return this.cachedProductionPerSecond;
+    }
+    let total = DC.D0;
+    for (const dim of DarkMatterDimensions.all) {
+      total = total.add(dim.productionPerSecond);
+    }
+    if (updateID !== null) {
+      this.cachedUpdateID = updateID;
+      this.cachedProductionPerSecond = total;
+    }
+    return total;
   }
 }();
 
