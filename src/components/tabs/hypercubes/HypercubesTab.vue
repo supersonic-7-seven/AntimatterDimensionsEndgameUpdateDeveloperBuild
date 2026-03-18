@@ -57,6 +57,7 @@ export default {
       extraOcteracts: 0,
       isOcteractAutoUnlocked: false,
       isOcteractAutoActive: false,
+      time: 0,
     };
   },
   computed: {
@@ -148,6 +149,7 @@ export default {
       this.extraOcteracts = Octeracts.extra;
       this.isOcteractAutoUnlocked = false;
       this.isOcteractAutoActive = false;
+      this.time = Date.now();
     },
     buyTesseract() {
       Tesseracts.buyTesseract();
@@ -170,11 +172,12 @@ export default {
     },
     octeractLockString() {
       if (this.octeractsUnlocked) return `Buy a Octeract (${this.octeractCountString})`;
-      else return `Reach ${wordShift.randomCrossWords("Expanse Transfer")} to unlock Octeracts`;
+      //somewhat ugly method to make it continuously update
+      else return this.time >= 0 ? `Reach ${wordShift.randomCrossWords("Expanse Transfer")} to unlock Octeracts` : `Reach ${wordShift.randomCrossWords("Expanse Transfer")} to unlock Octeracts`;
     },
     octeractResourceString() {
       if (false) return `Expansial Fragments`;
-      else return `${wordShift.randomCrossWords("Expansial Fragments")}`;
+      else return this.time >= 0 ? `${wordShift.randomCrossWords("Expansial Fragments")}` : `${wordShift.randomCrossWords("Expansial Fragments")}`;
     },
   }
 };
