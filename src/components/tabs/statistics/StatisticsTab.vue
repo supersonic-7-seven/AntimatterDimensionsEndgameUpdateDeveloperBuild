@@ -373,7 +373,8 @@ export default {
         Eternity
       </div>
       <div>
-        You have {{ eternityCountString }}<span v-if="reality.isUnlocked"> this Reality</span>.
+        You have {{ eternityCountString }}<span v-if="reality.isUnlocked"> this
+        <span :class="{ 'c-stats-tab-doomed' : isDoomed }">{{ isDoomed ? "Armageddon" : "Reality" }}</span></span>.
       </div>
       <div v-if="infinity.projectedBanked.gt(0)">
         You will gain {{ formatDecimalAmount(infinity.projectedBanked.floor()) }}
@@ -387,7 +388,8 @@ export default {
         Your fastest Eternity was {{ eternity.best.toStringShort() }}.
       </div>
       <div v-else>
-        You have no fastest Eternity<span v-if="reality.isUnlocked"> this Reality</span>.
+        You have no fastest Eternity<span v-if="reality.isUnlocked"> this
+        <span :class="{ 'c-stats-tab-doomed' : isDoomed }">{{ isDoomed ? "Armageddon" : "Reality" }}</span></span>.
       </div>
       <div>
         You have spent {{ eternity.this.toStringShort() }} in this Eternity.
@@ -397,7 +399,9 @@ export default {
       </div>
       <div>
         Your best Eternity Points per minute
-        <span v-if="reality.isUnlocked">this Reality </span>
+        <span v-if="reality.isUnlocked">this
+        <span :class="{ 'c-stats-tab-doomed' : isDoomed }">{{ isDoomed ? "Armageddon" : "Reality" }}</span>
+        </span>
         is {{ format(eternity.bestRate, 2, 2) }}.
       </div>
       <br>

@@ -1,4 +1,6 @@
 <script>
+import wordShift from "@/core/word-shift";
+
 import PrimaryButton from "@/components/PrimaryButton";
 import PrimaryToggleButton from "@/components/PrimaryToggleButton";
 
@@ -55,6 +57,7 @@ export default {
       extraOcteracts: 0,
       isOcteractAutoUnlocked: false,
       isOcteractAutoActive: false,
+      time: 0,
     };
   },
   computed: {
@@ -96,10 +99,6 @@ export default {
     hepteractLockString() {
       if (this.hepteractsUnlocked) return `Buy a Hepteract (${this.hepteractCountString})`;
       else return `Perform a Celestial Eternity to unlock Hepteracts`;
-    },
-    octeractLockString() {
-      if (this.octeractsUnlocked) return `Buy a Octeract (${this.octeractCountString})`;
-      else return `Reach ??? to unlock Octeracts`;
     },
   },
   methods: {
@@ -150,6 +149,7 @@ export default {
       this.extraOcteracts = Octeracts.extra;
       this.isOcteractAutoUnlocked = false;
       this.isOcteractAutoActive = false;
+      this.time = Date.now();
     },
     buyTesseract() {
       Tesseracts.buyTesseract();
@@ -169,7 +169,16 @@ export default {
     handleTesseractAutoToggle(value) {
       Autobuyer.tesseract.isActive = value;
       this.update();
-    }
+    },
+    octeractLockString() {
+      if (this.octeractsUnlocked) return `Buy a Octeract (${this.octeractCountString})`;
+      //somewhat ugly method to make it continuously update
+      else return this.time >= 0 ? `Reach ${wordShift.randomCrossWords("Expanse Transfer")} to unlock Octeracts` : `Reach ${wordShift.randomCrossWords("Expanse Transfer")} to unlock Octeracts`;
+    },
+    octeractResourceString() {
+      if (false) return `Expansial Fragments`;
+      else return this.time >= 0 ? `${wordShift.randomCrossWords("Expansial Fragments")}` : `${wordShift.randomCrossWords("Expansial Fragments")}`;
+    },
   }
 };
 </script>
@@ -266,10 +275,10 @@ export default {
           @click="buyOcteract"
         >
           <p>
-            {{ octeractLockString }}
+            {{ octeractLockString() }}
           </p>
           <p>Increase the strength of all cubes by {{ formatPercents(nextTotalCubeBoost, 2, 2) }}</p>
-          <p><b>Costs: {{ format(octeractCost) }} ???</b></p>
+          <p><b>Costs: {{ format(octeractCost) }} {{ octeractResourceString() }}</b></p>
           <p>Total Octeract effect: {{ formatX(totalCubeBoost, 2, 2) }}</p>
         </button>
       </div>
