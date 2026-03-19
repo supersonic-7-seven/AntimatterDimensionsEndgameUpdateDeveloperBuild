@@ -93,6 +93,8 @@ export function getDimensionFinalMultiplierUncached(tier) {
 
   if (!player.disablePostReality) multiplier = multiplier.pow(AlphaUnlocks.timestudy181.effects.buff.effectOrDefault(1));
 
+  multiplier = dilateMultiplier(multiplier, Achievement(231).effectOrDefault(1));
+
   return multiplier;
 }
 
