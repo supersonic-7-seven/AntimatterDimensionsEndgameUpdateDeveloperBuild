@@ -1667,7 +1667,7 @@ export const normalAchievements = [
     id: 225,
     name: "299792458 m/s",
     description: "Uncap Celestial Matter.",
-    checkRequirement: () => false,//player.endgame.celestialMatterBroken,
+    checkRequirement: () => player.endgame.celDimExpansion.isBroken,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
       return `Reduce the Celestial Matter softcap magnitude by ${formatPercents(0.05)}.`;
@@ -1701,7 +1701,72 @@ export const normalAchievements = [
       return `Unlock Divinity.`;
     }
   },
-  /*
+  {
+    id: 231,
+    name: "Grandmastery",
+    get description() { return `Purchase ${formatInt(1000)} Endgame Skills.` },
+    checkRequirement: () => EndgameSkills.totalPurchased() >= 1000,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    get reward() {
+      return `Dilate Antimatter Dimension Multipliers based on purchased Endgame Skills, which is stronger in Pelle.`;
+    },
+    effect: () => player.disablePostReality ? 1 : 1 + (EndgameSkills.totalPurchased() / (Pelle.isDoomed ? 20000 : 100000)),
+    formatEffect: value => `${formatPow(value, 2, 3)}`
+  },
+  {
+    id: 232,
+    name: "Millenium of peace",
+    get description() { return `Obtain ${formatInt(1000)} Free Tesseracts.` },
+    checkRequirement: () => new Decimal(Tesseracts.extra * Tesseracts.totalMult).gte(1000),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    get reward() {
+      return `Gain a small power to Eternity Points based on Penteracts.`;
+    },
+    effect: () => player.disablePostReality ? 1 : Decimal.log10(Penteracts.effectiveCount + 1).div(10).add(1).toNumber(),
+    formatEffect: value => `${formatPow(value, 2, 3)}`
+  },
+  {
+    id: 233,
+    name: "End of an era",
+    description: "Purchase all the Break Eternity Upgrades.",
+    checkRequirement: () => BreakEternityUpgrade.all.filter(u => u.isCapped).length === 10 &&
+      BreakEternityUpgrade.all.filter(u => u.isBought).length === 5,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 234,
+    name: "The One with Celestial Time",
+    description: "Perform a Celestial Eternity",
+    checkRequirement: () => false,//player.endgame.celDimExpansion.celestialEternities.gt(0),
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
+  {
+    id: 235,
+    name: "Never-ending Darkness",
+    get description() { return `Hadronize Lai'tela's Reality ${formatInt(50)} times.` },
+    checkRequirement: () => Laitela.hadronizes >= 50,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    get reward() {
+      return `The time for Hadron effects to cap is halved.`;
+    },
+    effect: () => player.disablePostReality ? 1 : 2
+  },
+  {
+    id: 236,
+    name: "Supernova",
+    get description() { return `Get ${formatInt(500)} total Ra Celestial Memory levels.` },
+    checkRequirement: () => Ra.totalPetLevel >= 500,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
+    get reward() { return `Get ${formatX(500)} more memories.`; },
+    effect: () => player.disablePostReality ? 1 : 500
+  },
+  {
+    id: 237,
+    name: "Hypernova",
+    description: "Unlock all star types.",
+    checkRequirement: () => EtherealStars.gray.isUnlocked,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER
+  },
   {
     id: 238,
     name: "Limits of Reality",
@@ -1709,5 +1774,4 @@ export const normalAchievements = [
     checkRequirement: () => false,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
-  */
 ];
