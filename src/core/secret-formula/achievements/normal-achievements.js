@@ -1736,7 +1736,7 @@ export const normalAchievements = [
   {
     id: 234,
     name: "The One with Celestial Time",
-    description: "Perform a Celestial Eternity",
+    description: "Perform a Celestial Eternity.",
     checkRequirement: () => false,//player.endgame.celDimExpansion.celestialEternities.gt(0),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
