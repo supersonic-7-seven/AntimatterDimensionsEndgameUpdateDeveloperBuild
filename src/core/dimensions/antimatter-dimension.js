@@ -627,11 +627,11 @@ class AntimatterDimensionState extends DimensionState {
         const endgameMultValue = (EndgameMilestone.endgameAntimatter.isReached && !player.disablePostReality) ? endgameMult : 1;
         production = Decimal.pow10(Decimal.pow(log10, getAdjustedGlyphEffect("effarigantimatter") * Effects.product(EndgameMastery(101), EndgameUpgrade(15), SingularityMilestone.antimatterExponentPower) * endgameMultValue));
       }
-      if (production.gt(Decimal.pow10(1e150))) {
+      if (production.gt(Decimal.pow10(1e150)) && Pelle.isDoomed) {
         const log10 = production.log10();
         production = Decimal.pow10(Decimal.pow(log10.div(1e150), 0.5).times(1e150));
       }
-      if (production.gt(Decimal.pow10(1e225))) {
+      if (production.gt(Decimal.pow10(1e225)) && Pelle.isDoomed) {
         const log10 = production.log10();
         production = Decimal.pow10(Decimal.pow(log10.div(1e225), 0.1).times(1e225));
       }
