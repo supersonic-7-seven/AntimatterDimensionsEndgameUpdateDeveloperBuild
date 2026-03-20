@@ -1638,8 +1638,8 @@ export const normalAchievements = [
   {
     id: 222,
     name: "Time is absolute",
-    get description () { return `Have more Tachyon Particles than Dilated Time, with both exceeding ${format(1e100, 2)}.` },
-    checkRequirement: () => Currency.tachyonParticles.value.gt(Currency.dilatedTime.value) && Currency.dilatedTime.value.gt(1e100),
+    get description () { return `Have more Tachyon Particles than Dilated Time, with both exceeding ${format(1e5000, 2)}.` },
+    checkRequirement: () => Currency.tachyonParticles.value.gt(Currency.dilatedTime.value) && Currency.dilatedTime.value.gt(1e5000),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER
   },
   {
