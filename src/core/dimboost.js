@@ -253,6 +253,10 @@ export class DimBoost {
     const minBoosts = Decimal.min(DC.BEMAX, calcBoosts.floor().add(1));
     return minBoosts;
   }
+
+  static get maxBuyableDimBoostsAfterCap() {
+    return Decimal.min(DimBoost.maxBuyableDimBoosts, DimBoost.maxBoosts.sub(player.dimensionBoosts));
+  }
 }
 
 // eslint-disable-next-line max-params
