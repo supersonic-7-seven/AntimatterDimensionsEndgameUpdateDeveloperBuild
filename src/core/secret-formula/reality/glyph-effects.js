@@ -92,7 +92,7 @@ export const glyphEffects = {
     shortDesc: () => (GlyphAlteration.isAdded("time")
       ? "EP ×{value} and ^{value2}"
       : "EP ×{value}"),
-    effect: (level, strength) => Math.pow(level * strength, 3) * 100,
+    effect: (level, strength) => Math.clampMin(Math.pow(level * strength, 3) * 100, 1),
     formatEffect: x => format(x, 2, 3),
     combine: GlyphCombiner.multiply,
     conversion: x => 1 + Math.log10(x) / 1000,
@@ -326,7 +326,7 @@ export const glyphEffects = {
     shortDesc: () => (GlyphAlteration.isAdded("infinity")
       ? "IP ×{value} and ^{value2}"
       : "IP ×{value}"),
-    effect: (level, strength) => Math.pow(level * (strength + 1), 6) * 10000,
+    effect: (level, strength) => Math.clampMin(Math.pow(level * (strength + 1), 6) * 10000, 1),
     formatEffect: x => format(x, 2, 3),
     combine: GlyphCombiner.multiply,
     // eslint-disable-next-line no-negated-condition
@@ -406,8 +406,8 @@ export const glyphEffects = {
     singleDesc: "Dimension Boost multiplier ×{value}",
     genericDesc: "Dimension Boost multiplier",
     shortDesc: "Dimboost mult. ×{value}",
-    effect: (level, strength) => Math.pow(level * strength, 0.5) *
-      Math.pow(1 + GlyphAlteration.sacrificeBoost("power"), 3),
+    effect: (level, strength) => Math.clampMin(Math.pow(level * strength, 0.5) *
+      Math.pow(1 + GlyphAlteration.sacrificeBoost("power"), 3), 1),
     formatEffect: x => format(x, 2, 2),
     combine: GlyphCombiner.multiply,
     alteredColor: () => GlyphAlteration.getBoostColor("power"),
