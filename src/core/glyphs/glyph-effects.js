@@ -17,18 +17,6 @@ class GlyphEffectState {
   }
 }
 
-export const GlyphEffect = {
-  dimBoostPower: new GlyphEffectState("powerdimboost", {
-    adjustApply: value => Math.max(1, value)
-  }),
-  ipMult: new GlyphEffectState("infinityIP", {
-    adjustApply: value => Decimal.max(1, value)
-  }),
-  epMult: new GlyphEffectState("timeEP", {
-    adjustApply: value => Decimal.max(1, value)
-  })
-};
-
 /**
  * This returns just the value, unlike getTotalEffect(), which outputs the softcap status as well
  * This variant is used by GameCache
