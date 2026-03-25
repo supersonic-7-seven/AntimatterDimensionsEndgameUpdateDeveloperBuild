@@ -195,9 +195,8 @@ function totalEPMult() {
       TimeStudy(122),
       TimeStudy(121),
       TimeStudy(123),
-      RealityUpgrade(12),
-      GlyphEffect.epMult
-    ).times(player.disablePostReality ? 1 : AlphaUnlocks.timestudy61.effects.buff.effectOrDefault(1));
+      RealityUpgrade(12)
+    ).times(getAdjustedGlyphEffect("timeEP")).times(player.disablePostReality ? 1 : AlphaUnlocks.timestudy61.effects.buff.effectOrDefault(1));
 }
 
 export function gainedEternityPoints() {
