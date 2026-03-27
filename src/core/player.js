@@ -1457,6 +1457,7 @@ window.player = {
     invertTTgenDisplay: false,
     autoRealityForFilter: false,
     brightAlpha: false,
+    simpleHotkeysCelestialMode: false,
   },
   IAP: {
     enabled: false,
