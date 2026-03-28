@@ -128,6 +128,7 @@ export const GameUI = {
   notify,
   events: [],
   flushPromise: undefined,
+  updateID: 0,
   initialized: false,
   globalClickListener: null,
   touchDevice: ("ontouchstart" in window ||
@@ -147,6 +148,7 @@ export const GameUI = {
   },
   flushEvents() {
     this.flushPromise = undefined;
+    this.updateID++;
     if (DEV) {
       if (PerformanceStats.isOn && PerformanceStats.currentBlocks.length > 0) {
         Vue.nextTick(() => PerformanceStats.start("Vue Render"));
@@ -175,7 +177,7 @@ export const GameUI = {
   }
 };
 
-export const UIID = (function() {
+export const UIID = (function () {
   let id = 0;
   return { next: () => id++ };
 }());
@@ -186,14 +188,14 @@ VTooltip.options.defaultTemplate =
   '<div role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>';
 Vue.use(VTooltip);
 
-(function() {
+(function () {
   const methodStrategy = Vue.config.optionMergeStrategies.methods;
   // eslint-disable-next-line max-params
   Vue.config.optionMergeStrategies.methods = (parentVal, childVal, vm, key) => {
     const result = methodStrategy(parentVal, childVal, vm, key);
     const hasUpdate = val => val && val.update;
     if (!hasUpdate(parentVal) || !hasUpdate(childVal)) return result;
-    result.update = function() {
+    result.update = function () {
       parentVal.update.call(this);
       childVal.update.call(this);
     };
