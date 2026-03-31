@@ -717,7 +717,7 @@ export function manualCelestialCrunchResetRequest() {
 }
 
 export function celestialCrunchResetRequest() {
-  if (!Player.canCrunch) return;
+  if (Currency.celestialMatter.lt(DC.NUMMAX)) return;
   celestialCrunchReset();
 }
 
