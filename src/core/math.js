@@ -785,7 +785,7 @@ window.getInverseHybridCostScaling = function getInverseHybridCostScaling(
   if (amountOfMoney.gte(DC.NUMMAX)) {
   	const purchasesAtInfinity = Decimal.floor(new LinearMultiplierScaling(linCostMult, linCostMultGrowth).purchasesForLogTotalMultiplier(
       Decimal.ln(DC.NUMMAX.div(linCostScalingStart)).toNumber()) + Decimal.floor(Decimal.log10(linCostScalingStart / linInitialCost).div(
-      Decimal.log10(linCostMult)))).add(1);
+      Decimal.log10(linCostMult))).toNumber()).add(1);
   	if (amountOfMoney.lt(expInitialCost)) return purchasesAtInfinity;
   	const logMoneyAfterInfinity = Decimal.log10(amountOfMoney).div(Decimal.log10(expInitialCost));
   	const logScale = Decimal.log10(expCostMult);
