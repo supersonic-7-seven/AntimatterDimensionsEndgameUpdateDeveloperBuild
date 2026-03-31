@@ -1014,6 +1014,12 @@ function updatePrestigeRates() {
     player.records.thisEndgame.bestDPmin = currentDPmin;
     player.records.thisEndgame.bestDPminVal = gainedDoomedParticles();
   }
+
+  const currentCIPmin = gainedCelestialInfinityPoints().dividedBy(Decimal.clampMin(0.0005, Time.thisCelestialInfinityRealTime.totalMinutes));
+  if (currentCIPmin.gt(player.records.thisCelestialInfinity.bestCIPmin) && Currency.celestialMatter.gte(DC.NUMMAX)) {
+    player.records.thisCelestialInfinity.bestCIPmin = currentCIPmin;
+    player.records.thisCelestialInfinity.bestCIPminVal = gainedCelestialInfinityPoints();
+  }
 }
 
 function globalPassivePrestigeGen(realDiff) {
