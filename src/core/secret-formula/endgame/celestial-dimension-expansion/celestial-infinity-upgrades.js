@@ -23,8 +23,8 @@ export const celestialInfinityUpgrades = {
   celDimBoostBuff: {
     id: 4,
     cost: 50,
-    description: () => `Increase the Celestial Dimension Boost base multiplier to ${formatX(20)}`,
-    effect: 20
+    description: () => `Increase the Celestial Dimension Boost base multiplier to ${formatX(100)}`,
+    effect: 100
   },
   celGalaxyBuff: {
     id: 5,
