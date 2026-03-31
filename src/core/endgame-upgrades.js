@@ -98,6 +98,22 @@ class RebuyableEndgameUpgradeState extends RebuyableMechanicState {
   set boughtAmount(value) {
     player.endgame.rebuyables[this.id] = value;
   }
+
+  bulkPurchase() {
+    if (!this.isAffordable) return false;
+    Currency.celestialPoints.subtract(this.cost);
+    this.boughtAmount += getInverseHybridCostScaling(
+      Currency.celestialPoints.value,
+      1e100,
+      this.config.initialCost,
+      this.config.costMult,
+      this.config.costMult / 10,
+      DC.E309,
+      1e3,
+      this.config.initialCost * this.config.costMult
+    ).sub(player.endgame.rebuyables[this.id]).toNumber();
+    return true;
+  }
 }
 
 EndgameUpgradeState.index = mapGameData(
