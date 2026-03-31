@@ -4,6 +4,16 @@ class BlackHoleUpgradeState {
   constructor(config) {
     const { getAmount, setAmount, calculateValue, initialCost, costMult } = config;
     this.incrementAmount = () => setAmount(getAmount() + 1);
+    this.bulkIncrementAmount = () => setAmount(getAmount() + getInverseHybridCostScaling(
+      Pelle.isDoomed ? Currency.realityShards.value : Currency.realityMachines.value,
+      1e30,
+      initialCost,
+      costMult,
+      0.2,
+      DC.E310,
+      1e5,
+      10
+    ).sub(player.reality.imaginaryRebuyables[this.id]).toNumber());
     this._lazyValue = new Lazy(() => calculateValue(getAmount()));
     this._lazyCost = new Lazy(() => getHybridCostScaling(getAmount(),
       1e30,
@@ -40,6 +50,35 @@ class BlackHoleUpgradeState {
 
     Pelle.isDoomed ? Currency.realityShards.purchase(this.cost) : Currency.realityMachines.purchase(this.cost);
     this.incrementAmount();
+    this._lazyValue.invalidate();
+    this._lazyCost.invalidate();
+    if (this.onPurchase) {
+      this.onPurchase();
+    }
+
+    // Adjust the phase to what it was before purchase by changing it directly. This will often result in passing
+    // in a negative argument to updatePhase(), but this shouldn't cause any problems because it'll never make
+    // the phase itself negative. In very rare cases this may result in a single auto-pause getting skipped
+    const stateTime = bh.isCharged ? bh.duration : bh.interval;
+    bh.updatePhase(stateTime * beforeProg - bh.phase);
+
+    // Prevents a rare edge case where the player makes an inactive black hole permanent, locking themselves into
+    // a permanently inactive black hole
+    if (bh.isPermanent) player.blackHole[this.id - 1].active = true;
+
+    EventHub.dispatch(GAME_EVENT.BLACK_HOLE_UPGRADE_BOUGHT);
+  }
+
+  bulkPurchase() {
+    if (!this.isAffordable || this.value === 0) return;
+
+    // Keep the cycle phase consistent before and after purchase so that upgrading doesn't cause weird behavior
+    // such as immediately activating it when inactive (or worse, skipping past the active segment entirely).
+    const bh = BlackHole(this.id);
+    const beforeProg = bh.isCharged ? 1 - bh.stateProgress : bh.stateProgress;
+
+    Pelle.isDoomed ? Currency.realityShards.purchase(this.cost) : Currency.realityMachines.purchase(this.cost);
+    this.bulkIncrementAmount();
     this._lazyValue.invalidate();
     this._lazyCost.invalidate();
     if (this.onPurchase) {
