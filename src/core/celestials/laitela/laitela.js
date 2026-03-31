@@ -154,9 +154,16 @@ export const Laitela = {
     Currency.darkMatter.reset();
     Currency.unnerfedDarkMatter.reset();
     Currency.singularities.reset();
+    this.celestial.singularityCapIncreases = DC.D0;
+  },
+  fullReset() {
+    this.reset();
     this.celestial.fastestCompletion = 3600;
     this.celestial.difficultyTier = 0;
-    this.celestial.singularityCapIncreases = DC.D0;
+    this.celestial.hadronizes = 0;
+    this.celestial.hadrons.total = 0;
+    this.celestial.hadrons.light = 0;
+    this.celestial.hadrons.dark = 0;
   },
   quotes: Quotes.laitela,
   symbol: "ᛝ"
