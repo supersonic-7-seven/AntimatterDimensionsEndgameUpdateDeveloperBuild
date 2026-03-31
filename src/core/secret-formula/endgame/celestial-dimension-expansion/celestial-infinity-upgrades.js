@@ -53,7 +53,7 @@ export const celestialInfinityUpgrades = {
   buffedStart: {
     id: 9,
     cost: 4000,
-    description: () => `Start Celestial Infinities with ${formatInt(2)} Celestial Dimension Boosts and a Celestial Galaxy`,
-    effect: 2
+    description: () => `Start Celestial Infinities with ${formatInt(4)} Celestial Dimension Boosts and ${formatInt(2)} Celestial Galaxies`,
+    effect: 4
   }
 };
