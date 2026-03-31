@@ -113,6 +113,22 @@ class RebuyableDualityUpgradeState extends RebuyableMechanicState {
       GameCache.staticGlyphWeights.invalidate();
     }
   }
+
+  bulkPurchase() {
+    if (!this.isAffordable) return false;
+    Currency.dualMachines.subtract(this.cost);
+    this.boughtAmount += getInverseHybridCostScaling(
+      Currency.dualMachines.value,
+      1e20,
+      this.config.initialCost,
+      this.config.costMult,
+      this.config.costMult,
+      DC.E309,
+      1e3,
+      this.config.costMult
+    ).sub(player.reality.dualityRebuyables[this.id]).toNumber();
+    return true;
+  }
 }
 
 DualityUpgradeState.index = mapGameData(
