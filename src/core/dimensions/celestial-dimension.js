@@ -1,4 +1,4 @@
-import { GameMechanicState, SetPurchasableMechanicState } from "../game-mechanics";
+import { GameMechanicState, RebuyableMechanicState, SetPurchasableMechanicState } from "../game-mechanics";
 import { DimensionState } from "./dimension";
 
 export function celestialDimensionCommonMultiplier() {
@@ -908,3 +908,46 @@ export const CelestialInfinityUpgrade = mapGameDataToObject(
 );
 
 CelestialInfinityUpgrade.cipMult = new CIPMultiplierState();
+
+export class CelestialBreakInfinityUpgradeState extends SetPurchasableMechanicState {
+  get currency() {
+    return Currency.celestialInfinityPoints;
+  }
+
+  get set() {
+    return player.endgame.celDimExpansion.celestialInfinityUpgrades;
+  }
+
+  get cost() {
+    return this.config.cost();
+  }
+}
+
+class RebuyableCelestialBreakInfinityUpgradeState extends RebuyableMechanicState {
+  get currency() {
+    return Currency.celestialInfinityPoints;
+  }
+
+  get boughtAmount() {
+    return player.celestialInfinityRebuyables[this.id];
+  }
+
+  set boughtAmount(value) {
+    player.celestialInfinityRebuyables[this.id] = value;
+  }
+
+  get isCapped() {
+    return this.boughtAmount === this.config.maxUpgrades();
+  }
+
+  onPurchased() {
+    this.config.onPurchased?.();
+  }
+}
+
+export const CelestialBreakInfinityUpgrade = mapGameDataToObject(
+  GameDatabase.endgame.celDimExpansion.celestialBreakUpgrades,
+  config => (config.rebuyable
+    ? new RebuyableCelestialBreakInfinityUpgradeState(config)
+    : new CelestialBreakInfinityUpgradeState(config))
+);
