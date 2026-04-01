@@ -811,7 +811,10 @@ export function preProductionGenerateCIP(diff) {
 }
 
 export function totalCIPMult() {
-  let cipMult = DC.D1;
+  let cipMult = DC.D1
+    .timesEffectsOf(
+      CelestialInfinityUpgrade.cipMult
+    );
   return cipMult;
 }
 
