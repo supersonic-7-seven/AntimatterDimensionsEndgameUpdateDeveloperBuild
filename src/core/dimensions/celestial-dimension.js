@@ -213,6 +213,10 @@ export const CelestialDimensions = {
     return DC.E100.timesEffectsOf(EndgameMastery(94), EndgameUpgrade(5)).times(Ethereal.sectorBoost).pow(CelestialDimensions.alphaDecayRemnant);
   },
 
+  get OVERFLOW_MAG() {
+    return DC.E1.sub(Decimal.pow(player.records.totalCelMatter.add(1).log10().add(1).log10().sub(3).max(0).add(1), 1.25).sub(1)).toNumber();
+  },
+
   get softcapPow() {
     const reduction = Effects.product(EndgameMastery(84), Achievement(225));
     return Decimal.pow(10 * reduction, Hepteracts.softcapReduction()).toNumber();
