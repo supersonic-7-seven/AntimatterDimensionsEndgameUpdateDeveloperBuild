@@ -50,6 +50,7 @@ import SacrificeGlyphModal from "@/components/modals/glyph-management/SacrificeG
 import AutobuyerEditModal from "@/components/modals/AutobuyerEditModal";
 import AutomatorScriptTemplate from "@/components/modals/AutomatorScriptTemplate";
 import AwayProgressModal from "@/components/modals/AwayProgressModal";
+import BreakCelestialInfinityModal from "@/components/modals/BreakCelestialInfinityModal";
 import BreakEternityModal from "@/components/modals/BreakEternityModal";
 import BreakInfinityModal from "@/components/modals/BreakInfinityModal";
 import CatchupModal from "@/components/modals/catchup/CatchupModal";
@@ -280,6 +281,7 @@ Modal.masteryString = new Modal(MasteryStringModal);
 Modal.singularityMilestones = new Modal(SingularityMilestonesModal);
 Modal.pelleEffects = new Modal(PelleEffectsModal);
 Modal.sacrifice = new Modal(SacrificeModal, 1, GAME_EVENT.DIMBOOST_AFTER);
+Modal.breakCelestialInfinity = new Modal(BreakCelestialInfinityModal, 1);
 Modal.breakEternity = new Modal(BreakEternityModal, 1);
 Modal.breakInfinity = new Modal(BreakInfinityModal, 1, GAME_EVENT.ETERNITY_RESET_AFTER);
 Modal.respecIAP = new Modal(RespecIAPModal);
