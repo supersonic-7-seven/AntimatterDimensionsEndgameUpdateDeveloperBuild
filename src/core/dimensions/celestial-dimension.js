@@ -917,10 +917,6 @@ export class CelestialBreakInfinityUpgradeState extends SetPurchasableMechanicSt
   get set() {
     return player.endgame.celDimExpansion.celestialInfinityUpgrades;
   }
-
-  get cost() {
-    return this.config.cost();
-  }
 }
 
 class RebuyableCelestialBreakInfinityUpgradeState extends RebuyableMechanicState {
