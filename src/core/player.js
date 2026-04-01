@@ -1289,6 +1289,7 @@ window.player = {
       celestialInfinityUpgrades: new Set(),
       cipMultUpgrades: DC.D0,
       partCelestialInfinityPoint: DC.D0,
+      isBreakUnlocked: false,
       isBroken: false,
       celestialInfinityRebuyables: [0, 0, 0, 0, 0, 0],
     },
