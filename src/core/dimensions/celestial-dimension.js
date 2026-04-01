@@ -449,7 +449,7 @@ export class CelestialDimBoost {
 
 // eslint-disable-next-line max-params
 export function softCelestialReset(tempBulk, forcedCDReset = false, forcedCMReset = false) {
-  if (Currency.celestialMatter.gt(DC.NUMMAX)) return;
+  if (Currency.celestialMatter.gt(DC.NUMMAX) && !player.endgame.celDimExpansion.isBroken) return;
   const bulk = Decimal.min(tempBulk, CelestialDimBoost.maxBoosts.sub(player.endgame.celDimExpansion.dimBoosts));
   EventHub.dispatch(GAME_EVENT.CELESTIAL_DIMBOOST_BEFORE, bulk);
   player.endgame.celDimExpansion.dimBoosts = (Decimal.max(DC.D0, player.endgame.celDimExpansion.dimBoosts.add(bulk)));
