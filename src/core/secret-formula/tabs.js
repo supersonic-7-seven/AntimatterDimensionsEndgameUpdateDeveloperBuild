@@ -646,7 +646,7 @@ export const tabs = [
       },
       {
         key: "celestial-break-infinity",
-        name: "Celestial Break Infinity Upgrades",
+        name: "Celestial Break Infinity",
         symbol: "<i class='fab fa-skyatlas'></i>",
         component: "CelestialBreakInfinityTab",
         condition: () => CelestialInfinityUpgrade.all.filter(u => u.isBought).length === CelestialInfinityUpgrade.all.length,
