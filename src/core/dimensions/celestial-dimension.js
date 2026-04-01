@@ -800,7 +800,7 @@ export function preProductionGenerateCIP(diff) {
       // Partial progress (fractions from 0 to 1) are stored in player.endgame.celDimExpansion.partCelestialInfinityPoint
       const diffnum = Decimal.clamp(new Decimal(diff), 1e-300, 1e300);
       player.endgame.celDimExpansion.partCelestialInfinityPoint = player.endgame.celDimExpansion.partCelestialInfinityPoint.add(diffnum.div(genPeriod.clampMax(1e300)));
-      genCount = Decimal.floor(player.partCelestialInfinityPoint);
+      genCount = Decimal.floor(player.endgame.celDimExpansion.partCelestialInfinityPoint);
       player.endgame.celDimExpansion.partCelestialInfinityPoint = player.endgame.celDimExpansion.partCelestialInfinityPoint.sub(genCount);
     }
     let gainedPerGen = player.records.bestCelestialInfinity.time.gte(999999999999) ? DC.D0 : GameCache.totalCIPMult.value;
