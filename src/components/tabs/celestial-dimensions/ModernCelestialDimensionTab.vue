@@ -29,6 +29,8 @@ export default {
       softcapPow: 0,
       softcap: new Decimal(0),
       unstable: false,
+      overflowMag: 0,
+      isOverflowing: false,
       isEffectActive: false,
       alphaDecayRemnant: 0,
       hasRemnant: false,
@@ -53,6 +55,8 @@ export default {
       this.softcapPow = CelestialDimensions.softcapPow;
       this.softcap.copyFrom(CelestialDimensions.SOFTCAP);
       this.unstable = this.celestialMatter.gte(this.softcap);
+      this.overflowMag = CelestialDimensions.OVERFLOW_MAG;
+      this.isOverflowing = this.celestialMatter.gt(DC.NUMMAX);
       this.isEffectActive = player.endgame.celestialMatterMultiplier.isActive;
       this.alphaDecayRemnant = CelestialDimensions.alphaDecayRemnant;
       this.hasRemnant = Alpha.isDestroyed;
@@ -132,6 +136,16 @@ export default {
             <br>
             The softcap to Celestial Matter is solely based on your Celestial Matter Softcap Magnitude, which is currently
             <span :class="instabilityClassObject()">{{ format(softcapPow, 2, 3) }}</span>.
+          </div>
+          <div v-if="isOverflowing">
+            After <span :class="instabilityClassObject()">{{ format(DC.NUMMAX, 2, 1) }}</span> Celestial Matter, your
+            Celestial Matter was softcapped <i>again</i>.
+            <br>
+            Currently, Celestial Matter above this amount is being raised to the power of
+            <span :class="instabilityClassObject()">{{ format(1 / overflowMag, 2, 3) }}</span>.
+            <br>
+            The Celestial Matter Overflow is solely based on your Celestial Matter Overflow Magnitude, which is currently
+            <span :class="instabilityClassObject()">{{ format(overflowMag, 2, 3) }}</span>.
           </div>
         </p>
       </div>
