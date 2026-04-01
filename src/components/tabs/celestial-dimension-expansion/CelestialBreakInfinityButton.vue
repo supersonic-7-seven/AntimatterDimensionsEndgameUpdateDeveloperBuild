@@ -20,7 +20,7 @@ export default {
     },
     text() {
       return this.isUnlocked
-        ? (this.isBroken ? "CELESTIAL INFINITY IS BROKEN" : "BREAK CELESTIAL INFINITY")
+        ? (this.isBroken ? "CELESTIAL INFINITY IS BROKEN".split("\n") : "BREAK CELESTIAL INFINITY".split("\n"))
         : `PURCHASE CELESTIAL BREAK INFINITY\n\nCOSTS: ${formatInt(10000)} CIP`.split("\n");
     }
   },
@@ -46,7 +46,12 @@ export default {
     :class="classObject"
     @click="clicked"
   >
-    {{ text }}
+    <span
+        v-for="(line, index) in text"
+        :key="index"
+      >
+        {{ line }} <br>
+      </span>
   </button>
 </template>
 
