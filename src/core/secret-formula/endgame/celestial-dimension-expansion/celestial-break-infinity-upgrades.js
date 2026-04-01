@@ -4,10 +4,10 @@ function rebuyable(config) {
   return {
     rebuyable: true,
     id,
-    cost: () => config.initialCost() * Math.pow(config.costIncrease, player.celestialInfinityRebuyables[config.id]),
+    cost: () => config.initialCost() * Math.pow(config.costIncrease, player.endgame.celDimExpansion.celestialInfinityRebuyables[config.id]),
     maxUpgrades,
     description,
-    effect: () => effectFunction(player.celestialInfinityRebuyables[config.id]),
+    effect: () => effectFunction(player.endgame.celDimExpansion.celestialInfinityRebuyables[config.id]),
     isDisabled,
     formatEffect: config.formatEffect ||
       (value => {
@@ -62,9 +62,9 @@ export const celestialBreakInfinityUpgrades = {
     maxUpgrades: 10,
     effect: value => Player.bestRunCIPPM.times(value / 20),
     description: () => {
-      let generation = `Generate ${formatInt(5 * player.celestialInfinityRebuyables[2])}%`;
+      let generation = `Generate ${formatInt(5 * player.endgame.celDimExpansion.celestialInfinityRebuyables[2])}%`;
       if (!CelestialBreakInfinityUpgrade.cipGen.isCapped) {
-        generation += ` ➜ ${formatInt(5 * (1 + player.celestialInfinityRebuyables[2]))}%`;
+        generation += ` ➜ ${formatInt(5 * (1 + player.endgame.celDimExpansion.celestialInfinityRebuyables[2]))}%`;
       }
       return `${generation} of your best CIP/min from your last 10 Celestial Infinities`;
     },
