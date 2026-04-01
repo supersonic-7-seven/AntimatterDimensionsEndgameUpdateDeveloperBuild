@@ -191,6 +191,6 @@ export default {
 }
 
 .o-sidebar-currency--ethereal {
-  color: #0000c0;
+  color: #0000ff;
 }
 </style>
