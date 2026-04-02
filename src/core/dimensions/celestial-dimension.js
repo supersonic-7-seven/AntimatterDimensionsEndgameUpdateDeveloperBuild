@@ -188,7 +188,7 @@ class CelestialDimensionState extends DimensionState {
     let purchasesUntilHardcap = this.purchaseCap.sub(this.purchases);
 
     const maxBought = dimension.costScale.getMaxBoughtDecimal(
-      Decimal.floor(dimension.baseAmount), Currency.celestialPoints.value, 10
+      Decimal.floor(dimension.baseAmount), Currency.celestialPoints.value, 1
     );
     if (maxBought === null) {
       return;
