@@ -137,6 +137,15 @@ class CelestialDimensionState extends DimensionState {
     return this.purchaseCap;
   }
 
+  get costScale() {
+    return new ExponentialCostScaling({
+      baseCost: this.baseCost,
+      baseIncrease: this.costMultiplier,
+      costScale: Player.celestialDimensionMultDecrease,
+      scalingCostThreshold: Number.MAX_VALUE
+    });
+  }
+
   resetAmount() {
     this.amount = new Decimal(this.baseAmount);
   }
@@ -174,25 +183,25 @@ class CelestialDimensionState extends DimensionState {
   }
 
   buyMax() {
+    const dimension = CelestialDimension(this.tier);
     if (!this.isAvailableForPurchase) return false;
 
     let purchasesUntilHardcap = this.purchaseCap.sub(this.purchases);
-    
-    const costScaling = new DecimalLinearCostScaling(
-      Currency.celestialPoints.value,
-      this.cost,
-      this.costMultiplier,
-      purchasesUntilHardcap
+
+    const maxBought = dimension.costScale.getMaxBoughtDecimal(
+      Decimal.floor(dimension.baseAmount), Currency.celestialPoints.value, 10
     );
-
-    if (costScaling.purchases.lte(0)) return false;
-
-    Currency.celestialPoints.purchase(costScaling.totalCost);
-    this.cost = this.cost.times(costScaling.totalCostMultiplier);
-    this.amount = this.amount.plus(costScaling.purchases);
-    this.baseAmount = this.baseAmount.plus(costScaling.purchases);
-
-    return true;
+    if (maxBought === null) {
+      return;
+    }
+    let buying = maxBought.quantity;
+    const bulkLeft = player.endgame.celDimExpansion.isBroken ? Infinity : dimension.baseAmount.sub(dimension.costScale._purchasesBeforeScaling).max(0);
+    if (buying.gt(bulkLeft)) buying = new Decimal(bulkLeft);
+    if (Currency.celestialPoints.gte(Decimal.pow10(maxBought.logPrice))) {
+      dimension.amount = dimension.amount.plus(buying).round();
+      dimension.baseAmount = dimension.baseAmount.plus(buying).round();
+      if (dimension.cost.lt(DC.E9E15)) Currency.celestialPoints.purchase(Decimal.pow10(maxBought.logPrice));
+    }
   }
 }
 
@@ -359,7 +368,7 @@ export const CelestialTickspeed = {
     return new ExponentialCostScaling({
       baseCost: 1000,
       baseIncrease: 10,
-      costScale: 10,
+      costScale: Player.celestialDimensionMultDecrease,
       scalingCostThreshold: Number.MAX_VALUE
     });
   },
