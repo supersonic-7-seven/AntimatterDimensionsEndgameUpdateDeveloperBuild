@@ -611,7 +611,7 @@ Currency.unnerfedCelestialMatter = new class extends DecimalCurrency {
 Currency.celestialMatter = new class extends DecimalCurrency {
   get value() { return player.endgame.celestialMatter; }
   set value(value) {
-    const newValue = Decimal.min(value, DC.NUMMAX);
+    const newValue = player.endgame.celDimExpansion.isBroken ? new Decimal(value) : Decimal.min(value, DC.NUMMAX);
     player.endgame.celestialMatter = newValue;
   }
 }();

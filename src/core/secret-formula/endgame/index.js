@@ -7,6 +7,7 @@ import { galacticPowerRewards } from "./galactic-power";
 import { expansionPacks } from "./expansion-packs";
 import { stars } from "./stars";
 import { celestialInfinityUpgrades } from "./celestial-dimension-expansion/celestial-infinity-upgrades";
+import { celestialBreakInfinityUpgrades } from "./celestial-dimension-expansion/celestial-break-infinity-upgrades";
 
 export const endgame = {
   breakUpgrades: breakEternityUpgrades,
@@ -18,6 +19,7 @@ export const endgame = {
   packs: expansionPacks,
   stars: stars,
   celDimExpansion: {
-    celestialInfinityUpgrades: celestialInfinityUpgrades
+    celestialInfinityUpgrades: celestialInfinityUpgrades,
+    celestialBreakUpgrades: celestialBreakInfinityUpgrades
   }
 };

@@ -118,13 +118,13 @@ export default {
 
 .c-normal-ethereal-text {
   font-size: 2rem;
-  color: #0000c0;
+  color: #0000ff;
 }
 
 .c-really-cool-ethereal-text {
   font-size: 3rem;
   font-weight: bold;
-  background: linear-gradient(#000000, #0000c0);
+  background: linear-gradient(#000000, #0000ff);
   background-clip: text;
   text-shadow: 0 0 1.5rem #0000ff;
 

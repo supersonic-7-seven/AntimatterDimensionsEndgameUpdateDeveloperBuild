@@ -7,6 +7,7 @@ import AutomatorTab from "./automator/AutomatorTab";
 import BlackHoleTab from "./black-hole/BlackHoleTab";
 import BreakInfinityTab from "./break-infinity/BreakInfinityTab";
 import BreakEternityTab from "./break-eternity/BreakEternityTab";
+import CelestialBreakInfinityTab from "./celestial-dimension-expansion/CelestialBreakInfinityTab";
 import CelestialDimensionsTab from "./celestial-dimensions/CelestialDimensionsTab";
 import CelestialInfinityUpgradesTab from "./celestial-dimension-expansion/CelestialInfinityUpgradesTab";
 import CelestialNavigationTab from "./celestial-navigation/CelestialNavigationTab";
@@ -113,6 +114,7 @@ const TabComponents = {
   EtherealTab,
   HypercubesTab,
   CelestialInfinityUpgradesTab,
+  CelestialBreakInfinityTab,
   ShopTab,
   MultiplierBreakdownTab
 };

@@ -1,4 +1,4 @@
-import { GameMechanicState, SetPurchasableMechanicState } from "../game-mechanics";
+import { GameMechanicState, RebuyableMechanicState, SetPurchasableMechanicState } from "../game-mechanics";
 import { DimensionState } from "./dimension";
 
 export function celestialDimensionCommonMultiplier() {
@@ -210,7 +210,12 @@ export const CelestialDimensions = {
   all: CelestialDimension.index.compact(),
   HARDCAP_PURCHASES: DC.C2P1024,
   get SOFTCAP() {
-    return DC.E100.timesEffectsOf(EndgameMastery(94), EndgameUpgrade(5)).times(Ethereal.sectorBoost).pow(CelestialDimensions.alphaDecayRemnant);
+    const base = DC.E100.timesEffectsOf(EndgameMastery(94), EndgameUpgrade(5)).times(Ethereal.sectorBoost).pow(CelestialDimensions.alphaDecayRemnant);
+    return Decimal.min(base, DC.NUMMAX).times(Decimal.pow(base.div(DC.NUMMAX).max(1), 1 / CelestialDimensions.OVERFLOW_MAG));
+  },
+
+  get OVERFLOW_MAG() {
+    return DC.E1.sub(Decimal.pow(player.records.totalCelMatter.add(1).log10().add(1).log10().sub(3).max(0).add(1), 1.25).sub(1)).toNumber();
   },
 
   get softcapPow() {
@@ -445,7 +450,7 @@ export class CelestialDimBoost {
 
 // eslint-disable-next-line max-params
 export function softCelestialReset(tempBulk, forcedCDReset = false, forcedCMReset = false) {
-  if (Currency.celestialMatter.gt(DC.NUMMAX)) return;
+  if (Currency.celestialMatter.gt(DC.NUMMAX) && !player.endgame.celDimExpansion.isBroken) return;
   const bulk = Decimal.min(tempBulk, CelestialDimBoost.maxBoosts.sub(player.endgame.celDimExpansion.dimBoosts));
   EventHub.dispatch(GAME_EVENT.CELESTIAL_DIMBOOST_BEFORE, bulk);
   player.endgame.celDimExpansion.dimBoosts = (Decimal.max(DC.D0, player.endgame.celDimExpansion.dimBoosts.add(bulk)));
@@ -800,10 +805,10 @@ export function preProductionGenerateCIP(diff) {
       // Partial progress (fractions from 0 to 1) are stored in player.endgame.celDimExpansion.partCelestialInfinityPoint
       const diffnum = Decimal.clamp(new Decimal(diff), 1e-300, 1e300);
       player.endgame.celDimExpansion.partCelestialInfinityPoint = player.endgame.celDimExpansion.partCelestialInfinityPoint.add(diffnum.div(genPeriod.clampMax(1e300)));
-      genCount = Decimal.floor(player.partCelestialInfinityPoint);
+      genCount = Decimal.floor(player.endgame.celDimExpansion.partCelestialInfinityPoint);
       player.endgame.celDimExpansion.partCelestialInfinityPoint = player.endgame.celDimExpansion.partCelestialInfinityPoint.sub(genCount);
     }
-    let gainedPerGen = player.records.bestCelestialInfinity.time.gte(999999999999) ? DC.D0 : GameCache.totalCIPMult.value;
+    let gainedPerGen = player.records.bestCelestialInfinity.realTime >= 999999999999 ? DC.D0 : GameCache.totalCIPMult.value;
     const gainedThisTick = new Decimal(genCount).times(gainedPerGen);
     if (Decimal.isFinite(gainedThisTick)) Currency.celestialInfinityPoints.add(gainedThisTick);
   }
@@ -811,7 +816,10 @@ export function preProductionGenerateCIP(diff) {
 }
 
 export function totalCIPMult() {
-  let cipMult = DC.D1;
+  let cipMult = DC.D1
+    .timesEffectsOf(
+      CelestialInfinityUpgrade.cipMult
+    );
   return cipMult;
 }
 
@@ -905,3 +913,42 @@ export const CelestialInfinityUpgrade = mapGameDataToObject(
 );
 
 CelestialInfinityUpgrade.cipMult = new CIPMultiplierState();
+
+export class CelestialBreakInfinityUpgradeState extends SetPurchasableMechanicState {
+  get currency() {
+    return Currency.celestialInfinityPoints;
+  }
+
+  get set() {
+    return player.endgame.celDimExpansion.celestialInfinityUpgrades;
+  }
+}
+
+class RebuyableCelestialBreakInfinityUpgradeState extends RebuyableMechanicState {
+  get currency() {
+    return Currency.celestialInfinityPoints;
+  }
+
+  get boughtAmount() {
+    return player.endgame.celDimExpansion.celestialInfinityRebuyables[this.id];
+  }
+
+  set boughtAmount(value) {
+    player.endgame.celDimExpansion.celestialInfinityRebuyables[this.id] = value;
+  }
+
+  get isCapped() {
+    return this.boughtAmount === this.config.maxUpgrades;
+  }
+
+  onPurchased() {
+    this.config.onPurchased?.();
+  }
+}
+
+export const CelestialBreakInfinityUpgrade = mapGameDataToObject(
+  GameDatabase.endgame.celDimExpansion.celestialBreakUpgrades,
+  config => (config.rebuyable
+    ? new RebuyableCelestialBreakInfinityUpgradeState(config)
+    : new CelestialBreakInfinityUpgradeState(config))
+);

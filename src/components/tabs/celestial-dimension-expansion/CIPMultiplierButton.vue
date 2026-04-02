@@ -59,7 +59,7 @@ export default {
       class="l--spoon-btn-group__little-spoon o-primary-btn--small-spoon"
       @click="upgrade.buyMax(false)"
     >
-      Max Celestial Infinity Point mult
+      Max Cel Infinity Point mult
     </PrimaryButton>
   </div>
 </template>

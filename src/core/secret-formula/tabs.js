@@ -644,6 +644,15 @@ export const tabs = [
         id: 10,
         hidable: true,
       },
+      {
+        key: "celestial-break-infinity",
+        name: "Celestial Break Infinity",
+        symbol: "<i class='fab fa-skyatlas'></i>",
+        component: "CelestialBreakInfinityTab",
+        condition: () => CelestialInfinityUpgrade.all.filter(u => u.isBought).length === CelestialInfinityUpgrade.all.length,
+        id: 11,
+        hidable: true,
+      },
     ],
   }
 ];

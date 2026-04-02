@@ -1289,7 +1289,9 @@ window.player = {
       celestialInfinityUpgrades: new Set(),
       cipMultUpgrades: DC.D0,
       partCelestialInfinityPoint: DC.D0,
+      isBreakUnlocked: false,
       isBroken: false,
+      celestialInfinityRebuyables: [0, 0, 0, 0, 0, 0],
     },
   },
   endgameMasteries: {
@@ -1514,6 +1516,10 @@ export const Player = {
 
   get bestRunIPPM() {
     return GameCache.bestRunIPPM.value;
+  },
+
+  get bestRunCIPPM() {
+    return GameCache.bestRunCIPPM.value;
   },
 
   get averageRealTimePerEternity() {

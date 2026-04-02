@@ -26,9 +26,9 @@ export default {
     classObject() {
       return {
         "o-celestial-infinity-upgrade": true,
-        "o-celestial-infinity-upgrade--bought": this.isBought,
-        "o-celestial-infinity-upgrade--available": !this.isBought && this.isAffordable,
-        "o-celestial-infinity-upgrade--unavailable": !this.isBought && !this.isAffordable
+        "o-celestial-infinity-upgrade--bought": this.isBought || this.isCapped,
+        "o-celestial-infinity-upgrade--available": !this.isBought && !this.isCapped && this.isAffordable,
+        "o-celestial-infinity-upgrade--unavailable": !this.isBought && !this.isCapped && !this.isAffordable
       };
     }
   },

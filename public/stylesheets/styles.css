@@ -5783,7 +5783,7 @@ properly on certain themes. */
 
 /* #endregion o-break-eternity-upgrade-btn */
 
-/* #region o-infinity-upgrade-btn--available */
+/* #region o-break-eternity-upgrade-btn--available */
 
 .o-break-eternity-upgrade-btn--available:hover {
   background-color: #ff3300;
@@ -6093,6 +6093,316 @@ properly on certain themes. */
 }
 
 /* #endregion Endgame Milestones */
+
+/* #region Break Celestial Infinity */
+
+/* #region l-break-celestial-infinity-tab */
+
+.l-break-celestial-infinity-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.l-break-celestial-infinity-tab__break-btn {
+  margin-top: 2rem;
+}
+
+.l-break-celestial-infinity-tab__grid {
+  margin-top: 1rem;
+}
+
+/* #endregion l-break-celestial-infinity-tab */
+
+/* #region l-break-celestial-infinity-upgrade-grid */
+
+.l-break-celestial-infinity-upgrade-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.l-break-celestial-infinity-upgrade-grid__row {
+  display: flex;
+  flex-direction: row;
+}
+
+.l-break-celestial-infinity-upgrade-grid__cell {
+  margin: 0.5rem 0.8rem;
+}
+
+/* #endregion l-break-celestial-infinity-upgrade-grid */
+
+/* #endregion Break Celestial Infinity */
+
+/* #region Break Celestial Infinity Upgrades */
+
+.l-break-celestial-infinity-upgrade-btn {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin: 1.2rem;
+  padding: 0 0.5rem;
+}
+
+/* #region o-break-celestial-infinity-upgrade-btn */
+
+.o-break-celestial-infinity-upgrade-btn {
+  width: 19rem;
+  height: 9rem;
+  font-family: Typewriter, serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: #1f1f1f;
+  border: 0.1rem solid black;
+  border-radius: var(--var-border-radius, 0.4rem);
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+.t-s6 .o-break-celestial-infinity-upgrade-btn,
+.t-s10 .o-break-celestial-infinity-upgrade-btn {
+  box-shadow: 0 0 0.7rem 0.2rem #111111;
+}
+
+.o-break-celestial-infinity-upgrade-btn:hover {
+  color: var(--color-text-inverted);
+}
+
+/* #endregion o-break-celestial-infinity-upgrade-btn */
+
+/* #region o-break-celestial-infinity-upgrade-btn--available */
+
+.o-break-celestial-infinity-upgrade-btn--available:hover {
+  background-color: #ff3300;
+}
+
+.t-dark .o-break-celestial-infinity-upgrade-btn--available:hover,
+.t-s6 .o-break-celestial-infinity-upgrade-btn--available:hover,
+.t-s10 .o-break-celestial-infinity-upgrade-btn--available:hover {
+  background-color: #d50000;
+}
+
+.s-base--metro .o-break-celestial-infinity-upgrade-btn--available:hover {
+  background-color: #f44336;
+}
+
+/* #endregion o-break-celestial-infinity-upgrade-btn--available */
+
+/* #region o-break-celestial-infinity-upgrade-btn--color-2 */
+
+.o-break-celestial-infinity-upgrade-btn--color-2.o-break-celestial-infinity-upgrade-btn--available:hover {
+  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+}
+
+.t-dark .o-break-celestial-infinity-upgrade-btn--color-2.o-break-celestial-infinity-upgrade-btn--available:hover,
+.t-s6 .o-break-celestial-infinity-upgrade-btn--color-2.o-break-celestial-infinity-upgrade-btn--available:hover,
+.t-s10 .o-break-celestial-infinity-upgrade-btn--color-2.o-break-celestial-infinity-upgrade-btn--available:hover {
+  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+}
+
+.s-base--metro .o-break-celestial-infinity-upgrade-btn--color-2.o-break-celestial-infinity-upgrade-btn--available:hover {
+  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+}
+
+/* #endregion o-break-celestial-infinity-upgrade-btn--color-2 */
+
+/* #region o-break-celestial-infinity-upgrade-btn--unavailable */
+
+.o-break-celestial-infinity-upgrade-btn--unavailable {
+  color: black;
+  background-color: #f7f7f7;
+}
+
+.o-break-celestial-infinity-upgrade-btn--unclickable {
+  cursor: auto;
+}
+
+.o-break-celestial-infinity-upgrade-btn--unavailable:hover {
+  color: var(--color-text);
+  background-color: var(--color-text-inverted);
+  cursor: default;
+}
+
+.t-dark .o-break-celestial-infinity-upgrade-btn--unavailable {
+  background-color: #263238;
+  border-color: black;
+}
+
+.t-dark .o-break-celestial-infinity-upgrade-btn--unavailable:hover {
+  background-color: #37474f;
+}
+
+.s-base--metro .o-break-celestial-infinity-upgrade-btn--unavailable {
+  background-color: #9e9e9e;
+  border-color: #616161;
+}
+
+.s-base--metro .o-break-celestial-infinity-upgrade-btn--unavailable:hover {
+  color: var(--color-text-inverted);
+  background-color: #bdbdbd;
+}
+
+.t-s1 .o-break-celestial-infinity-upgrade-btn--unavailable {
+  background-color: #9a921d;
+  border-color: black;
+}
+
+.t-s1 .o-break-celestial-infinity-upgrade-btn--unavailable:hover {
+  background-color: #c5ba26;
+}
+
+.t-s6 .o-break-celestial-infinity-upgrade-btn--unavailable,
+.t-s10 .o-break-celestial-infinity-upgrade-btn--unavailable {
+  color: grey;
+  background-color: black;
+  border-color: grey;
+}
+
+.t-s6 .o-break-celestial-infinity-upgrade-btn--unavailable:hover,
+.t-s10 .o-break-celestial-infinity-upgrade-btn--unavailable:hover {
+  background-color: #222222;
+}
+
+/* #endregion o-break-celestial-infinity-upgrade-btn--unavailable */
+
+.o-break-celestial-infinity-upgrade {
+  width: 20rem;
+  height: 9rem;
+  font-family: Typewriter, serif;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 0.1rem solid var(--color-celestials);
+  border-radius: var(--var-border-radius, 0.4rem);
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+.o-break-celestial-infinity-upgrade--useless {
+  color: black;
+  background-color: var(--color-pelle--base);
+  border-color: black;
+  filter: grayscale(50%);
+}
+
+.o-break-celestial-infinity-upgrade--available {
+  color: var(--color-infinity);
+  background-color: black;
+}
+
+.o-break-celestial-infinity-upgrade--available:hover {
+  color: var(--color-text);
+  background-color: var(--color-infinity);
+}
+
+.o-break-celestial-infinity-upgrade--unavailable {
+  color: #181818;
+  background-color: #5f5f5f;
+  cursor: default;
+}
+
+.o-break-celestial-infinity-upgrade--unavailable:hover {
+  background-color: #737373;
+}
+
+.o-break-celestial-infinity-upgrade--bought {
+  color: black;
+  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+  border-color: black;
+  cursor: default;
+}
+
+.t-metro .o-break-celestial-infinity-upgrade--available {
+  box-shadow: 0.1rem 0.1rem 0.1rem 0 #9e9e9e;
+}
+
+.s-base--metro .o-break-celestial-infinity-upgrade--bought {
+  color: black;
+  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+  border-color: black;
+}
+
+.s-base--metro .o-break-celestial-infinity-upgrade--unavailable {
+  background-color: #9e9e9e;
+  border-color: black;
+}
+
+.s-base--metro .o-break-celestial-infinity-upgrade--unavailable:hover {
+  background-color: #bdbdbd;
+}
+
+.t-dark .o-break-celestial-infinity-upgrade--available,
+.t-s6 .o-break-celestial-infinity-upgrade--available,
+.t-s10 .o-break-celestial-infinity-upgrade--available {
+  background-color: black;
+}
+
+.t-dark .o-break-celestial-infinity-upgrade--available:hover,
+.t-s6 .o-break-celestial-infinity-upgrade--available:hover,
+.t-s10 .o-break-celestial-infinity-upgrade--available:hover {
+  color: var(--color-text);
+  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+}
+
+.t-dark .o-break-celestial-infinity-upgrade--unavailable {
+  color: black;
+  background-color: #263238;
+  border-color: var(--color-celestials);
+}
+
+.t-dark .o-break-celestial-infinity-upgrade--unavailable:hover {
+  background-color: #37474f;
+}
+
+.t-s6 .o-break-celestial-infinity-upgrade--unavailable,
+.t-s10 .o-break-celestial-infinity-upgrade--unavailable {
+  color: grey;
+  background-color: black;
+  border-color: var(--color-celestials);
+}
+
+.t-s6 .o-break-celestial-infinity-upgrade--unavailable:hover,
+.t-s10 .o-break-celestial-infinity-upgrade--unavailable:hover {
+  background-color: #222222;
+}
+
+.t-dark .o-break-celestial-infinity-upgrade--bought,
+.t-s6 .o-break-celestial-infinity-upgrade--bought,
+.t-s10 .o-break-celestial-infinity-upgrade--bought {
+  color: var(--color-text-inverted);
+  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+  border-color: var(--color-celestials);
+}
+
+.t-s1 .o-break-celestial-infinity-upgrade--available {
+  background-color: black;
+}
+
+.t-s1 .o-break-celestial-infinity-upgrade--available:hover {
+  color: black;
+  background-color: #639565;
+  border-color: black;
+}
+
+.t-s1 .o-break-celestial-infinity-upgrade--bought {
+  color: black;
+  background-color: #639565;
+  border-color: black;
+}
+
+.t-s1 .o-break-celestial-infinity-upgrade--unavailable {
+  color: black;
+  background-color: #4a4a4a;
+  border-color: #639565;
+}
+
+.t-s1 .o-break-celestial-infinity-upgrade--unavailable:hover {
+  background: #636363;
+}
+
+/* #endregion Break Celestial Infinity Upgrades */
 
 /* #region Modals */
 
