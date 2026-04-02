@@ -37,7 +37,7 @@ class CelestialDimensionState extends DimensionState {
   }
 
   get cost() {
-    return this.costScale.calculateCostDecimal(Decimal.floor(this.bought));
+    return this.costScale.calculateCostDecimal(Decimal.floor(this.baseAmount));
   }
 
   get baseAmount() {
