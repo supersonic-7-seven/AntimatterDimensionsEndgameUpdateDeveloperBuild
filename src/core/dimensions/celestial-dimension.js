@@ -216,7 +216,10 @@ export const CelestialDimensions = {
    * @type {CelestialDimensionState[]}
    */
   all: CelestialDimension.index.compact(),
-  HARDCAP_PURCHASES: DC.C2P1024,
+  get HARDCAP_PURCHASES() {
+    return player.endgame.celDimExpansion.isBroken ? new Decimal(Infinity) : DC.C2P1024;
+  },
+
   get SOFTCAP() {
     const base = DC.E100.timesEffectsOf(EndgameMastery(94), EndgameUpgrade(5)).times(Ethereal.sectorBoost).pow(CelestialDimensions.alphaDecayRemnant);
     return Decimal.min(base, DC.NUMMAX).times(Decimal.pow(base.div(DC.NUMMAX).max(1), 1 / CelestialDimensions.OVERFLOW_MAG));
