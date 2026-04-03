@@ -92,10 +92,10 @@ export const glyphEffects = {
     shortDesc: () => (GlyphAlteration.isAdded("time")
       ? "EP ×{value} and ^{value2}"
       : "EP ×{value}"),
-    effect: (level, strength) => Math.clampMin(Math.pow(level * strength, 3) * 100, 1),
+    effect: (level, strength) => Decimal.clampMin(Decimal.pow(level * strength, 3).times(100), 1),
     formatEffect: x => format(x, 2, 3),
-    combine: GlyphCombiner.multiply,
-    conversion: x => 1 + Math.log10(x) / 1000,
+    combine: GlyphCombiner.multiplyDecimal,
+    conversion: x => 1 + Decimal.log10(x).toNumber() / 1000,
     formatSecondaryEffect: x => format(x, 4, 4),
     alteredColor: () => GlyphAlteration.getAdditionColor("time"),
     alterationType: ALTERATION_TYPE.ADDITION,
