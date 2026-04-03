@@ -101,7 +101,6 @@ class RebuyableEndgameUpgradeState extends RebuyableMechanicState {
 
   bulkPurchase() {
     if (!this.isAffordable) return false;
-    Currency.celestialPoints.subtract(this.cost);
     this.boughtAmount += getInverseHybridCostScaling(
       Currency.celestialPoints.value,
       1e100,
@@ -112,6 +111,7 @@ class RebuyableEndgameUpgradeState extends RebuyableMechanicState {
       1e3,
       this.config.initialCost * this.config.costMult
     ).sub(player.endgame.rebuyables[this.id]).toNumber();
+    Currency.celestialPoints.subtract(this.cost);
     return true;
   }
 }
