@@ -121,7 +121,6 @@ class RebuyableRealityUpgradeState extends RebuyableMechanicState {
 
   bulkPurchase() {
     if (!this.isAffordable) return false;
-    Currency.realityMachines.subtract(this.cost);
     this.boughtAmount += getInverseHybridCostScaling(
       Currency.realityMachines.value,
       1e30,
@@ -132,6 +131,7 @@ class RebuyableRealityUpgradeState extends RebuyableMechanicState {
       1e3,
       this.config.initialCost * this.config.costMult
     ).sub(player.reality.rebuyables[this.id]).toNumber();
+    Currency.realityMachines.subtract(this.cost);
     return true;
   }
 }
