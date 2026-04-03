@@ -168,7 +168,7 @@ class GlyphEffectConfig {
     const softcap = setup.softcap;
     const emptyCombine = combine([]);
     // No supplied capped indicator
-    if (typeof (emptyCombine.value) === "number") {
+    if (typeof (emptyCombine) === "number" || softcap) {
       if (softcap === undefined) return effects => ({ value: combine(effects), capped: false });
       return effects => {
         const rawValue = combine(effects);
@@ -176,7 +176,7 @@ class GlyphEffectConfig {
         return { value: cappedValue, capped: rawValue !== cappedValue };
       };
     }
-    if (emptyCombine.value instanceof Decimal) {
+    if (emptyCombine instanceof Decimal || softcap) {
       if (softcap === undefined) return effects => ({ value: combine(effects), capped: false });
       const neqTest = emptyCombine.value instanceof Decimal ? (a, b) => a.neq(b) : (a, b) => a !== b;
       return effects => {
