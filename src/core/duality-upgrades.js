@@ -116,7 +116,6 @@ class RebuyableDualityUpgradeState extends RebuyableMechanicState {
 
   bulkPurchase() {
     if (!this.isAffordable) return false;
-    Currency.dualMachines.subtract(this.cost);
     this.boughtAmount += getInverseHybridCostScaling(
       Currency.dualMachines.value,
       1e20,
@@ -127,6 +126,7 @@ class RebuyableDualityUpgradeState extends RebuyableMechanicState {
       1e3,
       this.config.costMult
     ).sub(player.reality.dualityRebuyables[this.id]).toNumber();
+    Currency.dualMachines.subtract(this.cost);
     return true;
   }
 }
