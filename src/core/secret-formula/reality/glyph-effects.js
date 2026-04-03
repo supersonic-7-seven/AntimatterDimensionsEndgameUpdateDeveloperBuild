@@ -330,8 +330,8 @@ export const glyphEffects = {
     formatEffect: x => format(x, 2, 3),
     combine: effects => {
       let sum = effects.reduce(Decimal.prodReducer, DC.D1);
-      return Effarig.eternityCap !== undefined
-        ? { value: Decimal.min(sum, Effarig.eternityCap), capped: sum.gt(Effarig.eternityCap) }
+      return Effarig.eternityCap !== undefined && sum.gt(Effarig.eternityCap)
+        ? { value: Decimal.min(sum, Effarig.eternityCap), capped: true }
         : { value: sum, capped: false };
     },
     conversion: x => 1 + Decimal.log10(x).toNumber() / 1800,
