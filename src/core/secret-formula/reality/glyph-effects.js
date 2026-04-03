@@ -326,12 +326,15 @@ export const glyphEffects = {
     shortDesc: () => (GlyphAlteration.isAdded("infinity")
       ? "IP ×{value} and ^{value2}"
       : "IP ×{value}"),
-    effect: (level, strength) => Math.clampMin(Math.pow(level * (strength + 1), 6) * 10000, 1),
+    effect: (level, strength) => Decimal.clampMin(Decimal.pow(level * (strength + 1), 6).times(10000), 1),
     formatEffect: x => format(x, 2, 3),
-    combine: GlyphCombiner.multiply,
-    // eslint-disable-next-line no-negated-condition
-    softcap: value => ((Effarig.eternityCap !== undefined) ? Math.min(value, Effarig.eternityCap.toNumber()) : value),
-    conversion: x => 1 + Math.log10(x) / 1800,
+    combine: effects => {
+      let sum = effects.reduce(Decimal.prodReducer, DC.D1);
+      return Effarig.eternityCap !== undefined
+        ? { value: Decimal.min(sum, Effarig.eternityCap), capped: sum.gt(Effarig.eternityCap) }
+        : { value: sum, capped: false };
+    },
+    conversion: x => 1 + Decimal.log10(x).toNumber() / 1800,
     formatSecondaryEffect: x => format(x, 4, 4),
     alteredColor: () => GlyphAlteration.getAdditionColor("infinity"),
     alterationType: ALTERATION_TYPE.ADDITION,
