@@ -28,8 +28,8 @@ export default {
       effectiveInstability: new Decimal(0),
       instabilityStart: 0,
       harshInstabilityStart: 0,
-      generationReduction: new Decimal(0),
-      trueGenerationReduction: new Decimal(0),
+      generationReduction: 0,
+      secondGenerationReduction: 0,
       isInstabilityShown: false,
       isSecondInstabilityShown: false,
     };
@@ -65,8 +65,8 @@ export default {
       this.isCollapsed = player.celestials.pelle.collapsed.galaxies && !this.isCapped;
       if (this.isCollapsed || !this.isUnlocked) return;
       this.galaxies.copyFrom(player.galaxies.add(GalaxyGenerator.galaxies));
-      this.generatedGalaxies.copyFrom(GalaxyGenerator.generatedGalaxies);
-      this.galaxiesPerSecond.copyFrom(GalaxyGenerator.gainPerSecond);
+      this.generatedGalaxies.copyFrom(GalaxyGenerator.generatedGalaxiesDisplay);
+      this.galaxiesPerSecond.copyFrom(GalaxyGenerator.gainPerSecondDisplay);
       this.cap = GalaxyGenerator.generationCap;
       this.capRift = GalaxyGenerator.capRift;
       this.sacrificeActive = GalaxyGenerator.sacrificeActive;
@@ -77,8 +77,8 @@ export default {
       this.effectiveInstability.copyFrom(Decimal.pow(this.galGenInstability, this.harshGalGenInstability));
       this.instabilityStart = GalaxyGenerator.instabilityStart;
       this.harshInstabilityStart = GalaxyGenerator.harshInstabilityStart;
-      this.generationReduction.copyFrom(Decimal.max(1, Decimal.pow(this.galGenInstability, Decimal.log10(Decimal.max(Decimal.pow(this.galaxies.div(this.instabilityStart), 0.75), 1)))));
-      this.trueGenerationReduction.copyFrom(Decimal.max(1, Decimal.pow(Decimal.pow(this.galGenInstability, this.harshGalGenInstability), Decimal.log10(Decimal.max(Decimal.pow(this.galaxies.div(this.instabilityStart), 0.75), 1)))));
+      this.generationReduction = 1 - 0.6 * Math.log10(this.galGenInstability);
+      this.secondGenerationReduction = 1 - 0.6 * Math.log10(this.harshGalGenInstability);
       this.isInstabilityShown = PlayerProgress.endgameUnlocked() || this.galaxies.gte(this.instabilityStart);
       this.isSecondInstabilityShown = this.galaxies.gte(this.harshInstabilityStart);
     },
@@ -121,8 +121,8 @@ export default {
           <div v-if="isInstabilityShown">
             Your Galaxy Generator Instability Magnitude is
             <span class="c-galaxies-amount">{{ format(galGenInstability, 2, 1) }}</span>,
-            which is dividing Galaxies above {{ format(instabilityStart, 2, 1) }} by
-            <span class="c-galaxies-amount">{{ format(generationReduction, 2, 1) }}</span>.
+            which is raising Galaxies above {{ format(instabilityStart, 2, 1) }} to the power of
+            <span class="c-galaxies-amount">{{ format(generationReduction, 2, 3) }}</span>.
           </div>
           <br>
           <div v-if="isSecondInstabilityShown">
@@ -130,14 +130,10 @@ export default {
               Your Galaxy Generator has produced too many Galaxies, and is starting to break down.
               This started at {{ format(harshInstabilityStart, 2, 1) }} Galaxies.
               <br>
-              This effect is currently raising your Galaxy Generator Instability Magnitude by
-              <span class="c-galaxies-amount">{{ formatPow(harshGalGenInstability, 2, 3) }}</span>,
-              making it effectively equal to
-              <span class="c-galaxies-amount">{{ format(effectiveInstability, 2, 1) }}</span>.
-              <br>
-              Therefore, whereas your Galaxy production would normally be divided by the number above,
-              it is instead being divided by
-              <span class="c-galaxies-amount">{{ format(trueGenerationReduction, 2, 1) }}</span>.
+              Your Second Galaxy Generator Instability Magnitude is
+              <span class="c-galaxies-amount">{{ format(harshGalGenInstability, 2, 3) }}</span>,
+              which is raising Galaxies above {{ format(harshInstabilityStart, 2, 1) }} to the power of
+              <span class="c-galaxies-amount">{{ format(secondGenerationReduction, 2, 3) }}</span>.
             </span>
           </div>
         </div>
