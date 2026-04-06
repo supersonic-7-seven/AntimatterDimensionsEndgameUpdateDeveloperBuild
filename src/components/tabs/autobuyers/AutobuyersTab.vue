@@ -2,6 +2,7 @@
 import AutobuyerToggles from "./AutobuyerToggles";
 import BigCrunchAutobuyerBox from "./BigCrunchAutobuyerBox";
 import BulkSingularityAutobuyerBox from "./BulkSingularityAutobuyerBox";
+import CelestialCrunchAutobuyerBox from "./CelestialCrunchAutobuyerBox";
 import CelestialDimensionBoostAutobuyerBox from "./CelestialDimensionBoostAutobuyerBox";
 import CelestialGalaxyAutobuyerBox from "./CelestialGalaxyAutobuyerBox";
 import CelestialTickspeedAutobuyerBox from "./CelestialTickspeedAutobuyerBox";
@@ -23,6 +24,7 @@ export default {
     EndgameAutobuyerBox,
     RealityAutobuyerBox,
     EternityAutobuyerBox,
+    CelestialCrunchAutobuyerBox,
     BigCrunchAutobuyerBox,
     CelestialGalaxyAutobuyerBox,
     GalaxyAutobuyerBox,
@@ -96,6 +98,7 @@ export default {
     <EndgameAutobuyerBox class="c-endgame-pos" />
     <RealityAutobuyerBox class="c-reality-pos" />
     <EternityAutobuyerBox class="c-eternity-pos" />
+    <CelestialCrunchAutobuyerBox class="c-celestial-infinity-pos" />
     <BigCrunchAutobuyerBox class="c-infinity-pos" />
     <CelestialGalaxyAutobuyerBox />
     <GalaxyAutobuyerBox />
@@ -121,14 +124,18 @@ when they're open. It looks slightly hacky but actually can't be done any other 
 its own stacking context, which means that all z-indices specified within are essentially scoped and the
 AutobuyerBox components will always render in page order regardless of internal z-indices without these. */
 .c-endgame-pos {
-  z-index: 4;
+  z-index: 5;
 }
   
 .c-reality-pos {
-  z-index: 3;
+  z-index: 4;
 }
 
 .c-eternity-pos {
+  z-index: 3;
+}
+
+.c-celestial-infinity-pos {
   z-index: 2;
 }
 
