@@ -136,6 +136,7 @@ export default {
         label="Auto:"
       />
       <PrimaryButton
+        v-else
         :enabled="isAvailableForPurchase"
         class="o-primary-btn--cd-auto"
         @click="buyMaxCelestialDimension"
