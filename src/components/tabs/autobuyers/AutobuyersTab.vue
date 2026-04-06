@@ -3,6 +3,7 @@ import AutobuyerToggles from "./AutobuyerToggles";
 import BigCrunchAutobuyerBox from "./BigCrunchAutobuyerBox";
 import BulkSingularityAutobuyerBox from "./BulkSingularityAutobuyerBox";
 import CelestialDimensionBoostAutobuyerBox from "./CelestialDimensionBoostAutobuyerBox";
+import CelestialGalaxyAutobuyerBox from "./CelestialGalaxyAutobuyerBox";
 import CelestialTickspeedAutobuyerBox from "./CelestialTickspeedAutobuyerBox";
 import DimensionAutobuyerBox from "./DimensionAutobuyerBox";
 import DimensionBoostAutobuyerBox from "./DimensionBoostAutobuyerBox";
@@ -23,6 +24,7 @@ export default {
     RealityAutobuyerBox,
     EternityAutobuyerBox,
     BigCrunchAutobuyerBox,
+    CelestialGalaxyAutobuyerBox,
     GalaxyAutobuyerBox,
     CelestialDimensionBoostAutobuyerBox,
     DimensionBoostAutobuyerBox,
@@ -95,6 +97,7 @@ export default {
     <RealityAutobuyerBox class="c-reality-pos" />
     <EternityAutobuyerBox class="c-eternity-pos" />
     <BigCrunchAutobuyerBox class="c-infinity-pos" />
+    <CelestialGalaxyAutobuyerBox />
     <GalaxyAutobuyerBox />
     <CelestialDimensionBoostAutobuyerBox />
     <DimensionBoostAutobuyerBox />
