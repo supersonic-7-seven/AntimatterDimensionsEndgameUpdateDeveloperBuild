@@ -137,8 +137,16 @@ window.player = {
       isBought: false
     },
     celestialTickspeed: {
-      isUnlocked: false,
       mode: AUTOBUYER_MODE.BUY_SINGLE,
+      isActive: true,
+      lastTick: 0
+    },
+    celestialDimBoost: {
+      limitDimBoosts: false,
+      maxDimBoosts: 1,
+      limitUntilGalaxies: false,
+      galaxies: 10,
+      buyMaxInterval: 0,
       isActive: true,
       lastTick: 0
     },
