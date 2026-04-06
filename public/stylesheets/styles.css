@@ -2514,6 +2514,39 @@ br {
 
 /* #endregion Big Crunch */
 
+/* #region Celestial Crunch */
+
+.o-celestial-infinity-button {
+  font-weight: bold;
+  color: var(--color-celestials);
+  background-color: var(--color-prestige--accent);
+  border-color: var(--color-celestials);
+}
+
+.o-infinity-button:hover {
+  color: black;
+  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+}
+
+.o-infinity-button span {
+  transition-duration: 0.2s;
+}
+
+.o-infinity-button:hover span {
+  color: black;
+}
+
+.t-metro .o-infinity-button {
+  box-shadow: 0.1rem 0.1rem 0.1rem 0 #9e9e9e;
+}
+
+.o-infinity-button--unavailable {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* #endregion Celestial Crunch */
+
 /* #endregion o-prestige-btn */
 
 /* #region l-spoon-btn-group */
