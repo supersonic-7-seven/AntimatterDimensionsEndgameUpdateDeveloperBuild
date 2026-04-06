@@ -10,7 +10,7 @@ export default {
     HeaderEternityContainer,
     HeaderInfinityContainer,
   },
-  computed: {
+  methods: {
     classObject() {
       return {
         "c-prestige-info-blocks": true,
