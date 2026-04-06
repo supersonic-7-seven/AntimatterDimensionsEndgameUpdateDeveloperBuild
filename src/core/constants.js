@@ -247,6 +247,12 @@ window.AUTO_CRUNCH_MODE = {
   X_HIGHEST: 2
 };
 
+window.AUTO_CELESTIAL_CRUNCH_MODE = {
+  AMOUNT: 0,
+  TIME: 1,
+  X_HIGHEST: 2
+};
+
 window.AUTO_ETERNITY_MODE = {
   AMOUNT: 0,
   TIME: 1,
