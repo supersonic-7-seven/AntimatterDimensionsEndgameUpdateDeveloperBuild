@@ -99,9 +99,18 @@ class QuoteLine {
     return typeof this._celestialArray === "function" ? this._celestialArray() : this._celestialArray;
   }
 
-  get celestialSymbols() {
-    if (Celestials[this.celestials[0][0]] === undefined) return Elemental.symbol;
+  get celestialsSymbols() {
     return this.celestials.map(c => Celestials[c[0]].symbol);
+  }
+
+  get elementalSymbols() {
+    return Elemental.symbol;
+  }
+
+  get celestialSymbols() {
+    let symbols = this.celestialsSymbols;
+    symbols.push(this.elementalSymbols);
+    return symbols;
   }
 
   get showCelestialName() {
