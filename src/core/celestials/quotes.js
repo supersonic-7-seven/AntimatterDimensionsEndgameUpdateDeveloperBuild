@@ -109,7 +109,7 @@ class QuoteLine {
   }
 
   get celestialName() {
-    if (Celestials[this._parent.celestial]) return Elemental.displayName;
+    if (Celestials[this._parent.celestial] === undefined) return Elemental.displayName;
     return Celestials[this._parent.celestial].displayName;
   }
 }
