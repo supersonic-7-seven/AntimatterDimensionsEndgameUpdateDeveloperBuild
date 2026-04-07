@@ -1001,6 +1001,16 @@ button:focus {
   background: var(--color-endgame);
 }
 
+.o-tab-btn--cd-expansion {
+  color: var(--color-alpha--base);
+  background-color: var(--color-prestige--accent);
+  border-color: var(--color-alpha--base);
+}
+
+.o-tab-btn--cd-expansion:hover {
+  background: linear-gradient(var(--color-infinity), var(--color-eternity), var(--color-reality), var(--color-celestials));
+}
+
 /* #endregion tab buttons */
 
 #loading {
