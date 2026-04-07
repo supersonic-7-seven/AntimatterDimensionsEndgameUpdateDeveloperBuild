@@ -10,11 +10,19 @@ export default {
     HeaderEternityContainer,
     HeaderInfinityContainer,
   },
+  data() {
+    return {
+      isDestroyed: false
+    };
+  },
   methods: {
+    update() {
+      this.isDestroyed = Alpha.isDestroyed;
+    },
     classObject() {
       return {
         "c-prestige-info-blocks": true,
-        "c-prestige-info-blocks--tall": Alpha.isDestroyed
+        "c-prestige-info-blocks--tall": this.isDestroyed
       };
     }
   }
