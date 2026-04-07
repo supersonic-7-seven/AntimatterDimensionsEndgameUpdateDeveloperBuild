@@ -638,7 +638,7 @@ export const tabs = [
     ],
   },
   {
-    key: "cd-expansion",
+    key: "cdexpansion",
     name: "CD Expansion",
     hideAt: 2.4,
     UIClass: "o-tab-btn--cd-expansion",
