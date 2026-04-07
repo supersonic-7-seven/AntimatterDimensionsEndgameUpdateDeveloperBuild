@@ -1,6 +1,7 @@
 export const elementalQuotes = {
   initial: {
     id: 0,
+    requirement: () => player.endgames >= 1,
     lines: [
       "So...",
       "He found it.",
