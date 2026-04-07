@@ -986,6 +986,7 @@ window.player = {
         galaxies: false
       },
       showBought: false,
+      divinities: 0
     },
     alpha: {
       unlockBits: 0,
