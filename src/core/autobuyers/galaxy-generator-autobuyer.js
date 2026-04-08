@@ -1,14 +1,20 @@
 import { IntervaledAutobuyerState } from "./autobuyer";
 
 export class GalaxyGeneratorAutobuyerState extends IntervaledAutobuyerState {
-  get _upgradeName() { return ["additive", "multiplicative", "antimatterMult", "IPMult", "EPMult", "RSMult"][this.id - 1]; }
+  get _upgradeName() {
+    let upgrades = ["additive", "multiplicative", "antimatterMult", "IPMult", "EPMult", "RSMult"];
+    if (DivinityMilestone.firstDivine.isReached) upgrades.push("DTMult");
+    return upgrades[this.id - 1];
+  }
 
   get data() {
     return player.auto.galaxyGenerator.all[this.id - 1];
   }
 
   get name() {
-    return ["Base Galaxy Multiplier", "Multiplicative Galaxy Multiplier", "Antimatter Multiplier", "Infinity Point Multiplier", "Eternity Point Multiplier", "Reality Shard Multiplier"][this.id - 1];
+    let names = ["Base Galaxy Multiplier", "Multiplicative Galaxy Multiplier", "Antimatter Multiplier", "Infinity Point Multiplier", "Eternity Point Multiplier", "Reality Shard Multiplier"];
+    if (DivinityMilestone.firstDivine.isReached) names.push("Dilated Time Multiplier");
+    return names[this.id - 1];
   }
 
   get interval() {
@@ -35,7 +41,7 @@ export class GalaxyGeneratorAutobuyerState extends IntervaledAutobuyerState {
     }
   }
 
-  static get entryCount() { return 6; }
+  static get entryCount() { return DivinityMilestone.firstDivine.isReached ? 7 : 6; }
   static get autobuyerGroupName() { return "Galaxy Generator Upgrade"; }
   static get isActive() { return player.auto.galaxyGenerator.isActive; }
   static set isActive(value) { player.auto.galaxyGenerator.isActive = value; }
