@@ -127,6 +127,15 @@ export const Pelle = {
       AutomatorBackend.stop();
     }
 
+    if (DivinityMilestone.firstDivine.isReached) {
+      player.celestials.pelle.upgrades = new Set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]);
+      player.celestials.pelle.rebuyables.antimatterDimensionMult = 47;
+      player.celestials.pelle.rebuyables.timeSpeedMult = 35;
+      player.celestials.pelle.rebuyables.glyphLevels = 26;
+      player.celestials.pelle.rebuyables.infConversion = 21;
+      player.celestials.pelle.rebuyables.galaxyPower = 9;
+    }
+
     // Force-unhide all tabs except for the shop tab, for which we retain the hide state instead
     const shopTab = ~1 & (1 << GameDatabase.tabs.find(t => t.key === "shop").id);
     player.options.hiddenTabBits &= shopTab;
