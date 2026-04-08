@@ -7,23 +7,28 @@ export const Hadrons = {
   },
   get singularityMultiplier() {
     return DualityUpgrade(15).isBought && !player.disablePostReality ? Decimal.pow10(new Decimal(this.hadrons.light).times(
-      this.timeFactor.times(4).timesEffectOf(Achievement(235)).min(100)).times(10)) : DC.D1;
+      this.timeFactor.times(4).timesEffectOf(Achievement(235)).times(
+      DivinityMilestone.firstDivine.isReached ? 1.25 : 1).min(100)).times(10)) : DC.D1;
   },
   get darkMatterCapMultiplier() {
     return DualityUpgrade(16).isBought && !player.disablePostReality ? Decimal.pow10(new Decimal(this.hadrons.light).times(
-      this.timeFactor.times(2).timesEffectOf(Achievement(235)).min(100)).times(100)) : DC.D1;
+      this.timeFactor.times(2).timesEffectOf(Achievement(235)).times(
+      DivinityMilestone.firstDivine.isReached ? 1.25 : 1).min(100)).times(100)) : DC.D1;
   },
   get darkEnergyAscensionBoost() {
     return DualityUpgrade(17).isBought && !player.disablePostReality ? new Decimal(this.hadrons.light).times(
-      this.timeFactor.timesEffectOf(Achievement(235)).min(100)) : DC.D0;
+      this.timeFactor.timesEffectOf(Achievement(235)).times(
+      DivinityMilestone.firstDivine.isReached ? 1.25 : 1).min(100)) : DC.D0;
   },
   get entropyFormulaBoost() {
     return DualityUpgrade(18).isBought && !player.disablePostReality ? Decimal.pow(Decimal.log10(
-      this.timeFactor.div(2).timesEffectOf(Achievement(235)).max(1).min(100)).times(2).add(1), this.hadrons.light) : DC.D1;
+      this.timeFactor.div(2).timesEffectOf(Achievement(235)).times(
+      DivinityMilestone.firstDivine.isReached ? 1.25 : 1).max(1).min(100)).times(2).add(1), this.hadrons.light) : DC.D1;
   },
   get continuumMultiplier() {
     return DualityUpgrade(19).isBought && !player.disablePostReality ? Decimal.pow(Decimal.log10(
-      this.timeFactor.div(5).timesEffectOf(Achievement(235)).max(1).min(100)).div(10).times(
+      this.timeFactor.div(5).timesEffectOf(Achievement(235)).times(
+      DivinityMilestone.firstDivine.isReached ? 1.25 : 1).max(1).min(100)).div(10).times(
       1 + DualityUpgrade(21).effectOrDefault(0)).add(1), this.hadrons.dark) : DC.D1;
   }
 };
