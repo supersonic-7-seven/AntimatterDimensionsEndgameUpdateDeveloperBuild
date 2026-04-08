@@ -60,7 +60,7 @@ export const Hexeracts = {
   },
 
   costs(index) {
-    return Decimal.pow10(new Decimal(2e5).times(Decimal.pow(1.05, Decimal.pow(index, 1.5))));
+    return Decimal.pow10(new Decimal(1.6e5).times(Decimal.pow(1.05, Decimal.pow(index, 1.5))));
   },
 
   get nextCost() {
@@ -103,7 +103,7 @@ export const Hepteracts = {
   },
 
   costs(index) {
-    return Decimal.pow10(new Decimal(500).times(Decimal.pow(1.02, Decimal.pow(index, 1.5))));
+    return Decimal.pow10(new Decimal(800).times(Decimal.pow(1.02, Decimal.pow(index, 1.5))));
   },
 
   get nextCost() {
