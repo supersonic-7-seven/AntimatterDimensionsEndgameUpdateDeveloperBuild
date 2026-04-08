@@ -915,7 +915,7 @@ export function gameLoop(passedDiff, options = {}) {
   const darkMatterThreshold3 = Laitela.darkMatterCap;
   if (darkMatterProd.gt(darkMatterThreshold3)) {
     darkMatterProd = Decimal.min(darkMatterProd, darkMatterThreshold3).times(
-      Decimal.pow(Decimal.max(darkMatterProd.div(darkMatterThreshold3), 1), new Decimal(0.1).pow(Hexeracts.softcapReduction())));
+      Decimal.pow(Decimal.max(darkMatterProd.div(darkMatterThreshold3), 1), new Decimal(0.1)));
   }
   player.celestials.laitela.darkMatter = Alpha.isDestroyed ? new Decimal(darkMatterProd) : Decimal.min(darkMatterProd, Laitela.darkMatterCap);
   player.celestials.laitela.maxDarkMatter = Decimal.max(player.celestials.laitela.darkMatter, player.celestials.laitela.maxDarkMatter);
