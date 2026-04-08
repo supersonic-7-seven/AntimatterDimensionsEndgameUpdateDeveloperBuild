@@ -70,8 +70,10 @@ export const Laitela = {
   get entropyGainPerSecond() {
     const maxSpeed = (ExpansionPack.laitelaPack.isBought && !player.disablePostReality) ? 1000 : 100;
     const hadronizeBump = this.hadronizes > 0 ? 1e12 : 1;
-    const hadronizeAntimatter = Decimal.pow(1000, this.hadronizes).times(hadronizeBump).times(1e11).div(Hadrons.entropyFormulaBoost);
-    return Decimal.clamp(Decimal.pow(new Decimal(Currency.antimatter.value.add(1).log10()).div(hadronizeAntimatter), 2), 0, maxSpeed).div(200);
+    const hadronizeAntimatter = Decimal.pow(1000, this.hadronizes).times(hadronizeBump).times(1e11)
+      .div(Hadrons.entropyFormulaBoost).div(Decimal.log10(player.records.bestEndgame.galaxies.max(1)));
+    return Decimal.clamp(Decimal.pow(new Decimal(Currency.antimatter.value.add(1).log10()).div(
+      hadronizeAntimatter), 2), 0, maxSpeed).div(200);
   },
   get darkMatterMultGain() {
     const extraPow = (ExpansionPack.laitelaPack.isBought && !player.disablePostReality)
