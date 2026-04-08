@@ -104,6 +104,7 @@ export const endgameUpgrades = [
         ? Math.floor(1 + Math.pow(Math.log10(Math.min(Tesseracts.effectiveCount, 1000) * Math.max(Math.log10(Tesseracts.effectiveCount) - 2, 1) + 1), Math.log10(player.endgames + 1)))
         : 1);
       endgames *= Math.pow(1.25, Alpha.currentStage);
+      if (DivinityMilestone.firstDivine.isReached) endgames *= 10;
       const timeStr = Time.bestEndgameRealTime.totalMilliseconds.lte(100) && !Alpha.isDestroyed
         ? `${TimeSpan.fromMilliseconds(new Decimal(1000)).toStringShort()} (capped)`
         : `${TimeSpan.fromMilliseconds(new Decimal(value)).toStringShort()}`;
