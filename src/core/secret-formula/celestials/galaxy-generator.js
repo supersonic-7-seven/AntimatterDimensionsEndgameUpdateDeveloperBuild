@@ -28,7 +28,7 @@ export const pelleGalaxyGeneratorUpgrades = {
     id: "galaxyGeneratorMultiplicative",
     description: "Multiply Galaxy generation",
     cost: x => Decimal.pow(10, x),
-    effect: x => Decimal.pow(2.5 ** DivinityMilestone.firstDivine.isReached ? 2 : 1, x),
+    effect: x => Decimal.pow(2.5 ** (DivinityMilestone.firstDivine.isReached ? 2 : 1), x),
     formatEffect: x => formatX(x, 2, 1),
     currency: () => Currency.galaxyGeneratorGalaxies,
     currencyLabel: "Galaxy"
@@ -37,7 +37,7 @@ export const pelleGalaxyGeneratorUpgrades = {
     id: "galaxyGeneratorAntimatterMult",
     description: "Multiply Galaxy generation",
     cost: x => Decimal.pow("1e100000000", 10 ** x),
-    effect: x => Decimal.pow(2 ** DivinityMilestone.firstDivine.isReached ? 2 : 1, x),
+    effect: x => Decimal.pow(2 ** (DivinityMilestone.firstDivine.isReached ? 2 : 1), x),
     formatEffect: x => formatX(x, 2),
     currency: () => Currency.antimatter,
     currencyLabel: "Antimatter"
@@ -46,7 +46,7 @@ export const pelleGalaxyGeneratorUpgrades = {
     id: "galaxyGeneratorIPMult",
     description: "Multiply Galaxy generation",
     cost: x => Decimal.pow("1e2000000", 100 ** x),
-    effect: x => Decimal.pow(2 ** DivinityMilestone.firstDivine.isReached ? 2 : 1, x),
+    effect: x => Decimal.pow(2 ** (DivinityMilestone.firstDivine.isReached ? 2 : 1), x),
     formatEffect: x => formatX(x, 2),
     currency: () => Currency.infinityPoints,
     currencyLabel: "Infinity Point"
@@ -55,7 +55,7 @@ export const pelleGalaxyGeneratorUpgrades = {
     id: "galaxyGeneratorEPMult",
     description: "Multiply Galaxy generation",
     cost: x => Decimal.pow("1e10000", 1000 ** x),
-    effect: x => Decimal.pow(2 ** DivinityMilestone.firstDivine.isReached ? 2 : 1, x),
+    effect: x => Decimal.pow(2 ** (DivinityMilestone.firstDivine.isReached ? 2 : 1), x),
     formatEffect: x => formatX(x, 2),
     currency: () => Currency.eternityPoints,
     currencyLabel: "Eternity Point"
@@ -64,7 +64,7 @@ export const pelleGalaxyGeneratorUpgrades = {
     id: "galaxyGeneratorRSMult",
     description: "Multiply Galaxy generation",
     cost: x => new Decimal(1e100).times(Decimal.pow(1e10, x)),
-    effect: x => Decimal.pow(2 ** DivinityMilestone.firstDivine.isReached ? 2 : 1, x),
+    effect: x => Decimal.pow(2 ** (DivinityMilestone.firstDivine.isReached ? 2 : 1), x),
     formatEffect: x => formatX(x, 2),
     currency: () => Currency.realityShards,
     currencyLabel: "Reality Shard"
@@ -73,7 +73,7 @@ export const pelleGalaxyGeneratorUpgrades = {
     id: "galaxyGeneratorDTMult",
     description: "Multiply Galaxy generation",
     cost: x => new Decimal(1e100).times(Decimal.pow(1e100, (x*(x+1)/2)+x)),
-    effect: x => Decimal.pow(2 ** DivinityMilestone.firstDivine.isReached ? 2 : 1, x),
+    effect: x => Decimal.pow(2 ** (DivinityMilestone.firstDivine.isReached ? 2 : 1), x),
     formatEffect: x => formatX(x, 2),
     currency: () => Currency.dilatedTime,
     currencyLabel: "Dilated Time"
