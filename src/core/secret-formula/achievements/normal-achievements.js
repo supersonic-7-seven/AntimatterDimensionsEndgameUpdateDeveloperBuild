@@ -1948,9 +1948,9 @@ export const normalAchievements = [
       BreakEternityUpgrade.all.filter(u => u.isBought).length === 5,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
-      return `Raise the Antimatter Exponent to the power of ${format(1.1, 1, 1)}, but only inside Pelle.`;
+      return `Raise the Antimatter Exponent to the power of ${format(1.35, 1, 1)}, but only inside Pelle.`;
     },
-    effect: () => player.disablePostReality || !Pelle.isDoomed ? 1 : 1.1,
+    effect: () => player.disablePostReality || !Pelle.isDoomed ? 1 : 1.35,
     progress: () => Achievement(233).isUnlocked ? DC.D1 : Decimal.clamp(new Decimal(BreakEternityUpgrade.all.filter(u => u.isCapped).length + BreakEternityUpgrade.all.filter(u => u.isBought).length).div(15), 0, 1)
   },
   {

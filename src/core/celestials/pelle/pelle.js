@@ -568,10 +568,12 @@ export const Pelle = {
   },
   
   get endTabNames() {
-    if (Achievement(191).isUnlocked) {
-      return "Destruction Has Come A New Beginning Has Arrived We'll Meet Again".split(" ");
+    if (Alpha.isDestroyed) {
+      return "Why Still Here All Is Destroyed Nothing Remains Except Generator Filament Stars".split(" ");
+    } else if (Achievement(191).isUnlocked) {
+      return "Destruction Has Come A New Beginning Has Arrived Ω We'll Meet Again".split(" ");
     } else {
-      return "It's Not Over We Will Return We'll Ω Soon Meet Again".split(" ");
+      return "It's Not Over We Will Return We'll Ω Ω Soon Meet Again".split(" ");
     }
   },
   

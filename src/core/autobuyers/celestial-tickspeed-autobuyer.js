@@ -56,9 +56,4 @@ export class CelestialTickspeedAutobuyerState extends IntervaledAutobuyerState {
   get resetTickOn() {
     return PRESTIGE_EVENT.ENDGAME;
   }
-
-  reset() {
-    super.reset();
-    this.data.mode = AUTOBUYER_MODE.BUY_SINGLE;
-  }
 }

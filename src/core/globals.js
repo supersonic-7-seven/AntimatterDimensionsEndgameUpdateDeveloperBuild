@@ -23,6 +23,8 @@ export * from "./expansion-packs";
 export * from "./ethereal";
 export * from "./hypercubes";
 
+export * from "./elemental";
+
 export * from "./celestials/quotes";
 export * from "./celestials/teresa";
 export * from "./celestials/effarig";

@@ -100,6 +100,11 @@ class QuoteLine {
   }
 
   get celestialSymbols() {
+    if (Celestials[this.celestials[0][0]] === undefined) {
+      let s = [];
+      s.push(Elemental.symbol);
+      return s;
+    }
     return this.celestials.map(c => Celestials[c[0]].symbol);
   }
 
@@ -108,6 +113,7 @@ class QuoteLine {
   }
 
   get celestialName() {
+    if (Celestials[this._parent.celestial] === undefined) return Elemental.displayName;
     return Celestials[this._parent.celestial].displayName;
   }
 }
@@ -119,11 +125,22 @@ class CelQuotes extends BitUpgradeState {
     this._lines = config.lines.map(line => new QuoteLine(line, this));
   }
 
-  get bits() { return player.celestials[this._celestial].quoteBits; }
-  set bits(value) { player.celestials[this._celestial].quoteBits = value; }
+  get bits() {
+    return player.celestials[this._celestial] ? player.celestials[this._celestial].quoteBits : player.expanse.elemental.quoteBits;
+  }
+  set bits(value) {
+    if (player.celestials[this._celestial]) {
+      player.celestials[this._celestial].quoteBits = value;
+    }
+    else {
+      player.expanse.elemental.quoteBits = value;
+    }
+  }
 
   get isUnlocked() {
-    return player.celestials[this._celestial].quotes.includes(this.id);
+    return player.celestials[this._celestial]
+      ? player.celestials[this._celestial].quotes.includes(this.id)
+      : player.expanse.elemental.quotes.includes(this.id);
   }
 
   get requirement() {
@@ -146,11 +163,18 @@ class CelQuotes extends BitUpgradeState {
   show() { this.unlock(); }
 
   unlock() {
-    if (this.canBeUnlocked) player.celestials[this._celestial].quotes.push(this.id);
+    if (this.canBeUnlocked) {
+      player.celestials[this._celestial]
+        ? player.celestials[this._celestial].quotes.push(this.id)
+        : player.expanse.elemental.quotes.push(this.id);
+      this.onUnlock();
+    }
   }
 
   onUnlock() {
-    player.celestials[this._celestial].quotes.push(this.id);
+    player.celestials[this._celestial]
+      ? player.celestials[this._celestial].quotes.push(this.id)
+      : player.expanse.elemental.quotes.push(this.id);
     this.present();
   }
 

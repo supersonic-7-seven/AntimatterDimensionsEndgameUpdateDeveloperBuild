@@ -1331,6 +1331,11 @@ export function quoteCheck() {
       quote.show();
     }
   }
+  for (const quote of Elemental.quotes.all) {
+    if (quote.requirement) {
+      quote.show();
+    }
+  }
 }
 
 // eslint-disable-next-line no-unused-vars
