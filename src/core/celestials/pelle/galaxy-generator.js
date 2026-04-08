@@ -34,7 +34,8 @@ export const GalaxyGenerator = {
       GalaxyGeneratorUpgrades.antimatterMult,
       GalaxyGeneratorUpgrades.IPMult,
       GalaxyGeneratorUpgrades.EPMult,
-      GalaxyGeneratorUpgrades.RSMult
+      GalaxyGeneratorUpgrades.RSMult,
+      GalaxyGeneratorUpgrades.DTMult
     ).times(extraGain);
   },
 
