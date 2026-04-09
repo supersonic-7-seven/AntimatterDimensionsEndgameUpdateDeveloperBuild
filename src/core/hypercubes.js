@@ -103,7 +103,7 @@ export const Hepteracts = {
   },
 
   costs(index) {
-    return Decimal.pow10(new Decimal(800).times(Decimal.pow(1.02, Decimal.pow(index, 1.5))));
+    return Decimal.pow10(new Decimal(1000).times(Decimal.pow(1.02, Decimal.pow(index, 1.5))));
   },
 
   get nextCost() {
