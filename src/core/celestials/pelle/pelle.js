@@ -89,7 +89,7 @@ export const Pelle = {
     player.IPMultPurchases = DC.D0;
     Autobuyer.bigCrunch.mode = AUTO_CRUNCH_MODE.AMOUNT;
     disChargeAll();
-    clearCelestialRuns();
+    if (!Effarig.isRunning || Effarig.currentStage !== EFFARIG_STAGES.ENDGAME) clearCelestialRuns();
     CelestialDimensions.resetAmount();
     player.records.thisEndgame.peakGameSpeed = DC.D1;
     player.requirementChecks.endgame.noGlyphsDoomed = true;
