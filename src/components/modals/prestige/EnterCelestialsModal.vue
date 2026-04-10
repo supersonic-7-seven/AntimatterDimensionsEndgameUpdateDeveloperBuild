@@ -85,7 +85,7 @@ export default {
       this.teresaRunMult.copyFrom(Teresa.runRewardMultiplier);
       const effarigStage = Effarig.currentStage;
       this.effarigDone = effarigStage === EFFARIG_STAGES.COMPLETED;
-      this.effarigLayer = [null, "Infinity", "Eternity", "Reality"][effarigStage];
+      this.effarigLayer = [null, "Infinity", "Eternity", "Reality", "Endgame"][effarigStage];
       this.enslavedDone = Enslaved.isCompleted;
       this.laitelaFastest = player.celestials.laitela.fastestCompletion;
       this.laitelaTime = TimeSpan.fromSeconds(new Decimal(this.laitelaFastest)).toStringShort();
