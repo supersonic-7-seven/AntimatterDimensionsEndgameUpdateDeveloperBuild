@@ -15,6 +15,30 @@ Math.PI_2 = Math.PI * 2;
  */
 
 /**
+ * @param {Decimal|Number} logD Variable used as the base of lograithmic functions minus 1 (i.e. log1.5(10) logD = 1.5 - 1 = 0.5)
+ * @returns {Decimal}
+*/
+window.decimalInfinitesimalLogarithmSolution = function decimalInfinitesimalLogarithmSolution(logD) {
+  /**
+   * Use this function to determine how many times 1 + logD is multiplied onto itself to get to 10.
+   * We use 1e-9 as the crossoff point here as that is close to the inverse of the 32-bit floating integer limit of 2147483647
+   * and leaves us around 7 OoMs of precision to play with.
+   * If the Decimal cannot be accurately computed within 9 digits of the Decimal value, we revert to the approximation method.
+   * At this point, the remaining margin of error after the given value of 1/x * ln(10) + ln(10)/2 is so small that it can't even
+   * be handled by our JavaScript library, therefore we switch to the provided function.
+   * The function uses no rounding, so round the answer off as you see fit.
+   * We can eventually add an extra variable for how much currency you actually have, but I feel this is good for now.
+   */
+  if (new Decimal(logD).gte(1e-9)) {
+    return Decimal.log(10, new Decimal(logD).add(1));
+  }
+  const goldenLog = Math.log(10);
+  const errorMargin = 0.5 * goldenLog;
+  const inversedInput = DC.D1.div(logD);
+  return inversedInput.times(goldenLog).add(errorMargin);
+};
+
+/**
  * @param {Decimal|Number} a Variable before x^2 in ax^2 + bx + c = 0
  * @param {Decimal|Number} a Variable before x in ax^2 + bx + c = 0
  * @param {Decimal|Number} c Variable after x in ax^2 + bx + c = 0
