@@ -831,7 +831,7 @@ export function preProductionGenerateCIP(diff) {
     const gainedThisTick = new Decimal(genCount).times(gainedPerGen);
     if (Decimal.isFinite(gainedThisTick)) Currency.celestialInfinityPoints.add(gainedThisTick);
   }
-  Currency.celestialInfinityPoints.add(DC.D0);//CelestialBreakInfinityUpgrade smth .ipGen.effectOrDefault(DC.D0).times(diff).div(60000));
+  Currency.celestialInfinityPoints.add(CelestialBreakInfinityUpgrade.cipGen.effectOrDefault(DC.D0).times(diff).div(60000));
 }
 
 export function totalCIPMult() {
