@@ -76,7 +76,7 @@ export const Glyphs = {
     return PelleGlyphs;
   },
   get activeSlotCount() {
-    if (player.disablePostReality) return 0;
+    if (player.disablePostReality && !(Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ENDGAME)) return 0;
     if (Pelle.isDoomed) {
       return this.activeSlotCountInPelle();
     }
