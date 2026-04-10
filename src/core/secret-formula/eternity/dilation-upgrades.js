@@ -62,10 +62,10 @@ export const dilationUpgrades = {
     // The 38th purchase is at 1e80, and is the last purchase.
     effect: bought => (bought < 38 || (BreakEternityUpgrade.tgThresholdUncap.isBought && !player.disablePostReality) ? Math.pow(0.8, bought) : 0),
     formatEffect: effect => {
-      if (effect === 0) return `${formatX(getTachyonGalaxyMult(effect), 4, 4)}`;
+      if (effect === 0) return `${formatX(getTachyonGalaxyMultForDisplay(effect), 4, 4)}`;
       const nextEffect = effect === Math.pow(0.8, 37) && (!BreakEternityUpgrade.tgThresholdUncap.isBought || player.disablePostReality) ? 0 : 0.8 * effect;
-      return `${formatX(getTachyonGalaxyMult(effect), 4, 4)} ➜
-        Next: ${formatX(getTachyonGalaxyMult(nextEffect), 4, 4)}`;
+      return `${formatX(getTachyonGalaxyMultForDisplay(effect), 4, 4)} ➜
+        Next: ${formatX(getTachyonGalaxyMultForDisplay(nextEffect), 4, 4)}`;
     },
     formatCost: value => format(value, 2),
     purchaseCap: () => (BreakEternityUpgrade.tgThresholdUncap.isBought && !player.disablePostReality) ? Number.MAX_VALUE : 38
