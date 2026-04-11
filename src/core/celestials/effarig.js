@@ -17,6 +17,9 @@ export const Effarig = {
   initializeRun() {
     if (this.currentStage === EFFARIG_STAGES.ENDGAME) {
       player.disablePostReality = true;
+      disChargeAllPerkUpgrades();
+      disChargeAll();
+      AutomatorBackend.stop();
       Endgame.resetNoReward();
     }
     clearCelestialRuns();
