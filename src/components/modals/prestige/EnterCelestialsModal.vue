@@ -105,11 +105,6 @@ export default {
         case 7: return Alpha.initializeRun();
         default: throw new Error(`Attempted to start an Unknown Celestial in Celestial Modal Confirmation.`);
       }
-      if (Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ENDGAME) {
-        for (x = 0; x < Glyphs.activeSlotCount; x++) {
-          for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.omniGlyph(type));
-        }
-      }
     },
   },
 };
