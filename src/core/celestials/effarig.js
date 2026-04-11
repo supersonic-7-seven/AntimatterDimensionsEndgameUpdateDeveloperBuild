@@ -21,14 +21,16 @@ export const Effarig = {
       disChargeAll();
       AutomatorBackend.stop();
       Endgame.resetNoReward();
-      for (x = 0; x < Glyphs.activeSlotCount; x++) {
-        for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.omniGlyph(type));
-      }
     }
     clearCelestialRuns();
     player.celestials.effarig.run = true;
     recalculateAllGlyphs();
     Tab.reality.glyphs.show(false);
+    if (this.currentStage === EFFARIG_STAGES.ENDGAME) {
+      for (x = 0; x < Glyphs.activeSlotCount; x++) {
+        for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.omniGlyph(type));
+      }
+    }
   },
   get isRunning() {
     return player.celestials.effarig.run;
