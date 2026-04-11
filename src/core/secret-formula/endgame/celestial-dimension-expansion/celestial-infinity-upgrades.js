@@ -3,7 +3,7 @@ export const celestialInfinityUpgrades = {
     id: 1,
     cost: 1,
     description: () => `Gain a multiplier to Game Speed based on unspent Celestial Infinity Points`,
-    effect: () => Currency.celestialInfinityPoints.value.plus(1).pow(308),
+    effect: () => player.disablePostReality ? DC.D1 : Currency.celestialInfinityPoints.value.plus(1).pow(308),
     formatEffect: value => formatX(value, 2, 1)
   },
   celDimPurchaseBoost: {
