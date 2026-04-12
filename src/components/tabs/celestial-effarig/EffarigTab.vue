@@ -36,7 +36,7 @@ export default {
         EffarigUnlock.glyphFilter,
         EffarigUnlock.setSaves
       ];
-      if (this.hasSecondShop) u.push(EffarigUnlock.maintainRS, EffarigUnlock.glyphGenerationBoost,
+      if (Achievement(227).isUnlocked) u.push(EffarigUnlock.maintainRS, EffarigUnlock.glyphGenerationBoost,
         EffarigUnlock.maxMomentum, EffarigUnlock.maxRarityBoost, EffarigUnlock.extendRun);
       return u;
     },
