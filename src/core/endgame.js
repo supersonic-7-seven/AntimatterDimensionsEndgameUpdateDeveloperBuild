@@ -51,7 +51,7 @@ export const Endgame = {
   },
   resetGetGlyphs() {
     this.resetNoReward();
-    for (x = 0; x < Glyphs.activeSlotCount; x++) {
+    for (slots = 0; slots < Glyphs.activeSlotCount; slots++) {
       for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.omniGlyph(type));
     }
   },
@@ -100,11 +100,9 @@ export const Endgame = {
 
     // Add Glyphs after other Glyphs are purged
     if (EndgameMastery(71).isBought) {
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
+      for (slotNum = 0; slotNum < Glyphs.activeSlotCount; slotNum++) {
+        for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
+      }
     }
     EventHub.dispatch(GAME_EVENT.ENDGAME_RESET_AFTER);
 
@@ -165,11 +163,9 @@ export const Endgame = {
 
     // Add Glyphs after other Glyphs are purged
     if (EndgameMastery(71).isBought) {
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
+      for (slotNo = 0; slotNo < Glyphs.activeSlotCount; slotNo++) {
+        for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
+      }
     }
     if (Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ENDGAME && !EffarigUnlock.endgame.isUnlocked) {
       player.disablePostReality = false;
