@@ -30,18 +30,16 @@ export default {
     };
   },
   computed: {
-    shopUnlocks: () => [
-      EffarigUnlock.adjuster,
-      EffarigUnlock.glyphFilter,
-      EffarigUnlock.setSaves
-    ],
-    secondShopUnlocks: () => [
-      EffarigUnlock.maintainRS,
-      EffarigUnlock.glyphGenerationBoost,
-      EffarigUnlock.maxMomentum,
-      EffarigUnlock.maxRarityBoost,
-      EffarigUnlock.extendRun
-    ],
+    shopUnlocks: () => {
+      let u = [
+        EffarigUnlock.adjuster,
+        EffarigUnlock.glyphFilter,
+        EffarigUnlock.setSaves
+      ];
+      if (this.hasSecondShop) u.push(EffarigUnlock.maintainRS, EffarigUnlock.glyphGenerationBoost,
+        EffarigUnlock.maxMomentum, EffarigUnlock.maxRarityBoost, EffarigUnlock.extendRun);
+      return u;
+    },
     runUnlock: () => EffarigUnlock.run,
     runUnlocks: () => {
       let r = [
@@ -161,12 +159,6 @@ export default {
         <EffarigUnlockButton
           v-if="!runUnlocked"
           :unlock="runUnlock"
-        />
-        <EffarigUnlockButton
-          v-if="hasSecondShop"
-          v-for="(secondUnlock, k) in secondShopUnlocks"
-          :key="k"
-          :unlock="secondUnlock"
         />
         <button
           v-if="vIsFlipped"
