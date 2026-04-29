@@ -12,6 +12,9 @@ import CelestialDimensionsTab from "./celestial-dimensions/CelestialDimensionsTa
 import CelestialInfinityUpgradesTab from "./celestial-dimension-expansion/CelestialInfinityUpgradesTab";
 import CelestialNavigationTab from "./celestial-navigation/CelestialNavigationTab";
 import ChallengeRecordsTab from "./challenge-records/ChallengeRecordsTab";
+import DivineDimensionsTab from "./divine-dimensions/DivineDimensionsTab";
+import DivinityMilestonesTab from "./divinity-milestones/DivinityMilestonesTab";
+import DivinityUpgradesTab from "./divinity-upgrades/DivinityUpgradesTab";
 import DualityUpgradesTab from "./duality-upgrades/DualityUpgradesTab";
 import EffarigTab from "./celestial-effarig/EffarigTab";
 import EndgameTab from "./endgame/EndgameTab";
@@ -47,6 +50,7 @@ import PreviousSpeedrunTab from "./speedrun-milestones/PreviousSpeedrunTab";
 import RaTab from "./celestial-ra/RaTab";
 import RealityUpgradesTab from "./reality-upgrades/RealityUpgradesTab";
 import ReplicantiTab from "./replicanti/ReplicantiTab";
+import ResurgenceUpgradesTab from "./resurgence-upgrades/ResurgenceUpgradesTab";
 import SecretAchievementTab from "./secret-achievements/SecretAchievementTab";
 import ShopTab from "./shop/ShopTab";
 import SpeedrunMilestonesTab from "./speedrun-milestones/SpeedrunMilestonesTab";
@@ -63,6 +67,7 @@ const TabComponents = {
   InfinityDimensionsTab,
   TimeDimensionsTab,
   CelestialDimensionsTab,
+  DivineDimensionsTab,
   OptionsSavingTab,
   OptionsVisualTab,
   OptionsGameplayTab,
@@ -115,6 +120,9 @@ const TabComponents = {
   HypercubesTab,
   CelestialInfinityUpgradesTab,
   CelestialBreakInfinityTab,
+  DivinityMilestonesTab,
+  DivinityUpgradesTab,
+  ResurgenceUpgradesTab,
   ShopTab,
   MultiplierBreakdownTab
 };

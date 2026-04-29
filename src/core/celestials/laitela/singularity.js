@@ -95,7 +95,7 @@ class SingularityMilestoneState extends GameMechanicState {
   }
 
   get canBeApplied() {
-    return this.isUnlocked && (!Pelle.isDisabled("singularity") || PelleDestructionUpgrade.singularityMilestones.isBought) && !player.disablePostReality;
+    return this.isUnlocked && (!Pelle.isDisabled("singularity") || PelleDestructionUpgrade.singularityMilestones.canBeApplied) && !player.disablePostReality;
   }
 }
 
@@ -267,7 +267,7 @@ export const Singularity = {
   },
 
   perform() {
-    if (!this.capIsReached || (Pelle.isDoomed && !PelleDestructionUpgrade.singularityMilestones.isBought)) return;
+    if (!this.capIsReached || (Pelle.isDoomed && !PelleDestructionUpgrade.singularityMilestones.canBeApplied)) return;
 
     EventHub.dispatch(GAME_EVENT.SINGULARITY_RESET_BEFORE);
 

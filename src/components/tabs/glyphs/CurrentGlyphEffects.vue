@@ -53,7 +53,7 @@ export default {
     },
     pelleGlyphText() {
       return Pelle.isDoomed
-        ? (!PelleDestructionUpgrade.glyphRarity.isBought
+        ? (!PelleDestructionUpgrade.glyphRarity.canBeApplied
            ? `Glyph Rarity is set to ${formatPercents(strengthToRarity(Pelle.glyphStrength))} and `
            : "")
           + `Level is capped at ${formatInt(Pelle.glyphMaxLevel)}`

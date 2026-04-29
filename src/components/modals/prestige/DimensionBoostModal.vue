@@ -18,7 +18,7 @@ export default {
     },
     message() {
       const keepDimensions = (Perk.antimatterNoReset.canBeApplied || Achievement(111).canBeApplied ||
-        PelleUpgrade.dimBoostResetsNothing.isBought || PelleAchievementUpgrade.achievement111.isBought)
+        PelleUpgrade.dimBoostResetsNothing.isBought || PelleAchievementUpgrade.achievement111.canBeApplied)
         && (!player.disablePostReality || (Alpha.isRunning && Alpha.currentStage >= 12))
         ? `not actually reset anything due to an upgrade you have which prevents Antimatter and Antimatter Dimensions
           from being reset in this situation. You will still gain the multiplier from the Boost, as usual.`

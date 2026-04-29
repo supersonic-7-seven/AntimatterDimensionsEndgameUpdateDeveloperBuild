@@ -160,7 +160,7 @@ export default {
       this.hasDEMult = !player.disablePostReality && Alpha.currentStage >= 21;
       this.multDE = Decimal.pow(Decimal.log2(Replicanti.amount.add(1)), 10).add(1);
       this.isUncapped = PelleRifts.vacuum.milestones[1].canBeApplied;
-      this.hasRaisedCap = (EffarigUnlock.infinity.isUnlocked && !this.isUncapped) || (Pelle.isDoomed && PelleCelestialUpgrade.replicantiCapIncrease.isBought);
+      this.hasRaisedCap = (EffarigUnlock.infinity.isUnlocked && !this.isUncapped) || (Pelle.isDoomed && PelleCelestialUpgrade.replicantiCapIncrease.canBeApplied);
       this.replicantiCap.copyFrom(replicantiCap());
       if (this.hasRaisedCap) {
         const mult = this.replicantiCap.div(DC.NUMMAX);

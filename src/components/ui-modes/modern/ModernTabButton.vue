@@ -144,6 +144,10 @@ export default {
   background: linear-gradient(var(--color-infinity), var(--color-eternity), var(--color-reality), var(--color-celestials));
 }
 
+.o-tab-btn--divinity::before {
+  background-color: var(--color-pelle--base);
+}
+
 .o-subtab-btn--active {
   border-bottom-width: 0.5rem;
 }

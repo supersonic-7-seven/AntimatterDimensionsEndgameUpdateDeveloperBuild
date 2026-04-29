@@ -35,6 +35,12 @@ window.player = {
       amount: DC.D0,
       cost: [DC.D1, DC.E1, DC.E2, DC.E4, DC.E10, DC.E30, DC.E100, DC.E300][tier],
       baseAmount: DC.D0,
+    })),
+    divine: Array.range(0, 8).map(tier => ({
+      bought: DC.D0,
+      amount: DC.D0,
+      cost: [DC.E1, DC.E3, DC.E6, DC.E10, DC.E15, DC.E21, DC.E28, DC.E36][tier],
+      baseAmount: DC.D0,
     }))
   },
   buyUntil10: true,
@@ -280,7 +286,7 @@ window.player = {
       hasUpperBound: false,
     },
     galaxyGenerator: {
-      all: Array.range(0, 6).map(() => ({
+      all: Array.range(0, 8).map(() => ({
         isActive: false,
         lastTick: 0,
       })),
@@ -537,7 +543,7 @@ window.player = {
     previousRuns: {}
   },
   IPMultPurchases: DC.D0,
-  version: 101,
+  version: 103,
   infinityPower: DC.D1,
   postC4Tier: 0,
   eternityPoints: DC.D0,
@@ -918,7 +924,7 @@ window.player = {
     pelle: {
       doomed: false,
       upgrades: new Set(),
-      remnants: 0,
+      remnants: DC.D0,
       realityShards: DC.D0,
       records: {
         totalAntimatter: DC.D0,
@@ -941,6 +947,8 @@ window.player = {
         galaxyGeneratorIPMult: 0,
         galaxyGeneratorEPMult: 0,
         galaxyGeneratorRSMult: 0,
+        galaxyGeneratorDTMult: 0,
+        galaxyGeneratorRemnantPow: 0,
       },
       rifts: {
         vacuum: {
@@ -986,7 +994,14 @@ window.player = {
         galaxies: false
       },
       showBought: false,
-      divinities: 0
+      divinities: 0,
+      divinity: {
+        divineMatter: DC.E1,
+        divineEnergy: DC.D0,
+        isProducingEnergy: false
+      },
+      divinityUpgrades: new Set(),
+      resurgenceUpgrades: new Set()
     },
     alpha: {
       unlockBits: 0,
@@ -1328,6 +1343,7 @@ window.player = {
       celestialInfinityUpgrades: new Set(),
       cipMultUpgrades: DC.D0,
       partCelestialInfinityPoint: DC.D0,
+      partCelestialInfinitied: 0,
       isBreakUnlocked: false,
       isBroken: false,
       celestialInfinityRebuyables: [0, 0, 0, 0, 0, 0],
@@ -1435,6 +1451,8 @@ window.player = {
       masteries: true,
       breakEternityUpgrades: true,
       endgameUpgrades: true,
+      divinityUpgrades: true,
+      resurgenceUpgrades: true,
     },
     animations: {
       bigCrunch: true,

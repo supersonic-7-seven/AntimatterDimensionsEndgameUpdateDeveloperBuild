@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     isDoomed: () => Pelle.isDoomed,
-    isDestroyed: () => PelleDestructionUpgrade.achievementMultiplier.isBought,
+    isDestroyed: () => PelleDestructionUpgrade.achievementMultiplier.canBeApplied,
     rows: () => Achievements.allRows,
     renderedRows() {
       return this.rows.filter((_, i) => this.renderedRowIndices.includes(i));
@@ -84,8 +84,8 @@ export default {
       this.achMultBreak = BreakInfinityUpgrade.achievementMult.canBeApplied;
       this.achMultToIDS = Achievement(75).isUnlocked;
       this.achMultToTDS = EternityUpgrade.tdMultAchs.isBought;
-      this.achMultToTP = RealityUpgrade(8).isBought && (!Pelle.isDoomed || PelleRealityUpgrade.paradoxicallyAttain.isBought) && !player.disablePostReality;
-      this.achMultToBH = VUnlocks.achievementBH.canBeApplied || PelleCelestialUpgrade.vMilestones3.isBought;
+      this.achMultToTP = RealityUpgrade(8).isBought && (!Pelle.isDoomed || PelleRealityUpgrade.paradoxicallyAttain.canBeApplied) && !player.disablePostReality;
+      this.achMultToBH = VUnlocks.achievementBH.canBeApplied || PelleCelestialUpgrade.vMilestones3.canBeApplied;
       this.achMultToTT = Ra.unlocks.achievementTTMult.canBeApplied;
     },
     startRowRendering() {

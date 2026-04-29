@@ -165,10 +165,10 @@ export const infinityUpgrades = {
     checkRequirement: () => InfinityUpgrade.dimboostMult.isBought,
     description: () => `Passively generate Infinity Points ${formatInt(10)} times slower than your fastest Infinity`,
     // Cutting corners: this is not actual effect, but it is totalIPMult that is displyed on upgrade
-    effect: () => (Teresa.isRunning || V.isRunning || (Pelle.isDoomed && !PelleDestructionUpgrade.x2IPUpgrade.isBought) ? DC.D0 : GameCache.totalIPMult.value),
+    effect: () => (Teresa.isRunning || V.isRunning || (Pelle.isDoomed && !PelleDestructionUpgrade.x2IPUpgrade.canBeApplied) ? DC.D0 : GameCache.totalIPMult.value),
     formatEffect: value => {
       if (Teresa.isRunning || V.isRunning) return "Disabled in this reality";
-      if (Pelle.isDoomed && !PelleDestructionUpgrade.x2IPUpgrade.isBought) return "Disabled";
+      if (Pelle.isDoomed && !PelleDestructionUpgrade.x2IPUpgrade.canBeApplied) return "Disabled";
       if (Alpha.isRunning && player.records.bestInfinity.realTime >= 999999999999) return "Too slow to generate";
       if (player.records.bestInfinity.time.gte(999999999999)) return "Too slow to generate";
       if (Alpha.isRunning) return `${format(value, 2)} every ${TimeSpan.fromMilliseconds(Time.bestInfinityRealTime.totalMilliseconds.times(10)).toStringShort()}`;
@@ -229,7 +229,7 @@ export const infinityUpgrades = {
     cost: () => InfinityUpgrade.ipMult.cost,
     checkRequirement: () => Achievement(41).isUnlocked,
     costCap: () => Alpha.isRunning ? Decimal.pow10(AlphaUnlocks.infinityChallenges.effects.nerf.effectOrDefault(Decimal.log10((BreakEternityUpgrade.doubleIPUncap.isBought && !player.disablePostReality) ? DC.BEMAX : DC.E6E6).sub(1))).times(10) : ((BreakEternityUpgrade.doubleIPUncap.isBought && !player.disablePostReality) ? DC.BEMAX : DC.E6E6),
-    costIncreaseThreshold: () => (EndgameUpgrade(21).isBought && !player.disablePostReality) ? DC.BEMAX : DC.E3E6,
+    costIncreaseThreshold: () => (EndgameUpgrade(21).isBought && !player.disablePostReality) ? Decimal.pow10(1e125) : DC.E3E6,
     description: () => `Multiply Infinity Points from all sources by ${formatX(2)}`,
     // Normally the multiplier caps at e993k or so with 3300000 purchases, but if the cost is capped then we just give
     // an extra e7k to make the multiplier look nice

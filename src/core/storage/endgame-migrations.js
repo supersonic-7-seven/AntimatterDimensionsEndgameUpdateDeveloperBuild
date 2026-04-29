@@ -122,4 +122,11 @@ export function endgameMigration(player) {
   player.records.bestCelestialEternity.realTime = player.records.bestCelestialEternity.realTime === 0
         ? 999999999999
         : player.records.bestCelestialEternity.realTime;
+  player.auto.galaxyGenerator = {
+    all: Array.range(0, 8).map(() => ({
+      isActive: false,
+      lastTick: 0,
+    })),
+    isActive: true,
+  }
 }

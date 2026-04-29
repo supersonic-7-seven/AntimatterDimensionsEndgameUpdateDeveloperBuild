@@ -305,7 +305,7 @@ function getSaveInfo(save) {
     dilatedTime: new Decimal(0),
     bestLevel: 0,
     pelleAM: new Decimal(0),
-    remnants: 0,
+    remnants: new Decimal(0),
     realityShards: new Decimal(0),
     // This is a slight workaround to hide DT/level once Doomed
     pelleLore: 0,
@@ -328,7 +328,7 @@ function getSaveInfo(save) {
   resources.dilatedTime.copyFrom(new Decimal(save.records?.thisReality.maxDT ?? (save.dilation?.dilatedTime ?? 0)));
   resources.bestLevel = save.records?.bestReality.glyphLevel ?? 0;
   resources.pelleAM.copyFrom(new Decimal(save.celestials?.pelle.records.totalAntimatter));
-  resources.remnants = save.celestials?.pelle.remnants ?? 0;
+  resources.remnants.copyFrom(new Decimal(save.celestials?.pelle.remnants));
   resources.realityShards.copyFrom(new Decimal(save.celestials?.pelle.realityShards));
   resources.pelleLore = save.celestials?.pelle.quoteBits ?? 0;
   resources.saveName = save.options?.saveFileName ?? "";

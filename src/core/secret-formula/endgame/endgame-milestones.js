@@ -13,7 +13,7 @@ export const endgameMilestones = {
     reward: () => {
       return "You gain a multiplier to Galaxy strength based on Remnants " +
         (player.disablePostReality ? "(Destroyed)" : (player.endgames >= 2 && Pelle.isDoomed
-         ? `(Currently: +${formatPercents(Math.pow(1 + Math.log10(Currency.remnants.value + 1), 0.5) - 1, 2, 2)})`
+         ? `(Currently: +${formatDecimalPercents(Decimal.pow(Decimal.log10(Currency.remnants.value.add(1)).add(1), 0.5).sub(1), 2, 2)})`
          : (player.endgames < 2 ? "(You have not yet reached this milestone)" : "(Currently has no effect)")));
     }
   },

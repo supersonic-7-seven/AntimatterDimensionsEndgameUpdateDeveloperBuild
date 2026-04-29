@@ -86,7 +86,7 @@ export function buyDilationUpgrade(id, bulk = 1) {
     Currency.dilatedTime.subtract(cost);
     player.dilation.rebuyables[id] += buying;
     if (id === 2) {
-      if (!Perk.bypassTGReset.isBought || (Pelle.isDoomed && !PellePerkUpgrade.perkTGR.isBought) || player.disablePostReality) Currency.dilatedTime.reset();
+      if (!Perk.bypassTGReset.isBought || (Pelle.isDoomed && !PellePerkUpgrade.perkTGR.canBeApplied) || player.disablePostReality) Currency.dilatedTime.reset();
       player.dilation.nextThreshold = DC.E3;
       player.dilation.baseTachyonGalaxies = DC.D0;
       player.dilation.totalTachyonGalaxies = DC.D0;
@@ -94,10 +94,10 @@ export function buyDilationUpgrade(id, bulk = 1) {
 
     if (id === 3 && Pelle.isDoomed && !player.disablePostReality) {
       let PelleRetroTP = 1;
-      if (PellePerkUpgrade.perkTP1.isBought) PelleRetroTP = Effects.max(1, Perk.retroactiveTP1);
-      if (PellePerkUpgrade.perkTP2.isBought) PelleRetroTP = Effects.max(1, Perk.retroactiveTP2);
-      if (PellePerkUpgrade.perkTP3.isBought) PelleRetroTP = Effects.max(1, Perk.retroactiveTP3);
-      if (PellePerkUpgrade.perkTP4.isBought) PelleRetroTP = Effects.max(1, Perk.retroactiveTP4);
+      if (PellePerkUpgrade.perkTP1.canBeApplied) PelleRetroTP = Effects.max(1, Perk.retroactiveTP1);
+      if (PellePerkUpgrade.perkTP2.canBeApplied) PelleRetroTP = Effects.max(1, Perk.retroactiveTP2);
+      if (PellePerkUpgrade.perkTP3.canBeApplied) PelleRetroTP = Effects.max(1, Perk.retroactiveTP3);
+      if (PellePerkUpgrade.perkTP4.canBeApplied) PelleRetroTP = Effects.max(1, Perk.retroactiveTP4);
       Currency.tachyonParticles.multiply(Decimal.pow(PelleRetroTP, buying));
     }
 
@@ -118,31 +118,47 @@ export function buyDilationUpgrade(id, bulk = 1) {
   return true;
 }
 
-export function getTachyonGalaxyMult(thresholdUpgrade) {
+export function getTachyonGalaxyMultForDisplay(thresholdUpgrade) {
   // This specifically needs to be an undefined check because sometimes thresholdUpgrade is zero
   const upgrade = thresholdUpgrade === undefined ? DilationUpgrade.galaxyThreshold.effectValue : thresholdUpgrade;
-  const thresholdMult = (BreakEternityUpgrade.tgThresholdUncap.isBought && !player.disablePostReality) ? 3.65 * upgrade + (0.35 * (upgrade ** 0.001)) : 3.65 * upgrade + 0.35;
+  const thresholdMult = (BreakEternityUpgrade.tgThresholdUncap.isBought && !player.disablePostReality)
+    ? upgrade.times(3.65).add(Decimal.pow(upgrade, 0.001).times(0.35)) : upgrade.times(3.65).add(0.35);
   const glyphEffect = getAdjustedGlyphEffect("dilationgalaxyThreshold");
   const glyphReduction = glyphEffect === 0 ? 1 : glyphEffect;
   const pelleExclusivePower = DilationUpgrade.galaxyThresholdPelle.canBeApplied ? DilationUpgrade.galaxyThresholdPelle.effectValue : 1;
   const extraPower = GalacticPowers.tachyonGalaxies.isUnlocked ? 1 / GalacticPowers.tachyonGalaxies.reward : 1;
   const power = pelleExclusivePower * EndgameUpgrade(22).effectOrDefault(1) * extraPower;
-  return (1 + thresholdMult * glyphReduction) ** power;
+  return Decimal.pow(thresholdMult.times(glyphReduction).add(1), power);
+}
+
+export function getBaseTachyonGalaxyMult() {
+  const thresholdMult = (BreakEternityUpgrade.tgThresholdUncap.isBought && !player.disablePostReality)
+    ? DilationUpgrade.galaxyThreshold.effectValue.times(3.65).add(Decimal.pow(DilationUpgrade.galaxyThreshold.effectValue, 0.001).times(0.35))
+    : DilationUpgrade.galaxyThreshold.effectValue.times(3.65).add(0.35);
+  const glyphEffect = getAdjustedGlyphEffect("dilationgalaxyThreshold");
+  const glyphReduction = glyphEffect === 0 ? 1 : glyphEffect;
+  return thresholdMult.times(glyphReduction);
+}
+
+export function getTachyonGalaxyPowers() {
+  const pelleExclusivePower = DilationUpgrade.galaxyThresholdPelle.canBeApplied ? DilationUpgrade.galaxyThresholdPelle.effectValue : 1;
+  const extraPower = GalacticPowers.tachyonGalaxies.isUnlocked ? 1 / GalacticPowers.tachyonGalaxies.reward : 1;
+  return pelleExclusivePower * EndgameUpgrade(22).effectOrDefault(1) * extraPower;
 }
 
 export function getDilationGainPerSecond() {
   if (Pelle.isDoomed) {
     let pelleExtraDT = new Decimal(1);
-    if (PelleAchievementUpgrade.achievement132.isBought) pelleExtraDT = pelleExtraDT.timesEffectsOf(Achievement(132));
-    if (PelleAchievementUpgrade.achievement137.isBought) pelleExtraDT = pelleExtraDT.timesEffectsOf(Achievement(137));
-    if (PelleRealityUpgrade.temporalAmplifier.isBought) pelleExtraDT = pelleExtraDT.timesEffectOf(RealityUpgrade(1));
-    if (PelleAlchemyUpgrade.alchemyDilation.isBought) pelleExtraDT = pelleExtraDT.timesEffectOf(AlchemyResource.dilation);
-    if (PelleCelestialUpgrade.raV3.isBought) pelleExtraDT = pelleExtraDT.timesEffectOf(Ra.unlocks.continuousTTBoost.effects.dilatedTime);
-    if (PelleCelestialUpgrade.raNameless4.isBought) pelleExtraDT = pelleExtraDT.timesEffectOf(Ra.unlocks.peakGamespeedDT);
-    if (PelleDestructionUpgrade.destroyedGlyphEffects.isBought) pelleExtraDT = pelleExtraDT.times(getAdjustedGlyphEffect("dilationDT"));
-    if (PelleDestructionUpgrade.destroyedGlyphEffects.isBought) pelleExtraDT = pelleExtraDT.times(
+    if (PelleAchievementUpgrade.achievement132.canBeApplied) pelleExtraDT = pelleExtraDT.timesEffectsOf(Achievement(132));
+    if (PelleAchievementUpgrade.achievement137.canBeApplied) pelleExtraDT = pelleExtraDT.timesEffectsOf(Achievement(137));
+    if (PelleRealityUpgrade.temporalAmplifier.canBeApplied) pelleExtraDT = pelleExtraDT.timesEffectOf(RealityUpgrade(1));
+    if (PelleAlchemyUpgrade.alchemyDilation.canBeApplied) pelleExtraDT = pelleExtraDT.timesEffectOf(AlchemyResource.dilation);
+    if (PelleCelestialUpgrade.raV3.canBeApplied) pelleExtraDT = pelleExtraDT.timesEffectOf(Ra.unlocks.continuousTTBoost.effects.dilatedTime);
+    if (PelleCelestialUpgrade.raNameless4.canBeApplied) pelleExtraDT = pelleExtraDT.timesEffectOf(Ra.unlocks.peakGamespeedDT);
+    if (PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied) pelleExtraDT = pelleExtraDT.times(getAdjustedGlyphEffect("dilationDT"));
+    if (PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied) pelleExtraDT = pelleExtraDT.times(
       Decimal.clampMin(Decimal.log10(Replicanti.amount.add(1)).times(getAdjustedGlyphEffect("replicationdtgain")), 1));
-    if (!PelleDestructionUpgrade.disableDTNerf.isBought) pelleExtraDT = pelleExtraDT.div(1e5);
+    if (!PelleDestructionUpgrade.disableDTNerf.canBeApplied) pelleExtraDT = pelleExtraDT.div(1e5);
     if (EndgameMilestone.realityShardDTBoost.isReached && !player.disablePostReality) pelleExtraDT = pelleExtraDT.times(Currency.realityShards.value.plus(1));
     const tachyonEffect = Currency.tachyonParticles.value.pow(PelleRifts.paradox.milestones[1].effectOrDefault(1));
     let dtRate = new Decimal(tachyonEffect)
@@ -183,12 +199,12 @@ export function getDilationGainPerSecond() {
 export function tachyonGainMultiplier() {
   if (Pelle.isDisabled("tpMults")) {
     let pelleTP = new Decimal(1);
-    if (PelleDestructionUpgrade.x3TPUpgrade.isBought) pelleTP = pelleTP.timesEffectOf(DilationUpgrade.tachyonGain);
-    if (PelleRealityUpgrade.scourToEmpower.isBought) pelleTP = pelleTP.timesEffectOf(GlyphSacrifice.dilation);
-    if (PelleAchievementUpgrade.achievement132.isBought) pelleTP = pelleTP.timesEffectOf(Achievement(132));
-    if (PelleRealityUpgrade.superluminalAmplifier.isBought) pelleTP = pelleTP.timesEffectOf(RealityUpgrade(4));
-    if (PelleRealityUpgrade.paradoxicallyAttain.isBought) pelleTP = pelleTP.timesEffectOf(RealityUpgrade(8));
-    if (PelleRealityUpgrade.paradoxicalForever.isBought) pelleTP = pelleTP.timesEffectOf(RealityUpgrade(15));
+    if (PelleDestructionUpgrade.x3TPUpgrade.canBeApplied) pelleTP = pelleTP.timesEffectOf(DilationUpgrade.tachyonGain);
+    if (PelleRealityUpgrade.scourToEmpower.canBeApplied) pelleTP = pelleTP.timesEffectOf(GlyphSacrifice.dilation);
+    if (PelleAchievementUpgrade.achievement132.canBeApplied) pelleTP = pelleTP.timesEffectOf(Achievement(132));
+    if (PelleRealityUpgrade.superluminalAmplifier.canBeApplied) pelleTP = pelleTP.timesEffectOf(RealityUpgrade(4));
+    if (PelleRealityUpgrade.paradoxicallyAttain.canBeApplied) pelleTP = pelleTP.timesEffectOf(RealityUpgrade(8));
+    if (PelleRealityUpgrade.paradoxicalForever.canBeApplied) pelleTP = pelleTP.timesEffectOf(RealityUpgrade(15));
     pelleTP = pelleTP.timesEffectOf(Ra.unlocks.gameSpeedTachyonMult);
     return pelleTP;
   }
@@ -285,6 +301,12 @@ export function dilateMultiplier(value, mag) {
   if (value.lte(0)) return new Decimal(0);
   const log10 = value.log10();
   return Decimal.pow10(new Decimal(Decimal.sign(log10)).times(Decimal.pow(Decimal.abs(log10), mag)));
+}
+
+export function secondOrderDilateMultiplier(value, mag) {
+  if (value.lte(1)) return new Decimal(0);
+  const log10 = value.log10().log10();
+  return Decimal.pow10(Decimal.pow10(new Decimal(Decimal.sign(log10)).times(Decimal.pow(Decimal.abs(log10), mag))));
 }
 
 class DilationUpgradeState extends SetPurchasableMechanicState {

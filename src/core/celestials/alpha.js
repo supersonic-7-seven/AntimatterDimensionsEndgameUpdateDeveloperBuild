@@ -10,6 +10,9 @@ export const Alpha = {
     return ImaginaryUpgrade(30).isBought;
   },
   get isDestroyed() {
+    return this.currentStage >= 28 && !player.disablePostReality;
+  },
+  get isDestroyedForDisplay() {
     return this.currentStage >= 28;
   },
   initializeRun() {

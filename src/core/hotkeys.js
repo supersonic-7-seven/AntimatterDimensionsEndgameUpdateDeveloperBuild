@@ -224,11 +224,11 @@ export const shortcuts = [
     keys: ["shift", "c"],
     type: "bindHotkey",
     function: () => {
-      if (!Alpha.isDestroyed) return;
+      if (!Alpha.isDestroyedForDisplay) return;
       player.options.simpleHotkeysCelestialMode = !player.options.simpleHotkeysCelestialMode;
       GameUI.notify.info(`Simple Hotkey Celestial commands are now ${player.options.simpleHotkeysCelestialMode ? "active" : "inactive"}`);
     },
-    visible: () => Alpha.isDestroyed
+    visible: () => Alpha.isDestroyedForDisplay
   }, {
     name: "Save game",
     keys: ["mod", "s"],

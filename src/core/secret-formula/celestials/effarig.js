@@ -90,5 +90,16 @@ export const effarigUnlocks = {
     id: 11,
     description: "Unlock Effarig’s Endgame",
     cost: new Decimal("1e5000")
-  }
+  },
+  endgame: {
+    id: 12,
+    label: "Endgame",
+    get description() {
+      return ` Every Glyph effect is improved
+        The RM Multiplier Effarig Glyph effect now boosts the RM cap
+        The Glyph Instability Delay Effarig Glyph effect now delays the first ${formatInt(4)} levels of Instability instead of the first ${formatInt(2)}
+        The Effarig Glyph Sacrifice effect is uncapped and values over ${formatPercents(1)} will boost the Glyph Rarity cap
+        Give me more ideas in the Discord`;
+    },
+  },
 };

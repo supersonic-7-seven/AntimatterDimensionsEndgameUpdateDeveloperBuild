@@ -18,7 +18,7 @@ export class PelleDilationUpgradeAutobuyerState extends IntervaledAutobuyerState
   }
 
   get isUnlocked() {
-    return PellePerkUpgrade.perkDAU.isBought;
+    return PellePerkUpgrade.perkDAU.canBeApplied;
   }
 
   get resetTickOn() {

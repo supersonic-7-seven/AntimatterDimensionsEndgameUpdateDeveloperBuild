@@ -30,24 +30,26 @@ export default {
     };
   },
   computed: {
-    shopUnlocks: () => [
-      EffarigUnlock.adjuster,
-      EffarigUnlock.glyphFilter,
-      EffarigUnlock.setSaves
-    ],
-    secondShopUnlocks: () => [
-      EffarigUnlock.maintainRS,
-      EffarigUnlock.glyphGenerationBoost,
-      EffarigUnlock.maxMomentum,
-      EffarigUnlock.maxRarityBoost,
-      EffarigUnlock.extendRun
-    ],
+    shopUnlocks: () => {
+      let u = [
+        EffarigUnlock.adjuster,
+        EffarigUnlock.glyphFilter,
+        EffarigUnlock.setSaves
+      ];
+      if (Achievement(227).isUnlocked) u.push(EffarigUnlock.maintainRS, EffarigUnlock.glyphGenerationBoost,
+        EffarigUnlock.maxMomentum, EffarigUnlock.maxRarityBoost, EffarigUnlock.extendRun);
+      return u;
+    },
     runUnlock: () => EffarigUnlock.run,
-    runUnlocks: () => [
-      EffarigUnlock.infinity,
-      EffarigUnlock.eternity,
-      EffarigUnlock.reality
-    ],
+    runUnlocks: () => {
+      let r = [
+        EffarigUnlock.infinity,
+        EffarigUnlock.eternity,
+        EffarigUnlock.reality,
+      ];
+      if (EffarigUnlock.extendRun.isUnlocked) r.push(EffarigUnlock.endgame);
+      return r;
+    },
     symbol: () => GLYPH_SYMBOLS.effarig,
     runButtonOuterClass() {
       return {
@@ -158,12 +160,6 @@ export default {
           v-if="!runUnlocked"
           :unlock="runUnlock"
         />
-        <EffarigUnlockButton
-          v-if="hasSecondShop"
-          v-for="(unlock, i) in secondShopUnlocks"
-          :key="i"
-          :unlock="unlock"
-        />
         <button
           v-if="vIsFlipped"
           class="c-effarig-shop-button c-effarig-shop-button--available"
@@ -196,9 +192,9 @@ export default {
           {{ runDescription }}
         </div>
         <EffarigRunUnlockReward
-          v-for="(secondUnlock, j) in runUnlocks"
+          v-for="(runRewardUnlock, j) in runUnlocks"
           :key="j"
-          :unlock="secondUnlock"
+          :unlock="runRewardUnlock"
         />
       </div>
     </div>

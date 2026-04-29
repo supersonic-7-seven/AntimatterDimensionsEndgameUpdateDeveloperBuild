@@ -615,7 +615,9 @@ export function finishProcessReality(realityProps) {
   }
 
   let celestialRunState;
-  if (!Alpha.isRunning || Alpha.currentStage !== 27) celestialRunState = clearCelestialRuns();
+  if (!(Alpha.isRunning && Alpha.currentStage === 27 || Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ENDGAME)) {
+    celestialRunState = clearCelestialRuns();
+  }
   recalculateAllGlyphs();
   Glyphs.updateMaxGlyphCount(true);
 
@@ -639,7 +641,7 @@ export function finishProcessReality(realityProps) {
   player.galaxies = DC.D0;
   player.partInfinityPoint = DC.D0;
   player.partInfinitied = 0;
-  if (!Pelle.isDoomed || !PelleRealityUpgrade.existentiallyProlong.isBought) player.break = false;
+  if (!Pelle.isDoomed || !PelleRealityUpgrade.existentiallyProlong.canBeApplied) player.break = false;
   player.IPMultPurchases = DC.D0;
   Currency.infinityPower.reset();
   Currency.timeShards.reset();

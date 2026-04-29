@@ -181,7 +181,7 @@ export function timeDimensionCommonMultiplier() {
       EternityUpgrade.tdMultTheorems,
       EternityUpgrade.tdMultRealTime,
       Replicanti.areUnlocked && Replicanti.amount.gt(1) ? DilationUpgrade.tdMultReplicanti : null,
-      Pelle.isDoomed && !PelleRealityUpgrade.temporalTranscendence.isBought ? null : RealityUpgrade(22),
+      Pelle.isDoomed && !PelleRealityUpgrade.temporalTranscendence.canBeApplied ? null : RealityUpgrade(22),
       AlchemyResource.dimensionality,
       PelleRifts.chaos
     );
@@ -316,6 +316,8 @@ class TimeDimensionState extends DimensionState {
     if (tier === 8 && !player.disablePostReality) {
       mult = mult.pow(AlphaUnlocks.timeDimension8.effects.buff.effectOrDefault(1));
     }
+
+    mult = dilateMultiplier(mult, EtherealStars.purple.reward);
 
     if (mult.gte(TimeDimensions.OVERFLOW)) mult = Decimal.pow(10, Decimal.pow(mult.log10().div(Decimal.log10(TimeDimensions.OVERFLOW)), 1 / TimeDimensions.compressionMagnitude).times(Decimal.log10(TimeDimensions.OVERFLOW)));
 

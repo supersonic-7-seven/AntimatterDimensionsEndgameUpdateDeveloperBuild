@@ -337,7 +337,7 @@ export const EternityChallenges = {
       const hasUpgradeLock = RealityUpgrade(12).isLockingMechanics ||
         (ImaginaryUpgrade(15).isLockingMechanics && shouldPreventEC7 &&
           !Array.range(1, 6).some(ec => !EternityChallenge(ec).isFullyCompleted));
-      if (!player.reality.autoEC || (Pelle.isDisabled("autoec") && (!PellePerkUpgrade.perkPEC1.isBought || player.disablePostReality)) || hasUpgradeLock) {
+      if (!player.reality.autoEC || (Pelle.isDisabled("autoec") && (!PellePerkUpgrade.perkPEC1.canBeApplied || player.disablePostReality)) || hasUpgradeLock) {
         player.reality.lastAutoEC = Math.clampMax(player.reality.lastAutoEC, this.interval);
         return;
       }
@@ -378,7 +378,7 @@ export const EternityChallenges = {
       ));
       minutes = minutes.div(EndgameMastery(22).effectOrDefault(1));
       minutes = minutes.div(VUnlocks.fastAutoEC.effectOrDefault(1));
-      if (Pelle.isDoomed && PelleCelestialUpgrade.vMilestones2.isBought && VUnlocks.fastAutoEC.effectValue.gt(1)) {
+      if (Pelle.isDoomed && PelleCelestialUpgrade.vMilestones2.canBeApplied && VUnlocks.fastAutoEC.effectValue.gt(1)) {
         minutes = minutes.div(VUnlocks.fastAutoEC.effectValue);
       }
       return TimeSpan.fromMinutes(minutes).totalMilliseconds.toNumber();

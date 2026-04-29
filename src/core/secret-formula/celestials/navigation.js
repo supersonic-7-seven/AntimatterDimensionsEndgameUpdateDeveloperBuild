@@ -1910,14 +1910,14 @@ export const celestialNavigation = {
       if (ImaginaryUpgrade(30).isBought) return 1;
       if (ImaginaryUpgrade(30).isAvailableForPurchase) return 0.999;
       const imCost = Decimal.clampMax(Decimal.log10(Currency.imaginaryMachines.value.add(1)).div(Math.log10(Number.MAX_VALUE)), 1).toNumber();
-      const nerfsLeft = (PelleAchievementUpgrade.all.filter(u => u.isBought).length +
-        PelleDestructionUpgrade.all.filter(u => u.isBought).length + PelleRealityUpgrade.all.filter(u => u.isBought).length +
-        PelleImaginaryUpgrade.all.filter(u => u.isBought).length + PelleCelestialUpgrade.all.filter(u => u.isBought).length +
-        PellePerkUpgrade.all.filter(u => u.isBought).length + PelleAchievementUpgrade.all.filter(u => u.isBought).length) /
+      const nerfsLeft = (PelleAchievementUpgrade.all.filter(u => u.canBeApplied).length +
+        PelleDestructionUpgrade.all.filter(u => u.canBeApplied).length + PelleRealityUpgrade.all.filter(u => u.canBeApplied).length +
+        PelleImaginaryUpgrade.all.filter(u => u.canBeApplied).length + PelleCelestialUpgrade.all.filter(u => u.canBeApplied).length +
+        PellePerkUpgrade.all.filter(u => u.canBeApplied).length + PelleAchievementUpgrade.all.filter(u => u.canBeApplied).length) /
         (PelleAchievementUpgrade.all.length + PelleDestructionUpgrade.all.length + PelleRealityUpgrade.all.length +
         PelleImaginaryUpgrade.all.length + PelleCelestialUpgrade.all.length + PellePerkUpgrade.all.length +
         PelleAlchemyUpgrade.all.length);
-      const strikesLeft = PelleStrikeUpgrade.all.filter(u => u.isBought).length / PelleStrikeUpgrade.all.length;
+      const strikesLeft = PelleStrikeUpgrade.all.filter(u => u.canBeApplied).length / PelleStrikeUpgrade.all.length;
       if (MachineHandler.isIMUnlocked) {
         return 0.25 + (0.25 * Math.clampMax(0.249, imCost)) + (0.25 * nerfsLeft) + (0.25 * strikesLeft);
       }
@@ -1952,15 +1952,15 @@ export const celestialNavigation = {
           if (!Achievement(204).isUnlocked && !ImaginaryUpgrade(30).isAvailableForPurchase) {
             const remainingNerfs = (PelleAchievementUpgrade.all.length + PelleDestructionUpgrade.all.length +
               PelleRealityUpgrade.all.length + PelleImaginaryUpgrade.all.length + PelleCelestialUpgrade.all.length +
-              PellePerkUpgrade.all.length + PelleAlchemyUpgrade.all.length) - (PelleAchievementUpgrade.all.filter(u => u.isBought).length +
-              PelleDestructionUpgrade.all.filter(u => u.isBought).length + PelleRealityUpgrade.all.filter(u => u.isBought).length +
-              PelleImaginaryUpgrade.all.filter(u => u.isBought).length + PelleCelestialUpgrade.all.filter(u => u.isBought).length +
-              PellePerkUpgrade.all.filter(u => u.isBought).length + PelleAchievementUpgrade.all.filter(u => u.isBought).length);
+              PellePerkUpgrade.all.length + PelleAlchemyUpgrade.all.length) - (PelleAchievementUpgrade.all.filter(u => u.canBeApplied).length +
+              PelleDestructionUpgrade.all.filter(u => u.canBeApplied).length + PelleRealityUpgrade.all.filter(u => u.canBeApplied).length +
+              PelleImaginaryUpgrade.all.filter(u => u.canBeApplied).length + PelleCelestialUpgrade.all.filter(u => u.canBeApplied).length +
+              PellePerkUpgrade.all.filter(u => u.canBeApplied).length + PelleAchievementUpgrade.all.filter(u => u.canBeApplied).length);
             pelleString = "Pelle's Doomed Reality is still intact";
             progressString = `${formatInt(remainingNerfs)} nerfs remain`;
           } else if (Achievement(204).isUnlocked && !ImaginaryUpgrade(30).isAvailableForPurchase) {
             const hexString = ["starting to break", "breaking apart", "visibly breaking", "almost broken", "on the verge of breaking"];
-            const remainingStrikes = PelleStrikeUpgrade.all.length - PelleStrikeUpgrade.all.filter(u => u.isBought).length;
+            const remainingStrikes = PelleStrikeUpgrade.all.length - PelleStrikeUpgrade.all.filter(u => u.canBeApplied).length;
             pelleString = "Pelle's Doomed Reality is " + hexString[5 - remainingStrikes];
             progressString = `${formatInt(remainingStrikes)} Strikes remain intact`;
           } else if (ImaginaryUpgrade(30).isAvailableForPurchase) {

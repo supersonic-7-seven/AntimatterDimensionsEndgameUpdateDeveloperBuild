@@ -22,7 +22,7 @@ export class TimeDimensionAutobuyerState extends IntervaledAutobuyerState {
   }
 
   get isUnlocked() {
-    return !player.disablePostReality && RealityUpgrade(13).isBought && (!Pelle.isDoomed || PelleUpgrade.TDAutobuyers.canBeApplied || PelleRealityUpgrade.telemechanicalProcess.isBought);
+    return !player.disablePostReality && RealityUpgrade(13).isBought && (!Pelle.isDoomed || PelleUpgrade.TDAutobuyers.canBeApplied || PelleRealityUpgrade.telemechanicalProcess.canBeApplied);
   }
 
   get resetTickOn() {

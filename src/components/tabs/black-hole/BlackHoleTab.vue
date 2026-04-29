@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     update() {
-      this.isDoomed = Pelle.isDoomed && !PelleDestructionUpgrade.blackHole.isBought;
+      this.isDoomed = Pelle.isDoomed && !PelleDestructionUpgrade.blackHole.canBeApplied;
       this.isDisabled = player.disablePostReality;
       this.isUnlocked = BlackHoles.areUnlocked;
       this.isPaused = BlackHoles.arePaused;

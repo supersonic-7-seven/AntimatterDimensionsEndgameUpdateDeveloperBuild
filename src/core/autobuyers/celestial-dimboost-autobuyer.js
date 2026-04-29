@@ -14,7 +14,7 @@ export class CelestialDimBoostAutobuyerState extends IntervaledAutobuyerState {
   }
 
   get interval() {
-    return 1000;
+    return 1000 / CelestialBreakInfinityUpgrade.betterAuto.effectOrDefault(1);
   }
 
   get limitCelDimBoosts() {
@@ -66,7 +66,7 @@ export class CelestialDimBoostAutobuyerState extends IntervaledAutobuyerState {
   }
 
   get isBuyMaxUnlocked() {
-    return false;
+    return CelestialBreakInfinityUpgrade.bulkCelDimBoosts.isBought;
   }
 
   get canTick() {

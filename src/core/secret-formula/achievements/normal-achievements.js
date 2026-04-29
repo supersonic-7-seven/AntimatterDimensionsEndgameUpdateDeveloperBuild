@@ -1047,7 +1047,7 @@ export const normalAchievements = [
     },
     cap: () => Effarig.eternityCap,
     formatEffect: value => `${formatX(value, 2, 2)}`,
-    progress: () => Achievement(125).isUnlocked ? DC.D1 : ((!player.requirementChecks.eternity.noAD1 || Currency.infinities.neq(0)) ? DC.DM1 : Decimal.clamp(Currency.infinityPoints.value.add(1).log10().div(90), 0, 1))
+    progress: () => Achievement(125).isUnlocked ? DC.D1 : ((!player.requirementChecks.eternity.noAD1 || !Currency.infinities.eq(0)) ? DC.DM1 : Decimal.clamp(Currency.infinityPoints.value.add(1).log10().div(90), 0, 1))
   },
   {
     id: 126,
@@ -1644,12 +1644,12 @@ export const normalAchievements = [
     id: 196,
     name: "At Long Last",
     description: "Regain all Achievements in Pelle.",
-    checkRequirement: () => PelleAchievementUpgrade.all.filter(u => u.isBought).length >= 33,
+    checkRequirement: () => PelleAchievementUpgrade.all.filter(u => u.canBeApplied).length >= 33,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
       return `You can equip up to ${formatInt(2)} Effarig and Reality Glyphs each.`;
     },
-    progress: () => Achievement(196).isUnlocked ? DC.D1 : Decimal.clamp(new Decimal(PelleAchievementUpgrade.all.filter(u => u.isBought).length).div(33), 0, 1)
+    progress: () => Achievement(196).isUnlocked ? DC.D1 : Decimal.clamp(new Decimal(PelleAchievementUpgrade.all.filter(u => u.canBeApplied).length).div(33), 0, 1)
   },
   {
     id: 197,
@@ -1695,18 +1695,18 @@ export const normalAchievements = [
     id: 204,
     name: "Hard Reset",
     description: "Disable all Pelle Nerfs.",
-    checkRequirement: () => PelleAchievementUpgrade.all.filter(u => u.isBought).length >= 33 &&
-      PelleDestructionUpgrade.all.filter(u => u.isBought).length >= 50 &&
-      PelleRealityUpgrade.all.filter(u => u.isBought).length >= 20 &&
-      PelleImaginaryUpgrade.all.filter(u => u.isBought).length >= 19 &&
-      PelleCelestialUpgrade.all.filter(u => u.isBought).length >= 21 &&
-      PellePerkUpgrade.all.filter(u => u.isBought).length >= 29 &&
-      PelleAlchemyUpgrade.all.filter(u => u.isBought).length >= 21,
+    checkRequirement: () => PelleAchievementUpgrade.all.filter(u => u.canBeApplied).length >= 33 &&
+      PelleDestructionUpgrade.all.filter(u => u.canBeApplied).length >= 50 &&
+      PelleRealityUpgrade.all.filter(u => u.canBeApplied).length >= 20 &&
+      PelleImaginaryUpgrade.all.filter(u => u.canBeApplied).length >= 19 &&
+      PelleCelestialUpgrade.all.filter(u => u.canBeApplied).length >= 21 &&
+      PellePerkUpgrade.all.filter(u => u.canBeApplied).length >= 29 &&
+      PelleAlchemyUpgrade.all.filter(u => u.canBeApplied).length >= 21,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
       return `Unlock Strike Disabling.`;
     },
-    progress: () => Achievement(204).isUnlocked ? DC.D1 : Decimal.clamp(new Decimal(PelleAchievementUpgrade.all.filter(u => u.isBought).length).div(231).min(1/7).add(new Decimal(PelleDestructionUpgrade.all.filter(u => u.isBought).length).div(350).min(1/7)).add(new Decimal(PelleRealityUpgrade.all.filter(u => u.isBought).length).div(140).min(1/7)).add(new Decimal(PelleImaginaryUpgrade.all.filter(u => u.isBought).length).div(133).min(1/7)).add(new Decimal(PelleCelestialUpgrade.all.filter(u => u.isBought).length).div(147).min(1/7)).add(new Decimal(PellePerkUpgrade.all.filter(u => u.isBought).length).div(203).min(1/7)).add(new Decimal(PelleAlchemyUpgrade.all.filter(u => u.isBought).length).div(147).min(1/7)), 0, 1)
+    progress: () => Achievement(204).isUnlocked ? DC.D1 : Decimal.clamp(new Decimal(PelleAchievementUpgrade.all.filter(u => u.canBeApplied).length).div(231).min(1/7).add(new Decimal(PelleDestructionUpgrade.all.filter(u => u.canBeApplied).length).div(350).min(1/7)).add(new Decimal(PelleRealityUpgrade.all.filter(u => u.canBeApplied).length).div(140).min(1/7)).add(new Decimal(PelleImaginaryUpgrade.all.filter(u => u.canBeApplied).length).div(133).min(1/7)).add(new Decimal(PelleCelestialUpgrade.all.filter(u => u.canBeApplied).length).div(147).min(1/7)).add(new Decimal(PellePerkUpgrade.all.filter(u => u.canBeApplied).length).div(203).min(1/7)).add(new Decimal(PelleAlchemyUpgrade.all.filter(u => u.canBeApplied).length).div(147).min(1/7)), 0, 1)
   },
   {
     id: 205,
@@ -1732,12 +1732,12 @@ export const normalAchievements = [
     id: 207,
     name: "Gone...",
     description: "Destroy Pelle.",
-    checkRequirement: () => PelleStrikeUpgrade.all.filter(u => u.isBought).length >= 5,
+    checkRequirement: () => PelleStrikeUpgrade.all.filter(u => u.canBeApplied).length >= 5,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
       return `Boost Celestial Point Gain.`;
     },
-    progress: () => Achievement(207).isUnlocked ? DC.D1 : Decimal.clamp(new Decimal(PelleStrikeUpgrade.all.filter(u => u.isBought).length).div(5), 0, 1)
+    progress: () => Achievement(207).isUnlocked ? DC.D1 : Decimal.clamp(new Decimal(PelleStrikeUpgrade.all.filter(u => u.canBeApplied).length).div(5), 0, 1)
   },
   {
     id: 208,
@@ -1758,7 +1758,7 @@ export const normalAchievements = [
     get description() { return `Enter Alpha's Reality.` },
     checkRequirement: () => Alpha.isRunning,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    progress: () => Achievement(211).isUnlocked ? DC.D1 : Decimal.clamp(new Decimal(PelleStrikeUpgrade.all.filter(u => u.isBought).length).div(10).min(0.5).add(Currency.imaginaryMachines.value.add(1).log10().div(Decimal.log10(DC.NUMMAX).times(2)).min(0.5)), 0, 1)
+    progress: () => Achievement(211).isUnlocked ? DC.D1 : Decimal.clamp(new Decimal(PelleStrikeUpgrade.all.filter(u => u.canBeApplied).length).div(10).min(0.5).add(Currency.imaginaryMachines.value.add(1).log10().div(Decimal.log10(DC.NUMMAX).times(2)).min(0.5)), 0, 1)
   },
   {
     id: 212,
@@ -1923,7 +1923,7 @@ export const normalAchievements = [
     get reward() {
       return `Dilate Antimatter Dimension Multipliers based on purchased Endgame Skills, which is stronger in Pelle.`;
     },
-    effect: () => player.disablePostReality ? 1 : 1 + (EndgameSkills.totalPurchased() / (Pelle.isDoomed ? 20000 : 100000)),
+    effect: () => player.disablePostReality ? 1 : 1 + ((Math.min(EndgameSkills.totalPurchased(), 2000) + (Math.max(Math.log2(EndgameSkills.totalPurchased() / 2000), 0) * 1000)) / (Pelle.isDoomed ? 20000 : 100000)),
     formatEffect: value => `${formatPow(value, 2, 3)}`,
     progress: () => Achievement(231).isUnlocked ? DC.D1 : Decimal.clamp(new Decimal(EndgameSkills.totalPurchased()).div(1000), 0, 1)
   },
@@ -1948,7 +1948,7 @@ export const normalAchievements = [
       BreakEternityUpgrade.all.filter(u => u.isBought).length === 5,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
-      return `Raise the Antimatter Exponent to the power of ${format(1.35, 1, 1)}, but only inside Pelle.`;
+      return `Raise the Antimatter Exponent to the power of ${format(1.35, 2, 2)}, but only inside Pelle.`;
     },
     effect: () => player.disablePostReality || !Pelle.isDoomed ? 1 : 1.35,
     progress: () => Achievement(233).isUnlocked ? DC.D1 : Decimal.clamp(new Decimal(BreakEternityUpgrade.all.filter(u => u.isCapped).length + BreakEternityUpgrade.all.filter(u => u.isBought).length).div(15), 0, 1)

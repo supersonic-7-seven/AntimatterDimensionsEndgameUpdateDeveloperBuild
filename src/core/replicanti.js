@@ -146,18 +146,18 @@ export function totalReplicantiSpeedMult(overCap) {
   totalMult = totalMult.times(ShopPurchase.replicantiPurchases.currentMult);
   if (Pelle.isDisabled("replicantiIntervalMult")) {
     let pelleRep = DC.D1;
-    if (PelleAchievementUpgrade.achievement81.isBought) pelleRep = pelleRep.times(Effects.product(Achievement(81)));
-    if (PelleDestructionUpgrade.timestudy62.isBought) pelleRep = pelleRep.times(Effects.product(TimeStudy(62)));
-    if (PelleDestructionUpgrade.timestudy213.isBought) pelleRep = pelleRep.times(Effects.product(TimeStudy(213)));
-    if (PelleRealityUpgrade.replicativeAmplifier.isBought) pelleRep = pelleRep.timesEffectOf(RealityUpgrade(2));
-    if (PelleRealityUpgrade.cosmicallyDuplicate.isBought) pelleRep = pelleRep.times(Effects.product(RealityUpgrade(6)));
-    if (PelleRealityUpgrade.replicativeRapidity.isBought) pelleRep = pelleRep.times(Effects.product(RealityUpgrade(23)));
-    if (PelleDestructionUpgrade.timestudy132.isBought) pelleRep = pelleRep.times(3);
-    if (PelleAchievementUpgrade.achievement134.isBought && !overCap) pelleRep = pelleRep.times(2);
-    if (PelleDestructionUpgrade.destroyedGlyphEffects.isBought) pelleRep = pelleRep.times(getAdjustedGlyphEffect("replicationspeed"));
-    if (PelleCelestialUpgrade.raTeresa3.isBought) pelleRep = pelleRep.times(Decimal.clampMin(Decimal.log10(Replicanti.amount.add(1)).times(getSecondaryGlyphEffect("replicationdtgain")), 1));
-    if (PelleCelestialUpgrade.raV3.isBought) pelleRep = pelleRep.timesEffectOf(Ra.unlocks.continuousTTBoost.effects.replicanti);
-    if (PelleAlchemyUpgrade.alchemyReplication.isBought) pelleRep = pelleRep.timesEffectOf(AlchemyResource.replication);
+    if (PelleAchievementUpgrade.achievement81.canBeApplied) pelleRep = pelleRep.times(Effects.product(Achievement(81)));
+    if (PelleDestructionUpgrade.timestudy62.canBeApplied) pelleRep = pelleRep.times(Effects.product(TimeStudy(62)));
+    if (PelleDestructionUpgrade.timestudy213.canBeApplied) pelleRep = pelleRep.times(Effects.product(TimeStudy(213)));
+    if (PelleRealityUpgrade.replicativeAmplifier.canBeApplied) pelleRep = pelleRep.timesEffectOf(RealityUpgrade(2));
+    if (PelleRealityUpgrade.cosmicallyDuplicate.canBeApplied) pelleRep = pelleRep.times(Effects.product(RealityUpgrade(6)));
+    if (PelleRealityUpgrade.replicativeRapidity.canBeApplied) pelleRep = pelleRep.times(Effects.product(RealityUpgrade(23)));
+    if (PelleDestructionUpgrade.timestudy132.canBeApplied) pelleRep = pelleRep.times(3);
+    if (PelleAchievementUpgrade.achievement134.canBeApplied && !overCap) pelleRep = pelleRep.times(2);
+    if (PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied) pelleRep = pelleRep.times(getAdjustedGlyphEffect("replicationspeed"));
+    if (PelleCelestialUpgrade.raTeresa3.canBeApplied) pelleRep = pelleRep.times(Decimal.clampMin(Decimal.log10(Replicanti.amount.add(1)).times(getSecondaryGlyphEffect("replicationdtgain")), 1));
+    if (PelleCelestialUpgrade.raV3.canBeApplied) pelleRep = pelleRep.timesEffectOf(Ra.unlocks.continuousTTBoost.effects.replicanti);
+    if (PelleAlchemyUpgrade.alchemyReplication.canBeApplied) pelleRep = pelleRep.timesEffectOf(AlchemyResource.replication);
     totalMult = totalMult.times(pelleRep);
     return totalMult;
   }
@@ -189,7 +189,7 @@ export function totalReplicantiSpeedMult(overCap) {
 }
 
 export function replicantiCap() {
-  return EffarigUnlock.infinity.canBeApplied || (Pelle.isDoomed && PelleCelestialUpgrade.replicantiCapIncrease.isBought)
+  return EffarigUnlock.infinity.canBeApplied || (Pelle.isDoomed && PelleCelestialUpgrade.replicantiCapIncrease.canBeApplied)
     ? Currency.infinitiesTotal.value
       .pow(TimeStudy(31).isBought ? 120 : 30)
       .clampMin(1)
@@ -618,8 +618,8 @@ export const ReplicantiUpgrade = {
         return decimalCubicSolutionX(a, b, c, d).floor().add(1);
       }
 
-      const numDistant = contingentReplicatedGalaxyStart.sub(distantReplicatedGalaxyStart);
-      const numRemote = contingentReplicatedGalaxyStart.sub(remoteReplicatedGalaxyStart);
+      const numDistant = contingentReplicatedGalaxyStart.sub(distantReplicatedGalaxyStart).max(0);
+      const numRemote = contingentReplicatedGalaxyStart.sub(remoteReplicatedGalaxyStart).max(0);
       const logCostAtContingent = logBase.add(contingentReplicatedGalaxyStart.times(logBaseIncrease)).add(
         (contingentReplicatedGalaxyStart.times(contingentReplicatedGalaxyStart.sub(1)).div(2)).times(logCostScaling)).add(
         logDistantScaling.times(numDistant).times(numDistant.add(extraIncrements.times(2)).sub(1)).div(2)).add(

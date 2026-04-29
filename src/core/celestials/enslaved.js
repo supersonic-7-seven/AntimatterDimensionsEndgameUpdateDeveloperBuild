@@ -58,11 +58,11 @@ export const Enslaved = {
     return new Decimal(1e300);
   },
   get canModifyGameTimeStorage() {
-    return Enslaved.isUnlocked && (!Pelle.isDoomed || PelleDestructionUpgrade.blackHole.isBought) &&
+    return Enslaved.isUnlocked && (!Pelle.isDoomed || PelleDestructionUpgrade.blackHole.canBeApplied) &&
       !BlackHoles.arePaused && !EternityChallenge(12).isRunning && !Enslaved.isRunning && !Laitela.isRunning;
   },
   get canModifyRealTimeStorage() {
-    return Enslaved.isUnlocked && (!Pelle.isDoomed || PelleDestructionUpgrade.blackHole.isBought);
+    return Enslaved.isUnlocked && (!Pelle.isDoomed || PelleDestructionUpgrade.blackHole.canBeApplied);
   },
   get isStoredRealTimeCapped() {
     return player.celestials.enslaved.storedReal < this.storedRealTimeCap;
@@ -84,10 +84,10 @@ export const Enslaved = {
     return 1000 * 3600 * 8 + addedCap;
   },
   get isAutoReleasing() {
-    return player.celestials.enslaved.isAutoReleasing && !BlackHoles.areNegative && (!Pelle.isDisabled("blackhole") || PelleCelestialUpgrade.raNameless3.isBought);
+    return player.celestials.enslaved.isAutoReleasing && !BlackHoles.areNegative && (!Pelle.isDisabled("blackhole") || PelleCelestialUpgrade.raNameless3.canBeApplied);
   },
   storeRealTime() {
-    if (Pelle.isDoomed && !PelleDestructionUpgrade.blackHole.isBought) return;
+    if (Pelle.isDoomed && !PelleDestructionUpgrade.blackHole.canBeApplied) return;
     const thisUpdate = Date.now();
     const diff = Math.max(thisUpdate - player.lastUpdate, 0);
     const efficiency = this.storedRealTimeEfficiency;
@@ -110,7 +110,7 @@ export const Enslaved = {
   },
   canRelease(auto) {
     return !Enslaved.isStoringRealTime && !EternityChallenge(12).isRunning && !Laitela.isRunning &&
-      !(Enslaved.isRunning && auto) && (!Pelle.isDoomed || PelleDestructionUpgrade.blackHole.isBought);
+      !(Enslaved.isRunning && auto) && (!Pelle.isDoomed || PelleDestructionUpgrade.blackHole.canBeApplied);
   },
   // "autoRelease" should only be true when called with the Ra upgrade
   useStoredTime(autoRelease) {
@@ -290,11 +290,11 @@ export const Tesseracts = {
   },
 
   get freeSoftcapStart() {
-    return (50 * EndgameUpgrade(23).effectOrDefault(1)) + Ra.unlocks.freeTesseractIncrease.effectOrDefault(0);
+    return (50 * EndgameUpgrade(23).effectOrDefault(1)) * Ra.unlocks.freeTesseractIncrease.effectOrDefault(1);
   },
 
   get extra() {
-    return Math.max(Math.max((this.rawExtra - this.freeSoftcapStart) * (1 / (1 + ((this.rawExtra - this.freeSoftcapStart) / this.freeSoftcapStart))), 0) + Math.min(this.rawExtra, this.freeSoftcapStart), Alpha.isDestroyed ? (Math.min(this.rawExtra, this.freeSoftcapStart) * (Math.log10(Math.max(this.rawExtra - this.freeSoftcapStart, 0)) + 1)) : 0);
+    return Math.max(Math.max((this.rawExtra - this.freeSoftcapStart) * (1 / (1 + ((this.rawExtra - this.freeSoftcapStart) / this.freeSoftcapStart))), 0) + Math.min(this.rawExtra, this.freeSoftcapStart), Alpha.isDestroyed ? (Math.min(this.rawExtra, this.freeSoftcapStart) * (Math.log10(Math.max(this.rawExtra - this.freeSoftcapStart, 1)) + 1)) : 0);
   },
 
   get totalMult() {

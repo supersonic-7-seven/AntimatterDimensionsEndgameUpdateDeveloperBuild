@@ -553,7 +553,7 @@ export default {
           this.updateDisplayLevel();
           return formatHybridLarge(this.displayLevel === 0 ? this.glyph.level : this.displayLevel, 3);
         case typeEnum.RARITY:
-          return formatRarity(strengthToRarity(Pelle.isDoomed && !PelleDestructionUpgrade.glyphRarity.isBought ? Pelle.glyphStrength : this.glyph.strength));
+          return formatRarity(strengthToRarity(Pelle.isDoomed && !PelleDestructionUpgrade.glyphRarity.canBeApplied ? Pelle.glyphStrength : this.glyph.strength));
         case typeEnum.SAC_VALUE:
           return format(this.sacrificeReward, 2, 2);
         case typeEnum.FILTER_SCORE:

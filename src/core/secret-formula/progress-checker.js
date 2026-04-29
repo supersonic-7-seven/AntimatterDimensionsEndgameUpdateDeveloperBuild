@@ -157,6 +157,6 @@ export const progressStages = [
     name: "Pelle (7th Celestial)",
     hasReached: save => save.celestials?.pelle?.doomed || save.celestials?.pelle?.quotes.length > 0,
     suggestedResource: "Remnants",
-    subProgressValue: save => Math.log10(1 + save.celestials.pelle.remnants) / 9,
+    subProgressValue: save => Decimal.log10(new Decimal(save.celestials.pelle.remnants).add(1)).toNumber() / 9,
   },
 ];

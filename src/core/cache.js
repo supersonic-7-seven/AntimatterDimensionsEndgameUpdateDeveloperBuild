@@ -65,7 +65,7 @@ export const GameCache = {
 
   bestRunCIPPM: new Lazy(() =>
     player.records.recentCelestialInfinities
-      .map(run => ratePerMinute(run[2], run[0]))
+      .map(run => ratePerMinute(run[2], run[1]))
       .reduce(Decimal.maxReducer)
   ),
 
@@ -137,6 +137,8 @@ export const GameCache = {
   timeDimensionCommonMultiplier: new Lazy(() => timeDimensionCommonMultiplier()),
 
   celestialDimensionCommonMultiplier: new Lazy(() => celestialDimensionCommonMultiplier()),
+
+  divineDimensionCommonMultiplier: new Lazy(() => divineDimensionCommonMultiplier()),
 
   glyphInventorySpace: new Lazy(() => Glyphs.freeInventorySpace),
 

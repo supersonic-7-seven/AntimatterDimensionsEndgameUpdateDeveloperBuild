@@ -184,7 +184,7 @@ export class DimBoost {
     if (boostEffects === "") return "Dimension Boosts are currently useless";
     const areDimensionsKept = (Perk.antimatterNoReset.isBought || Achievement(111).canBeApplied) &&
       (!player.disablePostReality || (Alpha.isRunning && Alpha.currentStage >= 12)) &&
-      ((!Pelle.isDoomed || PelleAchievementUpgrade.achievement111.isBought) || PelleUpgrade.dimBoostResetsNothing.isBought);
+      ((!Pelle.isDoomed || PelleAchievementUpgrade.achievement111.canBeApplied) || PelleUpgrade.dimBoostResetsNothing.isBought);
     if (areDimensionsKept) return boostEffects[0].toUpperCase() + boostEffects.substring(1);
     return `Reset your Dimensions to ${boostEffects}`;
   }
@@ -315,7 +315,7 @@ export function softReset(tempBulk, forcedADReset = false, forcedAMReset = false
   }
   skipResetsIfPossible(enteringAntimatterChallenge);
   const canKeepAntimatter = Pelle.isDoomed
-    ? (PelleUpgrade.dimBoostResetsNothing.canBeApplied || PelleAchievementUpgrade.achievement111.isBought)
+    ? (PelleUpgrade.dimBoostResetsNothing.canBeApplied || PelleAchievementUpgrade.achievement111.canBeApplied)
     : (Achievement(111).isUnlocked || Perk.antimatterNoReset.canBeApplied) &&
       (!player.disablePostReality || (Alpha.isRunning && Alpha.currentStage >= 12));
   if (!forcedAMReset && canKeepAntimatter) {

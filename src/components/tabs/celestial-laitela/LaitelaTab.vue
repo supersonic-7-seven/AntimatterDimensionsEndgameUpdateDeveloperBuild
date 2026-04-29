@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     update() {
-      this.isDoomed = (Pelle.isDoomed && !PelleDestructionUpgrade.continuumBuff.isBought);
+      this.isDoomed = (Pelle.isDoomed && !PelleDestructionUpgrade.continuumBuff.canBeApplied);
       this.darkMatter.copyFrom(Currency.darkMatter);
       this.isDMCapped = this.darkMatter.eq(Laitela.darkMatterCap);
       this.maxDarkMatter.copyFrom(Currency.darkMatter.max);
@@ -74,8 +74,8 @@ export default {
       this.showAnnihilation = Laitela.annihilationUnlocked;
       this.endgameUnlocked = PlayerProgress.endgameUnlocked();
       this.darkMatterCap.copyFrom(Laitela.darkMatterCap);
-      this.softcap1.copyFrom(Decimal.pow(10, 10000));
-      this.softcap2.copyFrom(Decimal.pow(10, 100000));
+      this.softcap1.copyFrom(Laitela.darkMatterSoftcap1);
+      this.softcap2.copyFrom(Laitela.darkMatterSoftcap2);
       this.hadronsUnlocked = DualityUpgrade(15).isBought;
       this.isUncapped = Alpha.isDestroyed;
 

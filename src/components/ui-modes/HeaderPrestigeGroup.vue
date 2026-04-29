@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     update() {
-      this.isDestroyed = Alpha.isDestroyed;
+      this.isDestroyed = Alpha.isDestroyedForDisplay;
     },
     classObject() {
       return {

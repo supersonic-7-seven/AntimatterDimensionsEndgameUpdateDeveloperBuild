@@ -41,6 +41,7 @@ export default {
       hasInfinities: false,
       infinityPoints: new Decimal(0),
       isAnyAutobuyerUnlocked: false,
+      timeToCap: new Decimal(0)
     };
   },
   methods: {
@@ -58,7 +59,7 @@ export default {
       this.softcap.copyFrom(CelestialDimensions.SOFTCAP);
       this.unstable = this.celestialMatter.gte(this.softcap);
       this.overflowMag = CelestialDimensions.OVERFLOW_MAG;
-      this.overflow.copyFrom(DC.NUMMAX);
+      this.overflow.copyFrom(CelestialDimensions.OVERFLOW);
       this.isOverflowing = this.celestialMatter.gt(this.overflow);
       this.isEffectActive = player.endgame.celestialMatterMultiplier.isActive;
       this.alphaDecayRemnant = CelestialDimensions.alphaDecayRemnant;
@@ -69,6 +70,7 @@ export default {
       this.hasInfinities = Currency.celestialInfinities.value.gt(0);
       this.infinityPoints.copyFrom(player.endgame.celDimExpansion.celestialInfinityPoints);
       this.isAnyAutobuyerUnlocked = Autobuyer.celestialDimension(1).isUnlocked;
+      this.timeToCap.copyFrom(DC.D5.times(CelestialDimensions.alphaDecaySpeed));
     },
     maxAll() {
       CelestialDimensions.buyMax();
@@ -126,7 +128,7 @@ export default {
           <br>
           You have
           <span :class="instabilityClassObject()">{{ format(celestialMatter, 2, 1) }}</span>
-          <span v-if="unstable">Unstable</span> <span v-if="isOverflowing">Overflowing</span> Celestial Matter,
+          <span v-if="unstable"> Unstable</span> <span v-if="isOverflowing">Overflowing</span> Celestial Matter,
           <br>
           <span>
             increased by
@@ -166,7 +168,7 @@ export default {
       <div v-if="hasRemnant">
         Remnants of Alpha Decay are raising all Celestial Dimensions to the power of
         <span class="c-celestial-dim-description__accent-unstable">{{ format(alphaDecayRemnant, 2, 3) }}</span>,
-        which increases to a cap of {{ formatInt(1) }} over {{ formatInt(5) }} real-time hours this Endgame.
+        which increases to a cap of {{ formatInt(1) }} over {{ format(timeToCap, 2, 2) }} real-time hours this Celestial Infinity.
       </div>
       <div>
         All Celestial Dimensions can be purchased until {{ format(totalDimCap, 2, 2) }} Celestial Points.

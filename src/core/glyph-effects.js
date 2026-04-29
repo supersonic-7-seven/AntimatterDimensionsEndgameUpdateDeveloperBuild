@@ -236,8 +236,8 @@ class FunctionalGlyphType {
     this._isUnlocked = setup.isUnlocked;
     /** @type {number} */
     this.alchemyResource = setup.alchemyResource;
-    /** @type {boolean} */
-    this.hasRarity = setup.hasRarity;
+    /** @type {undefined | function(): boolean} */
+    this._hasRarity = setup.hasRarity;
     if (!GLYPH_TYPES.includes(this.id)) {
       throw new Error(`Id ${this.id} not found in GLYPH_TYPES`);
     }
@@ -246,6 +246,11 @@ class FunctionalGlyphType {
   /** @returns {boolean} */
   get isUnlocked() {
     return this._isUnlocked?.() ?? true;
+  }
+
+  /** @returns {boolean} */
+  get hasRarity() {
+    return this._hasRarity?.() ?? false;
   }
 }
 

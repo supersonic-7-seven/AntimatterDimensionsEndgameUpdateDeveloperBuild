@@ -1,6 +1,11 @@
 <script>
+import StarContainer from "./StarContainer";
+
 export default {
   name: "EtherealTab",
+  components: {
+    StarContainer
+  },
   data() {
     return {
       etherealPower: new Decimal(),
@@ -11,6 +16,7 @@ export default {
       isExtended: false,
       canExtend: false,
       isBetter: false,
+      nextStarReq: 0
     };
   },
   computed: {
@@ -30,6 +36,22 @@ export default {
         "o-ethereal-button--available": true
       };
     },
+    stars() {
+      return Object.values(GameDatabase.endgame.stars)
+        .sort((a, b) => a.dmReq - b.dmReq)
+        .map(config => new EtherealStarState(config));
+    },
+    rows() {
+      return Math.ceil(this.stars.length / 3);
+    },
+    nextStarText() {
+      if (!this.nextStarReq) return `All stars have been unlocked`;
+      return `The next star unlocks at ${format(this.nextStarReq, 2, 2)} Dual Machines`;
+    },
+    etherealPowerTimeEstimate() {
+      return TimeSpan.fromSeconds(Decimal.sub(this.nextSectorAt, this.etherealPower)
+        .div(this.etherealPowerPerSecond)).toTimeEstimate();
+    }
   },
   methods: {
     update() {
@@ -41,9 +63,13 @@ export default {
       this.isExtended = player.endgame.ethereal.isExtended;
       this.canExtend = this.etherealPower.gte(1e25);
       this.isBetter = Alpha.isDestroyed;
+      this.nextStarReq = Ethereal.nextStarDMReq;
     },
     extendEthereal() {
       return player.endgame.ethereal.isExtended = true;
+    },
+    getStar(row, column) {
+      return () => this.stars[(row - 1) * 3 + column - 1];
     }
   }
 };
@@ -78,7 +104,10 @@ export default {
       </div>
       <div>
         <span class="c-normal-ethereal-text">You will ascend into the next Cosmic Sector at </span>
-        <span class="c-really-cool-ethereal-text">{{ formatHybridLarge(nextSectorAt, 3) }}</span>
+        <span
+          class="c-really-cool-ethereal-text"
+          :ach-tooltip="etherealPowerTimeEstimate"
+        >{{ formatHybridLarge(nextSectorAt, 3) }}</span>
         <span class="c-normal-ethereal-text"> Ethereal Power.</span>
       </div>
     </div>
@@ -98,6 +127,27 @@ export default {
           Extend the Ethereal
         </button>
       </div>
+    </div>
+    <div
+      v-if="isExtended"
+      class="l-star-grid"
+    >
+      <div
+        v-for="row in rows"
+        :key="row"
+        class="l-star-grid__row"
+      >
+        <StarContainer
+          v-for="column in 3"
+          :key="row * 3 + column"
+          :get-star="getStar(row, column)"
+          class="l-star-grid__cell"
+        />
+      </div>
+      <br>
+      <span class="c-normal-ethereal-text">
+        {{ nextStarText }}
+      </span>
     </div>
   </div>
 </template>
@@ -129,5 +179,9 @@ export default {
   text-shadow: 0 0 1.5rem #0000ff;
 
   -webkit-text-fill-color: transparent;
+}
+
+.c-really-cool-ethereal-text::before{
+  text-shadow: 0 0 white;
 }
 </style>

@@ -16,6 +16,7 @@ export default {
       exitText: "",
       resetCelestial: false,
       inPelle: false,
+      inEndgame: false,
     };
   },
   computed: {
@@ -26,7 +27,7 @@ export default {
         return {
           name: () => `${name} Reality`,
           isActive: token => token,
-          activityToken: () => celestial.isRunning,
+          activityToken: () => celestial.isRunning && (!Effarig.isRunning || Effarig.currentStage !== EFFARIG_STAGES.ENDGAME),
           tabName: () => tab,
         };
       }
@@ -37,7 +38,18 @@ export default {
         celestialReality(V, "V's", "v"),
         celestialReality(Ra, "Ra's", "ra"),
         celestialReality(Laitela, "Lai'tela's", "laitela"),
+        {
+          name: () => "a Doomed Reality",
+          isActive: token => token,
+          activityToken: () => Pelle.isDoomed
+        },
         celestialReality(Alpha, "Alpha's", "alpha"),
+        {
+          name: () => "Effarig's Endgame",
+          isActive: token => token,
+          activityToken: () => Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ENDGAME,
+          tabName: () => "effarig",
+        },
         {
           name: () => "Time Dilation",
           isActive: token => token,
@@ -91,10 +103,9 @@ export default {
       return this.activeChallengeNames.some(str => str.match(/Eternity Challenge (4|12)/gu));
     },
     challengeDisplay() {
-      if (this.inPelle && this.activeChallengeNames.length > 0) {
-        return `${this.activeChallengeNames.join(" + ")} in a Doomed Reality. Good luck.`;
+      if (this.inPelle) {
+        return `${this.activeChallengeNames.join(" + ")}. Good luck.`;
       }
-      if (this.inPelle) return "a Doomed Reality. Good luck.";
       if (this.activeChallengeNames.length === 0) {
         return "the Antimatter Universe (no active challenges)";
       }
@@ -112,6 +123,7 @@ export default {
       this.exitText = this.exitDisplay();
       this.resetCelestial = player.options.retryCelestial;
       this.inPelle = Pelle.isDoomed;
+      this.inEndgame = Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ENDGAME;
     },
     // Process exit requests from the inside out; Challenges first, then dilation, then Celestial Reality. If the
     // relevant option is toggled, we pass a bunch of information over to a modal - otherwise we immediately exit
@@ -138,8 +150,10 @@ export default {
           if (player.options.retryChallenge) oldChall.requestStart();
         };
       } else {
-        names = { chall: this.activeChallengeNames[0], normal: "Reality" };
-        clickFn = () => Alpha.isRunning ? Alpha.escapeTheMatrix() : beginProcessReality(getRealityProps(true));
+        names = { chall: this.activeChallengeNames[0], normal: this.inEndgame ? "Endgame" : "Reality" };
+        clickFn = () => Alpha.isRunning ? Alpha.escapeTheMatrix() :
+          ((Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ENDGAME) ? Endgame.resetNoReward() :
+          beginProcessReality(getRealityProps(true)));
       }
 
       if (player.options.confirmations.exitChallenge) {
@@ -180,6 +194,8 @@ export default {
     exitDisplay() {
       if (Player.isInAnyChallenge) return player.options.retryChallenge ? "Retry Challenge" : "Exit Challenge";
       if (player.dilation.active) return "Exit Dilation";
+      if (this.resetCelestial && this.inEndgame) return "Restart Endgame";
+      if (this.inEndgame) return "Exit Endgame";
       if (this.resetCelestial) return "Restart Reality";
       return "Exit Reality";
     },

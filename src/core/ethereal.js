@@ -21,6 +21,18 @@ export const Ethereal = {
   },
   get nextStarDMReq() {
     return this.nextStar?.dmReq;
+  },
+  get starBoost() {
+    return EtherealStars.gray.reward;
+  },
+  get stellarProduct() {
+    let prod = [];
+    for (let star = 0; star < 9; star++) {
+      if (EtherealStars.all.find(s => s.id === star).isUnlocked) {
+        prod.push(player.endgame.ethereal.stars[EtherealStars.all.find(s => s.id === star).config.name]);
+      }
+    }
+    return prod.reduce(Decimal.prodReducer, DC.D1);
   }
 };
 
@@ -35,6 +47,10 @@ export class EtherealStarState {
 
   get reward() {
     return this.config.effect();
+  }
+
+  rewardForDisplay(amount) {
+    return this.config.effect(amount);
   }
 
   get dmReq() {
@@ -61,7 +77,8 @@ export function getEtherealPowerGainPerSecond() {
   const rmFactor = Decimal.pow(Decimal.log10(Decimal.log10(player.reality.realityMachines.add(1)).add(1)).div(5), 75);
   const gpFactor = Decimal.pow(Decimal.log10(Decimal.max(player.endgame.galacticPower, DC.NUMMAX)).div(308.25), 5);
   const alphaBoost = player.disablePostReality ? DC.D1 : Decimal.pow(1.25, Alpha.currentStage);
-  return cpFactor.times(singFactor).times(rmFactor).times(gpFactor).div(1000).times(Achievement(216).effectOrDefault(1)).times(alphaBoost);
+  return cpFactor.times(singFactor).times(rmFactor).times(gpFactor).div(1000).times(
+    Achievement(216).effectOrDefault(1)).times(alphaBoost).times(EtherealStars.blue.reward).times(DivineDimensions.conversionFormula1);
 }
 
 export function tryAdvanceSector() {
@@ -73,9 +90,9 @@ export function resetForStar(id) {
   const gainedStarType = EtherealStars.all.find(x => x.id === id);
   const starName = gainedStarType.config.name;
   const resetReq = gainedStarType.config.resetReq;
-  if (Currency.etherealPower.lt(resetReq)) return;
+  if (Currency.etherealPower.lt(resetReq) || !gainedStarType.isUnlocked) return;
   const resetFormula = Decimal.pow(Currency.etherealPower.value.div(resetReq), 0.5 - id / 20);
   player.endgame.ethereal.power = DC.D0;
   player.endgame.ethereal.sector = 1;
-  player.endgame.ethereal.star[starName] = player.endgame.ethereal.star[starName].add(resetFormula);
+  player.endgame.ethereal.stars[starName] = player.endgame.ethereal.stars[starName].add(resetFormula);
 }

@@ -180,7 +180,7 @@ export class Galaxy {
 function galaxyReset() {
   EventHub.dispatch(GAME_EVENT.GALAXY_RESET_BEFORE);
   player.galaxies = player.galaxies.add(1);
-  if ((!Achievement(143).isUnlocked || ((Pelle.isDoomed && !PelleAchievementUpgrade.achievement143.isBought) &&
+  if ((!Achievement(143).isUnlocked || ((Pelle.isDoomed && !PelleAchievementUpgrade.achievement143.canBeApplied) &&
     !PelleUpgrade.galaxyNoResetDimboost.canBeApplied)) || (player.disablePostReality && !(Alpha.isRunning && Alpha.currentStage >= 20))) {
     player.dimensionBoosts = new Decimal(0);
   }

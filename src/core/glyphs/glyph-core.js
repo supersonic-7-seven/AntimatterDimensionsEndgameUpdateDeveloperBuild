@@ -76,7 +76,7 @@ export const Glyphs = {
     return PelleGlyphs;
   },
   get activeSlotCount() {
-    if (player.disablePostReality) return 0;
+    if (player.disablePostReality && !(Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ENDGAME)) return 0;
     if (Pelle.isDoomed) {
       return this.activeSlotCountInPelle();
     }
@@ -276,7 +276,7 @@ export const Glyphs = {
   },
   equip(glyph, targetSlot) {
     const forbiddenByPelle = Pelle.isDisabled("glyphs") || Pelle.isGlyphTypeDisabled(glyph.type);
-    if (Pelle.isDoomed && !PelleDestructionUpgrade.specialGlyphEffects.isBought && forbiddenByPelle) return;
+    if (Pelle.isDoomed && !PelleDestructionUpgrade.specialGlyphEffects.canBeApplied && forbiddenByPelle) return;
     if (GameEnd.creditsEverClosed) return;
 
     if (glyph.type !== "companion") {
@@ -673,10 +673,12 @@ export const Glyphs = {
     return 3000 + this.instabilityThreshold;
   },
   get extremeInstabilityThreshold() {
-    return 75000 + Ra.unlocks.instabilityDelay.effectOrDefault(0) + DualityUpgrade(7).effectOrDefault(0);
+    return 75000 + Ra.unlocks.instabilityDelay.effectOrDefault(0) + DualityUpgrade(7).effectOrDefault(0) +
+      (EffarigUnlock.endgame.canBeApplied ? getAdjustedGlyphEffect("effarigglyph") : 0);
   },
   get immenseInstabilityThreshold() {
-    return 200000 + DualityUpgrade(7).effectOrDefault(0);
+    return 200000 + DualityUpgrade(7).effectOrDefault(0) +
+      (EffarigUnlock.endgame.canBeApplied ? getAdjustedGlyphEffect("effarigglyph") : 0);
   },
   get extensiveInstabilityThreshold() {
     return 1000000;
@@ -858,7 +860,8 @@ export function calculateGlyph(glyph) {
 
     // Used to randomly generate strength in this case; I don't think we actually care.
     if (glyph.strength === 1) glyph.strength = 1.5;
-    glyph.strength = Math.min(rarityToStrength(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease), glyph.strength);
+    glyph.strength = Math.min(rarityToStrength(Math.min(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease +
+      GlyphSacrifice.effarig.effectValue.sub(100).max(0).toNumber(), 300)), glyph.strength);
   }
 }
 

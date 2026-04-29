@@ -5,6 +5,7 @@ export const MachineHandler = {
     let effectMultipliers = DC.D1;
     if (ExpansionPack.teresaPack.isBought && !player.disablePostReality) effectMultipliers = effectMultipliers.timesEffectsOf(PerkShopUpgrade.rmMult);
     if (ExpansionPack.teresaPack.isBought && !player.disablePostReality && !Alpha.isDestroyed) effectMultipliers = effectMultipliers.times(Teresa.rmMultiplier);
+    if (EffarigUnlock.endgame.canBeApplied) effectMultipliers = effectMultipliers.times(getAdjustedGlyphEffect("effarigrm"));
     const smallBoost = DC.D1.timesEffectsOf(EndgameMastery(153));
     const largeBoost = DC.D1.timesEffectsOf(SingularityMilestone.rmCap, Ra.unlocks.realityMachineCap);
     return Decimal.pow(this.baseRMCap.times(effectMultipliers).times(
@@ -56,7 +57,7 @@ export const MachineHandler = {
       Decimal.pow(Decimal.clampMin(new Decimal(this.uncappedRM.add(1).log10()).div(1000000000), 1),
       new Decimal(Decimal.log10(this.uncappedRM.add(1).log10())).div(7.5)))).pow(
       new Decimal(Effects.product(EndgameMastery(144), Ra.unlocks.imaginaryMachines, Ra.unlocks.imaginaryMachineEternityPower)).times(
-      Decimal.max(Decimal.log10(this.uncappedRM.add(1).log10()).sub(45), 0).div(10).add(1))), this.hardcapIM);
+      Decimal.max(Decimal.log10(this.uncappedRM.add(1).log10()).sub(45), 0).div(10).add(1)).times(EtherealStars.green.reward)), this.hardcapIM);
   },
 
   get baseIMHardcap() {
@@ -64,11 +65,11 @@ export const MachineHandler = {
   },
 
   get baseHardcapIM() {
-    return this.baseIMHardcap.times(DualityUpgrade(6).effectOrDefault(1));
+    return this.baseIMHardcap.times(DualityUpgrade(6).effectOrDefault(1)).pow(EtherealStars.green.reward);
   },
 
   get hardcapIM() {
-    return this.baseHardcapIM.pow(this.uncappedIM.div(this.baseHardcapIM).add(1).log10().add(1).log10().add(1).log10().add(1));
+    return Alpha.isDestroyed ? this.baseHardcapIM.pow(this.uncappedIM.div(this.baseHardcapIM).add(1).log10().add(1).log10().add(1).log10().add(1)) : this.baseHardcapIM;
   },
 
   get uncappedIM() {
@@ -79,7 +80,7 @@ export const MachineHandler = {
         Decimal.pow(Decimal.clampMin(new Decimal(this.uncappedRM.add(1).log10()).div(1000000000), 1),
         new Decimal(Decimal.log10(this.uncappedRM.add(1).log10())).div(7.5)))).pow(
         new Decimal(Effects.product(EndgameMastery(144), Ra.unlocks.imaginaryMachines, Ra.unlocks.imaginaryMachineEternityPower)).times(
-        Decimal.max(Decimal.log10(this.uncappedRM.add(1).log10()).sub(45), 0).div(10).add(1)));
+        Decimal.max(Decimal.log10(this.uncappedRM.add(1).log10()).sub(45), 0).div(10).add(1)).times(EtherealStars.green.reward));
   },
 
   get currentIMCap() {
@@ -133,7 +134,8 @@ export const MachineHandler = {
       Decimal.clampMin(Decimal.log10(Decimal.log10(Decimal.log10(this.uncappedRM.add(1)).add(1)).add(1)).sub(
       1.75).times(12).min(0.6).add(1), 1).add(Decimal.clampMin(Decimal.log10(Decimal.log10(Decimal.log10(
       this.uncappedRM.add(1)).add(1)).add(1)).sub(1.8).times(4).min(0.6), 0)).add(Decimal.clampMin(
-      Decimal.log10(Decimal.log10(Decimal.log10(this.uncappedRM.add(1)).add(1)).add(1)).sub(1.95).times(2), 0))));
+      Decimal.log10(Decimal.log10(Decimal.log10(this.uncappedRM.add(1)).add(1)).add(1)).sub(1.95).times(2), 0))).times(
+      DivinityMilestone.firstDivine.isReached && !player.disablePostReality ? 1.1 : 1));
   },
 
   get currentDMCap() {

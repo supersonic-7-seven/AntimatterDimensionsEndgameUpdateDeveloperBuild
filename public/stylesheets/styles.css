@@ -1013,6 +1013,16 @@ button:focus {
   background: linear-gradient(var(--color-infinity), var(--color-eternity), var(--color-reality), var(--color-celestials));
 }
 
+.o-tab-btn--divinity {
+  color: var(--color-pelle--base);
+  background-color: var(--color-prestige--accent);
+  border-color: var(--color-pelle--base);
+}
+
+.o-tab-btn--divinity:hover {
+  background: var(--color-pelle--base);
+}
+
 /* #endregion tab buttons */
 
 #loading {
@@ -2638,6 +2648,28 @@ br {
   text-shadow: none;
 }
 
+.l-hint-text--divinity-upgrade {
+  top: -1.7rem;
+  font-size: 1.25rem;
+}
+
+.c-hint-text--divinity-upgrade {
+  font-weight: bold;
+  color: var(--color-text);
+  text-shadow: none;
+}
+
+.l-hint-text--resurgence-upgrade {
+  top: -1.7rem;
+  font-size: 1.25rem;
+}
+
+.c-hint-text--resurgence-upgrade {
+  font-weight: bold;
+  color: var(--color-text);
+  text-shadow: none;
+}
+
 .l-hint-text--achievement {
   top: -2rem;
   z-index: 1;
@@ -3327,6 +3359,51 @@ br {
 /* #endregion c-celestial-dim-description__accent-unstable */
 
 /* #endregion Celestial Dimensions */
+
+/* #region Divine Dimensions */
+
+/* #region l-divine-dim-tab */
+
+.l-divine-dim-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-text);
+}
+
+/* #endregion l-divine-dim-tab */
+
+/* #region c-divine-dim-description__accent */
+
+.c-divine-dim-description__accent {
+  font-size: 3.5rem;
+  color: black;
+}
+
+.t-metro .c-divine-dim-description__accent,
+.t-s8 .c-divine-dim-description__accent {
+  text-shadow: 0 0 0.1rem rgba(0, 0, 0, 50%), -0.1rem 0.1rem 0.1rem black;
+}
+
+.t-dark .c-divine-dim-description__accent,
+.t-amoled .c-divine-dim-description__accent,
+.t-amoled-metro .c-divine-dim-description__accent,
+.t-s6 .c-divine-dim-description__accent,
+.t-s10 .c-divine-dim-description__accent,
+.t-s11 .c-divine-dim-description__accent {
+  color: var(--color-pelle--base);
+  text-shadow: 0 0 0.7rem var(--color-pelle--base);
+}
+
+.t-metro .c-divine-dim-description__accent,
+.t-dark-metro .c-divine-dim-description__accent,
+.t-s8 .c-divine-dim-description__accent {
+  color: var(--color-pelle--base);
+}
+
+/* #endregion c-divine-dim-description__accent */
+
+/* #endregion Divine Dimensions */
 
 /* #region Options */
 
@@ -6139,6 +6216,89 @@ properly on certain themes. */
 
 /* #endregion Endgame Milestones */
 
+/* #region Stars */
+
+.l-star-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.l-star-grid__row {
+  display: flex;
+  flex-direction: row;
+}
+
+.l-star-grid__cell {
+  margin: 0.5rem 0.8rem;
+}
+
+.l-star-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.o-star__container {
+  width: 36rem;
+  height: 12rem;
+  font-family: Typewriter, serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: black;
+  background-color: #000040;
+  border: 0.1rem solid white;
+  border-radius: var(--var-border-radius, 0.4rem);
+  transition-duration: 0.2s;
+}
+
+.o-star__container--red {
+  color: red;
+  border: 0.1rem solid red;
+}
+
+.o-star__container--orange {
+  color: orange;
+  border: 0.1rem solid orange;
+}
+
+.o-star__container--yellow {
+  color: yellow;
+  border: 0.1rem solid yellow;
+}
+
+.o-star__container--green {
+  color: green;
+  border: 0.1rem solid green;
+}
+
+.o-star__container--blue {
+  color: blue;
+  border: 0.1rem solid blue;
+}
+
+.o-star__container--purple {
+  color: purple;
+  border: 0.1rem solid purple;
+}
+
+.o-star__container--white {
+  color: white;
+  border: 0.1rem solid white;
+}
+
+.o-star__container--black {
+  color: black;
+  border: 0.1rem solid black;
+  text-shadow: 0 0 0.5rem white;
+}
+
+.o-star__container--gray {
+  color: gray;
+  border: 0.1rem solid gray;
+}
+
+/* #endregion Stars */
+
 /* #region Break Celestial Infinity */
 
 /* #region l-break-celestial-infinity-tab */
@@ -6448,6 +6608,74 @@ properly on certain themes. */
 }
 
 /* #endregion Break Celestial Infinity Upgrades */
+
+/* #region Divinity Milestones */
+
+.l-divinity-milestone-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.l-divinity-milestone-grid__row {
+  display: flex;
+  flex-direction: row;
+}
+
+.l-divinity-milestone-grid__cell {
+  margin: 0.5rem 0.8rem;
+}
+
+.o-divinity-milestone__goal {
+  color: var(--color-pelle--base);
+  text-align: left;
+  font-size: 2rem;
+}
+
+.o-divinity-milestone__reward {
+  width: 98rem;
+  padding: 2rem;
+  font-family: Typewriter, serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: black;
+  text-shadow: 0 0 0.5rem var(--color-pelle--base);
+  border: 0.1rem solid var(--color-pelle--base);
+  border-radius: var(--var-border-radius, 0.4rem);
+  transition-duration: 0.2s;
+}
+
+.o-divinity-milestone__reward--locked {
+  background-color: dimgrey;
+}
+
+.o-divinity-milestone__reward--reached {
+  background: linear-gradient(black, var(--color-pelle--base), black);
+  border-color: black;
+}
+
+.s-base--metro .o-divinity-milestone__reward--locked,
+.t-s1 .o-divinity-milestone__reward--locked {
+  background-color: #9e9e9e;
+  border: none;
+  box-shadow: 0.1rem 0.1rem 0.1rem 0 black;
+}
+
+.t-dark .o-divinity-milestone__reward--locked,
+.t-s6 .o-divinity-milestone__reward--locked,
+.t-s10 .o-divinity-milestone__reward--locked {
+  color: var(--color-pelle--base);
+  background-color: black;
+  border-color: var(--color-pelle--base);
+  animation: a-time-study 7s infinite;
+}
+
+.l-divinity-milestone {
+  display: flex;
+  flex-direction: column;
+}
+
+/* #endregion Divinity Milestones */
 
 /* #region Modals */
 
@@ -10565,6 +10793,209 @@ kbd {
 .t-s10.c-endgame-upgrade-btn--bought:hover {
   color: #5151ec;
   background-color: var(--color-endgame);
+}
+
+.l-divinity-upgrade-grid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin-top: 1.2rem;
+}
+
+.l-divinity-upgrade-grid__row {
+  display: flex;
+  flex-direction: row;
+}
+
+.l-divinity-upgrade-btn {
+  display: flex;
+  flex-direction: column;
+  width: 20.5rem;
+  height: 10rem;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin: 1.2rem;
+  padding: 0 0.5rem;
+}
+
+.c-divinity-upgrade-btn {
+  text-align: center;
+  font-family: Typewriter, serif;
+  font-size: 1rem;
+  color: var(--color-pelle--base);
+  background-color: black;
+  border: var(--var-border-width, 0.2rem) solid var(--color-pelle--base);
+  border-radius: var(--var-border-radius, 0.5rem);
+  transition-duration: 0.15s;
+  cursor: pointer;
+}
+
+.c-divinity-upgrade-btn__requirement {
+  font-weight: bold;
+}
+
+.c-divinity-upgrade-btn:hover {
+  color: black;
+  background-color: var(--color-pelle--base);
+}
+
+.c-divinity-upgrade-btn--unavailable {
+  color: var(--color-pelle--base);
+  background-color: #404040;
+  cursor: default;
+}
+
+.c-divinity-upgrade-btn--unavailable:hover {
+  color: var(--color-pelle--base);
+  background-color: #404040;
+}
+
+.c-divinity-upgrade-btn--bought {
+  color: var(--color-pelle--secondary);
+  background-color: var(--color-pelle--base);
+  border-color: #600000;
+  cursor: default;
+}
+
+.c-divinity-upgrade-btn--bought:hover {
+  color: var(--color-pelle--secondary);
+  background-color: var(--color-pelle--base);
+}
+
+.t-dark .c-divinity-upgrade-btn--unavailable {
+  color: var(--color-pelle--base);
+  background-color: #37474f;
+}
+
+.t-s6.c-divinity-upgrade-btn:hover,
+.t-s10.c-divinity-upgrade-btn:hover {
+  background-color: var(--color-pelle--base);
+}
+
+.t-s6.c-divinity-upgrade-btn--unavailable:hover,
+.t-s10.c-divinity-upgrade-btn--unavailable:hover {
+  color: var(--color-pelle--base);
+  background-color: #656565;
+}
+
+.t-s6.c-divinity-upgrade-btn--bought,
+.t-s10.c-divinity-upgrade-btn--bought {
+  color: var(--color-pelle--secondary);
+  background-color: var(--color-pelle--base);
+  border-color: #600000;
+}
+
+.t-s6.c-divinity-upgrade-btn--bought:hover,
+.t-s10.c-divinity-upgrade-btn--bought:hover {
+  color: var(--color-pelle--secondary);
+  background-color: var(--color-pelle--base);
+}
+
+.l-resurgence-upgrade-grid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  margin-top: 1.2rem;
+}
+
+.l-resurgence-upgrade-grid__row {
+  display: flex;
+  flex-direction: row;
+}
+
+.l-resurgence-upgrade-btn {
+  display: flex;
+  flex-direction: column;
+  width: 20.5rem;
+  height: 10rem;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin: 1.2rem;
+  padding: 0 0.5rem;
+}
+
+.c-resurgence-upgrade-btn {
+  text-align: center;
+  font-family: Typewriter, serif;
+  font-size: 1rem;
+  color: var(--color-antimatter);
+  background-color: black;
+  border: var(--var-border-width, 0.2rem) solid var(--color-antimatter);
+  border-radius: var(--var-border-radius, 0.5rem);
+  transition-duration: 0.15s;
+  cursor: pointer;
+}
+
+.c-resurgence-upgrade-btn__requirement {
+  font-weight: bold;
+}
+
+.c-resurgence-upgrade-btn:hover {
+  color: black;
+  background-color: var(--color-antimatter);
+}
+
+.c-resurgence-upgrade-btn--unavailable {
+  color: var(--color-antimatter);
+  background-color: #404040;
+  cursor: default;
+}
+
+.c-resurgence-upgrade-btn--unavailable:hover {
+  color: var(--color-antimatter);
+  background-color: #404040;
+}
+
+.c-resurgence-upgrade-btn--bought {
+  color: var(--color-elemental--base);
+  border-color: var(--color-antimatter);
+  cursor: default;
+  animation: a-resurgence__antimatter--glow 10s infinite;
+}
+
+.c-resurgence-upgrade-btn--bought:hover {
+  color: var(--color-elemental--base);
+  animation: a-resurgence__antimatter--glow 10s infinite;
+}
+
+.t-dark .c-resurgence-upgrade-btn--unavailable {
+  color: var(--color-antimatter);
+  background-color: #37474f;
+}
+
+.t-s6.c-resurgence-upgrade-btn:hover,
+.t-s10.c-resurgence-upgrade-btn:hover {
+  background-color: var(--color-antimatter);
+}
+
+.t-s6.c-resurgence-upgrade-btn--unavailable:hover,
+.t-s10.c-resurgence-upgrade-btn--unavailable:hover {
+  color: var(--color-antimatter);
+  background-color: #656565;
+}
+
+.t-s6.c-resurgence-upgrade-btn--bought,
+.t-s10.c-resurgence-upgrade-btn--bought {
+  color: var(--color-elemental--base);
+  border-color: var(--color-antimatter);
+  animation: a-resurgence__antimatter--glow 10s infinite;
+}
+
+.t-s6.c-resurgence-upgrade-btn--bought:hover,
+.t-s10.c-resurgence-upgrade-btn--bought:hover {
+  color: var(--color-elemental--base);
+  animation: a-resurgence__antimatter--glow 10s infinite;
+}
+
+@keyframes a-resurgence__antimatter--glow {
+  0% { background-color: #2196f3; }
+  33% { background-color: #673ab7; }
+  66% { background-color: #00bcd4; }
+  100% { background-color: #2196f3; }
 }
 
 @keyframes a-galactic-power-amount-cycle {

@@ -222,7 +222,7 @@ export const v = {
       reward: `You can spend Perk Points to reduce the goal requirement of all tiers of each V-Achievement.`,
       description: () => `Have ${formatInt(2)} V-Achievements`,
       requirement: () => V.spaceTheorems >= 2,
-      pelleDisabled: () => !PelleCelestialUpgrade.vMilestones1.isBought
+      pelleDisabled: () => !PelleCelestialUpgrade.vMilestones1.canBeApplied
     },
     adPow: {
       id: 2,
@@ -231,7 +231,7 @@ export const v = {
       effect: () => player.disablePostReality ? 1 : 1 + Math.sqrt(V.spaceTheorems) / 80,
       format: x => formatPow(x, 3, 3),
       requirement: () => V.spaceTheorems >= 5,
-      pelleDisabled: () => !PelleCelestialUpgrade.vMilestones1.isBought
+      pelleDisabled: () => !PelleCelestialUpgrade.vMilestones1.canBeApplied
     },
     fastAutoEC: {
       id: 3,
@@ -243,14 +243,14 @@ export const v = {
         ? "Instant (Ra upgrade)"
         : `${TimeSpan.fromMinutes(new Decimal(60).times(20).div(x)).toStringShort()} for full completion`),
       requirement: () => V.spaceTheorems >= 10,
-      pelleDisabled: () => !PelleCelestialUpgrade.vMilestones2.isBought
+      pelleDisabled: () => !PelleCelestialUpgrade.vMilestones2.canBeApplied
     },
     autoAutoClean: {
       id: 4,
       reward: "Unlock the ability to Automatically Purge Glyphs on Reality.",
       description: () => `Have ${formatInt(16)} V-Achievements`,
       requirement: () => V.spaceTheorems >= 16,
-      pelleDisabled: () => !PelleCelestialUpgrade.vMilestones2.isBought
+      pelleDisabled: () => !PelleCelestialUpgrade.vMilestones2.canBeApplied
     },
     achievementBH: {
       id: 5,
@@ -259,7 +259,7 @@ export const v = {
       effect: () => player.disablePostReality ? 1 : Achievements.power,
       format: x => formatX(x, 2, 0),
       requirement: () => V.spaceTheorems >= 30,
-      pelleDisabled: () => !PelleCelestialUpgrade.vMilestones3.isBought
+      pelleDisabled: () => !PelleCelestialUpgrade.vMilestones3.canBeApplied
     },
     raUnlock: {
       id: 6,
@@ -270,7 +270,7 @@ export const v = {
       description: () => `Have ${formatInt(36)} V-Achievements`,
       effect: 2,
       requirement: () => V.spaceTheorems >= 36,
-      pelleDisabled: () => !PelleCelestialUpgrade.vMilestones3.isBought
+      pelleDisabled: () => !PelleCelestialUpgrade.vMilestones3.canBeApplied
     }
   }
 };

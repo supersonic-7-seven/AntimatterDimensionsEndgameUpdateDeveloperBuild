@@ -43,7 +43,7 @@ export const GlyphSacrificeHandler = {
     else Modal.glyphDelete.show({ idx: glyph.idx });
   },
   glyphSacrificeGain(glyph) {
-    if (!this.canSacrifice || (Pelle.isDoomed && !PelleRealityUpgrade.scourToEmpower.isBought)) return new Decimal(0);
+    if (!this.canSacrifice || (Pelle.isDoomed && !PelleRealityUpgrade.scourToEmpower.canBeApplied)) return new Decimal(0);
     if (glyph.type === "reality") return new Decimal(glyph.level).times(0.01).times(Achievement(171).effectOrDefault(1));
     const pre10kFactor = Decimal.pow(Decimal.clampMax(glyph.level, 10000).add(10), 2.5);
     const post10kFactor = Decimal.clampMin(glyph.level - 10000, 0).div(100).add(1);
@@ -57,7 +57,7 @@ export const GlyphSacrificeHandler = {
       Teresa.runRewardMultiplier).times(Achievement(171).effectOrDefault(1)), power);
   },
   sacrificeGlyph(glyph, force = false) {
-    if (Pelle.isDoomed && !PelleRealityUpgrade.scourToEmpower.isBought) return;
+    if (Pelle.isDoomed && !PelleRealityUpgrade.scourToEmpower.canBeApplied) return;
     // This also needs to be here because this method is called directly from drag-and-drop sacrificing
     if (this.handleSpecialGlyphTypes(glyph)) return;
     const toGain = this.glyphSacrificeGain(glyph);

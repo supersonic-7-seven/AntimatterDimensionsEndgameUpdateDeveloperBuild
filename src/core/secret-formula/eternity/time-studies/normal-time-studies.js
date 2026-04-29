@@ -331,7 +331,7 @@ export const normalTimeStudies = [
     requirement: [122],
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
     requiresST: [131, 133],
-    description: () => ((Pelle.isDoomed && !PelleDestructionUpgrade.timestudy132.isBought)
+    description: () => ((Pelle.isDoomed && !PelleDestructionUpgrade.timestudy132.canBeApplied)
       ? `Replicanti Galaxies are ${formatPercents(0.4)} stronger`
       : `Replicanti Galaxies are ${formatPercents(0.4)} stronger and Replicanti are 
         ${(Perk.studyPassive.isBought && !player.disablePostReality) ? formatX(3) : formatX(1.5, 1, 1)} faster`),

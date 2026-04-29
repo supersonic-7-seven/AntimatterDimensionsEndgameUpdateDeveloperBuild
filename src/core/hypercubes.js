@@ -32,7 +32,7 @@ export const Penteracts = {
   softcapReduction(count = this.bought, extra = this.extra) {
     const totalCount = count + extra;
     const base = Decimal.pow(Decimal.pow(1.05, Octeracts.cubeBoost()), totalCount);
-    return DC.D1.div(base);
+    return player.disablePostReality ? DC.D1 : DC.D1.div(base);
   },
 
   get eachPenteractReduction() {
@@ -60,7 +60,7 @@ export const Hexeracts = {
   },
 
   costs(index) {
-    return Decimal.pow10(new Decimal(2e5).times(Decimal.pow(1.05, Decimal.pow(index, 1.5))));
+    return Decimal.pow10(new Decimal(1.6e5).times(Decimal.pow(1.05, Decimal.pow(index, 1.5))));
   },
 
   get nextCost() {
@@ -69,13 +69,13 @@ export const Hexeracts = {
 
   get canBuyHexeract() {
     return DualityUpgrade(25).isBought && player.celestials.laitela.hadronizes >= 40 &&
-      Currency.darkMatter.gte(Hexeracts.nextCost) && !player.disablePostReality && Pelle.isDoomed;
+      Currency.darkMatter.gte(Hexeracts.nextCost) && !player.disablePostReality && !Pelle.isDoomed;
   },
 
   softcapReduction(count = this.bought, extra = this.extra) {
     const totalCount = count + extra;
     const base = Decimal.pow(Decimal.pow(1.02, Octeracts.cubeBoost()), totalCount);
-    return DC.D1.div(base);
+    return player.disablePostReality ? DC.D1 : DC.D1.div(base);
   },
 
   get eachHexeractReduction() {
@@ -103,7 +103,7 @@ export const Hepteracts = {
   },
 
   costs(index) {
-    return Decimal.pow10(new Decimal(500).times(Decimal.pow(1.02, Decimal.pow(index, 1.5))));
+    return Decimal.pow10(new Decimal(1000).times(Decimal.pow(1.02, Decimal.pow(index, 1.5))));
   },
 
   get nextCost() {
@@ -112,13 +112,13 @@ export const Hepteracts = {
 
   get canBuyHepteract() {
     return DualityUpgrade(25).isBought && false &&
-      Currency.celestialPoints.gte(Hepteracts.nextCost) && !player.disablePostReality && Pelle.isDoomed;
+      Currency.celestialPoints.gte(Hepteracts.nextCost) && !player.disablePostReality && !Pelle.isDoomed;
   },
 
   softcapReduction(count = this.bought, extra = this.extra) {
     const totalCount = count + extra;
     const base = Decimal.pow(Decimal.pow(1.01, Octeracts.cubeBoost()), totalCount);
-    return DC.D1.div(base);
+    return player.disablePostReality ? DC.D1 : DC.D1.div(base);
   },
 
   get eachHepteractReduction() {
@@ -155,13 +155,13 @@ export const Octeracts = {
 
   get canBuyOcteract() {
     return DualityUpgrade(25).isBought && false &&
-      DC.D0.gte(Octeracts.nextCost) && !player.disablePostReality && Pelle.isDoomed;
+      DC.D0.gte(Octeracts.nextCost) && !player.disablePostReality && !Pelle.isDoomed;
   },
 
   cubeBoost(count = this.bought, extra = this.extra) {
     const totalCount = count + extra;
     const base = Decimal.pow(1.1, totalCount);
-    return base;
+    return player.disablePostReality ? DC.D1 : base;
   },
 
   get eachOcteractBoost() {

@@ -45,7 +45,7 @@ export default {
       ${GameDatabase.celestials.descriptions[7].description()}`;
     },
     isDoomed: () => Pelle.isDoomed,
-    isDestroyed: () => Alpha.isDestroyed
+    isDestroyed: () => Alpha.isDestroyedForDisplay
   },
   watch: {
     isRunning() {

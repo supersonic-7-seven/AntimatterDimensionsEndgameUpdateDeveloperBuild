@@ -108,7 +108,7 @@ export default {
       };
     },
     isDoomed: () => Pelle.isDoomed,
-    isEPGenDoomed: () => Pelle.isDoomed && !PelleCelestialUpgrade.passiveEPGen.isBought,
+    isEPGenDoomed: () => Pelle.isDoomed && !PelleCelestialUpgrade.passiveEPGen.canBeApplied,
     disChargeClassObject() {
       return {
         "o-primary-btn--subtab-option": true,

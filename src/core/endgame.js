@@ -29,6 +29,8 @@ function giveEndgameRewards() {
     ? Math.floor(1 + Math.pow(Math.log10(Math.min(Tesseracts.effectiveCount, 1000) * Math.max(Math.log10(Tesseracts.effectiveCount) - 2, 1) + 1), Math.log10(player.endgames + 1)))
     : 1);
   endgameMultiplier *= Math.pow(1.25, Alpha.currentStage);
+  if (DivinityMilestone.firstDivine.isReached && !player.disablePostReality) endgameMultiplier *= 10;
+  endgameMultiplier *= DivineDimensions.conversionFormula1.toNumber();
   Currency.celestialPoints.add(gainedCelestialPoints());
   Currency.doomedParticles.add(gainedDoomedParticles());
   updateEndgameRecords();
@@ -89,22 +91,20 @@ export const Endgame = {
       disChargeAllPerkUpgrades();
       player.celestials.teresa.disCharge = false;
     }
+    if (Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ENDGAME) {
+      player.disablePostReality = false;
+    }
     this.resetStuff();
 
     // Add Glyphs after other Glyphs are purged
     if (EndgameMastery(71).isBought) {
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
+      for (let slotNum = 0; slotNum < Glyphs.activeSlotCount; slotNum++) {
+        for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
+      }
     }
     EventHub.dispatch(GAME_EVENT.ENDGAME_RESET_AFTER);
 
-    // The ending animation ends at 12.5, although the value continues to increase after that. We set it to a bit above
-    // 12.5 when we start the rollback animation to hide some of the unavoidable lag from all the reset functions
     GameEnd.removeAdditionalEnd = true;
-    GameEnd.additionalEnd = 15;
     // Without the delay, this causes the saving (and its notification) to occur during the credits rollback
     setTimeout(() => GameStorage.save(), 10000);
   },
@@ -154,15 +154,19 @@ export const Endgame = {
       disChargeAllPerkUpgrades();
       player.celestials.teresa.disCharge = false;
     }
+    if (Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ENDGAME) {
+      player.disablePostReality = false;
+      if (!EffarigUnlock.endgame.isUnlocked) {
+        EffarigUnlock.endgame.unlock();
+      }
+    }
     this.resetStuff();
 
     // Add Glyphs after other Glyphs are purged
     if (EndgameMastery(71).isBought) {
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
-      for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
+      for (let slotNo = 0; slotNo < Glyphs.activeSlotCount; slotNo++) {
+        for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
+      }
     }
     EventHub.dispatch(GAME_EVENT.ENDGAME_RESET_AFTER);
 
@@ -200,6 +204,7 @@ export const Endgame = {
     charge4 = player.celestials.teresa.perkShop[3];
     let rowProtect = 0;
     rowProtect = player.reality.glyphs.protectedRows;
+    let isAutoWeighed = player.celestials.effarig.autoAdjustGlyphWeights;
     player.isGameEnd = false;
     Tab.dimensions.antimatter.show();
     AchievementTimers.marathon2.reset();
@@ -520,7 +525,7 @@ export const Endgame = {
     player.celestials.laitela.lastCheckedMilestones = DC.D0;
     player.celestials.pelle.doomed = false;
     player.celestials.pelle.upgrades = new Set();
-    player.celestials.pelle.remnants = 0;
+    player.celestials.pelle.remnants = DC.D0;
     player.celestials.pelle.realityShards = DC.D0;
     player.celestials.pelle.records.totalEndgameAntimatter = DC.D0;
     player.celestials.pelle.records.totalRealityAntimatter = DC.D0;
@@ -539,6 +544,7 @@ export const Endgame = {
     player.celestials.pelle.rebuyables.galaxyGeneratorIPMult = 0;
     player.celestials.pelle.rebuyables.galaxyGeneratorEPMult = 0;
     player.celestials.pelle.rebuyables.galaxyGeneratorRSMult = 0;
+    player.celestials.pelle.rebuyables.galaxyGeneratorDTMult = 0;
     player.celestials.pelle.rifts.vacuum.fill = DC.D0;
     player.celestials.pelle.rifts.vacuum.active = false;
     player.celestials.pelle.rifts.vacuum.reducedTo = 1;
@@ -744,7 +750,7 @@ export const Endgame = {
       DarkMatterDimension(1).amount = DC.D1;
     }
     if (Achievement(165).isUnlocked) {
-      player.celestials.effarig.autoAdjustGlyphWeights = true;
+      player.celestials.effarig.autoAdjustGlyphWeights = isAutoWeighed;
     }
     if (EternityMilestone.keepAutobuyers.isReached) {
       NormalChallenges.completeAll();

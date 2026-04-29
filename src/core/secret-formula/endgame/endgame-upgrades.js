@@ -104,9 +104,13 @@ export const endgameUpgrades = [
         ? Math.floor(1 + Math.pow(Math.log10(Math.min(Tesseracts.effectiveCount, 1000) * Math.max(Math.log10(Tesseracts.effectiveCount) - 2, 1) + 1), Math.log10(player.endgames + 1)))
         : 1);
       endgames *= Math.pow(1.25, Alpha.currentStage);
+      if (DivinityMilestone.firstDivine.isReached && !player.disablePostReality) endgames *= 10;
+      endgames *= DivineDimensions.conversionFormula1.toNumber();
       const timeStr = Time.bestEndgameRealTime.totalMilliseconds.lte(100) && !Alpha.isDestroyed
         ? `${TimeSpan.fromMilliseconds(new Decimal(1000)).toStringShort()} (capped)`
-        : `${TimeSpan.fromMilliseconds(new Decimal(value)).toStringShort()}`;
+        : (Time.bestEndgameRealTime.totalMilliseconds.lte(33)
+           ? `${TimeSpan.fromMilliseconds(new Decimal(330)).toStringShort()} (capped)`
+           : `${TimeSpan.fromMilliseconds(new Decimal(value)).toStringShort()}`);
       return `${quantify("Endgame", endgames)} every ${timeStr}`;
     }
   },

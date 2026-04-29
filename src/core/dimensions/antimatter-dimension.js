@@ -46,7 +46,7 @@ export function antimatterDimensionCommonMultiplier() {
   multiplier = multiplier.times(getAdjustedGlyphEffect("powermult"));
   multiplier = multiplier.times(Currency.realityMachines.value.powEffectOf(AlchemyResource.force));
 
-  if (Pelle.isDoomed && !PelleDestructionUpgrade.disableADNerf.isBought) multiplier = multiplier.dividedBy(Currency.antimatter.value.add(1).log10().times(50).max(1));
+  if (Pelle.isDoomed && !PelleDestructionUpgrade.disableADNerf.canBeApplied) multiplier = multiplier.dividedBy(Currency.antimatter.value.add(1).log10().times(50).max(1));
   if (Alpha.isRunning) multiplier = multiplier.div(Currency.antimatter.value.add(1).log10().times(125).max(1));
 
   return multiplier;
@@ -94,6 +94,8 @@ export function getDimensionFinalMultiplierUncached(tier) {
   if (!player.disablePostReality) multiplier = multiplier.pow(AlphaUnlocks.timestudy181.effects.buff.effectOrDefault(1));
 
   multiplier = dilateMultiplier(multiplier, Achievement(231).effectOrDefault(1));
+
+  multiplier = dilateMultiplier(multiplier, EtherealStars.red.reward);
 
   return multiplier;
 }
@@ -190,7 +192,7 @@ function applyNDPowers(mult, tier) {
 
   multiplier = multiplier.pow(VUnlocks.adPow.effectOrDefault(1));
 
-  if (Pelle.isDoomed && PelleCelestialUpgrade.vMilestones1.isBought) multiplier = multiplier.pow(VUnlocks.adPow.effectValue);
+  if (Pelle.isDoomed && PelleCelestialUpgrade.vMilestones1.canBeApplied) multiplier = multiplier.pow(VUnlocks.adPow.effectValue);
 
   if (PelleStrikes.infinity.hasStrike && !PelleStrikes.infinity.isDestroyed()) {
     multiplier = multiplier.pow(0.5);
@@ -625,7 +627,8 @@ class AntimatterDimensionState extends DimensionState {
         const eg = Currency.endgames.value;
         const endgameMult = Pelle.isDoomed ? 1 + (Math.log10(Math.min(eg, 1e6) * Math.max(Math.log2(eg + 1) - Math.log2(5e5), 1) + 1) / 80) : 1 + (Math.log10(Math.min(eg, 1e6) * Math.max(Math.log2(eg + 1) - Math.log2(5e5), 1) + 1) / 200);
         const endgameMultValue = (EndgameMilestone.endgameAntimatter.isReached && !player.disablePostReality) ? endgameMult : 1;
-        production = Decimal.pow10(Decimal.pow(log10, getAdjustedGlyphEffect("effarigantimatter") * Effects.product(EndgameMastery(101), EndgameUpgrade(15), SingularityMilestone.antimatterExponentPower, Achievement(233)) * endgameMultValue));
+        const pelleOnly = Pelle.isDoomed ? DivineDimensions.conversionFormula2 : 1;
+        production = Decimal.pow10(Decimal.pow(log10, getAdjustedGlyphEffect("effarigantimatter") * Effects.product(EndgameMastery(101), EndgameUpgrade(15), SingularityMilestone.antimatterExponentPower, Achievement(233)) * endgameMultValue * EtherealStars.black.reward.toNumber() * pelleOnly));
       }
       if (production.gt(Decimal.pow10(1e150)) && Pelle.isDoomed && player.celestials.pelle.divinities < 1) {
         const log10 = production.log10();
@@ -638,6 +641,10 @@ class AntimatterDimensionState extends DimensionState {
       if (production.gt(Decimal.pow10(9e15)) && Pelle.isDoomed && player.celestials.pelle.divinities >= 1) {
         const log10 = production.log10();
         production = Decimal.pow10(Decimal.pow(log10.div(9e15), 0.16 / Math.pow(2, player.celestials.pelle.divinities)).times(9e15));
+      }
+      if (production.gt(1e10) && Pelle.isDoomed) {
+        const log10 = production.log10().log10();
+        production = Decimal.pow10(Decimal.pow10(Decimal.pow(log10, DivinityUpgrade.divineL1U4.effectOrDefault(1))));
       }
     }
     production = production.min(this.cappedProductionInNormalChallenges);

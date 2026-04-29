@@ -124,7 +124,8 @@ class CelestialDimensionState extends DimensionState {
   }
 
   get powerMultiplier() {
-    return new Decimal(CelestialInfinityUpgrade.celDimPurchaseBoost.effectOrDefault(this._powerMultiplier)).pow(SingularityMilestone.perPurchaseDimMult.effectOrDefault(1));
+    return new Decimal(CelestialInfinityUpgrade.celDimPurchaseBoost.effectOrDefault(this._powerMultiplier)).timesEffectOf(
+      CelestialBreakInfinityUpgrade.celDimPurchaseBuff).pow(SingularityMilestone.perPurchaseDimMult.effectOrDefault(1));
   }
 
   get purchases() {
@@ -232,13 +233,18 @@ export const CelestialDimensions = {
     return Decimal.min(base, DC.NUMMAX).times(Decimal.pow(base.div(DC.NUMMAX).max(1), 1 / CelestialDimensions.OVERFLOW_MAG));
   },
 
+  get OVERFLOW() {
+    return DC.NUMMAX.timesEffectOf(DivinityUpgrade.divineL1U1);
+  },
+
   get OVERFLOW_MAG() {
     return DC.E1.sub(Decimal.pow(player.records.totalCelMatter.add(1).log10().add(1).log10().sub(3).max(0).add(1), 1.25).sub(1)).max(1).toNumber();
   },
 
   get softcapPow() {
     const reduction = Effects.product(EndgameMastery(84), Achievement(225));
-    return Decimal.pow(10 * reduction, Hepteracts.softcapReduction()).toNumber();
+    const extraReduction = DivinityMilestone.firstDivine.isReached && !player.disablePostReality ? 0.9 : 1;
+    return Decimal.pow(10 * reduction * extraReduction, Hepteracts.softcapReduction()).toNumber();
   },
 
   unlockNext() {
@@ -281,8 +287,8 @@ export const CelestialDimensions = {
   tick(realDiff) {
     for (let tier = 8; tier > 1; tier--) {
       CelestialDimension(tier).produceDimensions(CelestialDimension(tier - 1), realDiff / 10);
-      CelestialDimension(1).produceCurrency(Currency.unnerfedCelestialMatter, realDiff);
     }
+    CelestialDimension(1).produceCurrency(Currency.unnerfedCelestialMatter, realDiff);
   },
 
   // Called from "Max All" UI buttons and nowhere else
@@ -299,8 +305,13 @@ export const CelestialDimensions = {
     unlockedDimensions.forEach(dimension => dimension.buyMax(false));
   },
 
+  get alphaDecaySpeed() {
+    return new Decimal(1 - DivineDimensions.conversionFormula3).times(DivinityMilestone.divineDimensions.isReached ? 0.8 : 1).timesEffectOf(DivinityUpgrade.divineL1U2);
+  },
+
   get alphaDecayRemnant() {
-    return Alpha.isDestroyed ? Time.thisEndgameRealTime.totalHours.plusEffectOf(CelestialInfinityUpgrade.alphaDecayStartBoost).min(5).div(5) : 1;
+    return Alpha.isDestroyed ? Time.thisCelestialInfinityRealTime.totalHours.plusEffectOf(CelestialInfinityUpgrade.alphaDecayStartBoost).div(
+      this.alphaDecaySpeed).min(5).div(5) : DC.D1;
   },
 
   get conversionExponent() {
@@ -310,13 +321,15 @@ export const CelestialDimensions = {
     let exponent = 1;
     if (base > 1) exponent *= Effects.product(EndgameMastery(104), Ra.unlocks.celestialDimensionConversionPower);
     base *= Effects.product(Achievement(208), Achievement(224));
+    base *= EtherealStars.yellow.reward.toNumber();
     return Math.pow(base, exponent) * (Alpha.isRunning ? Alpha.celestialMatterConversionNerf : 1);
   }
 };
 
 export function getCelestialTickSpeedMultiplier() {
   const base = new Decimal(1.05);
-  const eachGalaxy = new Decimal(CelestialInfinityUpgrade.celGalaxyBuff.effectOrDefault(1.02));
+  const eachGalaxy = new Decimal(CelestialInfinityUpgrade.celGalaxyBuff.effectOrDefault(1.02)).sub(1).timesEffectOf(
+    CelestialBreakInfinityUpgrade.celGalaxyBuff).add(1);
   const galaxies = player.endgame.celDimExpansion.galaxies;
   return base.times(eachGalaxy.pow(galaxies));
 }
@@ -405,7 +418,8 @@ class CelestialDimBoostRequirement {
 
 export class CelestialDimBoost {
   static get power() {
-    return new Decimal(CelestialInfinityUpgrade.celDimBoostBuff.effectOrDefault(10));
+    return new Decimal(CelestialInfinityUpgrade.celDimBoostBuff.effectOrDefault(10)).timesEffectOf(
+      CelestialBreakInfinityUpgrade.celDimboostBuff);
   }
 
   static multiplierToCDTier() {
@@ -502,7 +516,7 @@ export function manualRequestCelestialDimensionBoost(bulk) {
 export function requestCelestialDimensionBoost(bulk) {
   if ((Currency.celestialMatter.value.gt(DC.NUMMAX) && !player.endgame.celDimExpansion.isBroken) || !CelestialDimBoost.requirement.isSatisfied) return;
   if (!CelestialDimBoost.canBeBought) return;
-  if (false && bulk) maxBuyCelestialDimBoosts();
+  if (CelestialBreakInfinityUpgrade.bulkCelDimBoosts.isBought && bulk) maxBuyCelestialDimBoosts();
   else softCelestialReset(1);
 }
 
@@ -830,7 +844,7 @@ export function preProductionGenerateCIP(diff) {
     const gainedThisTick = new Decimal(genCount).times(gainedPerGen);
     if (Decimal.isFinite(gainedThisTick)) Currency.celestialInfinityPoints.add(gainedThisTick);
   }
-  Currency.celestialInfinityPoints.add(DC.D0);//CelestialBreakInfinityUpgrade smth .ipGen.effectOrDefault(DC.D0).times(diff).div(60000));
+  Currency.celestialInfinityPoints.add(CelestialBreakInfinityUpgrade.cipGen.effectOrDefault(DC.D0).times(diff).div(60000));
 }
 
 export function totalCIPMult() {

@@ -127,7 +127,8 @@ export const GlyphGenerator = {
   },
 
   realityGlyph(level) {
-    const str = rarityToStrength(100 + Ra.unlocks.realityGlyphRarity.effectOrDefault(0) + Effarig.rarityCapIncrease);
+    const str = rarityToStrength(Math.min(100 + Ra.unlocks.realityGlyphRarity.effectOrDefault(0) + Effarig.rarityCapIncrease +
+      GlyphSacrifice.effarig.effectValue.sub(100).max(0).toNumber(), 300));
     const effects = this.generateRealityEffects(level);
     const effectBitmask = makeGlyphEffectBitmask(effects);
     return {
@@ -165,7 +166,8 @@ export const GlyphGenerator = {
     let bitmask = 0;
     for (const effect of effectList) bitmask |= 1 << effect.bitmaskIndex;
     const glyphLevel = Math.max(player.records.bestReality.glyphLevel, 5000);
-    const rarity = EffarigUnlock.glyphGenerationBoost.isUnlocked ? rarityToStrength(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease) : 3.5;
+    const rarity = EffarigUnlock.glyphGenerationBoost.isUnlocked ? rarityToStrength(Math.min(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease +
+      GlyphSacrifice.effarig.effectValue.sub(100).max(0).toNumber(), 300)) : 3.5;
     return {
       id: undefined,
       idx: null,
@@ -183,7 +185,27 @@ export const GlyphGenerator = {
     let bitmask = 0;
     for (const effect of effectList) bitmask |= 1 << effect.bitmaskIndex;
     const glyphLevel = Effects.max(1, EndgameMastery(71));
-    const rarity = EffarigUnlock.glyphGenerationBoost.isUnlocked ? rarityToStrength(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease) : 3.5;
+    const rarity = EffarigUnlock.glyphGenerationBoost.isUnlocked ? rarityToStrength(Math.min(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease +
+      GlyphSacrifice.effarig.effectValue.sub(100).max(0).toNumber(), 300)) : 3.5;
+    return {
+      id: undefined,
+      idx: null,
+      type,
+      strength: rarity,
+      level: glyphLevel,
+      rawLevel: glyphLevel,
+      effects: bitmask,
+    };
+  },
+
+  omniGlyph(type) {
+    const effectList = GlyphEffects.all.filter(e => e.id.startsWith(type));
+    effectList.push(GlyphEffects.timespeed);
+    let bitmask = 0;
+    for (const effect of effectList) bitmask |= 1 << effect.bitmaskIndex;
+    const glyphLevel = 1e9;
+    const rarity = EffarigUnlock.glyphGenerationBoost.isUnlocked ? rarityToStrength(Math.min(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease +
+      GlyphSacrifice.effarig.effectValue.sub(100).max(0).toNumber(), 300)) : 3.5;
     return {
       id: undefined,
       idx: null,
@@ -239,7 +261,8 @@ export const GlyphGenerator = {
   randomStrength(rng) {
     // Technically getting this upgrade really changes glyph gen but at this point almost all
     // the RNG is gone anyway.
-    if (Ra.unlocks.maxGlyphRarityAndShardSacrificeBoost.canBeApplied && !player.disablePostReality) return rarityToStrength(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease);
+    if (Ra.unlocks.maxGlyphRarityAndShardSacrificeBoost.canBeApplied && !player.disablePostReality) return rarityToStrength(Math.min(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease +
+      GlyphSacrifice.effarig.effectValue.sub(100).max(0).toNumber(), 300));
     let result = GlyphGenerator.gaussianBellCurve(rng) * GlyphGenerator.strengthMultiplier;
     const relicShardFactor = (Ra.unlocks.extraGlyphChoicesAndRelicShardRarityAlwaysMax.canBeApplied || EndgameMastery(53).isBought) && !player.disablePostReality ? 1 : rng.uniform();
     const increasedRarity = relicShardFactor * Effarig.maxRarityBoost +
@@ -248,7 +271,8 @@ export const GlyphGenerator = {
     result += increasedRarity / 40;
     // Raise the result to the next-highest 0.1% rarity.
     result = Math.ceil(result * 400) / 400;
-    return Math.min(result, rarityToStrength(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease));
+    return Math.min(result, rarityToStrength(Math.min(100 + Ra.unlocks.rarityBuff.effectOrDefault(0) + Effarig.rarityCapIncrease +
+      GlyphSacrifice.effarig.effectValue.sub(100).max(0).toNumber(), 300)));
   },
 
   // eslint-disable-next-line max-params
