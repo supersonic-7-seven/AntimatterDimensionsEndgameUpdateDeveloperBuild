@@ -3,6 +3,7 @@ import { DimensionState } from "./dimension";
 export function divineDimensionCommonMultiplier() {
   let mult = DC.D1;
   mult = mult.timesEffectsOf(DivinityUpgrade.divineL1U3, DivinityUpgrade.divineL1U6);
+  mult = mult.times(DivinityMilestone.hadronEmpowerment.isReached ? 77 :1)
   return mult;
 }
 
@@ -151,7 +152,7 @@ export const DivineDimensions = {
   },
 
   get energyPerSecond() {
-    const divineEnergyMults = DC.D1.timesEffectOf(DivinityUpgrade.divineL1U7);
+    const divineEnergyMults = DC.D1.timesEffectOf(DivinityUpgrade.divineL1U7).times(DivinityMilestone.hadronEmpowerment.isReached ? 77 :1);
     return Decimal.pow(100, Decimal.log10(DivineDimension(1).productionPerSecond).div(100).sub(1)).times(divineEnergyMults);
   },
 
