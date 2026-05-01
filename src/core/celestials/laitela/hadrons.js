@@ -8,7 +8,7 @@ export const Hadrons = {
   get speedFactor() {
     return DC.D1.timesEffectOf(Achievement(235)).times(
       DivinityMilestone.firstDivine.isReached && !player.disablePostReality ? 1.25 : 1).times(
-      DivinityMilestone.hadronEmpowerment.isReached && !player.disablePostReality ? 1.25 : 1).div(
+      DivinityMilestone.divineDimensions.isReached && !player.disablePostReality ? 1.25 : 1).div(
       1 - DivineDimensions.conversionFormula3);
   },
   get singularityMultiplier() {
