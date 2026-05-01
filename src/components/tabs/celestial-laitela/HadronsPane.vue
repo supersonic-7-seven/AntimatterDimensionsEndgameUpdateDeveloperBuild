@@ -81,7 +81,7 @@ export default {
       if (this.lightHadrons <= 0) return;
       Laitela.reset();
       finishProcessReality({ reset: true });
-      if (!DivinityMilestone.hadronEmpowerment.isReached{
+      if (!DivinityMilestone.hadronEmpowerment.isReached){
       player.celestials.laitela.hadrons.light -= 1;
       player.celestials.laitela.hadrons.dark += 1;}
     },
@@ -89,7 +89,7 @@ export default {
       if (this.darkHadrons <= 0) return;
       Laitela.reset();
       finishProcessReality({ reset: true });
-      if (!DivinityMilestone.hadronEmpowerment.isReached{
+      if (!DivinityMilestone.hadronEmpowerment.isReached){
       player.celestials.laitela.hadrons.light += 1;
       player.celestials.laitela.hadrons.dark -= 1;}
     },
@@ -97,7 +97,7 @@ export default {
       if (this.lightHadrons <= 0) return;
       Laitela.reset();
       finishProcessReality({ reset: true });
-      if (!DivinityMilestone.hadronEmpowerment.isReached{
+      if (!DivinityMilestone.hadronEmpowerment.isReached){
       player.celestials.laitela.hadrons.light = 0;
       player.celestials.laitela.hadrons.dark = player.celestials.laitela.hadrons.total;}
     },
@@ -105,7 +105,7 @@ export default {
       if (this.darkHadrons <= 0) return;
       Laitela.reset();
       finishProcessReality({ reset: true });
-      if (!DivinityMilestone.hadronEmpowerment.isReached{
+      if (!DivinityMilestone.hadronEmpowerment.isReached){
       player.celestials.laitela.hadrons.light = player.celestials.laitela.hadrons.total;
       player.celestials.laitela.hadrons.dark = 0;}
     }
