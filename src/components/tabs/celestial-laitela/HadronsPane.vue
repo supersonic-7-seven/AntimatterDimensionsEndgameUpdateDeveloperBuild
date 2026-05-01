@@ -81,29 +81,33 @@ export default {
       if (this.lightHadrons <= 0) return;
       Laitela.reset();
       finishProcessReality({ reset: true });
+      if (!DivinityMilestone.hadronEmpowerment.isReached{
       player.celestials.laitela.hadrons.light -= 1;
-      player.celestials.laitela.hadrons.dark += 1;
+      player.celestials.laitela.hadrons.dark += 1;}
     },
     unassignOne() {
       if (this.darkHadrons <= 0) return;
       Laitela.reset();
       finishProcessReality({ reset: true });
+      if (!DivinityMilestone.hadronEmpowerment.isReached{
       player.celestials.laitela.hadrons.light += 1;
-      player.celestials.laitela.hadrons.dark -= 1;
+      player.celestials.laitela.hadrons.dark -= 1;}
     },
     assignAll() {
       if (this.lightHadrons <= 0) return;
       Laitela.reset();
       finishProcessReality({ reset: true });
+      if (!DivinityMilestone.hadronEmpowerment.isReached{
       player.celestials.laitela.hadrons.light = 0;
-      player.celestials.laitela.hadrons.dark = player.celestials.laitela.hadrons.total;
+      player.celestials.laitela.hadrons.dark = player.celestials.laitela.hadrons.total;}
     },
     unassignAll() {
       if (this.darkHadrons <= 0) return;
       Laitela.reset();
       finishProcessReality({ reset: true });
+      if (!DivinityMilestone.hadronEmpowerment.isReached{
       player.celestials.laitela.hadrons.light = player.celestials.laitela.hadrons.total;
-      player.celestials.laitela.hadrons.dark = 0;
+      player.celestials.laitela.hadrons.dark = 0;}
     }
   }
 };
