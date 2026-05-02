@@ -841,7 +841,7 @@ export function gameLoop(passedDiff, options = {}) {
 
   const masteryGain = Effects.sum(EndgameMastery(11)) * Time.unscaledDeltaTime.totalSeconds.div(60).toNumber();
   Currency.perkPoints.add(masteryGain);
-  
+
   if ((Perk.autocompleteEC1.canBeApplied || EndgameMastery(22).isBought) && !player.disablePostReality) player.reality.lastAutoEC += realDiff;
 
   EternityChallenge(12).tryFail();
@@ -899,7 +899,7 @@ export function gameLoop(passedDiff, options = {}) {
   }
 
   if (DivinityMilestone.hadronEmpowerment.isReached) {
-    if (player.antimatter.gte(Laitela.antimatterNeededToDestabilize)) {
+    if (player.antimatter.gte(Laitela.antimatterNeededToDestabilize) && !Pelle.isDoomed) {
       player.celestials.laitela.difficultyTier++;
       player.celestials.laitela.fastestCompletion = 300;
     }
@@ -942,7 +942,7 @@ export function gameLoop(passedDiff, options = {}) {
   }
   player.celestials.laitela.darkMatter = Alpha.isDestroyed ? new Decimal(darkMatterProd) : Decimal.min(darkMatterProd, Laitela.darkMatterCap);
   player.celestials.laitela.maxDarkMatter = Decimal.max(player.celestials.laitela.darkMatter, player.celestials.laitela.maxDarkMatter);
-  
+
   if (EndgameMastery(111).isBought && !player.disablePostReality) {
     player.reality.imaginaryMachines = MachineHandler.currentIMCap;
   }
@@ -954,7 +954,7 @@ export function gameLoop(passedDiff, options = {}) {
   if (Ethereal.isUnlocked) {
     Currency.etherealPower.add(getEtherealPowerGainPerSecond().times(realDiff).div(1000));
   }
-  
+
   player.records.bestAntimatterExponentOutsideDoom = Decimal.max(Decimal.log10(
     Decimal.max(player.records.totalAntimatterOutsideDoom, 1)), player.records.bestAntimatterExponentOutsideDoom);
 
