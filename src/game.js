@@ -898,6 +898,16 @@ export function gameLoop(passedDiff, options = {}) {
     player.celestials.pelle.remnants = player.celestials.pelle.remnants.add(Decimal.max(Pelle.remnantsGain, 0));
   }
 
+  if (DivinityMilestone.hadronEmpowerment.isReached) {
+    if (player.antimatter.gte(Laitela.antimatterNeededToDestabilize)) {
+      player.celestials.laitela.difficultyTier++;
+      player.celestials.laitela.fastestCompletion = 300;
+    }
+    if (player.celestials.laitela.difficultyTier >= 8) {
+      Laitela.hadronize();
+    }
+  }
+
   const uncapped = Decimal.min(player.endgame.unnerfedCelestialMatter, CelestialDimensions.SOFTCAP);
   const instability = Decimal.pow(Decimal.max(player.endgame.unnerfedCelestialMatter.div(CelestialDimensions.SOFTCAP), 1), 1 / CelestialDimensions.softcapPow);
   const beforeOverflow = Decimal.min(uncapped.times(instability), CelestialDimensions.OVERFLOW);

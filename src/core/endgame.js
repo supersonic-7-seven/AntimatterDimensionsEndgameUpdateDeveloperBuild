@@ -782,8 +782,8 @@ export const EndgameMilestone = mapGameDataToObject(
 export function divinityReset() {
   Endgame.newEndgame();
   player.celestials.pelle.divinities++;
-  if(player.celestials.pelle.divinities==3){
-    player.celestials.laitela.hadrons.light = player.celestials.laitela.hadrons.total
-    player.celestials.laitela.hadrons.dark = player.celestials.laitela.hadrons.total
+  if (player.celestials.pelle.divinities === 3) {
+    player.celestials.laitela.hadrons.light = player.celestials.laitela.hadrons.total;
+    player.celestials.laitela.hadrons.dark = player.celestials.laitela.hadrons.total;
   }
 }

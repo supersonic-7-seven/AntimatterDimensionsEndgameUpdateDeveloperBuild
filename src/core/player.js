@@ -919,6 +919,7 @@ window.player = {
         total: 0,
         light: 0,
         dark: 0,
+        exotic: 0,
       }
     },
     pelle: {
