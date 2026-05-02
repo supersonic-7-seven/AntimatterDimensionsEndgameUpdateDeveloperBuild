@@ -17,7 +17,7 @@ export class PlayerProgress {
   }
 
   get isRealityUnlocked() {
-    return this._player.realities > 0 || this.isEndgameUnlocked;
+    return new Decimal(this._player.realities).gt(0) || this.isEndgameUnlocked;
   }
 
   get isEndgameUnlocked() {

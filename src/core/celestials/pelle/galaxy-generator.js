@@ -220,8 +220,8 @@ export class GalaxyGeneratorUpgrade extends RebuyableMechanicState {
       price = (i >= 2 && i <= 4 ? Decimal.pow10(price.times(exD[i])) : price.times(exD[i]));
       upg.currency.value = upg.currency.value.sub(price);
     } else {
-      player.celestials.pelle.rebuyables[this.id]++;
       upg.currency.value = upg.currency.value.sub(upg.cost);
+      player.celestials.pelle.rebuyables[this.id]++;
     }
     this.onPurchased();
     GameUI.update();

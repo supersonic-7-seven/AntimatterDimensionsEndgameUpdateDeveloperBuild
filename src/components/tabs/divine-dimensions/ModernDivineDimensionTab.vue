@@ -41,7 +41,7 @@ export default {
       this.divineMatter.copyFrom(Currency.divineMatter);
       this.divineEnergy.copyFrom(Currency.divineEnergy);
       this.matterPerSecond.copyFrom(DivineDimension(1).productionPerSecond);
-      this.energyPerSecond.copyFrom(Decimal.pow(100, Decimal.log10(DivineDimension(1).productionPerSecond).div(100).sub(1)));
+      this.energyPerSecond.copyFrom(DivineDimensions.energyPerSecond);
       this.incomeType = player.celestials.pelle.divinity.isProducingEnergy ? "Divine Energy" : "Divine Matter";
       this.conversionFormula1 = DivineDimensions.conversionFormula1;
       this.conversionFormula2 = DivineDimensions.conversionFormula2;
@@ -85,7 +85,7 @@ export default {
           <span class="c-divine-dim-description__accent">{{ formatX(conversionFormula1, 2, 2) }}</span>
           multiplier to Endgame and Ethereal Power gain, a
           <span class="c-divine-dim-description__accent">{{ formatPow(conversionFormula2, 2, 3) }}</span>
-          to Antimatter Exponent while Doomed, and a
+          to Antimatter Exponent while Doomed and all Machines, and a
           <span class="c-divine-dim-description__accent">{{ formatPercents(conversionFormula3, 2, 2) }}</span>
           reduction to Hadron and Remnants of Alpha Decay cap times.
         </p>

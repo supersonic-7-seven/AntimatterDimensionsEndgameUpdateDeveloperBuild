@@ -406,7 +406,7 @@ window.player = {
     recentEternities: Array.range(0, 10).map(() =>
       [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, "", DC.D0]),
     recentRealities: Array.range(0, 10).map(() =>
-      [DC.BEMAX, Number.MAX_VALUE, DC.D1, 1, "", 0, 0]),
+      [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, "", 0, 0]),
     recentEndgames: Array.range(0, 10).map(() =>
       [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, 1]),
     recentCelestialInfinities: Array.range(0, 10).map(() =>
@@ -601,7 +601,7 @@ window.player = {
     },
     lastEP: DC.DM1,
   },
-  realities: 0,
+  realities: DC.D0,
   partSimulatedReality: 0,
   reality: {
     realityMachines: DC.D0,
@@ -919,6 +919,7 @@ window.player = {
         total: 0,
         light: 0,
         dark: 0,
+        exotic: 0,
       }
     },
     pelle: {
@@ -1307,6 +1308,7 @@ window.player = {
     upgradeBits: 0,
     upgReqs: 0,
     reqLock: 0,
+    partRealitied: DC.D0,
     partEndgamed: 0,
     expansionPacks: {
       areUnlocked: false,

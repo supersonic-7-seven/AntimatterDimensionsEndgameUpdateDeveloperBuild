@@ -2,7 +2,8 @@ import { DimensionState } from "./dimension";
 
 export function divineDimensionCommonMultiplier() {
   let mult = DC.D1;
-  mult = mult.timesEffectOf(DivinityUpgrade.divineL1U3);
+  mult = mult.timesEffectsOf(DivinityUpgrade.divineL1U3, DivinityUpgrade.divineL1U6).times(
+    DivinityMilestone.hadronEmpowerment.isReached ? 77 : 1);
   return mult;
 }
 
@@ -150,6 +151,12 @@ export const DivineDimensions = {
     return DC.NUMMAX.times(Decimal.pow(1.1, 0));
   },
 
+  get energyPerSecond() {
+    const divineEnergyMults = DC.D1.timesEffectOf(DivinityUpgrade.divineL1U7).times(
+      DivinityMilestone.hadronEmpowerment.isReached ? 77 : 1);
+    return Decimal.pow(100, Decimal.log10(DivineDimension(1).productionPerSecond).div(100).sub(1)).times(divineEnergyMults);
+  },
+
   resetAmount() {
     Currency.divineMatter.reset();
     for (const dimension of DivineDimensions.all) {
@@ -178,9 +185,9 @@ export const DivineDimensions = {
       }
       DivineDimension(1).produceCurrency(Currency.divineMatter, realDiff);
     }
-    if (player.celestials.pelle.divinity.isProducingEnergy) {
+    if (player.celestials.pelle.divinity.isProducingEnergy || DivinityUpgrade.divineL1U8.isBought) {
       player.celestials.pelle.divinity.divineEnergy = player.celestials.pelle.divinity.divineEnergy.add(
-        Decimal.pow(100, Decimal.log10(DivineDimension(1).productionPerSecond).div(100).sub(1)).times(realDiff).div(1000));
+        this.energyPerSecond.times(realDiff).div(1000).div(player.celestials.pelle.divinity.isProducingEnergy ? 1 : 10));
     }
     player.celestials.pelle.divinity.divineMatter = player.celestials.pelle.divinity.divineMatter.min(this.HARDCAP);
   },

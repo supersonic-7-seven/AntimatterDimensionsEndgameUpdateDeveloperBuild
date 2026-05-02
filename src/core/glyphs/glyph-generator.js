@@ -59,7 +59,7 @@ export const GlyphGenerator = {
   // glyphs excludes the first fixed glyph and only starts from the 2nd one onward
   uniformityGroups: 4,
   get isUniformityActive() {
-    return player.realities <= 5 * this.uniformityGroups;
+    return player.realities.lte(5 * this.uniformityGroups);
   },
 
   fakeSeed: Date.now() % Math.pow(2, 32),

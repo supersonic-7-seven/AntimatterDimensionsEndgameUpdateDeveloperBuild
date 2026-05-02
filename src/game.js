@@ -728,6 +728,9 @@ export function gameLoop(passedDiff, options = {}) {
   updateImaginaryMachines(realDiff);
   updateDualMachines(realDiff);
 
+  if (ResurgenceUpgrade.ipSurge.isBought) player.infinityPoints = player.antimatter;
+  if (ResurgenceUpgrade.epSurge.isBought) player.eternityPoints = player.antimatter;
+
   if (ExpansionPack.teresaPack.isBought && player.celestials.teresa.autoPour && !player.disablePostReality) {
     Teresa.pourRM(realDiff, true);
   }
@@ -895,6 +898,16 @@ export function gameLoop(passedDiff, options = {}) {
     player.celestials.pelle.remnants = player.celestials.pelle.remnants.add(Decimal.max(Pelle.remnantsGain, 0));
   }
 
+  if (DivinityMilestone.hadronEmpowerment.isReached) {
+    if (player.antimatter.gte(Laitela.antimatterNeededToDestabilize)) {
+      player.celestials.laitela.difficultyTier++;
+      player.celestials.laitela.fastestCompletion = 300;
+    }
+    if (player.celestials.laitela.difficultyTier >= 8) {
+      Laitela.hadronize();
+    }
+  }
+
   const uncapped = Decimal.min(player.endgame.unnerfedCelestialMatter, CelestialDimensions.SOFTCAP);
   const instability = Decimal.pow(Decimal.max(player.endgame.unnerfedCelestialMatter.div(CelestialDimensions.SOFTCAP), 1), 1 / CelestialDimensions.softcapPow);
   const beforeOverflow = Decimal.min(uncapped.times(instability), CelestialDimensions.OVERFLOW);
@@ -1037,6 +1050,15 @@ function updatePrestigeRates() {
 }
 
 function globalPassivePrestigeGen(realDiff) {
+  let realitiedGain = DC.D0;
+  let realityMult = DC.D1;
+  if (ResurgenceUpgrade.realSurge.isBought) {
+    realitiedGain = Time.deltaTime.times(realityMult);
+    player.endgame.partRealitied = player.endgame.partRealitied.add(realitiedGain);
+    Currency.realities.add(player.endgame.partRealitied.floor());
+    player.endgame.partRealitied = player.endgame.partRealitied.sub(player.endgame.partRealitied.floor());
+  }
+
   let endgamedGain = 0;
   let endgameMult = 1;
   endgameMult *= ((ExpansionPack.enslavedPack.isBought && !player.disablePostReality)

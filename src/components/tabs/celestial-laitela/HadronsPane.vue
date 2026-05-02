@@ -6,6 +6,7 @@ export default {
       totalHadrons: 0,
       lightHadrons: 0,
       darkHadrons: 0,
+      exoticHadrons: 0,
       hadronTimer: new Decimal(0),
       effect1: new Decimal(1),
       effect2: new Decimal(1),
@@ -16,7 +17,8 @@ export default {
       hasEffect2: false,
       hasEffect3: false,
       hasEffect4: false,
-      hasDark: false
+      hasDark: false,
+      hasExotic: false
     };
   },
   computed: {
@@ -57,6 +59,22 @@ export default {
     },
     hadronTime() {
       return TimeSpan.fromHours(this.hadronTimer).toStringShort();
+    },
+    buttonText1() {
+      if (this.hasExotic) return `Convert a Hadron and a Dark Hadron into an Exotic Hadron`;
+      return `Convert a Hadron into a Dark Hadron`;
+    },
+    buttonText2() {
+      if (this.hasExotic) return `Convert an Exotic Hadron into a Hadron and a Dark Hadron`;
+      return `Convert a Dark Hadron into a Hadron`;
+    },
+    buttonText3() {
+      if (this.hasExotic) return `Convert all Hadrons and all Dark Hadrons into Exotic Hadrons`;
+      return `Convert all Hadrons into Dark Hadrons`;
+    },
+    buttonText4() {
+      if (this.hasExotic) return `Convert all Exotic Hadrons into Hadrons and Dark Hadrons`;
+      return `Convert all Dark Hadrons into Hadrons`;
     }
   },
   methods: {
@@ -65,6 +83,7 @@ export default {
       this.totalHadrons = hadrons.total;
       this.lightHadrons = hadrons.light;
       this.darkHadrons = hadrons.dark;
+      this.exoticHadrons = hadrons.exotic;
       this.hadronTimer.copyFrom(Hadrons.timeFactor.div(100));
       this.effect1.copyFrom(Hadrons.singularityMultiplier);
       this.effect2.copyFrom(Hadrons.darkMatterCapMultiplier);
@@ -76,34 +95,71 @@ export default {
       this.hasEffect3 = DualityUpgrade(17).isBought;
       this.hasEffect4 = DualityUpgrade(18).isBought;
       this.hasDark = DualityUpgrade(19).isBought;
+      this.hasExotic = DivinityMilestone.hadronEmpowerment.isReached;
     },
     assignOne() {
-      if (this.lightHadrons <= 0) return;
-      Laitela.reset();
-      finishProcessReality({ reset: true });
-      player.celestials.laitela.hadrons.light -= 1;
-      player.celestials.laitela.hadrons.dark += 1;
+      if (this.hasExotic) {
+        if (this.lightHadrons <= 0) return;
+        Laitela.reset();
+        finishProcessReality({ reset: true });
+        player.celestials.laitela.hadrons.light -= 1;
+        player.celestials.laitela.hadrons.dark -= 1;
+        player.celestials.laitela.hadrons.exotic += 1;
+      } else {
+        if (this.lightHadrons <= 0) return;
+        Laitela.reset();
+        finishProcessReality({ reset: true });
+        player.celestials.laitela.hadrons.light -= 1;
+        player.celestials.laitela.hadrons.dark += 1;
+      }
     },
     unassignOne() {
-      if (this.darkHadrons <= 0) return;
-      Laitela.reset();
-      finishProcessReality({ reset: true });
-      player.celestials.laitela.hadrons.light += 1;
-      player.celestials.laitela.hadrons.dark -= 1;
+      if (this.hasExotic) {
+        if (this.exoticHadrons <= 0) return;
+        Laitela.reset();
+        finishProcessReality({ reset: true });
+        player.celestials.laitela.hadrons.light += 1;
+        player.celestials.laitela.hadrons.dark += 1;
+        player.celestials.laitela.hadrons.exotic -= 1;
+      } else {
+        if (this.darkHadrons <= 0) return;
+        Laitela.reset();
+        finishProcessReality({ reset: true });
+        player.celestials.laitela.hadrons.light += 1;
+        player.celestials.laitela.hadrons.dark -= 1;
+      }
     },
     assignAll() {
-      if (this.lightHadrons <= 0) return;
-      Laitela.reset();
-      finishProcessReality({ reset: true });
-      player.celestials.laitela.hadrons.light = 0;
-      player.celestials.laitela.hadrons.dark = player.celestials.laitela.hadrons.total;
+      if (this.hasExotic) {
+        if (this.lightHadrons <= 0) return;
+        Laitela.reset();
+        finishProcessReality({ reset: true });
+        player.celestials.laitela.hadrons.light = 0;
+        player.celestials.laitela.hadrons.dark = 0;
+        player.celestials.laitela.hadrons.exotic = player.celestials.laitela.hadrons.total;
+      } else {
+        if (this.lightHadrons <= 0) return;
+        Laitela.reset();
+        finishProcessReality({ reset: true });
+        player.celestials.laitela.hadrons.light = 0;
+        player.celestials.laitela.hadrons.dark = player.celestials.laitela.hadrons.total;
+      }
     },
     unassignAll() {
-      if (this.darkHadrons <= 0) return;
-      Laitela.reset();
-      finishProcessReality({ reset: true });
-      player.celestials.laitela.hadrons.light = player.celestials.laitela.hadrons.total;
-      player.celestials.laitela.hadrons.dark = 0;
+      if (this.hasExotic) {
+        if (this.exoticHadrons <= 0) return;
+        Laitela.reset();
+        finishProcessReality({ reset: true });
+        player.celestials.laitela.hadrons.light = player.celestials.laitela.hadrons.total;
+        player.celestials.laitela.hadrons.dark = player.celestials.laitela.hadrons.total;
+        player.celestials.laitela.hadrons.exotic = 0;
+      } else {
+        if (this.darkHadrons <= 0) return;
+        Laitela.reset();
+        finishProcessReality({ reset: true });
+        player.celestials.laitela.hadrons.light = player.celestials.laitela.hadrons.total;
+        player.celestials.laitela.hadrons.dark = 0;
+      }
     }
   }
 };
@@ -117,6 +173,9 @@ export default {
       </h2>
       <h2 v-if="hasDark">
         You have {{ quantify("Dark Hadron", darkHadrons, 2) }}
+      </h2>
+      <h2 v-if="hasExotic">
+        You have {{ quantify("Exotic Hadron", exoticHadrons, 2) }}
       </h2>
       <br>
       <h2>
@@ -202,28 +261,28 @@ export default {
         :class="{ 'c-laitela-hadrons-assign--available' : lightHadrons > 0 }"
         @click="assignOne"
       >
-        Convert a Hadron into a Dark Hadron.
+        {{ buttonText1 }}
       </button>
       <button
         class="c-laitela-hadrons-assign"
-        :class="{ 'c-laitela-hadrons-assign--available' : darkHadrons > 0 }"
+        :class="{ 'c-laitela-hadrons-assign--available' : (hasExotic ? exoticHadrons > 0 : darkHadrons > 0) }"
         @click="unassignOne"
       >
-        Covert a Dark Hadron into a Hadron.
+        {{ buttonText2 }}
       </button>
       <button
         class="c-laitela-hadrons-assign"
         :class="{ 'c-laitela-hadrons-assign--available' : lightHadrons > 0 }"
         @click="assignAll"
       >
-        Convert all Hadrons into Dark Hadrons.
+        {{ buttonText3 }}
       </button>
       <button
         class="c-laitela-hadrons-assign"
-        :class="{ 'c-laitela-hadrons-assign--available' : darkHadrons > 0 }"
+        :class="{ 'c-laitela-hadrons-assign--available' : (hasExotic ? exoticHadrons > 0 : darkHadrons > 0) }"
         @click="unassignAll"
       >
-        Convert all Dark Hadrons into Hadrons.
+        {{ buttonText4 }}
       </button>
     </div>
   </div>

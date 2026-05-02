@@ -75,6 +75,13 @@ export const Laitela = {
     return Decimal.clamp(Decimal.pow(new Decimal(Currency.antimatter.value.add(1).log10()).div(
       hadronizeAntimatter), 2), 0, maxSpeed).div(200);
   },
+  get antimatterNeededToDestabilize() {
+    const hadrBump = this.hadronizes > 0 ? 1e12 : 1;
+    const hadrAM = Decimal.pow(1000, this.hadronizes).times(hadrBump).times(1e11)
+      .div(Hadrons.entropyFormulaBoost).div(Decimal.log10(player.records.bestEndgame.galaxies.max(1)));
+    const currRoot = (this.maxAllowedDimension === 0 ? Infinity : 8 / this.maxAllowedDimension);
+    return Decimal.pow10(hadrAM).pow(Decimal.sqrt(20/3)).pow(currRoot);
+  },
   get darkMatterMultGain() {
     const extraPow = (ExpansionPack.laitelaPack.isBought && !player.disablePostReality)
       ? Decimal.pow((Decimal.log10(Decimal.log10(Currency.darkMatter.value.add(1)).add(1)).add(1)).div(2), 2).add(1) : 1;
@@ -115,7 +122,7 @@ export const Laitela = {
   annihilate(force) {
     if (!force && !this.canAnnihilate) return false;
     this.celestial.darkMatterMult = this.celestial.darkMatterMult.add(this.darkMatterMultGain);
-    DarkMatterDimensions.reset();
+    if (force || !DivinityMilestone.hadronEmpowerment.isReached) DarkMatterDimensions.reset();
     Laitela.quotes.annihilation.show();
     Achievement(176).unlock();
     return true;
@@ -154,6 +161,7 @@ export const Laitela = {
     this.celestial.hadronizes += 1;
     if (DualityUpgrade(15).isBought) this.celestial.hadrons.total += 1;
     if (DualityUpgrade(15).isBought) this.celestial.hadrons.light += 1;
+    if (DivinityMilestone.hadronEmpowerment.isReached) this.celestial.hadrons.dark += 1;
     return true;
   },
   reset() {

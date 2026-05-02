@@ -683,7 +683,7 @@ export const Endgame = {
     player.records.recentEternities = Array.range(0, 10).map(() =>
       [DC.E9E15, Number.MAX_VALUE, DC.D1, DC.D1, "", DC.D0]);
     player.records.recentRealities = Array.range(0, 10).map(() =>
-      [DC.E9E15, Number.MAX_VALUE, DC.D1, 1, "", 0, 0]);
+      [DC.E9E15, Number.MAX_VALUE, DC.D1, DC.D1, "", 0, 0]);
     player.records.thisInfinity.time = DC.D0;
     player.records.thisInfinity.realTime = 0;
     player.records.thisInfinity.lastBuyTime = DC.D0;
@@ -782,4 +782,8 @@ export const EndgameMilestone = mapGameDataToObject(
 export function divinityReset() {
   Endgame.newEndgame();
   player.celestials.pelle.divinities++;
+  if (player.celestials.pelle.divinities === 3) {
+    player.celestials.laitela.hadrons.light = player.celestials.laitela.hadrons.total;
+    player.celestials.laitela.hadrons.dark = player.celestials.laitela.hadrons.total;
+  }
 }

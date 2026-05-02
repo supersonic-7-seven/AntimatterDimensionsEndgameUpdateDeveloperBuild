@@ -46,7 +46,7 @@ export const stars = {
   blue: {
     id: 4,
     name: "blue",
-    dmReq: 1e40,
+    dmReq: 1e45,
     resetReq: 1e40,
     effect: (amount = player.endgame.ethereal.stars.blue) => {
       const boost = Ethereal.starBoost;
@@ -58,7 +58,7 @@ export const stars = {
   purple: {
     id: 5,
     name: "purple",
-    dmReq: 1e45,
+    dmReq: 1e55,
     resetReq: 1e50,
     effect: (amount = player.endgame.ethereal.stars.purple) => {
       const boost = Ethereal.starBoost;
@@ -69,7 +69,7 @@ export const stars = {
   white: {
     id: 6,
     name: "white",
-    dmReq: 1e50,
+    dmReq: 1e70,
     resetReq: 1e60,
     effect: (amount = player.endgame.ethereal.stars.white) => {
       const boost = Ethereal.starBoost;
@@ -80,7 +80,7 @@ export const stars = {
   black: {
     id: 7,
     name: "black",
-    dmReq: 1e60,
+    dmReq: 1e85,
     resetReq: 1e80,
     effect: (amount = player.endgame.ethereal.stars.black) => {
       const boost = Ethereal.starBoost;
@@ -91,7 +91,7 @@ export const stars = {
   gray: {
     id: 8,
     name: "gray",
-    dmReq: 1e75,
+    dmReq: 1e100,
     resetReq: 1e100,
     effect: (amount = player.endgame.ethereal.stars.gray) => {
       return Decimal.log10(amount.add(1)).times(10);

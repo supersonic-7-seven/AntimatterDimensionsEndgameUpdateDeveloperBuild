@@ -177,7 +177,7 @@ export const discordRichPresence = {
     },
     {
       name: "Reality",
-      hasReached: () => player.realities > 0,
+      hasReached: () => player.realities.gt(0),
       mainResource: () => `${format(player.reality.realityMachines, 2)} RM`,
       resourceList: [
         () => quantify("Reality", player.realities, 0, 0, formatInt),

@@ -444,9 +444,12 @@ Currency.dilatedTime = new class extends DecimalCurrency {
   }
 }();
 
-Currency.realities = new class extends NumberCurrency {
+Currency.realities = new class extends DecimalCurrency {
   get value() { return player.realities; }
-  set value(value) { player.realities = value; }
+  set value(value) {
+    const newValue = new Decimal(value);
+    player.realities = newValue;
+  }
 
   get startingValue() {
     if (EndgameUpgrade(6).isBought && !player.disablePostReality) {

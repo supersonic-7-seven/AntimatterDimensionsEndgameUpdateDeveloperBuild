@@ -26,5 +26,18 @@ export const divinityMilestones = {
         Reduce the time for Remnants of Alpha Decay to cap by ${formatPercents(0.2)}
         Galaxy Generator Upgrade Autobuyers buy max`;
     }
+  },
+  hadronEmpowerment: {
+    divinities: 3,
+    get reward() {
+      return ` Automatically destabilize Lai'tela's Reality if your Antimatter exceeds the amount required to disable it in less than ${formatInt(30)} seconds, rooted by ${formatInt(8)} divided by the number of Dimensions left intact
+        Automatically hadronize Lai'tela's Reality if all ${formatInt(8)} Dimensions are disabled
+        Hadrons and Dark Hadrons are now equal, and you can instead merge them into Exotic Hadrons which reduce the time it takes for Hadron effects to cap
+        The ${formatInt(8)}th Galaxy Generator Upgrade is stronger
+        Multiply all Divine Dimensions and Divine Energy production by ${formatX(77)}
+        Dark Matter Annihilation no longer resets anything
+        Ethereal Power generation is multiplied by ${formatInt(10)}
+        Unlock Alpha's Expansion Pack`;
+    }
   }
 };

@@ -46,7 +46,7 @@ export const divinityUpgrades = {
     layer: 1,
     cost: new Decimal(1e125),
     description: "Divine Energy boosts Divine Dimensions",
-    effect: () => Decimal.pow(Currency.divineEnergy.value, 0.25).max(1),
+    effect: () => Decimal.pow(Currency.divineEnergy.value, 0.5).max(1),
     formatEffect: value => formatX(value, 2, 2)
   },
   divineL1U7: {

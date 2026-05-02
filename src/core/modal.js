@@ -297,7 +297,7 @@ function getSaveInfo(save) {
     totalAntimatter: new Decimal(0),
     infinities: new Decimal(0),
     eternities: new Decimal(0),
-    realities: 0,
+    realities: new Decimal(0),
     infinityPoints: new Decimal(0),
     eternityPoints: new Decimal(0),
     realityMachines: new Decimal(0),
@@ -318,7 +318,7 @@ function getSaveInfo(save) {
   resources.totalAntimatter.copyFrom(new Decimal(save.records?.totalAntimatter));
   resources.infinities.copyFrom(new Decimal(save.infinities));
   resources.eternities.copyFrom(new Decimal(save.eternities));
-  resources.realities = save.realities ?? 0;
+  resources.realities.copyFrom(new Decimal(save.realities));
   resources.infinityPoints.copyFrom(new Decimal(save.infinityPoints));
   resources.eternityPoints.copyFrom(new Decimal(save.eternityPoints));
   resources.realityMachines.copyFrom(new Decimal(save.reality?.realityMachines));

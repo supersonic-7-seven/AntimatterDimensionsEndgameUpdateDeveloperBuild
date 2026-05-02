@@ -171,7 +171,7 @@ export const realityUpgrades = [
     description: "Eternity Point multiplier based on Reality and Time Theorem count",
     effect: () => player.disablePostReality ? DC.D1 : Currency.timeTheorems.value
       .minus(DC.E3).clampMin(2)
-      .pow(Math.log2(Math.clamp(Currency.realities.value, 1, 1e4))).clampMin(1),
+      .pow(Decimal.log2(Decimal.clamp(Currency.realities.value, 1, 1e4))).clampMin(1),
     formatEffect: value => formatX(value, 2, 2)
   },
   {
@@ -199,7 +199,7 @@ export const realityUpgrades = [
     description: "Gain Eternities per second equal to your Reality count",
     automatorPoints: 5,
     shortDescription: () => `Continuous Eternity generation`,
-    effect: () => player.disablePostReality ? 0 : Currency.realities.value * Ra.unlocks.continuousTTBoost.effects.eternity.effectOrDefault(1),
+    effect: () => player.disablePostReality ? 0 : Currency.realities.value.times(Ra.unlocks.continuousTTBoost.effects.eternity.effectOrDefault(1)),
     formatEffect: value => `${format(value)} per second`
   },
   {
