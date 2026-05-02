@@ -865,7 +865,7 @@ export function gameLoop(passedDiff, options = {}) {
   Currency.dilatedTime.add(getDilationGainPerSecond().times(realDiff).div(1000));
 
   updateTachyonGalaxies();
-  Currency.timeTheorems.add(getTTPerSecond().times(Alpha.isRunning ? realDiff : diff).div(1000));
+  Currency.timeTheorems.add(getTTPerSecond().times(Alpha.isRunning ? realDiff : diff).pow(Decimal.clampMin(Decimal.log10(Decimal.log10(Currency.timeTheorems.value.add(1)).add(1)), 1)).div(1000));
   InfinityDimensions.tryAutoUnlock();
 
   BlackHoles.updatePhases(blackHoleDiff);
@@ -1095,6 +1095,9 @@ function passivePrestigeGen(realDiff) {
     eternitiedGain = Decimal.times(eternitiedGain, getAdjustedGlyphEffect("timeetermult"));
     eternitiedGain = Time.deltaTime.times(Decimal.pow(eternitiedGain, AlchemyResource.eternity.effectValue));
     eternitiedGain = eternitiedGain.powEffectOf(Ra.unlocks.eternityGenBuff);
+    if (ResurgenceUpgrade.curr1Surge.isBought) {
+      eternitiedGain = eternitiedGain.pow(Decimal.clampMin(Decimal.log10(Decimal.log10(Currency.eternities.value.add(1)).add(1)), 1));
+    }
     player.reality.partEternitied = player.reality.partEternitied.plus(eternitiedGain);
     Currency.eternities.add(player.reality.partEternitied.floor());
     player.reality.partEternitied = player.reality.partEternitied.sub(player.reality.partEternitied.floor());
@@ -1128,6 +1131,9 @@ function passivePrestigeGen(realDiff) {
         Currency.eternities.value.minus(eternitiedGain.div(2).floor())).times(Time.deltaTime));
     }
     infGen = infGen.plus(player.partInfinitied);
+    if (ResurgenceUpgrade.curr1Surge.isBought) {
+      infGen = infGen.pow(Decimal.clampMin(Decimal.log10(Decimal.log10(Currency.infinities.value.add(1)).add(1)), 1));
+    }
     Currency.infinities.add(infGen.floor());
     player.partInfinitied = infGen.minus(infGen.floor()).toNumber();
   }
