@@ -179,7 +179,7 @@ export const DivineDimensions = {
   },
 
   tick(realDiff) {
-    if (!player.celestials.pelle.divinity.isProducingEnergy || DivinityUpgrade.divineL1U8.isBought) {
+    if (!player.celestials.pelle.divinity.isProducingEnergy || DivinityUpgrade.divineL1U9.isBought) {
       for (let tier = 8; tier > 1; tier--) {
         DivineDimension(tier).produceDimensions(DivineDimension(tier - 1), realDiff / 10);
       }
