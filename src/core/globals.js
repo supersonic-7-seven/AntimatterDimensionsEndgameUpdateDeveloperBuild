@@ -22,6 +22,7 @@ export * from "./galactic-power";
 export * from "./expansion-packs";
 export * from "./ethereal";
 export * from "./hypercubes";
+export * from "./large-hadron-collider";
 
 export * from "./elemental";
 
