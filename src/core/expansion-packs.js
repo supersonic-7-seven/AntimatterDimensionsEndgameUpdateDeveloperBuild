@@ -18,7 +18,8 @@ class ExpansionPackState extends SetPurchasableMechanicState {
   }
 
   get isUnlocked() {
-    return this.isBought || (Currency.antimatter.gte(this.unlockAM) && (!this.config.id !== "alphaPack" || !Pelle.isDoomed));
+    return this.isBought || (Currency.antimatter.gte(this.unlockAM) && (this.config.id !== "alphaPack" || !Pelle.isDoomed) &&
+      (this.config.id !== "alphaPack" || DivinityMilestone.hadronEmpowerment.isReached));
   }
 }
 

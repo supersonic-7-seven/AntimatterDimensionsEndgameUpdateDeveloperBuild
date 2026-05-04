@@ -99,7 +99,8 @@ export const effarigUnlocks = {
         The RM Multiplier Effarig Glyph effect now boosts the RM cap
         The Glyph Instability Delay Effarig Glyph effect now delays the first ${formatInt(4)} levels of Instability instead of the first ${formatInt(2)}
         The Effarig Glyph Sacrifice effect is uncapped and values over ${formatPercents(1)} will boost the Glyph Rarity cap
-        Give me more ideas in the Discord`;
+        Endgame Mastery ${formatInt(71)} now generates at your all-time highest Glyph Level and also generates ${formatInt(2)} Effarig Glyphs
+        Automatically generate ${formatInt(2)} Reality Glyphs on Endgame`;
     },
   },
 };

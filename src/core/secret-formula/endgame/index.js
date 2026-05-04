@@ -1,3 +1,4 @@
+import { accelerators } from "./accelerators";
 import { breakEternityUpgrades } from "./break-eternity-upgrades";
 import { endgameMasteries } from "./endgame-masteries";
 import { permanentEndgameMasteries } from "./permanent-endgame-masteries";
@@ -21,5 +22,6 @@ export const endgame = {
   celDimExpansion: {
     celestialInfinityUpgrades: celestialInfinityUpgrades,
     celestialBreakUpgrades: celestialBreakInfinityUpgrades
-  }
+  },
+  accelerators: accelerators
 };

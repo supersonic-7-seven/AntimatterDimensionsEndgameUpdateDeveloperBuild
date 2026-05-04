@@ -69,7 +69,7 @@ export const MachineHandler = {
   },
 
   get baseHardcapIM() {
-    return this.baseIMHardcap.times(DualityUpgrade(6).effectOrDefault(1)).pow(EtherealStars.green.reward.times(DivineDimensions.conversionFormula2));
+    return this.baseIMHardcap.times(DualityUpgrade(6).effectOrDefault(1)).pow(EtherealStars.green.reward.times(DivineDimensions.conversionFormula2).timesEffectOf(ResurgenceUpgrade.imSurge));
   },
 
   get hardcapIM() {
