@@ -1350,6 +1350,28 @@ window.player = {
       isBroken: false,
       celestialInfinityRebuyables: [0, 0, 0, 0, 0, 0],
     },
+    largeHadronCollider: {
+      accelerators: {
+        potency: {
+          fill: DC.D0,
+          active: false
+        },
+        emptiness: {
+          fill: DC.D0,
+          active: false
+        },
+        cosmic: {
+          fill: DC.D0,
+          active: false
+        }
+      },
+      powerCores: 1,
+      void: {
+        isRunning: false,
+        highestAntimatter: DC.E1,
+        nullMatter: DC.D0
+      }
+    }
   },
   endgameMasteries: {
     skills: DC.D0,
