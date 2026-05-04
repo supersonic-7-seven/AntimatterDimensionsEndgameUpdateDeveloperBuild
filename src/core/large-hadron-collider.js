@@ -100,7 +100,7 @@ class AcceleratorState extends GameMechanicState {
     return this.config.drainResource;
   }
 
-  get effects() {
+  get totalEffects() {
     const base1 = this.config.baseEffect1(this.effectValue1);
     const base2 = this.config.baseEffect2(this.effectValue2);
     const base3 = this.config.baseEffect3(this.effectValue3);
