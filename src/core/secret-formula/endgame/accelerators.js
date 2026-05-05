@@ -42,7 +42,7 @@ export const accelerators = {
     name: "Emptiness Accelerator",
     drainResource: "Null Matter",
     baseEffect1: x => `ADs ${formatPow(x, 2, 3)} while inside The Void`,
-    baseEffect2: x => `Hadron Effectiveness cap +${formatPercents(x, 2)}`,
+    baseEffect2: x => `Hadron Effectiveness cap +${formatPercents(x - 1, 2)}`,
     baseEffect3: x => `Antimatter Overflow Magnitude ${formatInt(10)} ➜ ${format(x, 2, 2)}`,
     percentage: totalFill => Decimal.min(totalFill.div(20000), totalFill.max(1).log10()).div(100).toNumber(),
     percentageToFill: percentage => Decimal.max(new Decimal(percentage * 100).times(20000), Decimal.pow10(percentage * 100)),
@@ -82,7 +82,7 @@ export const accelerators = {
     baseEffect1: x => `Galaxy Generation ${formatPow(x, 2, 3)}`,
     baseEffect2: x => `AM Exponent ${formatPow(x, 2, 3)} while Doomed`,
     baseEffect3: x => `AM Exponent^2 ${formatPow(x, 2, 4)} while Doomed`,
-    percentage: totalFill => Decimal.log10(GalaxyGenerator.galaxies).div(3000).sub(1).times(2.4).div(100).toNumber(),
+    percentage: totalFill => Decimal.log10(totalFill).div(3000).sub(1).times(2.4).div(100).toNumber(),
     percentageToFill: percentage => Decimal.pow10((percentage * 100 / 2.4 + 1) * 3000),
     effects: {
       alpha: percentage => 1 + percentage / 200,

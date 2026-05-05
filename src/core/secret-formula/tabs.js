@@ -645,6 +645,15 @@ export const tabs = [
         id: 9,
         hidable: true,
       },
+      {
+        key: "collider",
+        name: "Large Hadron Collider",
+        symbol: "<i class='fas fa-atom'></i>",
+        component: "LargeHadronColliderTab",
+        condition: () => ExpansionPack.alphaPack.isBought,
+        id: 10,
+        hidable: true,
+      },
     ],
   },
   {

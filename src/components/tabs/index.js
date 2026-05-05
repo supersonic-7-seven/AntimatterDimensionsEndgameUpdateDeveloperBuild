@@ -36,6 +36,7 @@ import InfinityChallengesTab from "./infinity-challenges/InfinityChallengesTab";
 import InfinityDimensionsTab from "./infinity-dimensions/InfinityDimensionsTab";
 import InfinityUpgradesTab from "./infinity-upgrades/InfinityUpgradesTab";
 import LaitelaTab from "./celestial-laitela/LaitelaTab";
+import LargeHadronColliderTab from "./large-hadron-collider/LargeHadronColliderTab";
 import MultiplierBreakdownTab from "./statistics/MultiplierBreakdownTab";
 import NormalAchievementsTab from "./normal-achievements/NormalAchievementsTab";
 import NormalChallengesTab from "./normal-challenges/NormalChallengesTab";
@@ -118,6 +119,7 @@ const TabComponents = {
   GalacticPowerTab,
   EtherealTab,
   HypercubesTab,
+  LargeHadronColliderTab,
   CelestialInfinityUpgradesTab,
   CelestialBreakInfinityTab,
   DivinityMilestonesTab,
