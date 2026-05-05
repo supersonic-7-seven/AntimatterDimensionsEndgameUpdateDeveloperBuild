@@ -61,7 +61,7 @@ export default {
       return typeof value === "number" ? `${formatInt(100 * value)}%` : format(value, 2);
     },
     toggle() {
-      if (!this.isMaxed) this.rift.toggle();
+      if (!this.isMaxed) this.accelerator.toggle();
     },
     barOverlay() {
       const overfill = this.percentage > 1;
@@ -131,7 +131,7 @@ export default {
         class="o-accelerator-bar-active-fill"
       />
       <div
-        v-for="(milestone, idx) in rift.milestones"
+        v-for="(milestone, idx) in accelerator.milestones"
         :key="'milestone-line-' + idx"
         class="o-accelerator-bar-milestone-line"
         :class="{
@@ -178,7 +178,7 @@ export default {
   100% { box-shadow: 0 0 0.7rem 1rem rgba(124, 183, 39, 53.3%); }
 }
 
-/* ACTIVE RIFT FILLING STYLES */
+/* ACTIVE ACCELERATOR FILLING STYLES */
 @keyframes a-accelerator-bar-filling-sweep {
   0% {
     width: 0;
@@ -265,7 +265,7 @@ export default {
   box-shadow: inset 0 0 0.3rem 0.1rem #222222;
 }
 
-.c-accelerator-bar--filling .o-pelle-rift-bar-overlay {
+.c-accelerator-bar--filling .o-accelerator-bar-overlay {
   box-shadow: inset 0 0 0.3rem 0.1rem var(--color-alpha--base);
 }
 /* #endregion CONTAINER STYLES */
