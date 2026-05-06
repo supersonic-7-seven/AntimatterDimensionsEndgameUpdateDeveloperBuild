@@ -1637,7 +1637,7 @@ export const Player = {
 
   get infinityLimit() {
     if (Alpha.isRunning && Alpha.currentStage < 3) return DC.E300;
-    const trueHardcap = player.break2 ? DC.ENUMMAX : DC.E9E15;
+    const trueHardcap = player.break2 ? (Pelle.isDoomed ? DC.ENUMMAX : LHC.breakingPoint) : DC.E9E15;
     const challenge = NormalChallenge.current || InfinityChallenge.current;
     return challenge === undefined ? trueHardcap : challenge.goal;
   },
