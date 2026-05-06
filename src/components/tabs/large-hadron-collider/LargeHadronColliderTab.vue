@@ -9,7 +9,9 @@ export default {
   data() {
     return {
       hasAccelerator: false,
-      hadronSpeed: 0
+      hadronSpeed: 0,
+      amSoftcap: new Decimal(),
+      amHardcap: new Decimal()
     };
   },
   computed: {
@@ -23,6 +25,8 @@ export default {
     update() {
       this.hasAccelerator = Accelerators.all.some(a => a.isUnlocked);
       this.hadronSpeed = LHC.hadronSpeed;
+      this.amSoftcap.copyFrom(Decimal.pow10(1e200));
+      this.amHardcap.copyFrom(Pelle.isDoomed ? DC.ENUMMAX : LHC.breakingPoint);
     },
   }
 };
@@ -43,6 +47,13 @@ export default {
         class="c-large-hadron-collider-description"
       >
         Reach {{ format(Decimal.pow10(1e200), 2, 2) }} Antimatter
+      </div>
+      <div
+        v-if="!hasAccelerator"
+        class="c-large-hadron-collider-entropy"
+      >
+        Excess Entropy in the universe has caused your Antimatter to decay past {{ format(amSoftcap, 2, 2) }},
+        and has restricted it from exceeding {{ format(amHardcap, 2, 2) }}.
       </div>
     </div>
   </div>
@@ -67,5 +78,12 @@ export default {
   font-size: 2rem;
   font-weight: bold;
   color: var(--color-alpha--base);
+}
+
+.c-large-hadron-collider-entropy {
+  position: relative;
+  font-size: 2rem;
+  font-weight: bold;
+  color: red;
 }
 </style>
