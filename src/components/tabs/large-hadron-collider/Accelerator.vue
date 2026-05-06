@@ -60,7 +60,7 @@ export default {
   >
     <div class="c-accelerator">
       <div class="c-accelerator-row">
-        <div class="c-accelerator-column c-accelerator-rift-status">
+        <div class="c-accelerator-column c-accelerator-status">
           <h2 class="c-accelerator-name-header">
             {{ acceleratorName() }}
           </h2>

@@ -10,6 +10,8 @@ export default {
     return {
       decayRate: 0,
       time: 0,
+      nextAcceleratorReq: new Decimal(),
+      nextAcceleratorCurrency: ""
     };
   },
   computed: {
@@ -19,8 +21,10 @@ export default {
   },
   methods: {
     update() {
-      this.decayRate = player.endgame.largeHadronCollider.powerCores * 0.00001;
+      this.decayRate = LHC.acceleratorSpeed;
       this.time = Date.now();
+      this.nextAcceleratorReq.copyFrom(LHC.nextAccelerator ? LHC.nextAccelerator.config.unlockReq() : Decimal.pow10("1e1000"));
+      this.nextAcceleratorCurrency = LHC.nextAccelerator ? LHC.nextAccelerator.config.drainResource : "Antimatter";
     }
   }
 };
@@ -46,6 +50,9 @@ export default {
           :accelerator="accelerator"
         />
       </div>
+    </div>
+    <div class="c-accelerator-panel-description">
+      The next Accelerator will unlock at {{ format(nextAcceleratorReq, 2, 2) }} {{ nextAcceleratorCurrency }}
     </div>
   </div>
 </template>
@@ -79,5 +86,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.c-accelerator-panel-description {
+  position: relative;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-alpha--base);
 }
 </style>

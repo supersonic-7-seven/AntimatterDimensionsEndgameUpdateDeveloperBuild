@@ -28,7 +28,7 @@ export const Ethereal = {
   get stellarProduct() {
     let prod = [];
     for (let star = 0; star < 9; star++) {
-      if (EtherealStars.all.find(s => s.id === star).isUnlocked) {
+      if (EtherealStars.all.find(s => s.id === star).hasStar) {
         prod.push(player.endgame.ethereal.stars[EtherealStars.all.find(s => s.id === star).config.name]);
       }
     }
@@ -63,6 +63,10 @@ export class EtherealStarState {
 
   get canGainStar() {
     return Currency.etherealPower.gte(this.config.resetReq);
+  }
+
+  get hasStar() {
+    return player.endgame.ethereal.stars[this.config.name].gte(1);
   }
 }
 

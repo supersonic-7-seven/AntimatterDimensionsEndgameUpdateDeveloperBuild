@@ -135,8 +135,7 @@ export default {
         :key="'milestone-line-' + idx"
         class="o-accelerator-bar-milestone-line"
         :class="{
-          'o-accelerator-bar-milestone-line--unlocked': hasMilestone(milestone),
-          'o-accelerator-bar-milestone-line--disabled': reducedTo < milestone.requirement
+          'o-accelerator-bar-milestone-line--unlocked': hasMilestone(milestone)
         }"
         :style="{
           left: `calc(${milestone.requirement * 100}% - 0.25rem)`
@@ -342,11 +341,6 @@ export default {
 }
 
 .o-accelerator-bar-milestone-line--unlocked {
-  animation: none;
-}
-
-.o-accelerator-bar-milestone-line--disabled {
-  filter: brightness(0.25);
   animation: none;
 }
 /* #endregion MILESTONE STYLES */

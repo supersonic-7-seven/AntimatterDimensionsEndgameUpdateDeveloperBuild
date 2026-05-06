@@ -82,8 +82,8 @@ export const accelerators = {
     baseEffect1: x => `Galaxy Generation ${formatPow(x, 2, 3)}`,
     baseEffect2: x => `AM Exponent ${formatPow(x, 2, 3)} while Doomed`,
     baseEffect3: x => `AM Exponent^2 ${formatPow(x, 2, 4)} while Doomed`,
-    percentage: totalFill => Decimal.log10(totalFill).div(3000).sub(1).times(2.4).div(100).toNumber(),
-    percentageToFill: percentage => Decimal.pow10((percentage * 100 / 2.4 + 1) * 3000),
+    percentage: totalFill => Decimal.log10(totalFill).sub(3000).div(5000).sqrt().times(20).div(100).toNumber(),
+    percentageToFill: percentage => Decimal.pow10(Decimal.sqr(percentage * 100 / 20).times(5000).add(3000)),
     effects: {
       alpha: percentage => 1 + percentage / 200,
       beta: percentage => 1 + percentage / 100,
@@ -94,13 +94,13 @@ export const accelerators = {
     milestones: [
       {
         resource: "cosmic",
-        requirement: 0.05,
+        requirement: 0.2,
         description: "While inside The Void, Galaxies are stronger based on Cosmic Accelerator percentage",
         effect: () => 1 + Accelerators.cosmic.percentage * 100
       },
       {
         resource: "cosmic",
-        requirement: 0.15,
+        requirement: 0.4,
         description: "Unlock a new Galaxy Generator Upgrade"
       },
       {
