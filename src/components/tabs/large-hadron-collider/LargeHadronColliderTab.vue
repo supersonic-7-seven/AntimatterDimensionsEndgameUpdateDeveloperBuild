@@ -15,7 +15,8 @@ export default {
   computed: {
     hadronSpeedText() {
       if (this.hadronSpeed === 0) return `Your Hadrons are stationary`;
-      return `Your Hadrons are moving at ${format(this.hadronSpeed, 2, 2)} m/s`;
+      if (this.hadronSpeed >= 1000) return `Your Hadrons are moving at ${formatHybridLarge(this.hadronSpeed, 3)} m/s`;
+      return `Your Hadrons are moving at ${format(this.hadronSpeed, 3, 3)} m/s`;
     },
   },
   methods: {
