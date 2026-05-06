@@ -64,7 +64,7 @@ export const accelerators = {
         resource: "emptiness",
         requirement: 0.3,
         description: "Divine Dimensions are powered based on best Antimatter inside The Void",
-        effect: () => Decimal.log10(Decimal.log10(player.records.totalAntimatterOutsideDoom)).div(100).add(1)
+        effect: () => Decimal.log10(Decimal.log10(player.records.totalAntimatterOutsideDoom)).div(100).add(1).toNumber()
       },
       {
         resource: "emptiness",
