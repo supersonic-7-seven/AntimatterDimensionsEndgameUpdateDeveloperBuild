@@ -185,8 +185,8 @@ export const LHC = {
   },
 
   get breakingPoint() {
-    return Decimal.pow10(Decimal.pow10(225 + Accelerators.potency.baseEffect2 +
-      Accelerators.emptiness.baseEffect3 + Accelerators.cosmic.baseEffect3));
+    return Decimal.pow10(Decimal.pow10(225 + Accelerators.potency.effectValue2 +
+      Accelerators.emptiness.effectValue3 + Accelerators.cosmic.effectValue3));
   },
 
   gameLoop(diff) {
