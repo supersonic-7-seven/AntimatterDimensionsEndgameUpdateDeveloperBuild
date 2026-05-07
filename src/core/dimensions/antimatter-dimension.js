@@ -657,7 +657,7 @@ class AntimatterDimensionState extends DimensionState {
       }
       if (production.gt(Decimal.pow10(1e200)) && !Pelle.isDoomed) {
         const log10 = production.log10();
-        production = Decimal.pow10(Decimal.pow(log10.div(1e200), 0.1).times(1e200));
+        production = Decimal.pow10(Decimal.pow(log10.div(1e200), 1 / Accelerators.emptiness.effectValue3).times(1e200));
       }
     }
     production = production.min(this.cappedProductionInNormalChallenges);
