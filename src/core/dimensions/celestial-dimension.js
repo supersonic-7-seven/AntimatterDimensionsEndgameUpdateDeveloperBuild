@@ -885,7 +885,7 @@ class CIPMultiplierState extends GameMechanicState {
   }
 
   set boughtAmount(value) {
-    const diff = Decimal.clampMin(value.sub(player.endgame.celDimExpansion.epmultUpgrades), 0);
+    const diff = Decimal.clampMin(value.sub(player.endgame.celDimExpansion.cipMultUpgrades), 0);
     player.endgame.celDimExpansion.cipMultUpgrades = value;
     this.cachedCost.invalidate();
     this.cachedEffectValue.invalidate();
