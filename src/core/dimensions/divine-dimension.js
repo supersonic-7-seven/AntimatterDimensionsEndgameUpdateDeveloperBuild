@@ -58,6 +58,7 @@ class DivineDimensionState extends DimensionState {
     const tier = this.tier;
     let mult = GameCache.divineDimensionCommonMultiplier.value;
     mult = mult.times(Decimal.pow(this.powerMultiplier, Decimal.floor(this.baseAmount)));
+    mult = mult.pow(Accelerators.emptiness._milestones[1].effectOrDefault(1));
     return mult;
   }
 
