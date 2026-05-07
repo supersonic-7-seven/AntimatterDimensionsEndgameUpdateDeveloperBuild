@@ -84,7 +84,7 @@ export default {
       this.lightHadrons = hadrons.light;
       this.darkHadrons = hadrons.dark;
       this.exoticHadrons = hadrons.exotic;
-      this.hadronTimer.copyFrom(Hadrons.timeFactor.div(100));
+      this.hadronTimer.copyFrom(Hadrons.timeFactor.div(100 + Math.pow(Accelerators.emptiness.effectValue2, 2)));
       this.effect1.copyFrom(Hadrons.singularityMultiplier);
       this.effect2.copyFrom(Hadrons.darkMatterCapMultiplier);
       this.effect3.copyFrom(Hadrons.darkEnergyAscensionBoost);
