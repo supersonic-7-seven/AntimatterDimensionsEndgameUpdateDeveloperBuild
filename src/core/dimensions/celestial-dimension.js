@@ -1072,3 +1072,94 @@ function askCelestialEternityConfirmation() {
 export function gainedCelestialEternities() {
   return DC.D1;
 }
+
+class CelestialEternityUpgradeState extends SetPurchasableMechanicState {
+  get currency() {
+    return Currency.celestialEternityPoints;
+  }
+
+  get set() {
+    return player.endgame.celDimExpansion.celestialEternityUpgrades;
+  }
+}
+
+class CEPMultiplierState extends GameMechanicState {
+  constructor() {
+    super({});
+    this.cachedCost = new Lazy(() => this.costAfterCount(player.endgame.celDimExpansion.cepMultUpgrades));
+    this.cachedEffectValue = new Lazy(() => DC.D5.pow(player.endgame.celDimExpansion.cepMultUpgrades));
+  }
+
+  get isAffordable() {
+    return Currency.celestialEternityPoints.gte(this.cost);
+  }
+
+  get cost() {
+    return this.cachedCost.value;
+  }
+
+  get boughtAmount() {
+    return player.endgame.celDimExpansion.cepMultUpgrades;
+  }
+
+  set boughtAmount(value) {
+    const diff = Decimal.clampMin(value.sub(player.endgame.celDimExpansion.cepMultUpgrades), 0);
+    player.endgame.celDimExpansion.cepMultUpgrades = value;
+    this.cachedCost.invalidate();
+    this.cachedEffectValue.invalidate();
+  }
+
+  get isCustomEffect() {
+    return true;
+  }
+
+  get effectValue() {
+    return this.cachedEffectValue.value;
+  }
+
+  purchase() {
+    if (!this.isAffordable) return false;
+    Currency.celestialEternityPoints.subtract(this.cost);
+    this.boughtAmount = this.boughtAmount.add(1);
+    return true;
+  }
+
+  costInv() {
+    let cur = Currency.celestialEternityPoints.value.max(1);
+    return Decimal.floor(cur.div(500).max(1).log(50).add(1));
+  }
+
+  buyMax(auto) {
+    if (!this.isAffordable) return false;
+    let bulk = Decimal.floor(this.costInv());
+    if (bulk.lt(1)) return false;
+    const price = this.costAfterCount(bulk.sub(1));
+    bulk = Decimal.max(bulk.sub(this.boughtAmount), 0);
+    if (bulk.eq(0)) return false;
+    Currency.celestialEternityPoints.subtract(price);
+    this.boughtAmount = this.boughtAmount.add(bulk);
+    let i = 0;
+    while (Currency.celestialEternityPoints.gt(this.costAfterCount(this.boughtAmount)) &&
+    i < 50 && this.boughtAmount.lte(9e15)) {
+      this.boughtAmount = this.boughtAmount.add(1);
+      Currency.celestialEternityPoints.subtract(this.costAfterCount(this.boughtAmount.sub(1)));
+      i += 1;
+    }
+    return true;
+  }
+
+  reset() {
+    this.boughtAmount = DC.D0;
+  }
+
+  costAfterCount(count) {
+    return Decimal.pow(50, count).times(500);
+  }
+}
+
+export const CelestialEternityUpgrade = mapGameDataToObject(
+  GameDatabase.endgame.celDimExpansion.celestialEternityUpgrades,
+  config => new CelestialEternityUpgradeState(config)
+);
+
+CelestialEternityUpgrade.cepMult = new CEPMultiplierState();
