@@ -1995,7 +1995,7 @@ export const normalAchievements = [
     id: 238,
     name: "Limits of Reality",
     get description() { return `Reach ${formatPostBreak(DC.E4000, 2)} Celestial Points of Eternity.` },
-    checkRequirement: () => false,
+    checkRequirement: () => player.endgame.celDimExpansion.celestialEternityPoints.gte(DC.E4000),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     progress: () => Achievement(238).isUnlocked ? DC.D1 : Decimal.clamp(player.endgame.celDimExpansion.celestialEternityPoints.add(1).log10().div(4000), 0, 1)
   },
