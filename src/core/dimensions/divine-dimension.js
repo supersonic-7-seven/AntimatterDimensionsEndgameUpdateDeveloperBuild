@@ -158,11 +158,8 @@ export const DivineDimensions = {
 
   get energyPerSecond() {
     const divineEnergyMults = DC.D1.timesEffectsOf(DivinityUpgrade.divineL1U7, DivinityUpgrade.divineL2U2).times(
-      DivinityMilestone.hadronEmpowerment.isReached ? 77 : 1);
-    return Decimal.pow(100, Decimal.log10(DivinityUpgrade.divineL2U4.isBought ? player.records.permanent.bestVM : DivineDimension(1).productionPerSecond.add(1)).div(100).sub(1)).times(divineEnergyMults);
-    const divineEnergyMults = DC.D1.timesEffectOf(DivinityUpgrade.divineL1U7).times(
       DivinityMilestone.hadronEmpowerment.isReached ? 77 : 1).times(Accelerators.potency.effectValue3);
-    return Decimal.pow(100, Decimal.log10(DivineDimension(1).productionPerSecond).div(100).sub(1)).times(divineEnergyMults);
+    return Decimal.pow(100, Decimal.log10(DivinityUpgrade.divineL2U4.isBought ? player.records.permanent.bestVM : DivineDimension(1).productionPerSecond.add(1)).div(100).sub(1)).times(divineEnergyMults);
   },
 
   resetAmount() {
