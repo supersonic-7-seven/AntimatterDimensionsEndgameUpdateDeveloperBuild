@@ -4,6 +4,9 @@ export function divineDimensionCommonMultiplier() {
   let mult = DC.D1;
   mult = mult.timesEffectsOf(DivinityUpgrade.divineL1U3, DivinityUpgrade.divineL1U6, DivinityUpgrade.divineL2U1, DivinityUpgrade.divineL2U9).times(
     DivinityMilestone.hadronEmpowerment.isReached ? 77 : 1).times(Decimal.pow(7, Decimal.log10(player.celestials.pelle.divinity.divineStars.add(1)).add(1)));
+  mult = mult.timesEffectsOf(DivinityUpgrade.divineL1U3, DivinityUpgrade.divineL1U6);
+  mult = mult.times(DivinityMilestone.hadronEmpowerment.isReached ? 77 : 1);
+  mult = mult.times(Accelerators.potency.effectValue3);
   return mult;
 }
 
@@ -57,6 +60,8 @@ class DivineDimensionState extends DimensionState {
     const tier = this.tier;
     let mult = GameCache.divineDimensionCommonMultiplier.value;
     mult = mult.times(Decimal.pow(this.powerMultiplier, Decimal.floor(this.baseAmount))).powEffectOf(DivinityUpgrade.divineL2U7);
+    mult = mult.times(Decimal.pow(this.powerMultiplier, Decimal.floor(this.baseAmount)));
+    mult = mult.pow(Accelerators.emptiness._milestones[1].effectOrDefault(1));
     return mult;
   }
 
@@ -155,6 +160,9 @@ export const DivineDimensions = {
     const divineEnergyMults = DC.D1.timesEffectsOf(DivinityUpgrade.divineL1U7, DivinityUpgrade.divineL2U2).times(
       DivinityMilestone.hadronEmpowerment.isReached ? 77 : 1);
     return Decimal.pow(100, Decimal.log10(DivinityUpgrade.divineL2U4.isBought ? player.records.permanent.bestVM : DivineDimension(1).productionPerSecond.add(1)).div(100).sub(1)).times(divineEnergyMults);
+    const divineEnergyMults = DC.D1.timesEffectOf(DivinityUpgrade.divineL1U7).times(
+      DivinityMilestone.hadronEmpowerment.isReached ? 77 : 1).times(Accelerators.potency.effectValue3);
+    return Decimal.pow(100, Decimal.log10(DivineDimension(1).productionPerSecond).div(100).sub(1)).times(divineEnergyMults);
   },
 
   resetAmount() {

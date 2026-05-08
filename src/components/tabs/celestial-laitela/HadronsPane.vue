@@ -18,7 +18,8 @@ export default {
       hasEffect3: false,
       hasEffect4: false,
       hasDark: false,
-      hasExotic: false
+      hasExotic: false,
+      showWarning: false
     };
   },
   computed: {
@@ -84,7 +85,7 @@ export default {
       this.lightHadrons = hadrons.light;
       this.darkHadrons = hadrons.dark;
       this.exoticHadrons = hadrons.exotic;
-      this.hadronTimer.copyFrom(Hadrons.timeFactor.div(100));
+      this.hadronTimer.copyFrom(Hadrons.timeFactor.div(100 + Math.pow(Accelerators.emptiness.effectValue2, 2)));
       this.effect1.copyFrom(Hadrons.singularityMultiplier);
       this.effect2.copyFrom(Hadrons.darkMatterCapMultiplier);
       this.effect3.copyFrom(Hadrons.darkEnergyAscensionBoost);
@@ -96,6 +97,7 @@ export default {
       this.hasEffect4 = DualityUpgrade(18).isBought;
       this.hasDark = DualityUpgrade(19).isBought;
       this.hasExotic = DivinityMilestone.hadronEmpowerment.isReached;
+      this.showWarning = Accelerators.emptiness.effectValue2 > 1;
     },
     assignOne() {
       if (this.hasExotic) {
@@ -285,11 +287,21 @@ export default {
         {{ buttonText4 }}
       </button>
     </div>
+    <div
+      v-if="showWarning"
+      class="c-laitela-warning"
+    >
+      Hadron effectiveness will increase much slower above {{ formatPercents(1) }}
+    </div>
   </div>
 </template>
 
 <style scoped>
 .c-laitela-hadrons-assign {
   margin: 0 0.3rem 1rem;
+}
+
+.c-laitela-warning {
+  color: red;
 }
 </style>

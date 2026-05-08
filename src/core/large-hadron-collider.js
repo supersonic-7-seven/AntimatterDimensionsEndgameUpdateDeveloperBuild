@@ -185,11 +185,84 @@ export const LHC = {
   },
 
   get breakingPoint() {
-    return Decimal.pow10(Decimal.pow10(225 + Accelerators.potency.effectValue2 +
-      Accelerators.emptiness.effectValue3 + Accelerators.cosmic.effectValue3));
+    return Decimal.pow10(Decimal.pow10(225 + Accelerators.potency._milestones[1].effectOrDefault(0) +
+      Accelerators.emptiness._milestones[2].effectOrDefault(0) + Accelerators.cosmic._milestones[2].effectOrDefault(0)));
   },
 
   gameLoop(diff) {
     Accelerators.all.forEach(a => a.fill(diff));
   }
 };
+
+class PowerCoreState extends GameMechanicState {
+  constructor() {
+    super({});
+    this.cachedCost = new Lazy(() => this.costAfterCount(player.endgame.largeHadronCollider.powerCores));
+    this.cachedEffectValue = new Lazy(() => player.endgame.largeHadronCollider.powerCores);
+  }
+
+  get isAffordable() {
+    return player.celestials.laitela.hadrons.total >= this.cost;
+  }
+
+  get cost() {
+    return this.cachedCost.value;
+  }
+
+  get boughtAmount() {
+    return player.endgame.largeHadronCollider.powerCores;
+  }
+
+  set boughtAmount(value) {
+    const diff = Math.clampMin(value - player.endgame.largeHadronCollider.powerCores, 0);
+    player.endgame.largeHadronCollider.powerCores = value;
+    this.cachedCost.invalidate();
+    this.cachedEffectValue.invalidate();
+  }
+
+  get isCustomEffect() {
+    return true;
+  }
+
+  get effectValue() {
+    return this.cachedEffectValue.value;
+  }
+
+  purchase() {
+    if (!this.isAffordable) return false;
+    this.boughtAmount = this.boughtAmount + 1;
+    return true;
+  }
+
+  costInv() {
+    let cur = player.celestials.laitela.hadrons.total;
+    return Math.floor(cur / 5 - 14);
+  }
+
+  buyMax(auto) {
+    if (!this.isAffordable) return false;
+    let bulk = Math.floor(this.costInv());
+    if (bulk < 1) return false;
+    const price = this.costAfterCount(bulk - 1);
+    bulk = Math.max(bulk - this.boughtAmount, 0);
+    if (bulk === 0) return false;
+    this.boughtAmount = this.boughtAmount + bulk;
+    let i = 0;
+    while (player.celestials.laitela.hadrons.total > this.costAfterCount(this.boughtAmount) &&
+    i < 50 && this.boughtAmount < 9e15) {
+      this.boughtAmount = this.boughtAmount + 1;
+      i += 1;
+    }
+    return true;
+  }
+
+  reset() {
+    this.boughtAmount = 1;
+  }
+
+  costAfterCount(count) {
+    return 5 * count + 75;
+  }
+}
+
+LHC.powerCores = new PowerCoreState();

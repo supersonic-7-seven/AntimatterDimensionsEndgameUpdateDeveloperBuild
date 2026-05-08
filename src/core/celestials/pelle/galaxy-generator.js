@@ -36,7 +36,7 @@ export const GalaxyGenerator = {
       GalaxyGeneratorUpgrades.EPMult,
       GalaxyGeneratorUpgrades.RSMult,
       GalaxyGeneratorUpgrades.DTMult
-    ).times(extraGain).pow(GalaxyGeneratorUpgrades.remnantPow.effectValue);
+    ).times(extraGain).pow(GalaxyGeneratorUpgrades.remnantPow.effectValue).pow(Accelerators.cosmic.effectValue1);
   },
 
   get galGenInstability() {
