@@ -2461,6 +2461,41 @@ br {
   cursor: default;
 }
 
+/* #endregion Big Crunch */
+
+/* #region Celestial Crunch */
+
+.o-celestial-infinity-button {
+  font-weight: bold;
+  color: var(--color-celestials);
+  background-color: var(--color-prestige--accent);
+  border-color: var(--color-celestials);
+}
+
+.o-celestial-infinity-button:hover {
+  color: black;
+  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+}
+
+.o-celestial-infinity-button span {
+  transition-duration: 0.2s;
+}
+
+.o-celestial-infinity-button:hover span {
+  color: black;
+}
+
+.t-metro .o-celestial-infinity-button {
+  box-shadow: 0.1rem 0.1rem 0.1rem 0 #9e9e9e;
+}
+
+.o-celestial-infinity-button--unavailable {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* #endregion Celestial Crunch */
+
 /* #region Eternity */
 
 .o-eternity-button {
@@ -2534,40 +2569,48 @@ br {
 
 /* #endregion Eternity */
 
-/* #endregion Big Crunch */
+/* #region Celestial Eternity */
 
-/* #region Celestial Crunch */
-
-.o-celestial-infinity-button {
+.o-celestial-eternity-button {
   font-weight: bold;
-  color: var(--color-celestials);
+  color: #8051ec;
   background-color: var(--color-prestige--accent);
-  border-color: var(--color-celestials);
+  border-color: #8051ec;
+  cursor: pointer;
 }
 
-.o-celestial-infinity-button:hover {
+.o-celestial-eternity-button:hover {
   color: black;
-  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+  background: linear-gradient(var(--color-eternity), var(--color-celestials));
 }
 
-.o-celestial-infinity-button span {
+.o-celestial-eternity-button span {
   transition-duration: 0.2s;
 }
 
-.o-celestial-infinity-button:hover span {
+.o-celestial-eternity-button:hover span {
   color: black;
 }
 
-.t-metro .o-celestial-infinity-button {
+.t-s1 .o-celestial-eternity-button:hover span {
+  color: var(--color-text);
+}
+
+.t-s1 .o-celestial-eternity-button:hover {
+  color: black;
+  border-color: black;
+}
+
+.t-metro .o-celestial-eternity-button {
   box-shadow: 0.1rem 0.1rem 0.1rem 0 #9e9e9e;
 }
 
-.o-celestial-infinity-button--unavailable {
+.o-celestial-eternity-button--unavailable {
   opacity: 0.5;
   cursor: default;
 }
 
-/* #endregion Celestial Crunch */
+/* #endregion Celestial Eternity */
 
 /* #endregion o-prestige-btn */
 
@@ -2837,6 +2880,44 @@ br {
 }
 
 /* #endregion EP Amount */
+
+/* #region CEP Amount */
+
+.l-game-header__celestial-eternity-points {
+  position: absolute;
+  right: 75%;
+}
+
+.c-game-header__cep-amount {
+  font-weight: bold;
+}
+
+.t-dark .c-game-header__cep-amount,
+.t-s6 .c-game-header__cep-amount,
+.t-s10 .c-game-header__cep-amount {
+  background: linear-gradient(var(--color-eternity), var(--color-celestials));
+  background-clip: text;
+  text-shadow: 0 0 0.7rem var(--color-eternity);
+
+  -webkit-text-fill-color: transparent;
+}
+
+.s-base--metro .c-game-header__cep-amount {
+  background: linear-gradient(var(--color-eternity), var(--color-celestials));
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+.t-s1 .c-game-header__cep-amount {
+  background: linear-gradient(var(--color-eternity), var(--color-celestials));
+  background-clip: text;
+  text-shadow: 0.1rem 0.1rem 0 black;
+
+  -webkit-text-fill-color: transparent;
+}
+
+/* #endregion CEP Amount */
 
 /* #region c-game-header__antimatter */
 

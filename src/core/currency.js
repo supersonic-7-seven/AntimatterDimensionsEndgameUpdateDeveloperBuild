@@ -692,6 +692,28 @@ Currency.celestialInfinityPoints = new class extends DecimalCurrency {
   }
 }();
 
+Currency.celestialEternities = new class extends DecimalCurrency {
+  get value() { return player.endgame.celDimExpansion.celestialEternities; }
+  set value(value) { player.endgame.celDimExpansion.celestialEternities = value; }
+}();
+
+Currency.celestialEternityPoints = new class extends DecimalCurrency {
+  get value() { return player.endgame.celDimExpansion.celestialEternityPoints; }
+  set value(value) {
+    player.endgame.celDimExpansion.celestialEternityPoints = value;
+    player.records.thisCelestialReality.maxCEP = player.records.thisCelestialReality.maxCEP.max(value);
+  }
+
+  get startingValue() {
+    return Effects.max(0).toDecimal();
+  }
+
+  reset() {
+    super.reset();
+    player.records.thisCelestialReality.maxCEP = this.startingValue;
+  }
+}();
+
 Currency.divinities = new class extends NumberCurrency {
   get value() { return player.celestials.pelle.divinities; }
   set value(value) { player.celestials.pelle.divinities = value; }

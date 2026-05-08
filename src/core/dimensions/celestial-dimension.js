@@ -746,7 +746,7 @@ export function manualCelestialCrunchResetRequest() {
   if (GameEnd.creditsEverClosed) return;
   // We show the modal under two conditions - on the first ever celestial infinity (to explain the mechanic) and
   // post-break (to show total CIP and celInfinities gained)
-  if (player.options.confirmations.celestialCrunch && (player.endgame.celDimExpansion.celestialInfinities.lt(1) ||player.endgame.celDimExpansion.isBroken)) {
+  if (player.options.confirmations.celestialCrunch && (player.endgame.celDimExpansion.celestialInfinities.lt(1) || player.endgame.celDimExpansion.isBroken)) {
     Modal.celestialCrunch.show();
   } else {
     celestialCrunchResetRequest();
@@ -984,3 +984,91 @@ export const CelestialBreakInfinityUpgrade = mapGameDataToObject(
     ? new RebuyableCelestialBreakInfinityUpgradeState(config)
     : new CelestialBreakInfinityUpgradeState(config))
 );
+
+function giveCelestialEternityRewards(auto) {
+  player.records.bestCelestialEternity.time = Decimal.min(player.records.thisCelestialEternity.time, player.records.bestCelestialEternity.time);
+  Currency.celestialEternityPoints.add(gainedCelestialEternityPoints());
+
+  const newCelestialEternities = gainedCelestialEternities();
+
+  Currency.celestialEternities.add(newCelestialEternities);
+
+  addCelestialEternityTime(
+    player.records.thisCelestialEternity.time,
+    player.records.thisCelestialEternity.realTime,
+    gainedCelestialEternityPoints(),
+    newCelestialEternities
+  );
+
+  player.records.thisCelestialReality.bestCelestialEternitiesPerMs = player.records.thisCelestialReality.bestCelestialEternitiesPerMs.clampMin(
+    newCelestialEternities.div(Math.clampMin(33, player.records.thisCelestialEternity.realTime))
+  );
+  player.records.bestCelestialEternity.bestCEPminCelestialReality =
+    player.records.bestCelestialEternity.bestCEPminCelestialReality.max(player.records.thisCelestialEternity.bestCEPmin);
+}
+
+export function celestialEternityResetRequest() {
+  if (player.endgame.celDimExpansion.celestialInfinityPoints.lt(DC.NUMMAX)) return;
+  if (GameEnd.creditsEverClosed) return;
+  askCelestialEternityConfirmation();
+}
+
+export function celestialEternity(force, auto, specialConditions = {}) {
+  if (!force) {
+    if (player.endgame.celDimExpansion.celestialInfinityPoints.lt(DC.NUMMAX)) return false;
+    EventHub.dispatch(GAME_EVENT.CELESTIAL_ETERNITY_RESET_BEFORE);
+    giveCelestialEternityRewards(auto);
+  }
+
+  initializeResourcesAfterCelestialEternity();
+
+  if (true) {
+    player.endgame.celDimExpansion.isBroken = false;
+    player.endgame.celDimExpansion.isBreakUnlocked = false;
+  }
+
+  resetCelestialInfinityRuns();
+
+  Currency.celestialInfinityPoints.reset();
+  player.records.thisCelestialInfinity.bestCIPmin = DC.D0;
+  player.records.bestCelestialInfinity.bestCIPminCelestialEternity = DC.D0;
+  player.records.thisCelestialEternity.bestCEPmin = DC.D0;
+  player.records.thisCelestialEternity.bestCelestialInfinitiesPerMs = DC.D0;
+  resetCelestialTickspeed();
+  playerCelestialInfinityUpgradesOnReset();
+  secondSoftCelestialReset();
+  player.records.thisCelestialInfinity.maxCM = DC.D0;
+  player.records.thisCelestialEternity.maxCM = DC.D0;
+
+  EventHub.dispatch(GAME_EVENT.CELESTIAL_ETERNITY_RESET_AFTER);
+  return true;
+}
+
+export function initializeResourcesAfterCelestialEternity() {
+  Currency.celestialInfinities.reset();
+  player.records.bestCelestialInfinity.time = new Decimal(999999999999);
+  player.records.bestCelestialInfinity.realTime = 999999999999;
+  player.records.thisCelestialInfinity.time = DC.D0;
+  player.records.thisCelestialInfinity.realTime = 0;
+  player.endgame.celDimExpansion.dimensionBoosts = (false) ? DC.D4 : DC.D0;
+  player.endgame.celDimExpansion.galaxies = (false) ? DC.D2 : DC.D0;
+  player.endgame.celDimExpansion.partCelestialInfinityPoint = DC.D0;
+  player.endgame.celDimExpansion.partCelestialInfinitied = 0;
+  player.endgame.celDimExpansion.cipMultUpgrades = DC.D0;
+  player.records.thisCelestialEternity.time = DC.D0;
+  player.records.thisCelestialEternity.realTime = 0;
+  player.records.totalCelestialInfinityCelMatter = DC.D0;
+  player.records.totalCelestialEternityCelMatter = DC.D0;
+}
+
+function askCelestialEternityConfirmation() {
+  if (player.options.confirmations.celestialEternity) {
+    Modal.celestialEternity.show();
+  } else {
+    celestialEternity();
+  }
+}
+
+export function gainedCelestialEternities() {
+  return DC.D1;
+}

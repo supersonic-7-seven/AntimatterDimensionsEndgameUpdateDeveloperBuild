@@ -670,7 +670,7 @@ export const tabs = [
         name: "Celestial Infinity Upgrades",
         symbol: "<i class='fas fa-infinity'></i>",
         component: "CelestialInfinityUpgradesTab",
-        condition: () => player.endgame.celDimExpansion.celestialInfinities.gt(0),
+        condition: () => PlayerProgress.celestialInfinityUnlocked() || PlayerProgress.celestialEternityUnlocked(),
         id: 0,
         hidable: true,
       },
@@ -679,7 +679,8 @@ export const tabs = [
         name: "Celestial Break Infinity",
         symbol: "<i class='fab fa-skyatlas'></i>",
         component: "CelestialBreakInfinityTab",
-        condition: () => CelestialInfinityUpgrade.all.filter(u => u.isBought).length === CelestialInfinityUpgrade.all.length,
+        condition: () => CelestialInfinityUpgrade.all.filter(u => u.isBought).length === CelestialInfinityUpgrade.all.length ||
+          PlayerProgress.celestialEternityUnlocked(),
         id: 1,
         hidable: true,
       },

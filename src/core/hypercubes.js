@@ -111,7 +111,7 @@ export const Hepteracts = {
   },
 
   get canBuyHepteract() {
-    return DualityUpgrade(25).isBought && false &&
+    return DualityUpgrade(25).isBought && PlayerProgress.celestialEternityUnlocked() &&
       Currency.celestialPoints.gte(Hepteracts.nextCost) && !player.disablePostReality && !Pelle.isDoomed;
   },
 

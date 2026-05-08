@@ -411,6 +411,8 @@ window.player = {
       [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, 1]),
     recentCelestialInfinities: Array.range(0, 10).map(() =>
       [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1]),
+    recentCelestialEternities: Array.range(0, 10).map(() =>
+      [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1]),
     thisInfinity: {
       time: DC.D0,
       realTime: 0,
@@ -1354,6 +1356,8 @@ window.player = {
       isBreakUnlocked: false,
       isBroken: false,
       celestialInfinityRebuyables: [0, 0, 0, 0, 0, 0],
+      celestialEternities: DC.D0,
+      celestialEternityPoints: DC.D0,
     },
     largeHadronCollider: {
       accelerators: {

@@ -73,6 +73,39 @@ export function playerInfinityUpgradesOnReset() {
   GameCache.dimensionMultDecrease.invalidate();
 }
 
+export function playerCelestialInfinityUpgradesOnReset() {
+
+  const celestialInfinityUpgrades = new Set(
+    ["gameSpeedMultCIP", "celDimPurchaseBoost", "alphaDecayStartBoost",
+      "celDimBoostBuff", "celGalaxyBuff", "celestialMatterConversionBuff",
+      "antimatterCelestialDimBuff", "cipGen", "buffedStart"]
+  );
+
+  const celestialBreakInfinityUpgrades = new Set(
+    ["gameSpeedMultCIP", "celDimPurchaseBoost", "alphaDecayStartBoost",
+      "celDimBoostBuff", "celGalaxyBuff", "celestialMatterConversionBuff",
+      "antimatterCelestialDimBuff", "cipGen", "buffedStart",
+      "autoCD1", "autoCD2", "autoCDPlus",
+      "betterAuto", "bulkCelDimBoosts", "celInfGen",
+      "celTickspeedCostMult", "celDimCostMult", "cipGen",
+      "celDimPurchaseBuff", "celDimboostBuff", "celGalaxyBuff"]
+  );
+
+  if (false) {
+    player.endgame.celDimExpansion.celestialInfinityUpgrades = celestialBreakInfinityUpgrades;
+    player.endgame.celDimExpansion.celestialInfinityRebuyables = [8, 7, 10, 10, 10, 10];
+  } else if (false) {
+    player.endgame.celDimExpansion.celestialInfinityUpgrades = celestialInfinityUpgrades;
+    player.endgame.celDimExpansion.celestialInfinityRebuyables = [0, 0, 0, 0, 0, 0];
+  } else {
+    player.endgame.celDimExpansion.celestialInfinityUpgrades.clear();
+    player.endgame.celDimExpansion.celestialInfinityRebuyables = [0, 0, 0, 0, 0, 0];
+  }
+
+  GameCache.celestialTickSpeedMultDecrease.invalidate();
+  GameCache.celestialDimensionMultDecrease.invalidate();
+}
+
 export function breakInfinity() {
   if (!Autobuyer.bigCrunch.hasMaxedInterval) return;
   if (InfinityChallenge.isRunning) return;
@@ -352,6 +385,19 @@ export function addCelestialInfinityTime(time, realTime, cip, celinfinities) {
   GameCache.bestRunCIPPM.invalidate();
 }
 
+export function resetCelestialInfinityRuns() {
+  player.records.recentCelestialInfinities = Array.from(
+    { length: 10 },
+    () => [DC.E9E15, Number.MAX_VALUE, DC.D1, DC.D1]
+  );
+  GameCache.bestRunCIPPM.invalidate();
+}
+
+export function addCelestialEternityTime(time, realTime, cep, celeternities) {
+  player.records.recentCelestialEternities.pop();
+  player.records.recentCelestialEternities.unshift([time, realTime, cep, celeternities]);
+}
+
 export function gainedInfinities() {
   if (EternityChallenge(4).isRunning) {
     return DC.D1;
@@ -406,6 +452,17 @@ export function gainedCelestialInfinityPoints() {
 }
 export function gainedDivineStars() {
   return Decimal.pow10(Decimal.log10(player.celestials.pelle.divinity.divineMatter.add(1)).div(308).sub(1))
+}
+
+function totalCEPMult() {
+  return DC.D1;
+}
+
+export function gainedCelestialEternityPoints() {
+  let cep = DC.D5.pow(player.records.thisCelestialEternity.maxCIP.plus(
+    gainedCelestialInfinityPoints()).add(1).log10().div(308).sub(0.7)).times(totalCEPMult());
+
+  return cep.floor();
 }
 
 export function updateRefresh() {
@@ -1053,6 +1110,12 @@ function updatePrestigeRates() {
   if (currentCIPmin.gt(player.records.thisCelestialInfinity.bestCIPmin) && Currency.celestialMatter.gte(DC.NUMMAX)) {
     player.records.thisCelestialInfinity.bestCIPmin = currentCIPmin;
     player.records.thisCelestialInfinity.bestCIPminVal = gainedCelestialInfinityPoints();
+  }
+
+  const currentCEPmin = gainedCelestialEternityPoints().dividedBy(Decimal.clampMin(0.0005, Time.thisCelestialEternityRealTime.totalMinutes));
+  if (currentCEPmin.gt(player.records.thisCelestialEternity.bestCEPmin) && Currency.celestialInfinityPoints.gte(DC.NUMMAX)) {
+    player.records.thisCelestialEternity.bestCEPmin = currentCEPmin;
+    player.records.thisCelestialEternity.bestCEPminVal = gainedCelestialEternityPoints();
   }
 }
 

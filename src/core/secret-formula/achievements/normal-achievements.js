@@ -1957,7 +1957,7 @@ export const normalAchievements = [
     id: 234,
     name: "The One with Celestial Time",
     description: "Perform a Celestial Eternity.",
-    checkRequirement: () => false,//player.endgame.celDimExpansion.celestialEternities.gt(0),
+    checkRequirement: () => player.endgame.celDimExpansion.celestialEternities.gt(0),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     progress: () => Achievement(234).isUnlocked ? DC.D1 : Decimal.clamp(player.endgame.celDimExpansion.celestialInfinityPoints.add(1).log10().div(Decimal.log10(DC.NUMMAX)), 0, 1)
   },
@@ -1997,6 +1997,6 @@ export const normalAchievements = [
     get description() { return `Reach ${formatPostBreak(DC.E4000, 2)} Celestial Points of Eternity.` },
     checkRequirement: () => false,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    progress: () => Achievement(238).isUnlocked ? DC.D1 : Decimal.clamp(DC.D0.div(4000), 0, 1)//player.endgame.celDimExpansion.celestialEternityPoints.add(1).log10()
+    progress: () => Achievement(238).isUnlocked ? DC.D1 : Decimal.clamp(player.endgame.celDimExpansion.celestialEternityPoints.add(1).log10().div(4000), 0, 1)
   },
 ];

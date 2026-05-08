@@ -25,7 +25,11 @@ export class PlayerProgress {
   }
 
   get isCelestialInfinityUnlocked() {
-    return new Decimal(this._player.endgame.celDimExpansion.celestialInfinities).gt(0);
+    return new Decimal(this._player.endgame.celDimExpansion.celestialInfinities).gt(0) || this.isCelestialEternityUnlocked;
+  }
+
+  get isCelestialEternityUnlocked() {
+    return new Decimal(this._player.endgame.celDimExpansion.celestialEternities).gt(0);
   }
 
   get hasFullCompletion() {
@@ -66,6 +70,14 @@ export class PlayerProgress {
 
   static endgameUnlocked() {
     return PlayerProgress.current.isEndgameUnlocked;
+  }
+
+  static celestialInfinityUnlocked() {
+    return PlayerProgress.current.isCelestialInfinityUnlocked;
+  }
+
+  static celestialEternityUnlocked() {
+    return PlayerProgress.current.isCelestialEternityUnlocked;
   }
 
   static seenAlteredSpeed() {

@@ -1037,6 +1037,13 @@ body.t-s12 {
   color: var(--color-eternity);
 }
 
+.c-game-header__cep-amount {
+  background: linear-gradient(var(--color-eternity), var(--color-celestials));
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
 .t-normal .c-game-header__antimatter,
 .t-s12 .c-game-header__antimatter {
   color: var(--color-accent);
