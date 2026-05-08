@@ -2581,7 +2581,7 @@ br {
 
 .o-celestial-eternity-button:hover {
   color: black;
-  background-color: linear-gradient(var(--color-eternity), var(--color-celestials));
+  background: linear-gradient(var(--color-eternity), var(--color-celestials));
 }
 
 .o-celestial-eternity-button span {
