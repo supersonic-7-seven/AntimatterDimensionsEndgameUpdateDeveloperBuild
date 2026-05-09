@@ -3,7 +3,7 @@ import { DimensionState } from "./dimension";
 
 export function celestialDimensionCommonMultiplier() {
   let mult = DC.D1;
-  mult = mult.timesEffectsOf(EndgameUpgrade(11));
+  mult = mult.timesEffectsOf(EndgameUpgrade(11), CelestialEternityUpgrade.largeCDMult);
   mult = mult.times(Ethereal.sectorBoost);
   return mult;
 }
