@@ -20,7 +20,7 @@ import { GalaxyAutobuyerState } from "./galaxy-autobuyer";
 import { GalaxyGeneratorAutobuyerState } from "./galaxy-generator-autobuyer";
 import { ImaginaryUpgradeAutobuyerState } from "./imaginary-upgrade-autobuyer";
 import { InfinityDimensionAutobuyerState } from "./infinity-dimension-autobuyer";
-import { EPMultAutobuyerState, IPMultAutobuyerState } from "./prestige-currency-multiplier-autobuyer";
+import { EPMultAutobuyerState, IPMultAutobuyerState, CIPMultAutobuyerState } from "./prestige-currency-multiplier-autobuyer";
 import { MusicGlyphPurgeAutobuyerState } from "./music-glyph-purge-autobuyer";
 import { PelleDilationUpgradeAutobuyerState } from "./pelle-dilation-upgrade-autobuyer";
 import { RealityAutobuyerState } from "./reality-autobuyer";
@@ -59,6 +59,7 @@ export const Autobuyer = {
   infinityDimension: InfinityDimensionAutobuyerState.createAccessor(),
   ipMult: new IPMultAutobuyerState(),
   epMult: new EPMultAutobuyerState(),
+  cipMult: new CIPMultAutobuyerState(),
   musicGlyphPurge: new MusicGlyphPurgeAutobuyerState(),
   pelleDilationUpgrade: PelleDilationUpgradeAutobuyerState.createAccessor(),
   reality: new RealityAutobuyerState(),
@@ -96,6 +97,7 @@ export const Autobuyers = (function() {
     Autobuyer.timeTheorem,
     Autobuyer.ipMult,
     Autobuyer.epMult,
+    Autobuyer.cipMult,
     Autobuyer.darkMatterDims,
     Autobuyer.darkMatterDimsAscension,
     Autobuyer.singularity,
