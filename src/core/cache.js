@@ -91,11 +91,11 @@ export const GameCache = {
 
   celestialTickSpeedMultDecrease: new Lazy(() => 10 - Effects.sum(
     CelestialBreakInfinityUpgrade.celTickspeedCostMult
-  )),
+  ) - CelestialEternityUpgrade.celTickReduction.effectOrDefault(0)),
 
   celestialDimensionMultDecrease: new Lazy(() => 10 - Effects.sum(
     CelestialBreakInfinityUpgrade.celDimCostMult
-  )),
+  ) - CelestialEternityUpgrade.celDimReduction.effectOrDefault(0)),
 
   timeStudies: new Lazy(() => NormalTimeStudyState.studies
     .map(s => player.timestudy.studies.includes(s.id))),
