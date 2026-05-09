@@ -600,7 +600,7 @@ Currency.unnerfedCelestialMatter = new class extends DecimalCurrency {
   }
 
   get startingValue() {
-    return Effects.max(0).toDecimal();
+    return Effects.max(CelestialEternityUpgrade.startingBoosts.effectOrDefault(0)).toDecimal();
   }
 }();
 
@@ -683,7 +683,7 @@ Currency.celestialInfinityPoints = new class extends DecimalCurrency {
   }
 
   get startingValue() {
-    return Effects.max(0).toDecimal();
+    return Effects.max(CelestialEternityUpgrade.startingBoosts.effectOrDefault(0)).toDecimal();
   }
 
   reset() {
