@@ -1313,6 +1313,10 @@ function applyAutoprestige(diff) {
   if (PelleRifts.chaos.milestones[2].canBeApplied) {
     Currency.eternityPoints.add(gainedEternityPoints().times(DC.D0_1).times(diff).div(1000));
   }
+
+  if (CelestialEternityUpgrade.passiveCIP.isBought) {
+    Currency.celestialInfinityPoints.add(player.records.thisCelestialInfinity.bestCIPmin.times(DC.D0_01).times(diff).div(1000));
+  }
 }
 
 function updateImaginaryMachines(diff) {
