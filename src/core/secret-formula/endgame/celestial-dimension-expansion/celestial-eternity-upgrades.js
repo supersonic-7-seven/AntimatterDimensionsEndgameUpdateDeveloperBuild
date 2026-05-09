@@ -64,7 +64,7 @@ export const celestialEternityUpgrades = {
     description: "Celestial Dimension-related Autobuyer intervals are now Instant"
   },
   celEternityAuto: {
-    id: "celCrunchAuto",
+    id: "celEternityAuto",
     cost: 1e10,
     description: "Unlock an Autobuyer for Celestial Eternities"
   },
