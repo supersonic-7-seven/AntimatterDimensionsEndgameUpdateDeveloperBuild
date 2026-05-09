@@ -53,6 +53,11 @@ export const celestialEternityUpgrades = {
     noLabel: false,
     isDecimal: true
   }),
+  startBreak: {
+    id: "startBreak",
+    cost: 10,
+    description: "Start Celestial Eternities with Celestial Infinity Broken"
+  },
   bulkCelGalaxies: {
     id: "bulkCelGalaxies",
     cost: 1e3,
@@ -63,37 +68,47 @@ export const celestialEternityUpgrades = {
     cost: 1e6,
     description: "Celestial Dimension-related Autobuyer intervals are now Instant"
   },
+  betterCelCrunchAuto: {
+    id: "betterCelCrunchAuto",
+    cost: 1e10,
+    description: "Improve the Celestial Crunch Autobuyer"
+  },
   celEternityAuto: {
     id: "celEternityAuto",
-    cost: 1e10,
-    description: "Unlock an Autobuyer for Celestial Eternities and improve the Celestial Crunch Autobuyer"
-  },
-  freeDimBoost: {
-    id: "freeDimBoost",
     cost: 1e15,
-    description: "Purchasing Celestial Dimension Boosts no longer resets anything"
-  },
-  freeGalaxy: {
-    id: "freeGalaxy",
-    cost: 1e25,
-    description: "Purchasing Celestial Galaxies no longer resets anything"
+    description: "Unlock an Autobuyer for Celestial Eternities"
   },
   startingBoosts: {
     id: "startingBoosts",
-    cost: 1e50,
+    cost: 1e25,
     description: () => `Start Cel Crunches and Cel Eternities with ${format(1e25, 2, 2)} Cel Matter, and Cel Eternities
       with ${format(1e25, 2, 2)} CIP`,
     effect: 1e25
   },
+  freeDimBoost: {
+    id: "freeDimBoost",
+    cost: 1e40,
+    description: "Purchasing Celestial Dimension Boosts no longer resets anything"
+  },
+  freeGalaxy: {
+    id: "freeGalaxy",
+    cost: 1e70,
+    description: "Purchasing Celestial Galaxies no longer resets anything"
+  },
+  betterCelEternityAuto: {
+    id: "betterCelEternityAuto",
+    cost: 1e100,
+    description: "Improve the Celestial Eternity Autobuyer"
+  },
   celTickReduction: {
     id: "celTickReduction",
-    cost: 1e100,
+    cost: 1e150,
     description: () => `Reduce the post-Break Celestial Tickspeed cost scaling to ${formatX(1.65, 2, 2)}`,
     effect: 0.35
   },
   celDimReduction: {
     id: "celDimReduction",
-    cost: 1e200,
+    cost: 1e225,
     description: () => `Reduce the post-Break Celestial Dimension cost scaling to ${formatX(2)}`,
     effect: 1
   },

@@ -596,13 +596,13 @@ export class CelestialGalaxy {
     if (currency.lt(CelestialGalaxy.requirementAt(CelestialGalaxy.remoteStart).amount)) {
       const a = new Decimal(1);
       const b = new Decimal(scale).add(1).sub(distantStart * 2);
-      const c = base.add(new Decimal(Math.pow(distantStart, 2) - distantStart - scale)).sub(currency.add(1).log10());
+      const c = base.add(Decimal.pow(distantStart, 2).sub(distantStart).sub(scale)).sub(currency.add(1).log10());
       const quad = decimalQuadraticSolution(a, b, c).floor();
       return Decimal.max(quad, currGal);
     }
 
     if (CelestialGalaxy.requirementAt(CelestialGalaxy.remoteStart).amount.lt(currency)) {
-      let estimate = new Decimal(Decimal.log(currency.add(1).log10().div(CelestialGalaxy.requirementAt(CelestialGalaxy.remoteStart).amount), CelestialGalaxy.remoteGalaxyStrength))
+      let estimate = new Decimal(Decimal.log(currency.add(1).log10().div(CelestialGalaxy.requirementAt(CelestialGalaxy.remoteStart).amount.add(1).log10()), CelestialGalaxy.remoteGalaxyStrength))
         .add(CelestialGalaxy.remoteStart).floor();
       if (CelestialGalaxy.requirementAt(estimate).amount.lte(currency) && CelestialGalaxy.requirementAt(estimate.add(1)).amount.gt(currency)) {
         return Decimal.max(estimate.add(1), currGal);
@@ -1022,7 +1022,7 @@ export function celestialEternity(force, auto, specialConditions = {}) {
 
   initializeResourcesAfterCelestialEternity();
 
-  if (true) {
+  if (!CelestialEternityUpgrade.startBreak.isBought) {
     player.endgame.celDimExpansion.isBroken = false;
     player.endgame.celDimExpansion.isBreakUnlocked = false;
   }

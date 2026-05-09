@@ -26,7 +26,7 @@ export class CelestialEternityAutobuyerState extends IntervaledAutobuyerState {
   }
 
   get hasAdditionalModes() {
-    return false;
+    return CelestialEternityUpgrade.betterCelEternityAuto.isBought;
   }
 
   get increaseWithMult() {

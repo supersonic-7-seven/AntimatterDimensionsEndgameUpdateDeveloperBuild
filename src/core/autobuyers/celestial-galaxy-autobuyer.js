@@ -42,7 +42,7 @@ export class CelestialGalaxyAutobuyerState extends IntervaledAutobuyerState {
   }
 
   get isBuyMaxUnlocked() {
-    return false;
+    return CelestialEternityUpgrade.bulkCelGalaxies.isBought;
   }
 
   get canTick() {

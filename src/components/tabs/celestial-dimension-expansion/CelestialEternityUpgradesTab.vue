@@ -17,19 +17,24 @@ export default {
           CelestialEternityUpgrade.conversionFormulaImprovement
         ],
         [
+          CelestialEternityUpgrade.startBreak,
           CelestialEternityUpgrade.bulkCelGalaxies,
-          CelestialEternityUpgrade.instaAutos,
-          CelestialEternityUpgrade.celEternityAuto
+          CelestialEternityUpgrade.instaAutos
+        ],
+        [
+          CelestialEternityUpgrade.betterCelCrunchAuto,
+          CelestialEternityUpgrade.celEternityAuto,
+          CelestialEternityUpgrade.startingBoosts
         ],
         [
           CelestialEternityUpgrade.freeDimBoost,
           CelestialEternityUpgrade.freeGalaxy,
-          CelestialEternityUpgrade.startingBoosts
+          CelestialEternityUpgrade.betterCelEternityAuto
         ],
         [
           CelestialEternityUpgrade.celTickReduction,
           CelestialEternityUpgrade.celDimReduction,
-          CelestialEternityUpgrade.passiveCIP,
+          CelestialEternityUpgrade.passiveCIP
         ]
       ];
     }
