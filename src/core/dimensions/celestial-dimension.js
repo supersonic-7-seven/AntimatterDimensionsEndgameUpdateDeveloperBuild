@@ -596,7 +596,7 @@ export class CelestialGalaxy {
     if (currency.lt(CelestialGalaxy.requirementAt(CelestialGalaxy.remoteStart).amount)) {
       const a = new Decimal(1);
       const b = new Decimal(scale).add(1).sub(distantStart * 2);
-      const c = base.add(new Decimal(Math.pow(distantStart, 2) - distantStart - scale)).sub(currency.add(1).log10());
+      const c = base.add(Decimal.pow(distantStart, 2).sub(distantStart).sub(scale)).sub(currency.add(1).log10());
       const quad = decimalQuadraticSolution(a, b, c).floor();
       return Decimal.max(quad, currGal);
     }
