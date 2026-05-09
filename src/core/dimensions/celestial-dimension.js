@@ -1083,6 +1083,28 @@ class CelestialEternityUpgradeState extends SetPurchasableMechanicState {
   }
 }
 
+class RebuyableCelestialEternityUpgradeState extends RebuyableMechanicState {
+  get currency() {
+    return Currency.celestialEternityPoints;
+  }
+
+  get boughtAmount() {
+    return player.endgame.celDimExpansion.celestialEternityRebuyables[this.id];
+  }
+
+  set boughtAmount(value) {
+    player.endgame.celDimExpansion.celestialEternityRebuyables[this.id] = value;
+  }
+
+  get isCapped() {
+    return this.boughtAmount === this.config.maxUpgrades;
+  }
+
+  onPurchased() {
+    this.config.onPurchased?.();
+  }
+}
+
 class CEPMultiplierState extends GameMechanicState {
   constructor() {
     super({});
@@ -1159,7 +1181,9 @@ class CEPMultiplierState extends GameMechanicState {
 
 export const CelestialEternityUpgrade = mapGameDataToObject(
   GameDatabase.endgame.celDimExpansion.celestialEternityUpgrades,
-  config => new CelestialEternityUpgradeState(config)
+  config => (config.rebuyable
+    ? new RebuyableCelestialEternityUpgradeState(config)
+    : new CelestialEternityUpgradeState(config))
 );
 
 CelestialEternityUpgrade.cepMult = new CEPMultiplierState();

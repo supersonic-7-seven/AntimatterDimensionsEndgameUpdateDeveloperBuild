@@ -151,7 +151,7 @@ class AcceleratorState extends GameMechanicState {
     // Don't drain resources if you only have 1 of it.
     if (this.fillCurrency.value.lte(1)) return;
     const maxFill = LHC.acceleratorSpeed * diff / 1000;
-    const pendFill = this.amountFilled + maxFill;
+    const pendFill = Math.min(this.amountFilled + maxFill, 1);
     const maxValue = this.config.percentage(this.fillCurrency.value);
     this.amountFilled = Math.min(pendFill, Math.max(this.amountFilled, maxValue));
     this.checkMilestoneStates();
