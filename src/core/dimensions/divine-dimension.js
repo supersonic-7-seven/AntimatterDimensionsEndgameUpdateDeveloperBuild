@@ -212,17 +212,17 @@ export const DivineDimensions = {
   },
 
   get conversionFormula1() {
-    let logD = Decimal.log10(Decimal.log10((DivinityUpgrade.divineL2U10.isBought ? player.records.permanent.bestVM : Currency.divineMatter.value).max(10)));
+    let logD = Decimal.log10(Decimal.log10(new Decimal(DivinityUpgrade.divineL2U10.isBought ? player.records.permanent.bestVM : Currency.divineMatter.value).max(10)));
     return Decimal.pow(Decimal.pow(logD.add(1), 1.5), Decimal.pow(logD.add(1), 1.5));
   },
 
   get conversionFormula2() {
-    let logD = Decimal.log10(Decimal.log10((DivinityUpgrade.divineL2U10.isBought ? player.records.permanent.bestVM : Currency.divineMatter.value).max(10)));
+    let logD = Decimal.log10(Decimal.log10(new Decimal(DivinityUpgrade.divineL2U10.isBought ? player.records.permanent.bestVM : Currency.divineMatter.value).max(10)));
     return logD.div(10).add(1).toNumber();
   },
 
   get conversionFormula3() {
-    let logD = Decimal.log10(Decimal.log10((DivinityUpgrade.divineL2U10.isBought ? player.records.permanent.bestVM : Currency.divineMatter.value).max(10)));
+    let logD = Decimal.log10(Decimal.log10(new Decimal(DivinityUpgrade.divineL2U10.isBought ? player.records.permanent.bestVM : Currency.divineMatter.value).max(10)));
     return DC.D1.sub(Decimal.pow(0.8, logD)).toNumber();
   }
 };
