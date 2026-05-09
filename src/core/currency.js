@@ -586,6 +586,10 @@ Currency.celestialPoints = new class extends DecimalCurrency {
     const newValue = new Decimal(value);
     player.endgame.celestialPoints = newValue;
   }
+
+  get startingValue() {
+    return Effects.max(CelestialEternityUpgrade.startingBoosts.effectOrDefault(0)).toDecimal();
+  }
 }();
 
 Currency.unnerfedCelestialMatter = new class extends DecimalCurrency {
