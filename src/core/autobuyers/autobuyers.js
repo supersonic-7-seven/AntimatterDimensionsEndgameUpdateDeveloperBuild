@@ -6,6 +6,7 @@ import { BulkSingularityAutobuyerState } from "./bulk-singularity-autobuyer";
 import { CelestialCrunchAutobuyerState } from "./celestial-crunch-autobuyer";
 import { CelestialDimBoostAutobuyerState } from "./celestial-dimboost-autobuyer";
 import { CelestialDimensionAutobuyerState } from "./celestial-dimension-autobuyer";
+import { CelestialEternityAutobuyerState } from "./celestial-eternity-autobuyer";
 import { CelestialGalaxyAutobuyerState } from "./celestial-galaxy-autobuyer";
 import { CelestialTickspeedAutobuyerState } from "./celestial-tickspeed-autobuyer";
 import { DarkMatterDimensionAscensionAutobuyerState } from "./dark-matter-dimension-ascension-autobuyer";
@@ -42,6 +43,7 @@ export const Autobuyer = {
   celestialCrunch: new CelestialCrunchAutobuyerState(),
   celestialDimboost: new CelestialDimBoostAutobuyerState(),
   celestialDimension: CelestialDimensionAutobuyerState.createAccessor(),
+  celestialEternity: new CelestialEternityAutobuyerState(),
   celestialGalaxy: new CelestialGalaxyAutobuyerState(),
   celestialTickspeed: new CelestialTickspeedAutobuyerState(),
   darkMatterDimsAscension: new DarkMatterDimensionAscensionAutobuyerState(),
@@ -84,7 +86,8 @@ export const Autobuyers = (function() {
     Autobuyer.eternity,
     Autobuyer.reality,
     Autobuyer.endgame,
-    Autobuyer.celestialCrunch
+    Autobuyer.celestialCrunch,
+    Autobuyer.celestialEternity
   ];
 
   const single = [
@@ -160,6 +163,7 @@ export const Autobuyers = (function() {
         Autobuyer.bigCrunch,
         Autobuyer.celestialCrunch,
         Autobuyer.eternity,
+        Autobuyer.celestialEternity,
         Autobuyer.reality,
         Autobuyer.endgame].some(autobuyer => autobuyer.isUnlocked);
     },
@@ -202,6 +206,8 @@ EventHub.logic.on(GAME_EVENT.REALITY_RESET_AFTER, () => Autobuyers.reset());
 EventHub.logic.on(GAME_EVENT.DIMBOOST_AFTER, () => Autobuyers.resetTick(PRESTIGE_EVENT.DIMENSION_BOOST));
 EventHub.logic.on(GAME_EVENT.GALAXY_RESET_AFTER, () => Autobuyers.resetTick(PRESTIGE_EVENT.ANTIMATTER_GALAXY));
 EventHub.logic.on(GAME_EVENT.BIG_CRUNCH_AFTER, () => Autobuyers.resetTick(PRESTIGE_EVENT.INFINITY));
+EventHub.logic.on(GAME_EVENT.CELESTIAL_CRUNCH_AFTER, () => Autobuyers.resetTick(PRESTIGE_EVENT.CELESTIAL_INFINITY));
 EventHub.logic.on(GAME_EVENT.ETERNITY_RESET_AFTER, () => Autobuyers.resetTick(PRESTIGE_EVENT.ETERNITY));
+EventHub.logic.on(GAME_EVENT.CELESTIAL_ETERNITY_RESET_AFTER, () => Autobuyers.resetTick(PRESTIGE_EVENT.CELESTIAL_ETERNITY));
 EventHub.logic.on(GAME_EVENT.REALITY_RESET_AFTER, () => Autobuyers.resetTick(PRESTIGE_EVENT.REALITY));
 EventHub.logic.on(GAME_EVENT.ENDGAME_RESET_AFTER, () => Autobuyers.resetTick(PRESTIGE_EVENT.ENDGAME));

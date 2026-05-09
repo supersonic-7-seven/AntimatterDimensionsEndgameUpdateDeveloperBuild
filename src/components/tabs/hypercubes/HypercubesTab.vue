@@ -131,7 +131,7 @@ export default {
       this.extraHexeracts = Hexeracts.extra;
       this.isHexeractAutoUnlocked = false;
       this.isHexeractAutoActive = false;
-      this.hepteractsUnlocked = false;
+      this.hepteractsUnlocked = PlayerProgress.celestialEternityUnlocked();
       this.nextCelestialDimSoftcapReduction.copyFrom(Hepteracts.eachHepteractReduction.sub(1));
       this.hepteractCost.copyFrom(Hepteracts.nextCost);
       this.totalCelestialDimSoftcapReduction.copyFrom(Hepteracts.softcapReduction());

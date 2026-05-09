@@ -442,7 +442,7 @@ export function gainedCelestialInfinities() {
 }
 
 export function gainedCelestialInfinityPoints() {
-  const div = Effects.min(308);
+  const div = 308 * CelestialEternityUpgrade.betterCIP.effectOrDefault(1);
   let cip = player.endgame.celDimExpansion.isBroken
     ? Decimal.pow10(player.records.thisCelestialInfinity.maxCM.add(1).log10().div(div).sub(0.75))
     : new Decimal(308 / div);
@@ -455,7 +455,7 @@ export function gainedDivineStars() {
 }
 
 function totalCEPMult() {
-  return DC.D1;
+  return CelestialEternityUpgrade.cepMult.effectOrDefault(1);
 }
 
 export function gainedCelestialEternityPoints() {

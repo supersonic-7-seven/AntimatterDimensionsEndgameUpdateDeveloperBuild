@@ -684,6 +684,15 @@ export const tabs = [
         id: 1,
         hidable: true,
       },
+      {
+        key: "celestial-eternity",
+        name: "Celestial Eternity Upgrades",
+        symbol: "<i class='fas fa-hourglass-start'></i>",
+        component: "CelestialEternityUpgradesTab",
+        condition: () => PlayerProgress.celestialEternityUnlocked(),
+        id: 2,
+        hidable: true,
+      },
     ],
   },
   {

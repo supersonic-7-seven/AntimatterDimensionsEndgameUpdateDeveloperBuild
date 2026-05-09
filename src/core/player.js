@@ -173,6 +173,15 @@ window.player = {
       isActive: true,
       lastTick: 0
     },
+    celestialEternity: {
+      mode: 0,
+      amount: DC.D1,
+      increaseWithMult: true,
+      time: 1,
+      xHighest: DC.D1,
+      isActive: true,
+      lastTick: 0
+    },
     sacrifice: {
       multiplier: DC.D2,
       isActive: true
@@ -1358,6 +1367,9 @@ window.player = {
       celestialInfinityRebuyables: [0, 0, 0, 0, 0, 0],
       celestialEternities: DC.D0,
       celestialEternityPoints: DC.D0,
+      celestialEternityUpgrades: new Set(),
+      cepMultUpgrades: DC.D0,
+      celestialEternityRebuyables: [0, 0, 0],
     },
     largeHadronCollider: {
       accelerators: {

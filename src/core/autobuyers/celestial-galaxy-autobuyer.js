@@ -14,7 +14,7 @@ export class CelestialGalaxyAutobuyerState extends IntervaledAutobuyerState {
   }
 
   get interval() {
-    return 1000 / CelestialBreakInfinityUpgrade.betterAuto.effectOrDefault(1);
+    return 1000 / CelestialBreakInfinityUpgrade.betterAuto.effectOrDefault(1) / (CelestialEternityUpgrade.instaAutos.isBought ? 1e300 : 1);
   }
 
   get limitCelGalaxies() {

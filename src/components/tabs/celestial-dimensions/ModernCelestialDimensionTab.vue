@@ -41,7 +41,9 @@ export default {
       hasInfinities: false,
       infinityPoints: new Decimal(0),
       isAnyAutobuyerUnlocked: false,
-      timeToCap: new Decimal(0)
+      timeToCap: new Decimal(0),
+      hasEternities: false,
+      eternityPoints: new Decimal(0),
     };
   },
   methods: {
@@ -71,6 +73,8 @@ export default {
       this.infinityPoints.copyFrom(player.endgame.celDimExpansion.celestialInfinityPoints);
       this.isAnyAutobuyerUnlocked = Autobuyer.celestialDimension(1).isUnlocked;
       this.timeToCap.copyFrom(DC.D5.times(CelestialDimensions.alphaDecaySpeed));
+      this.hasEternities = Currency.celestialEternities.value.gt(0);
+      this.eternityPoints.copyFrom(player.endgame.celDimExpansion.celestialEternityPoints);
     },
     maxAll() {
       CelestialDimensions.buyMax();
@@ -121,6 +125,11 @@ export default {
     <div v-if="!canCrunch || isBroken">
       <div>
         <p>
+          <span v-if="hasEternities">
+            You have <span class="c-celestial-eternity-text">{{ format(eternityPoints, 2) }}</span>
+            {{ pluralize("Celestial Eternity Point", eternityPoints) }}.
+          </span>
+          <br>
           <span v-if="hasInfinities">
             You have <span class="c-celestial-infinity-text">{{ format(infinityPoints, 2) }}</span>
             {{ pluralize("Celestial Infinity Point", infinityPoints) }}.
@@ -196,7 +205,10 @@ export default {
         :tier="tier"
       />
     </div>
-    <div class="resets-container">
+    <div
+      v-if="isExpanded"
+      class="resets-container"
+    >
       <CelestialDimensionBoostRow v-if="isExpanded"/>
       <CelestialGalaxyRow v-if="isExpanded"/>
     </div>
@@ -211,6 +223,15 @@ export default {
   font-size: 3.5rem;
   font-weight: bold;
   background: linear-gradient(var(--color-infinity), var(--color-celestials));
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+.c-celestial-eternity-text {
+  font-size: 3.5rem;
+  font-weight: bold;
+  background: linear-gradient(var(--color-eternity), var(--color-celestials));
   background-clip: text;
 
   -webkit-text-fill-color: transparent;

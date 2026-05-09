@@ -7,6 +7,8 @@ window.PRESTIGE_EVENT = {
   ETERNITY: 3,
   REALITY: 4,
   ENDGAME: 5,
+  CELESTIAL_INFINITY: 6,
+  CELESTIAL_ETERNITY: 7
 };
 
 function deepFreeze(obj) {
@@ -257,6 +259,12 @@ window.AUTO_CELESTIAL_CRUNCH_MODE = {
 };
 
 window.AUTO_ETERNITY_MODE = {
+  AMOUNT: 0,
+  TIME: 1,
+  X_HIGHEST: 2
+};
+
+window.AUTO_CELESTIAL_ETERNITY_MODE = {
   AMOUNT: 0,
   TIME: 1,
   X_HIGHEST: 2

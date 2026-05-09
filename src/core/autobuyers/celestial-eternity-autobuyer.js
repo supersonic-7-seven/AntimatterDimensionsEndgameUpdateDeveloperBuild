@@ -1,16 +1,16 @@
 import { IntervaledAutobuyerState } from "./autobuyer";
 
-export class CelestialCrunchAutobuyerState extends IntervaledAutobuyerState {
+export class CelestialEternityAutobuyerState extends IntervaledAutobuyerState {
   get data() {
-    return player.auto.celestialCrunch;
+    return player.auto.celestialEternity;
   }
 
   get name() {
-    return `Celestial Infinity`;
+    return `Celestial Eternity`;
   }
 
   get isUnlocked() {
-    return CelestialBreakInfinityUpgrade.autoCDPlus.isBought;
+    return CelestialEternityUpgrade.celEternityAuto.isBought;
   }
 
   get interval() {
@@ -26,7 +26,7 @@ export class CelestialCrunchAutobuyerState extends IntervaledAutobuyerState {
   }
 
   get hasAdditionalModes() {
-    return CelestialEternityUpgrade.celEternityAuto.isBought;
+    return false;
   }
 
   get increaseWithMult() {
@@ -73,42 +73,40 @@ export class CelestialCrunchAutobuyerState extends IntervaledAutobuyerState {
   }
 
   get canTick() {
-    return Currency.celestialMatter.gte(DC.NUMMAX) && super.canTick;
+    return Currency.celestialInfinityPoints.gte(DC.NUMMAX) && super.canTick;
   }
 
-  get resetTickOn() {
-    return PRESTIGE_EVENT.CELESTIAL_ETERNITY;
-  }
+  /*get resetTickOn() {
+    return PRESTIGE_EVENT.CELESTIAL_REALITY;
+  }*/
 
   get highestPrevPrestige() {
-    return player.records.thisCelestialEternity.maxCIP;
+    return player.records.thisCelestialReality.maxCEP;
   }
 
   get timeToNextTick() {
-    return Math.clampMin(this.time - Time.thisCelestialInfinityRealTime.totalSeconds.toNumber(), 0);
+    return Math.clampMin(this.time - Time.thisCelestialEternityRealTime.totalSeconds.toNumber(), 0);
   }
 
-  get willInfinity() {
-    if (!player.endgame.celDimExpansion.isBroken) return true;
-
+  get willEternity() {
     switch (this.mode) {
       case AUTO_CELESTIAL_CRUNCH_MODE.AMOUNT:
-        return gainedCelestialInfinityPoints().gte(this.amount);
+        return gainedCelestialEternityPoints().gte(this.amount);
       case AUTO_CELESTIAL_CRUNCH_MODE.TIME:
-        return Time.thisCelestialInfinityRealTime.totalSeconds.toNumber() > this.time;
+        return Time.thisCelestialEternityRealTime.totalSeconds.toNumber() > this.time;
       case AUTO_CELESTIAL_CRUNCH_MODE.X_HIGHEST:
       default:
-        return gainedCelestialInfinityPoints().gte(this.highestPrevPrestige.times(this.xHighest));
+        return gainedCelestialEternityPoints().gte(this.highestPrevPrestige.times(this.xHighest));
     }
   }
 
   tick() {
     super.tick();
-    if (this.willInfinity) celestialCrunchResetRequest(true);
+    if (this.willInfinity) celestialEternityResetRequest(true);
   }
 
   reset() {
     super.reset();
-    this.mode = AUTO_CELESTIAL_CRUNCH_MODE.AMOUNT;
+    this.mode = AUTO_CELESTIAL_ETERNITY_MODE.AMOUNT;
   }
 }

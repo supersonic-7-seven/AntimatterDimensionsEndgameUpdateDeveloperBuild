@@ -9,6 +9,7 @@ import { expansionPacks } from "./expansion-packs";
 import { stars } from "./stars";
 import { celestialInfinityUpgrades } from "./celestial-dimension-expansion/celestial-infinity-upgrades";
 import { celestialBreakInfinityUpgrades } from "./celestial-dimension-expansion/celestial-break-infinity-upgrades";
+import { celestialEternityUpgrades } from "./celestial-dimension-expansion/celestial-eternity-upgrades";
 
 export const endgame = {
   breakUpgrades: breakEternityUpgrades,
@@ -21,7 +22,8 @@ export const endgame = {
   stars: stars,
   celDimExpansion: {
     celestialInfinityUpgrades: celestialInfinityUpgrades,
-    celestialBreakUpgrades: celestialBreakInfinityUpgrades
+    celestialBreakUpgrades: celestialBreakInfinityUpgrades,
+    celestialEternityUpgrades: celestialEternityUpgrades
   },
   accelerators: accelerators
 };

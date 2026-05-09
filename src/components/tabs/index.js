@@ -9,6 +9,7 @@ import BreakInfinityTab from "./break-infinity/BreakInfinityTab";
 import BreakEternityTab from "./break-eternity/BreakEternityTab";
 import CelestialBreakInfinityTab from "./celestial-dimension-expansion/CelestialBreakInfinityTab";
 import CelestialDimensionsTab from "./celestial-dimensions/CelestialDimensionsTab";
+import CelestialEternityUpgradesTab from "./celestial-dimension-expansion/CelestialEternityUpgradesTab";
 import CelestialInfinityUpgradesTab from "./celestial-dimension-expansion/CelestialInfinityUpgradesTab";
 import CelestialNavigationTab from "./celestial-navigation/CelestialNavigationTab";
 import ChallengeRecordsTab from "./challenge-records/ChallengeRecordsTab";
@@ -122,6 +123,7 @@ const TabComponents = {
   LargeHadronColliderTab,
   CelestialInfinityUpgradesTab,
   CelestialBreakInfinityTab,
+  CelestialEternityUpgradesTab,
   DivinityMilestonesTab,
   DivinityUpgradesTab,
   ResurgenceUpgradesTab,

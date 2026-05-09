@@ -137,7 +137,8 @@ const CEP_BUTTON_DISPLAY_TYPE = {
 
     <!-- Normal -->
     <template v-else-if="type === 1">
-      Celestial Eternity for
+      <span v-if="showCEPRate">Cel Eternity for </span>
+      <span v-else>Celestial Eternity for </span>
       <span :style="amountStyle">{{ format(gainedCEP, 2) }}</span>
       <span v-if="showCEPRate"> CEP</span>
       <span v-else> Celestial Eternity {{ pluralize("Point", gainedCEP) }}</span>

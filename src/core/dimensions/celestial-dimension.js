@@ -3,7 +3,7 @@ import { DimensionState } from "./dimension";
 
 export function celestialDimensionCommonMultiplier() {
   let mult = DC.D1;
-  mult = mult.timesEffectsOf(EndgameUpgrade(11));
+  mult = mult.timesEffectsOf(EndgameUpgrade(11), CelestialEternityUpgrade.largeCDMult);
   mult = mult.times(Ethereal.sectorBoost);
   return mult;
 }
@@ -320,7 +320,7 @@ export const CelestialDimensions = {
     if (Pelle.isDoomed) base /= 10;
     let exponent = 1;
     if (base > 1) exponent *= Effects.product(EndgameMastery(104), Ra.unlocks.celestialDimensionConversionPower);
-    base *= Effects.product(Achievement(208), Achievement(224));
+    base *= Effects.product(Achievement(208), Achievement(224), CelestialEternityUpgrade.conversionFormulaImprovement);
     base *= EtherealStars.yellow.reward.toNumber();
     return Math.pow(base, exponent) * (Alpha.isRunning ? Alpha.celestialMatterConversionNerf : 1);
   }
@@ -486,12 +486,12 @@ export function softCelestialReset(tempBulk, forcedCDReset = false, forcedCMRese
   const bulk = Decimal.min(tempBulk, CelestialDimBoost.maxBoosts.sub(player.endgame.celDimExpansion.dimBoosts));
   EventHub.dispatch(GAME_EVENT.CELESTIAL_DIMBOOST_BEFORE, bulk);
   player.endgame.celDimExpansion.dimBoosts = (Decimal.max(DC.D0, player.endgame.celDimExpansion.dimBoosts.add(bulk)));
-  const canKeepDimensions = false;
+  const canKeepDimensions = CelestialEternityUpgrade.freeDimBoost.isBought;
   if (forcedCDReset || !canKeepDimensions) {
     CelestialDimensions.resetAmount();
     resetCelestialTickspeed();
   }
-  const canKeepCelMatter = false;
+  const canKeepCelMatter = CelestialEternityUpgrade.freeDimBoost.isBought;
   if (!forcedCMReset && canKeepCelMatter) {
     Currency.unnerfedcelestialMatter.bumpTo(Currency.unnerfedCelestialMatter.startingValue);
     Currency.celestialMatter.bumpTo(Currency.unnerfedCelestialMatter.startingValue);
@@ -698,8 +698,8 @@ export class CelestialGalaxy {
 function celestialGalaxyReset() {
   EventHub.dispatch(GAME_EVENT.CELESTIAL_GALAXY_RESET_BEFORE);
   player.endgame.celDimExpansion.galaxies = player.endgame.celDimExpansion.galaxies.add(1);
-  if (true) {
-    player.endgame.celDimExpansion.dimBoosts = new Decimal(0);
+  if (!CelestialEternityUpgrade.freeDimBoost.isBought) {
+    player.endgame.celDimExpansion.dimBoosts = new Decimal(CelestialInfinityUpgrade.buffedStart.effectOrDefault(0));
   }
   softCelestialReset(0);
   EventHub.dispatch(GAME_EVENT.CELESTIAL_GALAXY_RESET_AFTER);
@@ -709,7 +709,7 @@ export function manualRequestCelestialGalaxyReset(bulk) {
   if (!CelestialGalaxy.canBeBought || !CelestialGalaxy.requirement.isSatisfied) return;
   if (GameEnd.creditsEverClosed) return;
   if (player.options.confirmations.celestialGalaxy) {
-    Modal.celestialGalaxy.show({ bulk: false && bulk });
+    Modal.celestialGalaxy.show({ bulk: CelestialEternityUpgrade.bulkCelGalaxies.isBought && bulk });
     return;
   }
   requestCelestialGalaxyReset(bulk);
@@ -719,7 +719,7 @@ export function manualRequestCelestialGalaxyReset(bulk) {
 // to restrict galaxy count for RUPG7's requirement here and nowhere else
 export function requestCelestialGalaxyReset(bulk, limit = DC.BEMAX) {
   const restrictedLimit = limit;
-  if (false && bulk) return maxBuyCelestialGalaxies(restrictedLimit);
+  if (CelestialEternityUpgrade.bulkCelGalaxies.isBought && bulk) return maxBuyCelestialGalaxies(restrictedLimit);
   if (player.endgame.celDimExpansion.galaxies.gte(restrictedLimit) || !CelestialGalaxy.canBeBought ||
     !CelestialGalaxy.requirement.isSatisfied) return false;
   celestialGalaxyReset();
@@ -1072,3 +1072,94 @@ function askCelestialEternityConfirmation() {
 export function gainedCelestialEternities() {
   return DC.D1;
 }
+
+class CelestialEternityUpgradeState extends SetPurchasableMechanicState {
+  get currency() {
+    return Currency.celestialEternityPoints;
+  }
+
+  get set() {
+    return player.endgame.celDimExpansion.celestialEternityUpgrades;
+  }
+}
+
+class CEPMultiplierState extends GameMechanicState {
+  constructor() {
+    super({});
+    this.cachedCost = new Lazy(() => this.costAfterCount(player.endgame.celDimExpansion.cepMultUpgrades));
+    this.cachedEffectValue = new Lazy(() => DC.D5.pow(player.endgame.celDimExpansion.cepMultUpgrades));
+  }
+
+  get isAffordable() {
+    return Currency.celestialEternityPoints.gte(this.cost);
+  }
+
+  get cost() {
+    return this.cachedCost.value;
+  }
+
+  get boughtAmount() {
+    return player.endgame.celDimExpansion.cepMultUpgrades;
+  }
+
+  set boughtAmount(value) {
+    const diff = Decimal.clampMin(value.sub(player.endgame.celDimExpansion.cepMultUpgrades), 0);
+    player.endgame.celDimExpansion.cepMultUpgrades = value;
+    this.cachedCost.invalidate();
+    this.cachedEffectValue.invalidate();
+  }
+
+  get isCustomEffect() {
+    return true;
+  }
+
+  get effectValue() {
+    return this.cachedEffectValue.value;
+  }
+
+  purchase() {
+    if (!this.isAffordable) return false;
+    Currency.celestialEternityPoints.subtract(this.cost);
+    this.boughtAmount = this.boughtAmount.add(1);
+    return true;
+  }
+
+  costInv() {
+    let cur = Currency.celestialEternityPoints.value.max(1);
+    return Decimal.floor(cur.div(500).max(1).log(50).add(1));
+  }
+
+  buyMax(auto) {
+    if (!this.isAffordable) return false;
+    let bulk = Decimal.floor(this.costInv());
+    if (bulk.lt(1)) return false;
+    const price = this.costAfterCount(bulk.sub(1));
+    bulk = Decimal.max(bulk.sub(this.boughtAmount), 0);
+    if (bulk.eq(0)) return false;
+    Currency.celestialEternityPoints.subtract(price);
+    this.boughtAmount = this.boughtAmount.add(bulk);
+    let i = 0;
+    while (Currency.celestialEternityPoints.gt(this.costAfterCount(this.boughtAmount)) &&
+    i < 50 && this.boughtAmount.lte(9e15)) {
+      this.boughtAmount = this.boughtAmount.add(1);
+      Currency.celestialEternityPoints.subtract(this.costAfterCount(this.boughtAmount.sub(1)));
+      i += 1;
+    }
+    return true;
+  }
+
+  reset() {
+    this.boughtAmount = DC.D0;
+  }
+
+  costAfterCount(count) {
+    return Decimal.pow(50, count).times(500);
+  }
+}
+
+export const CelestialEternityUpgrade = mapGameDataToObject(
+  GameDatabase.endgame.celDimExpansion.celestialEternityUpgrades,
+  config => new CelestialEternityUpgradeState(config)
+);
+
+CelestialEternityUpgrade.cepMult = new CEPMultiplierState();
