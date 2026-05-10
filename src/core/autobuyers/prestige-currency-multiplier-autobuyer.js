@@ -49,3 +49,25 @@ export class EPMultAutobuyerState extends AutobuyerState {
     EternityUpgrade.epMult.buyMax(true);
   }
 }
+
+export class CIPMultAutobuyerState extends AutobuyerState {
+  get data() {
+    return player.auto.cipMultBuyer;
+  }
+
+  get name() {
+    return `Celestial Infinity Point Multiplier`;
+  }
+
+  get isUnlocked() {
+    return CelestialEternityUpgrade.celEternityAuto.isBought;
+  }
+
+  get hasUnlimitedBulk() {
+    return true;
+  }
+
+  tick() {
+    CelestialInfinityUpgrade.cipMult.buyMax();
+  }
+}

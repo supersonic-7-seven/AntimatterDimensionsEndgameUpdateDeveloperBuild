@@ -76,7 +76,7 @@ export const celestialEternityUpgrades = {
   celEternityAuto: {
     id: "celEternityAuto",
     cost: 1e15,
-    description: "Unlock an Autobuyer for Celestial Eternities"
+    description: () => `Unlock an Autobuyer for Celestial Eternities and the ${formatX(2)} CIP Multiplier Upgrade`
   },
   startingBoosts: {
     id: "startingBoosts",

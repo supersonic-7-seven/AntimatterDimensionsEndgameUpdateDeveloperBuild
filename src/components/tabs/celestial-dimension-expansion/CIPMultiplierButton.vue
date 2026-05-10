@@ -10,6 +10,8 @@ export default {
   },
   data() {
     return {
+      isAutobuyerActive: false,
+      isAutoUnlocked: false,
       isAffordable: false,
       multiplier: new Decimal(),
       cost: new Decimal()
@@ -27,9 +29,16 @@ export default {
       };
     },
   },
+  watch: {
+    isAutobuyerActive(newValue) {
+      Autobuyer.cipMult.isActive = newValue;
+    }
+  },
   methods: {
     update() {
       const upgrade = this.upgrade;
+      this.isAutoUnlocked = Autobuyer.cipMult.isUnlocked;
+      this.isAutobuyerActive = Autobuyer.cipMult.isActive;
       this.multiplier.copyFrom(upgrade.effectValue);
       this.cost.copyFrom(upgrade.cost);
       this.isAffordable = upgrade.isAffordable;
@@ -61,6 +70,12 @@ export default {
     >
       Max Cel Infinity Point mult
     </PrimaryButton>
+    <PrimaryToggleButton
+      v-if="isAutoUnlocked"
+      v-model="isAutobuyerActive"
+      label="Autobuy CIP mult"
+      class="l--spoon-btn-group__little-spoon o-primary-btn--small-spoon"
+    />
   </div>
 </template>
 

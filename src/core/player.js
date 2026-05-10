@@ -307,6 +307,7 @@ window.player = {
     singularity: { isActive: false },
     ipMultBuyer: { isActive: false, },
     epMultBuyer: { isActive: false, },
+    cipMultBuyer: { isActive: false, },
   },
   infinityPoints: DC.D0,
   infinities: DC.D0,

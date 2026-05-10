@@ -78,6 +78,17 @@ export default {
         thisReal: TimeSpan.zero,
         bestRate: new Decimal(0),
       },
+      celestialEternity: {
+        isUnlocked: false,
+        count: new Decimal(0),
+        totalCelestialEternityCelMatter: new Decimal(0),
+        hasBest: false,
+        best: TimeSpan.zero,
+        bestReal: TimeSpan.zero,
+        this: TimeSpan.zero,
+        thisReal: TimeSpan.zero,
+        bestRate: new Decimal(0),
+      },
       matterScale: [],
       lastMatterTime: 0,
       paperclips: 0,
@@ -116,6 +127,12 @@ export default {
       return num.gt(0)
         ? `${this.formatDecimalAmount(num)} ${pluralize("Celestial Infinity", num.floor())}`
         : "no Celestial Infinities";
+    },
+    celestialEternityCountString() {
+      const num = this.celestialEternity.count;
+      return num.gt(0)
+        ? `${this.formatDecimalAmount(num)} ${pluralize("Celestial Eternity", num.floor())}`
+        : "no Celestial Eternities";
     },
     fullGameCompletions() {
       return player.records.fullGameCompletions;
@@ -227,6 +244,21 @@ export default {
         celestialInfinity.thisReal.setFrom(new Decimal(records.thisCelestialInfinity.realTime));
         celestialInfinity.bestRate.copyFrom(bestCelestialInfinity.bestCIPminCelestialEternity);
       }
+
+      const isCelestialEternityUnlocked = progress.isCelestialEternityUnlocked;
+      const celestialEternity = this.celestialEternity;
+      const bestCelestialEternity = records.bestCelestialEternity;
+      celestialEternity.isUnlocked = isCelestialEternityUnlocked;
+      if (isCelestialEternityUnlocked) {
+        celestialEternity.count.copyFrom(Currency.celestialEternities);
+        celestialEternity.totalCelestialEternityCelMatter.copyFrom(records.totalCelestialEternityCelMatter);
+        celestialEternity.hasBest = bestCelestialEternity.realTime < 999999999999;
+        celestialEternity.best.setFrom(bestCelestialEternity.time);
+        celestialEternity.bestReal.setFrom(new Decimal(bestCelestialEternity.realTime));
+        celestialEternity.this.setFrom(records.thisCelestialEternity.time);
+        celestialEternity.thisReal.setFrom(new Decimal(records.thisCelestialEternity.realTime));
+        celestialEternity.bestRate.copyFrom(bestCelestialEternity.bestCEPminCelestialReality);
+      }
       this.updateMatterScale();
 
       this.isDoomed = Pelle.isDoomed;
@@ -283,6 +315,10 @@ export default {
         </div>
         <div v-if="endgame.isUnlocked" class="c-stats-tab-celestials">
           You have made a total of {{ format(totalCelMatter, 2, 1) }} Celestial Matter.
+        </div>
+        <div v-if="celestialEternity.isUnlocked" class="c-stats-tab-celestials">
+          You have made a total of {{ format(celestialEternity.totalCelestialEternityCelMatter, 2, 1) }} Celestial Matter
+          this Celestial Eternity.
         </div>
         <div v-if="celestialInfinity.isUnlocked" class="c-stats-tab-celestials">
           You have made a total of {{ format(celestialInfinity.totalCelestialInfinityCelMatter, 2, 1) }} Celestial Matter
@@ -485,22 +521,49 @@ export default {
         Celestial Infinity
       </div>
       <div>
-        You have {{ celestialInfinityCountString }}.
+        You have {{ celestialInfinityCountString }}<span v-if="celestialEternity.isUnlocked"> this Celestial Eternity</span>.
       </div>
       <div v-if="celestialInfinity.hasBest">
         Your fastest game-time Celestial Infinity was {{ celestialInfinity.best.toStringShort() }}.
         Your fastest real-time Celestial Infinity was {{ celestialInfinity.bestReal.toStringShort() }}.
       </div>
       <div v-else>
-        You have no fastest Celestial Infinity.
+        You have no fastest Celestial Infinity<span v-if="celestialEternity.isUnlocked"> this Celestial Eternity</span>.
       </div>
       <div>
         You have spent {{ celestialInfinity.this.toStringShort() }} in this Celestial Infinity.
         ({{ celestialInfinity.thisReal.toStringShort() }} real time)
       </div>
       <div>
-        Your best Celestial Infinity Points per minute
+        Your best Celestial Infinity Points per minute<span v-if="celestialEternity.isUnlocked"> this Celestial Eternity</span>
         is {{ format(celestialInfinity.bestRate, 2, 2) }}.
+      </div>
+      <br>
+    </div>
+    <div
+      v-if="celestialEternity.isUnlocked"
+      class="c-stats-tab-subheader c-stats-tab-general"
+    >
+      <div class="c-stats-tab-title c-stats-tab-celestial-eternity">
+        Celestial Eternity
+      </div>
+      <div>
+        You have {{ celestialEternityCountString }}.
+      </div>
+      <div v-if="celestialEternity.hasBest">
+        Your fastest game-time Celestial Eternity was {{ celestialEternity.best.toStringShort() }}.
+        Your fastest real-time Celestial Eternity was {{ celestialEternity.bestReal.toStringShort() }}.
+      </div>
+      <div v-else>
+        You have no fastest Celestial Eternity.
+      </div>
+      <div>
+        You have spent {{ celestialEternity.this.toStringShort() }} in this Celestial Eternity.
+        ({{ celestialEternity.thisReal.toStringShort() }} real time)
+      </div>
+      <div>
+        Your best Celestial Eternity Points per minute
+        is {{ format(celestialEternity.bestRate, 2, 2) }}.
       </div>
       <br>
     </div>
@@ -551,6 +614,13 @@ export default {
 
 .c-stats-tab-celestial-infinity {
   background: linear-gradient(var(--color-infinity), var(--color-celestials));
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+.c-stats-tab-celestial-eternity {
+  background: linear-gradient(var(--color-eternity), var(--color-celestials));
   background-clip: text;
 
   -webkit-text-fill-color: transparent;

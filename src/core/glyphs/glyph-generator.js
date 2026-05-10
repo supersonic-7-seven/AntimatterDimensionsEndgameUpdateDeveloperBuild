@@ -181,7 +181,7 @@ export const GlyphGenerator = {
 
   endgameGlyph(type) {
     const effectList = GlyphEffects.all.filter(e => e.id.startsWith(type));
-    effectList.push(GlyphEffects.timespeed);
+    if (type !== "effarig" && type !== "reality") effectList.push(GlyphEffects.timespeed);
     let bitmask = 0;
     for (const effect of effectList) bitmask |= 1 << effect.bitmaskIndex;
     const glyphLevel = Effects.max(1, EndgameMastery(71));

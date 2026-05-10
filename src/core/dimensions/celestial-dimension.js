@@ -493,7 +493,7 @@ export function softCelestialReset(tempBulk, forcedCDReset = false, forcedCMRese
   }
   const canKeepCelMatter = CelestialEternityUpgrade.freeDimBoost.isBought;
   if (!forcedCMReset && canKeepCelMatter) {
-    Currency.unnerfedcelestialMatter.bumpTo(Currency.unnerfedCelestialMatter.startingValue);
+    Currency.unnerfedCelestialMatter.bumpTo(Currency.unnerfedCelestialMatter.startingValue);
     Currency.celestialMatter.bumpTo(Currency.unnerfedCelestialMatter.startingValue);
   } else {
     Currency.unnerfedCelestialMatter.reset();
