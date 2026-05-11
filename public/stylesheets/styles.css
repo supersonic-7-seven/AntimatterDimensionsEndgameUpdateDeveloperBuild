@@ -2826,38 +2826,38 @@ br {
 
 /* #endregion IP Amount */
 
-/* #region CIP Amount */
+/* #region VS Amount */
 
-.c-game-header__cip-amount {
+.c-game-header__vs-amount {
   font-weight: bold;
 }
 
-.t-dark .c-game-header__cip-amount,
-.t-s6 .c-game-header__cip-amount,
-.t-s10 .c-game-header__cip-amount {
-  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+.t-dark .c-game-header__vs-amount,
+.t-s6 .c-game-header__vs-amount,
+.t-s10 .c-game-header__vs-amount {
+  background: linear-gradient(black, var(--color-pelle--base), black);
   background-clip: text;
-  text-shadow: 0 0 0.7rem var(--color-infinity);
+  text-shadow: 0 0 0.7rem var(--color-pelle--base);
 
   -webkit-text-fill-color: transparent;
 }
 
-.s-base--metro .c-game-header__cip-amount {
-  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+.s-base--metro .c-game-header__vs-amount {
+  background: linear-gradient(black, var(--color-pelle--base), black);
   background-clip: text;
 
   -webkit-text-fill-color: transparent;
 }
 
-.t-s1 .c-game-header__cip-amount {
-  background: linear-gradient(var(--color-infinity), var(--color-celestials));
+.t-s1 .c-game-header__vs-amount {
+  background: linear-gradient(black, var(--color-pelle--base), black);
   background-clip: text;
   text-shadow: 0.1rem 0.1rem 0 black;
 
   -webkit-text-fill-color: transparent;
 }
 
-/* #endregion CIP Amount */
+/* #endregion VS Amount */
 
 /* #region EP Amount */
 
