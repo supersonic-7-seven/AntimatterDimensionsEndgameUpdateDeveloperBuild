@@ -411,6 +411,8 @@ window.player = {
     totalCelestialRealityCelMatter: DC.D0,
     totalCelestialEternityCelMatter: DC.D0,
     totalCelestialInfinityCelMatter: DC.D0,
+    totalDivineMatter: DC.E1,
+    totalStarRunDivineMatter: DC.E1,
     recentInfinities: Array.range(0, 10).map(() =>
       [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, ""]),
     recentEternities: Array.range(0, 10).map(() =>
@@ -530,6 +532,18 @@ window.player = {
       maxCIP: DC.D0,
       maxCEP: DC.D0,
       bestCelestialEternitiesPerMs: DC.D0,
+    },
+    thisStarRun: {
+      time: DC.D0,
+      realTime: 0,
+      maxVM: DC.D0,
+      bestVSmin: DC.D0,
+      bestVSminVal: DC.D0,
+    },
+    bestStarRun: {
+      time: DC.BEMAX,
+      realTime: Number.MAX_VALUE,
+      bestVSminNebula: DC.D0,
     },
     permanent: {
       maxCP: DC.D0,
