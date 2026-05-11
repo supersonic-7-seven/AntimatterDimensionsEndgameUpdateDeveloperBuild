@@ -423,6 +423,58 @@ export const Time = {
   },
 
   /**
+   * @returns {TimeSpan}
+   */
+  get thisCondense() {
+    return this.fromMilliseconds(() => player.records.thisCondense.time);
+  },
+  /**
+   * @param {TimeSpan} timespan
+   */
+  set thisCondense(timespan) {
+    this.toMilliseconds(timespan, value => player.records.thisCondense.time = value);
+  },
+
+  /**
+   * @returns {TimeSpan}
+   */
+  get thisCondenseRealTime() {
+    return this.fromMilliseconds(() => new Decimal(player.records.thisCondense.realTime));
+  },
+  /**
+   * @param {TimeSpan} timespan
+   */
+  set thisCondenseRealTime(timespan) {
+    this.toMilliseconds(timespan, value => player.records.thisCondense.realTime = value.toNumber());
+  },
+
+  /**
+   * @returns {TimeSpan}
+   */
+  get bestCondense() {
+    return this.fromMilliseconds(() => player.records.bestCondense.time);
+  },
+  /**
+   * @param {TimeSpan} timespan
+   */
+  set bestCondense(timespan) {
+    this.toMilliseconds(timespan, value => player.records.bestCondense.time = value);
+  },
+
+  /**
+   * @returns {TimeSpan}
+   */
+  get bestCondenseRealTime() {
+    return this.fromMilliseconds(() => new Decimal(player.records.bestCondense.realTime));
+  },
+  /**
+   * @param {TimeSpan} timespan
+   */
+  set bestCondenseRealTime(timespan) {
+    this.toMilliseconds(timespan, value => player.records.bestCondense.realTime = value.toNumber());
+  },
+
+  /**
    * @return {TimeSpan}
    */
   get worstChallenge() {
