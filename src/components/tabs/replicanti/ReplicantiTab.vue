@@ -149,7 +149,7 @@ export default {
       this.mult.copyFrom(replicantiMult());
       this.hasTDMult = DilationUpgrade.tdMultReplicanti.isBought;
       this.multTD.copyFrom(DilationUpgrade.tdMultReplicanti.effectValue);
-      this.hasDTMult = getAdjustedGlyphEffect("replicationdtgain") !== 0 && !Pelle.isDoomed;
+      this.hasDTMult = getAdjustedGlyphEffect("replicationdtgain").neq(0) && !Pelle.isDoomed;
       this.multDT = Decimal.clampMin(
         Decimal.log10(Replicanti.amount.add(1)).times(
           getAdjustedGlyphEffect("replicationdtgain")),
