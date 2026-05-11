@@ -1,48 +1,48 @@
 export const END_STATE_MARKERS = {
   // Tab zalgoification starts as soon as endState > 0
   get GAME_END() {
-    if (player.endgames >= 0) return 1e308;
+    if (player.endgames >= 1) return 1e308;
     return 1;
   },
   get TAB_START_HIDE() {
-    if (player.endgames >= 0) return 1e308;
+    if (player.endgames >= 1) return 1e308;
     return 1.5;
   },
   get INTERACTIVITY_DISABLED() {
-    if (player.endgames >= 0) return 1e308;
+    if (player.endgames >= 1) return 1e308;
     return 2.5;
   },
   get FADE_AWAY() {
-    if (player.endgames >= 0) return 1e308;
+    if (player.endgames >= 1) return 1e308;
     return 2.5;
   },
   get SAVE_DISABLED() {
-    if (player.endgames >= 0) return 1e308;
+    if (player.endgames >= 1) return 1e308;
     return 4;
   },
   get END_NUMBERS() {
-    if (player.endgames >= 0) return 1e308;
+    if (player.endgames >= 1) return 1e308;
     return 4.2;
   },
   get CREDITS_START() {
-    if (player.endgames >= 0) return 1e308;
+    if (player.endgames >= 1) return 1e308;
     return 4.5;
   },
   get SHOW_NEW_GAME() {
-    if (player.endgames >= 0) return 1e308;
-    return 15.5;
+    if (player.endgames >= 1) return 1e308;
+    return 5;
   },
   get SPECTATE_GAME() {
-    if (player.endgames >= 0) return 1e308;
-    return 15.9;
+    if (player.endgames >= 1) return 1e308;
+    return 5;
   },
   // The song is 4:27 and the credits increment by 1 every 20 seconds. Needs changing if the song is changed.
   get SONG_END() {
-    if (player.endgames >= 0) return 1e308;
-    return 17.9;
+    if (player.endgames >= 1) return 1e308;
+    return 10;
   },
   get CREDITS_END() {
-    if (player.endgames >= 0) return 1e308;
+    if (player.endgames >= 1) return 1e308;
     return 160;
   },
 };
