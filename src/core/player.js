@@ -403,7 +403,7 @@ window.player = {
     totalAntimatter: DC.E1,
     totalAntimatterOutsideDoom: DC.E1,
     bestAntimatterExponentOutsideDoom: DC.D0,
-    bestDoomedAntimatterThisEndgame: DC.E1,
+    bestDoomedAntimatterThisDivinity: DC.E1,
     totalEndgameAntimatter: DC.E1,
     totalRealityAntimatter: DC.E1,
     totalEternityAntimatter: DC.E1,
