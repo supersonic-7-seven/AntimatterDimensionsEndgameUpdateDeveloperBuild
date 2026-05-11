@@ -728,6 +728,15 @@ Currency.divineMatter = new class extends DecimalCurrency {
   set value(value) {
     const newValue = Decimal.min(value, DivineDimensions.HARDCAP);
     player.celestials.pelle.divinity.divineMatter = newValue;
+    player.records.thisStarRun.maxVM = player.records.thisStarRun.maxVM.max(value);
+  }
+
+  add(amount) {
+    super.add(amount);
+    if (amount.gt(0)) {
+      player.records.totalDivineMatter = player.records.totalDivineMatter.add(amount);
+      player.records.totalStarRunDivineMatter = player.records.totalStarRunDivineMatter.add(amount);
+    }
   }
 }();
 
