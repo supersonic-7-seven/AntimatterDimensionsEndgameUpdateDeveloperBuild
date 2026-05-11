@@ -668,6 +668,6 @@ export default {
 }
 
 .c-stats-tab-divinity {
-  color: var(--color-pelle--doomed);
+  color: var(--color-pelle--base);
 }
 </style>
