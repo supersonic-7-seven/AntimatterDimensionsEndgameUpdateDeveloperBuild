@@ -735,8 +735,8 @@ Currency.divineMatter = new class extends DecimalCurrency {
   add(amount) {
     super.add(amount);
     if (amount.gt(0)) {
-      player.records.totalDivineMatter = player.records.totalDivineMatter.add(amount);
-      player.records.totalCondenseDivineMatter = player.records.totalCondenseDivineMatter.add(amount);
+      player.records.totalDivineMatter = Decimal.min(player.records.totalDivineMatter.add(amount), DivineDimensions.HARDCAP);
+      player.records.totalCondenseDivineMatter = Decimal.min(player.records.totalCondenseDivineMatter.add(amount), DivineDimensions.HARDCAP);
     }
   }
 }();
