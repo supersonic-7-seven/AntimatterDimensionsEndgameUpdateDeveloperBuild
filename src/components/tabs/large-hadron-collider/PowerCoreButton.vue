@@ -9,8 +9,8 @@ export default {
   data() {
     return {
       isAffordable: false,
-      multiplier: new Decimal(),
-      cost: new Decimal()
+      multiplier: 0,
+      cost: 0
     };
   },
   computed: {
@@ -28,8 +28,8 @@ export default {
   methods: {
     update() {
       const upgrade = this.upgrade;
-      this.multiplier.copyFrom(upgrade.effectValue);
-      this.cost.copyFrom(upgrade.cost);
+      this.multiplier = upgrade.effectValue;
+      this.cost = upgrade.cost;
       this.isAffordable = upgrade.isAffordable;
     },
     purchaseUpgrade() {
@@ -40,7 +40,7 @@ export default {
 </script>
 
 <template>
-  <div class="l-spoon-btn-group l-margin-top">
+  <div class="l-spoon-btn-group l-margin-top l-power-core-box">
     <button
       :class="classObject"
       @click="purchaseUpgrade"
@@ -65,5 +65,11 @@ export default {
 <style scoped>
 .l-margin-top {
   margin-top: 0.55rem;
+}
+
+.l-power-core-box {
+  align-items: center;
+  width: 20rem;
+  margin-left: 37.9rem;
 }
 </style>
