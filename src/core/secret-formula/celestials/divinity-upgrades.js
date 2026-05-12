@@ -85,8 +85,8 @@ export const divinityUpgrades = {
     id: "divineL2U1",
     layer: 2,
     cost: new Decimal(1),
-    description: () => `Divine Dimensions gain a multiplier based on real time since your last Condense`,
-    effect: () => (player.records.thisCondense.realTime / 1000) ** 3,
+    description: "Divine Dimensions gain a multiplier based on real time since your last Condense",
+    effect: () => Decimal.pow(Time.thisCondenseRealTime.totalSeconds.add(1), 3),
     formatEffect: value => formatX(value, 2, 2)
   },
   divineL2U2: {
@@ -94,17 +94,17 @@ export const divinityUpgrades = {
     id: "divineL2U2",
     layer: 2,
     cost: new Decimal(7),
-    description: () => `Divine Energy production is multiplied by your total Divine Stars`,
+    description: "Divine Stars mutliply Divine Energy production",
     effect: () => player.celestials.pelle.divinity.divineStars.max(1),
-    formatEffect: value => formatX(value, 2, 2)
+    formatEffect: value => formatX(value, 2)
   },
   divineL2U3: {
     name: "Postmortal",
     id: "divineL2U3",
     layer: 2,
     cost: new Decimal(17),
-    description: () => `Current Divine Stars boost Ethereal Power production`,
-    effect: () => player.celestials.pelle.divinity.divineStars.add(1).log10().add(1).pow(7),
+    description: "Divine Stars boost Ethereal Power production",
+    effect: () => Decimal.pow(Decimal.log10(player.celestials.pelle.divinity.divineStars.add(1)).add(1), 7),
     formatEffect: value => formatX(value, 2, 2)
   },
   divineL2U4: {
@@ -112,28 +112,29 @@ export const divinityUpgrades = {
     id: "divineL2U4",
     layer: 2,
     cost: new Decimal(77),
-    description: () => `Divine Energy base gain is now based on your highest-ever Divine Matter`,
+    description: "Divine Energy base gain is now based on your highest-ever Divine Matter"
   },
   divineL2U5: {
     name: "Cannot Afford Loss",
     id: "divineL2U5",
     layer: 2,
     cost: new Decimal(277),
-    description: () => `Keep all Layer One Divine Upgrades on Condense`,
+    description: "Keep all Layer One Divine Upgrades on Condense"
   },
   divineL2U6: {
     name: "Headstart",
     id: "divineL2U6",
     layer: 2,
     cost: new Decimal(777),
-    description: () => `Start Condense with 5e36 Divine Matter`,
+    description: () => `Start Condense with ${format(5e36, 2, 2)} Divine Matter`,
+    effect: 5e36
   },
   divineL2U7: {
     name: "Gravitate",
     id: "divineL2U7",
     layer: 2,
     cost: new Decimal(2777),
-    description: () => `Divine Dimensions are raised ^1.1`,
+    description: () => `Divine Dimensions are raised ${formatPow(1.1, 2, 3)}`,
     effect: 1.1
   },
   divineL2U8: {
@@ -141,16 +142,15 @@ export const divinityUpgrades = {
     id: "divineL2U8",
     layer: 2,
     cost: new Decimal(7777),
-    description: () => `The Divine Dimension Per-Purchase Multiplier is increased to x17`,
-    effect: 17/7
+    description: () => `The Divine Dimension Per-Purchase Multiplier is increased to ${formatX(17)}`
   },
   divineL2U9: {
     name: "Ascension",
     id: "divineL2U9",
     layer: 2,
     cost: new Decimal(77777),
-    description: () => `Divine Dimensions are multiplied based on Celestial Matter`,
-    effect: () => player.endgame.celestialMatter.max(1).log10().add(1).pow(7),
+    description: "Divine Dimensions are multiplied based on Celestial Matter",
+    effect: () => Decimal.pow(Decimal.log10(Currency.celestialMatter.value).add(1), 7),
     formatEffect: value => formatX(value, 2, 2)
   },
   divineL2U10: {
@@ -158,6 +158,7 @@ export const divinityUpgrades = {
     id: "divineL2U10",
     layer: 2,
     cost: new Decimal(1777777),
-    description: () => `Divine Matter effects are set to highest-ever Divine Matter and Divine Energy gain is always produced at a 100% rate with no penalty`,
+    description: () => `Divine Matter effects are set to highest-ever Divine Matter and Divine Energy gain
+      is always produced at a ${formatPercents(1)} rate with no penalty`
   },
 };

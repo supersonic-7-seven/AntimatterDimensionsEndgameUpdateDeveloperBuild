@@ -224,6 +224,7 @@ Currency.antimatter = new class extends DecimalCurrency {
 
     if (Pelle.isDoomed) {
       player.celestials.pelle.records.totalAntimatter = player.celestials.pelle.records.totalAntimatter.max(value);
+      player.records.bestDoomedAntimatterThisDivinity = player.records.bestDoomedAntimatterThisDivinity.max(value);
       player.celestials.pelle.records.totalEndgameAntimatter = player.celestials.pelle.records.totalEndgameAntimatter.max(value);
     }
 
@@ -728,6 +729,24 @@ Currency.divineMatter = new class extends DecimalCurrency {
   set value(value) {
     const newValue = Decimal.min(value, DivineDimensions.HARDCAP);
     player.celestials.pelle.divinity.divineMatter = newValue;
+    player.records.thisCondense.maxVM = player.records.thisCondense.maxVM.max(newValue);
+  }
+
+  get startingValue() {
+    return Effects.max(10).toDecimal();
+  }
+
+  reset() {
+    super.reset();
+    player.records.thisCondense.maxVM = this.startingValue;
+  }
+
+  add(amount) {
+    super.add(amount);
+    if (amount.gt(0)) {
+      player.records.totalDivineMatter = Decimal.min(player.records.totalDivineMatter.add(amount), DivineDimensions.HARDCAP);
+      player.records.totalCondenseDivineMatter = Decimal.min(player.records.totalCondenseDivineMatter.add(amount), DivineDimensions.HARDCAP);
+    }
   }
 }();
 
@@ -750,5 +769,13 @@ Currency.nullMatter = new class extends DecimalCurrency {
   set value(value) {
     const newValue = new Decimal(value);
     player.endgame.largeHadronCollider.void.nullMatter = newValue;
+  }
+}();
+
+Currency.divineStars = new class extends DecimalCurrency {
+  get value() { return player.celestials.pelle.divinity.divineStars; }
+  set value(value) {
+    const newValue = new Decimal(value);
+    player.celestials.pelle.divinity.divineStars = newValue;
   }
 }();

@@ -792,4 +792,5 @@ export function divinityReset() {
     player.celestials.laitela.hadrons.light = player.celestials.laitela.hadrons.total;
     player.celestials.laitela.hadrons.dark = player.celestials.laitela.hadrons.total;
   }
+  player.records.bestDoomedAntimatterThisDivinity = DC.E1;
 }

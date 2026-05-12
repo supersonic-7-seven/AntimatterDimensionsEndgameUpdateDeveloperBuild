@@ -2612,6 +2612,39 @@ br {
 
 /* #endregion Celestial Eternity */
 
+/* #region Condense */
+
+.o-condense-button {
+  font-weight: bold;
+  color: var(--color-pelle--base);
+  background-color: var(--color-prestige--accent);
+  border-color: var(--color-pelle--base);
+}
+
+.o-condense-button:hover {
+  color: black;
+  background: linear-gradient(red, yellow, cyan);
+}
+
+.o-condense-button span {
+  transition-duration: 0.2s;
+}
+
+.o-condense-button:hover span {
+  color: black;
+}
+
+.t-metro .o-condense-button {
+  box-shadow: 0.1rem 0.1rem 0.1rem 0 #9e9e9e;
+}
+
+.o-condense-button--unavailable {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* #endregion Condense */
+
 /* #endregion o-prestige-btn */
 
 /* #region l-spoon-btn-group */
@@ -2825,6 +2858,39 @@ br {
 }
 
 /* #endregion CIP Amount */
+
+/* #region VS Amount */
+
+.c-game-header__vs-amount {
+  font-weight: bold;
+}
+
+.t-dark .c-game-header__vs-amount,
+.t-s6 .c-game-header__vs-amount,
+.t-s10 .c-game-header__vs-amount {
+  background: linear-gradient(red, yellow, cyan);
+  background-clip: text;
+  text-shadow: 0 0 0.7rem var(--color-pelle--base);
+
+  -webkit-text-fill-color: transparent;
+}
+
+.s-base--metro .c-game-header__vs-amount {
+  background: linear-gradient(red, yellow, cyan);
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+.t-s1 .c-game-header__vs-amount {
+  background: linear-gradient(red, yellow, cyan);
+  background-clip: text;
+  text-shadow: 0.1rem 0.1rem 0 black;
+
+  -webkit-text-fill-color: transparent;
+}
+
+/* #endregion VS Amount */
 
 /* #region EP Amount */
 
@@ -11865,6 +11931,53 @@ kbd {
 
 .t-s1 .o-celestial-eternity-upgrade--unavailable:hover {
   background: #636363;
+}
+
+@keyframes a-power-core {
+  0% { box-shadow: inset 0 0 0.3rem 0 white; }
+  50% { box-shadow: inset 0 0 2rem 0 white; }
+  100% { box-shadow: inset 0 0 0.3rem 0 white; }
+}
+
+@keyframes a-power-core-inverted {
+  0% { box-shadow: inset 0 0 0.3rem 0 black; }
+  50% { box-shadow: inset 0 0 2rem 0 black; }
+  100% { box-shadow: inset 0 0 0.3rem 0 black; }
+}
+
+.o-power-core-upgrade {
+  width: 20rem;
+  height: 9rem;
+  font-family: Typewriter, serif;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 0.1rem solid white;
+  border-radius: var(--var-border-radius, 0.4rem);
+  transition-duration: 0.2s;
+  cursor: pointer;
+  animation: a-power-core 5s infinite;
+}
+
+.o-power-core-upgrade--available {
+  color: white;
+  background-color: black;
+}
+
+.o-power-core-upgrade--available:hover {
+  color: black;
+  border: 0.1rem solid black;
+  background-color: white;
+  animation: a-power-core-inverted 5s infinite;
+}
+
+.o-power-core-upgrade--unavailable {
+  color: white;
+  background-color: black;
+  cursor: default;
+}
+
+.o-power-core-upgrade--unavailable:hover {
+  background-color: black;
 }
 
 /* #region reality-tab */

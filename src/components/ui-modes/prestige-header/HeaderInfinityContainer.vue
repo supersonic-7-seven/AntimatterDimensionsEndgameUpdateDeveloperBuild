@@ -26,7 +26,7 @@ export default {
       this.isTesseractUnlocked = Enslaved.isCompleted && !player.disablePostReality;
       this.tesseractCost = Tesseracts.nextCost;
       this.tesseractText = this.tesseractProgress();
-      this.hasCelestial = player.endgame.celDimExpansion.celestialInfinities.gt(0);
+      this.hasCelestial = PlayerProgress.celestialInfinityUnlocked();
       this.celInfinityPoints.copyFrom(Currency.celestialInfinityPoints.value.floor());
     },
     tesseractProgress() {

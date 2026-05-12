@@ -1,10 +1,12 @@
 <script>
 import Accelerator from "./Accelerator";
+import PowerCoreButton from "./PowerCoreButton";
 
 export default {
   name: "AcceleratorsPanel",
   components: {
-    Accelerator
+    Accelerator,
+    PowerCoreButton
   },
   data() {
     return {
@@ -51,6 +53,7 @@ export default {
         />
       </div>
     </div>
+    <PowerCoreButton />
     <div class="c-accelerator-panel-description">
       The next Accelerator will unlock at {{ format(nextAcceleratorReq, 2, 2) }} {{ nextAcceleratorCurrency }}
     </div>

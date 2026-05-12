@@ -12,17 +12,20 @@ export default {
   },
   data() {
     return {
-      isDestroyed: false
+      isDestroyed: false,
+      isDivine: false
     };
   },
   methods: {
     update() {
       this.isDestroyed = Alpha.isDestroyedForDisplay;
+      this.isDivine = DivinityMilestone.divineDimensions.isReached;
     },
     classObject() {
       return {
         "c-prestige-info-blocks": true,
-        "c-prestige-info-blocks--tall": this.isDestroyed
+        "c-prestige-info-blocks--tall": this.isDestroyed && !this.isDivine,
+        "c-prestige-info-blocks--taller": this.isDivine
       };
     }
   }
@@ -48,6 +51,10 @@ export default {
 
 .c-prestige-info-blocks--tall {
   height: 24rem;
+}
+
+.c-prestige-info-blocks--taller {
+  height: 28rem;
 }
 
 .l-game-header__eternity {

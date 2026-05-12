@@ -7,6 +7,7 @@ export function divineDimensionCommonMultiplier() {
   mult = mult.timesEffectsOf(DivinityUpgrade.divineL1U3, DivinityUpgrade.divineL1U6);
   mult = mult.times(DivinityMilestone.hadronEmpowerment.isReached ? 77 : 1);
   mult = mult.times(Accelerators.potency.effectValue3);
+  mult = mult.times(Decimal.pow(7, Decimal.log10(player.celestials.pelle.divinity.divineStars.add(1))));
   return mult;
 }
 
@@ -226,30 +227,21 @@ export const DivineDimensions = {
     return DC.D1.sub(Decimal.pow(0.8, logD)).toNumber();
   }
 };
-export function manualDivineStarResetRequest() {
-  if (Currency.divineMatter.value.lt(DC.NUMMAX)) return;
-  divineStarResetRequest()
-}
-export function divineStarResetRequest() {
-  if (Currency.divineMatter.value.lt(DC.NUMMAX)) return;
-  divineStarReset();
-}
-function divineStarResetGiveRewards() {
-  Currency.divineStars.value = Currency.divineStars.value.add(gainedDivineStars())
-}
-function divineStarReset() {
-  divineStarResetGiveRewards();
+
+export function resetForDivineStars() {
+  if (Currency.divineMatter.lt(DC.NUMMAX)) return;
+  player.celestials.pelle.divinity.divineStars = player.celestials.pelle.divinity.divineStars.add(gainedDivineStars());
+  player.celestials.pelle.divinity.condenses = player.celestials.pelle.divinity.condenses.add(1);
   Endgame.resetNoReward();
-    for (const dimension of DivineDimensions.all) {
-      dimension.fullReset();
+  DivineDimensions.fullReset();
+  Currency.divineMatter.reset();
+  player.records.totalCondenseDivineMatter = DC.E1;
+  if (true) {
+    let upgR = [];
+    for (let upgL = 0; upgL < DivinityUpgrades.all.filter(u => u.layer !== 1).length; upgL++) {
+      upgR.push(DivinityUpgrades.all.filter(u => u.layer !== 1)[upgL].id)
     }
-  Currency.divineMatter.value = DivinityUpgrade.divineL2U6.isBought ? new Decimal(5e36) : DC.E1;
-      Currency.divineEnergy.value = DC.D0;
-  if(!DivinityUpgrade.divineL2U5.isBought){
-    for(const i of player.celestials.pelle.divinityUpgrades)
-      if (DivinityUpgrade[i].layer == 1) DivinityUpgrade[i].isBought = false;
-      DivinityUpgrade.divineL1U5.isBought = true}
-  player.records.thisCondense.realTime = 0
+    upgR.push("divineL1U5");
+    player.celestials.pelle.divineUpgrades = new Set(upgR);
   }
-
-
+};

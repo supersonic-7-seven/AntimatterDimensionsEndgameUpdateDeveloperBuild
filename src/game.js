@@ -91,10 +91,10 @@ export function playerCelestialInfinityUpgradesOnReset() {
       "celDimPurchaseBuff", "celDimboostBuff", "celGalaxyBuff"]
   );
 
-  if (false) {
+  if (CelestialEternityUpgrade.startBreakInf.isBought) {
     player.endgame.celDimExpansion.celestialInfinityUpgrades = celestialBreakInfinityUpgrades;
     player.endgame.celDimExpansion.celestialInfinityRebuyables = [8, 7, 10, 10, 10, 10];
-  } else if (false) {
+  } else if (CelestialEternityUpgrade.startInf.isBought) {
     player.endgame.celDimExpansion.celestialInfinityUpgrades = celestialInfinityUpgrades;
     player.endgame.celDimExpansion.celestialInfinityRebuyables = [0, 0, 0, 0, 0, 0];
   } else {
@@ -465,6 +465,13 @@ export function gainedCelestialEternityPoints() {
   return cep.floor();
 }
 
+export function gainedDivineStars() {
+  const div = 308;
+  let divs = Decimal.pow10(player.records.thisCondense.maxVM.add(1).log10().div(div).sub(0.75));
+
+  return divs.floor();
+}
+
 export function updateRefresh() {
   GameStorage.save();
   location.reload(true);
@@ -768,6 +775,7 @@ export function gameLoop(passedDiff, options = {}) {
     player.records.thisCelestialEternity.time = player.records.thisCelestialEternity.time.add(diff);
     player.records.thisCelestialReality.realTime += realDiff;
     player.records.thisCelestialReality.time = player.records.thisCelestialReality.time.add(diff);
+    player.records.thisCondense.time = player.records.thisCondense.time.add(diff);
     player.records.thisCondense.realTime += realDiff;
   }
 

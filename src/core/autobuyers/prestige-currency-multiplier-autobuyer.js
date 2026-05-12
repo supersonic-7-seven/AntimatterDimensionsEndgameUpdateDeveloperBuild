@@ -60,7 +60,7 @@ export class CIPMultAutobuyerState extends AutobuyerState {
   }
 
   get isUnlocked() {
-    return CelestialEternityUpgrade.celEternityAuto.isBought;
+    return CelestialEternityUpgrade.x2CIPAuto.isBought;
   }
 
   get hasUnlimitedBulk() {

@@ -32,6 +32,14 @@ export class PlayerProgress {
     return new Decimal(this._player.endgame.celDimExpansion.celestialEternities).gt(0);
   }
 
+  get isDivinityUnlocked() {
+    return this._player.celestials.pelle.divinities > 0;
+  }
+
+  get areDivineStarsUnlocked() {
+    return new Decimal(this._player.celestials.pelle.divinity.condenses).gt(0);
+  }
+
   get hasFullCompletion() {
     return this._player.records?.fullGameCompletions > 0;
   }
@@ -72,12 +80,20 @@ export class PlayerProgress {
     return PlayerProgress.current.isEndgameUnlocked;
   }
 
+  static divinityUnlocked() {
+    return PlayerProgress.current.isDivinityUnlocked;
+  }
+
   static celestialInfinityUnlocked() {
     return PlayerProgress.current.isCelestialInfinityUnlocked;
   }
 
   static celestialEternityUnlocked() {
     return PlayerProgress.current.isCelestialEternityUnlocked;
+  }
+
+  static divineStarsUnlocked() {
+    return PlayerProgress.current.areDivineStarsUnlocked;
   }
 
   static seenAlteredSpeed() {

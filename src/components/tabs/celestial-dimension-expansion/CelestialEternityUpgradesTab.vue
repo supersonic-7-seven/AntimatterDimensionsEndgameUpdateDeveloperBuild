@@ -22,9 +22,14 @@ export default {
           CelestialEternityUpgrade.instaAutos
         ],
         [
+          CelestialEternityUpgrade.x2CIPAuto,
           CelestialEternityUpgrade.betterCelCrunchAuto,
-          CelestialEternityUpgrade.celEternityAuto,
-          CelestialEternityUpgrade.startingBoosts
+          CelestialEternityUpgrade.startInf
+        ],
+        [
+          CelestialEternityUpgrade.startingBoosts,
+          CelestialEternityUpgrade.startBreakInf,
+          CelestialEternityUpgrade.celEternityAuto
         ],
         [
           CelestialEternityUpgrade.freeDimBoost,

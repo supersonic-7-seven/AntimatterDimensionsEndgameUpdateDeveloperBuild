@@ -10,6 +10,7 @@ export default {
     return {
       hasAccelerator: false,
       hadronSpeed: 0,
+      accelPower: 1,
       amSoftcap: new Decimal(),
       amHardcap: new Decimal()
     };
@@ -25,6 +26,7 @@ export default {
     update() {
       this.hasAccelerator = Accelerators.all.some(a => a.isUnlocked);
       this.hadronSpeed = LHC.hadronSpeed;
+      this.accelPower = LHC.acceleratorSpeed * 100000;
       this.amSoftcap.copyFrom(Pelle.isDoomed ? DC.E9E15 : Decimal.pow10(1e200));
       this.amHardcap.copyFrom(Pelle.isDoomed ? DC.ENUMMAX : LHC.breakingPoint);
     },
@@ -40,6 +42,8 @@ export default {
         class="c-large-hadron-collider-description"
       >
         {{ hadronSpeedText }}
+        <br>
+        The Large Hadron Collider is currently consuming {{ formatInt(accelPower) }} GWh of power
       </div>
       <AcceleratorsPanel v-if="hasAccelerator" />
       <div

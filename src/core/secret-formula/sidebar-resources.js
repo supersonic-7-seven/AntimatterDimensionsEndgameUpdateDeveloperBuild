@@ -222,7 +222,7 @@ export const sidebarResources = [
   {
     id: 28,
     optionName: "Celestial Infinity Points",
-    isAvailable: () => player.endgame.celDimExpansion.celestialInfinities.gt(0),
+    isAvailable: () => PlayerProgress.celestialInfinityUnlocked(),
     value: () => Currency.celestialInfinityPoints.value,
     formatValue: x => format(x, 2),
     formatClass: "o-sidebar-currency--celestial-infinity",

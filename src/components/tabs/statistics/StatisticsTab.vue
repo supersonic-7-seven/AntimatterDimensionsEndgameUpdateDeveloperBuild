@@ -13,7 +13,10 @@ export default {
       realTimeDoomed: TimeSpan.zero,
       totalAntimatter: new Decimal(0),
       totalAntimatterOutsideDoom: new Decimal(0),
+      bestDoomedAntimatterThisDivinity: new Decimal(0),
       totalCelMatter: new Decimal(0),
+      totalDivineMatter: new Decimal(0),
+      hasSeenDivineDims: false,
       realTimePlayed: TimeSpan.zero,
       timeSinceCreation: 0,
       uniqueNews: 0,
@@ -89,6 +92,10 @@ export default {
         thisReal: TimeSpan.zero,
         bestRate: new Decimal(0),
       },
+      divinity: {
+        isUnlocked: false,
+        count: 0
+      },
       matterScale: [],
       lastMatterTime: 0,
       paperclips: 0,
@@ -134,6 +141,12 @@ export default {
         ? `${this.formatDecimalAmount(num)} ${pluralize("Celestial Eternity", num.floor())}`
         : "no Celestial Eternities";
     },
+    divinityCountString() {
+      const num = new Decimal(this.divinity.count);
+      return num.gt(0)
+        ? `${this.formatDecimalAmount(num)} ${pluralize("Divinity", num.floor())}`
+        : "no Divinities";
+    },
     fullGameCompletions() {
       return player.records.fullGameCompletions;
     },
@@ -149,7 +162,10 @@ export default {
       const records = player.records;
       this.totalAntimatter.copyFrom(records.totalAntimatter);
       this.totalAntimatterOutsideDoom.copyFrom(player.records.totalAntimatterOutsideDoom);
+      this.bestDoomedAntimatterThisDivinity.copyFrom(player.records.bestDoomedAntimatterThisDivinity);
       this.totalCelMatter.copyFrom(records.totalCelMatter);
+      this.totalDivineMatter.copyFrom(records.totalDivineMatter);
+      this.hasSeenDivineDims = DivinityMilestone.divineDimensions.isReached;
       this.realTimePlayed.setFrom(new Decimal(records.realTimePlayed));
       this.fullTimePlayed = TimeSpan.fromMilliseconds(
         new Decimal(records.previousRunRealTime + records.realTimePlayed));
@@ -259,6 +275,13 @@ export default {
         celestialEternity.thisReal.setFrom(new Decimal(records.thisCelestialEternity.realTime));
         celestialEternity.bestRate.copyFrom(bestCelestialEternity.bestCEPminCelestialReality);
       }
+
+      const isDivinityUnlocked = progress.isDivinityUnlocked;
+      const divinity = this.divinity;
+      divinity.isUnlocked = isDivinityUnlocked;
+      if (isDivinityUnlocked) {
+        divinity.count = Math.floor(player.celestials.pelle.divinities);
+      }
       this.updateMatterScale();
 
       this.isDoomed = Pelle.isDoomed;
@@ -297,6 +320,9 @@ export default {
       </div>
       <div class="c-stats-tab-general">
         <div>You have made a total of {{ format(totalAntimatter, 2, 1) }} antimatter.</div>
+        <div v-if="divinity.isUnlocked">
+          You have made a total of {{ format(bestDoomedAntimatterThisDivinity, 2, 1) }} antimatter in Doom this Divinity.
+        </div>
         <div v-if="endgame.isUnlocked">
           You have made a total of {{ format(totalAntimatterOutsideDoom, 2, 1) }} antimatter outside Doom.
         </div>
@@ -323,6 +349,9 @@ export default {
         <div v-if="celestialInfinity.isUnlocked" class="c-stats-tab-celestials">
           You have made a total of {{ format(celestialInfinity.totalCelestialInfinityCelMatter, 2, 1) }} Celestial Matter
           this Celestial Infinity.
+        </div>
+        <div v-if="hasSeenDivineDims" class="c-stats-tab-divinity">
+          You have made a total of {{ format(totalDivineMatter, 2, 1) }} Divine Matter.
         </div>
         <div>You have played for {{ realTimePlayed }}. (real time)</div>
         <div v-if="reality.isUnlocked">
@@ -567,6 +596,18 @@ export default {
       </div>
       <br>
     </div>
+    <div
+      v-if="divinity.isUnlocked"
+      class="c-stats-tab-subheader c-stats-tab-general"
+    >
+      <div class="c-stats-tab-title c-stats-tab-divinity">
+        Divinity
+      </div>
+      <div>
+        You have {{ divinityCountString }}.
+      </div>
+      <br>
+    </div>
   </div>
 </template>
 
@@ -624,5 +665,9 @@ export default {
   background-clip: text;
 
   -webkit-text-fill-color: transparent;
+}
+
+.c-stats-tab-divinity {
+  color: var(--color-pelle--base);
 }
 </style>

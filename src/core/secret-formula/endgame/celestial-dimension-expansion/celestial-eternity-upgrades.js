@@ -4,9 +4,7 @@ function rebuyable(config) {
   return {
     rebuyable: true,
     id,
-    cost: () => config.isDecimal
-      ? Decimal.pow(config.costIncrease, player.endgame.celDimExpansion.celestialEternityRebuyables[config.id]).times(config.initialCost)
-      : config.initialCost * Math.pow(config.costIncrease, player.endgame.celDimExpansion.celestialEternityRebuyables[config.id]),
+    cost: () => Decimal.pow(config.costIncrease, player.endgame.celDimExpansion.celestialEternityRebuyables[config.id]).times(config.initialCost),
     maxUpgrades,
     description,
     effect: () => effectFunction(player.endgame.celDimExpansion.celestialEternityRebuyables[config.id]),
@@ -28,8 +26,7 @@ export const celestialEternityUpgrades = {
     effect: value => Math.pow(0.99, value),
     description: () => `Reduce the Celestial Infinity Point conversion formula divisor by ${formatPercents(0.01)}`,
     formatEffect: value => `${formatX(value, 2, 3)}`,
-    noLabel: false,
-    isDecimal: false
+    noLabel: false
   }),
   largeCDMult: rebuyable({
     id: 1,
@@ -39,8 +36,7 @@ export const celestialEternityUpgrades = {
     effect: value => Decimal.pow(1000, value),
     description: () => `Multiply Celestial Dimensions by ${formatX(1000)} per purchase`,
     formatEffect: value => `${formatX(value, 2, 2)}`,
-    noLabel: false,
-    isDecimal: false
+    noLabel: false
   }),
   conversionFormulaImprovement: rebuyable({
     id: 2,
@@ -50,8 +46,7 @@ export const celestialEternityUpgrades = {
     effect: value => Math.pow(1.01, value),
     description: () => `Multiply the Celestial Dimension Conversion Exponent by ${formatX(1.01, 2, 2)}`,
     formatEffect: value => `${formatX(value, 2, 3)}`,
-    noLabel: false,
-    isDecimal: true
+    noLabel: false
   }),
   startBreak: {
     id: "startBreak",
@@ -68,31 +63,46 @@ export const celestialEternityUpgrades = {
     cost: 1e6,
     description: "Celestial Dimension-related Autobuyer intervals are now Instant"
   },
+  x2CIPAuto: {
+    id: "x2CIPAuto",
+    cost: 1e10,
+    description: () => `Unlock an Autobuyer for the ${formatX(2)} CIP Multiplier Upgrade`
+  },
   betterCelCrunchAuto: {
     id: "betterCelCrunchAuto",
-    cost: 1e10,
+    cost: 1e15,
     description: "Improve the Celestial Crunch Autobuyer"
   },
-  celEternityAuto: {
-    id: "celEternityAuto",
-    cost: 1e15,
-    description: () => `Unlock an Autobuyer for Celestial Eternities and the ${formatX(2)} CIP Multiplier Upgrade`
+  startInf: {
+    id: "startInf",
+    cost: 1e20,
+    description: "Start with all Celestial Infinity Upgrades bought"
   },
   startingBoosts: {
     id: "startingBoosts",
-    cost: 1e25,
+    cost: 1e30,
     description: () => `Start Cel Crunches and Cel Eternities with ${format(1e25, 2, 2)} Cel Matter, and Cel Eternities
       with ${format(1e25, 2, 2)} CIP`,
     effect: 1e25
   },
+  startBreakInf: {
+    id: "startBreakInf",
+    cost: 1e40,
+    description: "Start with all Celestial Break Infinity Upgrades bought"
+  },
+  celEternityAuto: {
+    id: "celEternityAuto",
+    cost: 1e50,
+    description: "Unlock an Autobuyer for Celestial Eternities"
+  },
   freeDimBoost: {
     id: "freeDimBoost",
-    cost: 1e40,
+    cost: 1e65,
     description: "Purchasing Celestial Dimension Boosts no longer resets anything"
   },
   freeGalaxy: {
     id: "freeGalaxy",
-    cost: 1e70,
+    cost: 1e80,
     description: "Purchasing Celestial Galaxies no longer resets anything"
   },
   betterCelEternityAuto: {

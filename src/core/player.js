@@ -403,6 +403,7 @@ window.player = {
     totalAntimatter: DC.E1,
     totalAntimatterOutsideDoom: DC.E1,
     bestAntimatterExponentOutsideDoom: DC.D0,
+    bestDoomedAntimatterThisDivinity: DC.E1,
     totalEndgameAntimatter: DC.E1,
     totalRealityAntimatter: DC.E1,
     totalEternityAntimatter: DC.E1,
@@ -411,6 +412,8 @@ window.player = {
     totalCelestialRealityCelMatter: DC.D0,
     totalCelestialEternityCelMatter: DC.D0,
     totalCelestialInfinityCelMatter: DC.D0,
+    totalDivineMatter: DC.E1,
+    totalCondenseDivineMatter: DC.E1,
     recentInfinities: Array.range(0, 10).map(() =>
       [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, ""]),
     recentEternities: Array.range(0, 10).map(() =>
@@ -530,6 +533,18 @@ window.player = {
       maxCIP: DC.D0,
       maxCEP: DC.D0,
       bestCelestialEternitiesPerMs: DC.D0,
+    },
+    thisCondense: {
+      time: DC.D0,
+      realTime: 0,
+      maxVM: DC.D0,
+      bestVSmin: DC.D0,
+      bestVSminVal: DC.D0,
+    },
+    bestCondense: {
+      time: DC.BEMAX,
+      realTime: Number.MAX_VALUE,
+      bestVSminSupernova: DC.D0,
     },
     permanent: {
       maxCP: DC.D0,
@@ -1016,6 +1031,7 @@ window.player = {
         divineMatter: DC.E1,
         divineEnergy: DC.D0,
         isProducingEnergy: false,
+        condenses: DC.D0,
         divineStars: DC.D0
       },
       divinityUpgrades: new Set(),
