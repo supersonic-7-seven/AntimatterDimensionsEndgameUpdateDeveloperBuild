@@ -244,4 +244,6 @@ export function resetForDivineStars() {
     upgR.push("divineL1U5");
     player.celestials.pelle.divineUpgrades = new Set(upgR);
   }
+  player.records.thisCondense.time = DC.D0;
+  player.records.thisCondense.realTime = 0;
 };
