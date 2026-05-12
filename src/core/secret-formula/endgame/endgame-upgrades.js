@@ -7,7 +7,7 @@ const rebuyable = props => {
     props.costMult / 10,
     DC.E309,
     1e3,
-    props.costMult
+    props.initialCost * props.costMult
   );
   const { effect } = props;
   if (props.isDecimal) props.effect = () => player.disablePostReality ? DC.D1 : Decimal.pow(effect, player.endgame.rebuyables[props.id]);
@@ -104,9 +104,13 @@ export const endgameUpgrades = [
         ? Math.floor(1 + Math.pow(Math.log10(Math.min(Tesseracts.effectiveCount, 1000) * Math.max(Math.log10(Tesseracts.effectiveCount) - 2, 1) + 1), Math.log10(player.endgames + 1)))
         : 1);
       endgames *= Math.pow(1.25, Alpha.currentStage);
-      const timeStr = Time.bestEndgameRealTime.totalMilliseconds.lte(100)
+      if (DivinityMilestone.firstDivine.isReached && !player.disablePostReality) endgames *= 10;
+      endgames *= DivineDimensions.conversionFormula1.toNumber();
+      const timeStr = Time.bestEndgameRealTime.totalMilliseconds.lte(100) && !Alpha.isDestroyed
         ? `${TimeSpan.fromMilliseconds(new Decimal(1000)).toStringShort()} (capped)`
-        : `${TimeSpan.fromMilliseconds(new Decimal(value)).toStringShort()}`;
+        : (Time.bestEndgameRealTime.totalMilliseconds.lte(33)
+           ? `${TimeSpan.fromMilliseconds(new Decimal(330)).toStringShort()} (capped)`
+           : `${TimeSpan.fromMilliseconds(new Decimal(value)).toStringShort()}`);
       return `${quantify("Endgame", endgames)} every ${timeStr}`;
     }
   },
@@ -190,8 +194,10 @@ export const endgameUpgrades = [
     checkRequirement: () => Currency.antimatter.value.add(1).log10().gte(1e33) && !Pelle.isDoomed,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: () => `Gain a power to the Antimatter Exponent based on Imaginary Machines`,
-    effect: () => player.disablePostReality ? 1 : 1 + (Decimal.pow(Decimal.log10(Decimal.log10(player.reality.imaginaryMachines.add(1)).add(1)), 2).div(200)).toNumber(),
-    formatEffect: value => formatPow(value, 2, 3)
+    effect: () => player.disablePostReality ? 1 : 1 + (Decimal.pow(Decimal.log10(Decimal.log10(
+      player.reality.imaginaryMachines.add(1)).add(1)), 2).min(10).add(Decimal.log10(Decimal.log10(
+      player.reality.imaginaryMachines.add(1)).add(1)).sub(Math.sqrt(10)).max(0)).div(200)).toNumber(),
+    formatEffect: value => formatPow(value, 2, 4)
   },
   {
     name: "Currency Collections",
@@ -277,7 +283,7 @@ export const endgameUpgrades = [
     checkRequirement: () => BreakEternityUpgrade.tesseractMultiplier.isBought,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Celestial Points delay the Free Tesseract Softcap",
-    effect: () => player.disablePostReality ? 1 : Math.pow(1 + Decimal.log10(Decimal.max(Decimal.log10(player.endgame.celestialPoints.add(1)).div(200), 1)).toNumber(), 2),
+    effect: () => player.disablePostReality ? 1 : Math.pow(1 + Decimal.log10(Decimal.max(Decimal.log10(player.endgame.celestialPoints.max(1)).div(200), 1)).toNumber(), 2),
     formatEffect: value => formatX(value, 2, 2)
   },
   {

@@ -65,10 +65,10 @@ export function getTickSpeedMultiplier() {
   galaxies = galaxies.times(getAdjustedGlyphEffect("cursedgalaxies"));
   galaxies = galaxies.times(getAdjustedGlyphEffect("realitygalaxies"));
   galaxies = galaxies.times(1 + ImaginaryUpgrade(9).effectOrDefault(0));
-  if (Pelle.isDoomed && !PelleDestructionUpgrade.disableGalaxyNerf.isBought) galaxies = galaxies.times(0.5);
-  if (Pelle.isDoomed && EndgameMilestone.remnantGalaxy.isReached && !player.disablePostReality) galaxies = galaxies.times(Decimal.pow(1 + Math.log10(Currency.remnants.value + 1), 0.5));
+  if (Pelle.isDoomed && !PelleDestructionUpgrade.disableGalaxyNerf.canBeApplied) galaxies = galaxies.times(0.5);
+  if (Pelle.isDoomed && EndgameMilestone.remnantGalaxy.isReached && !player.disablePostReality) galaxies = galaxies.times(Decimal.pow(Decimal.log10(Currency.remnants.value.add(1)).add(1), 0.5));
   if (GalacticPowers.galaxyStrength.isUnlocked) galaxies = galaxies.times(GalacticPowers.galaxyStrength.reward);
-  galaxies = galaxies.times(DualityUpgrade(9).effectOrDefault(1));
+  galaxies = galaxies.timesEffectsOf(DualityUpgrade(9), DualityUpgrade(23), DualityUpgrade(24));
 
   galaxies = galaxies.times(Pelle.specialGlyphEffect.power);
   if (Alpha.isRunning) galaxies = galaxies.times(AlphaUnlocks.firstGalaxy.effects.nerf.effectOrDefault(1));
@@ -84,7 +84,7 @@ export function buyTickSpeed() {
   }
   Tutorial.turnOffEffect(TUTORIAL_STATE.TICKSPEED);
   Currency.antimatter.subtract(Tickspeed.cost);
-  player.totalTickBought++;
+  player.totalTickBought = player.totalTickBought.add(1);
   player.records.thisInfinity.lastBuyTime = player.records.thisInfinity.time;
   player.requirementChecks.permanent.singleTickspeed++;
   if (NormalChallenge(2).isRunning) player.chall2Pow = 0;
@@ -103,17 +103,17 @@ export function buyMaxTickSpeed() {
     while (Currency.antimatter.gt(cost) && cost.lt(goal)) {
       Tickspeed.multiplySameCosts();
       Currency.antimatter.subtract(cost);
-      player.totalTickBought++;
+      player.totalTickBought = player.totalTickBought.add(1);
       boughtTickspeed = true;
       cost = Tickspeed.cost;
     }
   } else {
-    const purchases = Tickspeed.costScale.getMaxBought(player.totalTickBought, Currency.antimatter.value, 1);
+    const purchases = Tickspeed.costScale.getMaxBoughtDecimal(player.totalTickBought, Currency.antimatter.value, 1);
     if (purchases === null) {
       return;
     }
     Currency.antimatter.subtract(Decimal.pow10(purchases.logPrice));
-    player.totalTickBought += purchases.quantity;
+    player.totalTickBought = player.totalTickBought.add(purchases.quantity);
     boughtTickspeed = true;
   }
 
@@ -124,14 +124,14 @@ export function buyMaxTickSpeed() {
 }
 
 export function resetTickspeed() {
-  player.totalTickBought = 0;
-  player.chall9TickspeedCostBumps = 0;
+  player.totalTickBought = DC.D0;
+  player.chall9TickspeedCostBumps = DC.D0;
 }
 
 export const Tickspeed = {
 
   get isUnlocked() {
-    return AntimatterDimension(2).bought > 0 || EternityMilestone.unlockAllND.isReached ||
+    return AntimatterDimension(2).bought.gt(0) || EternityMilestone.unlockAllND.isReached ||
       PlayerProgress.realityUnlocked();
   },
 
@@ -158,7 +158,7 @@ export const Tickspeed = {
   },
 
   get cost() {
-    return this.costScale.calculateCost(player.totalTickBought + player.chall9TickspeedCostBumps);
+    return this.costScale.calculateCostDecimal(player.totalTickBought.add(player.chall9TickspeedCostBumps));
   },
 
   get costScale() {
@@ -189,7 +189,7 @@ export const Tickspeed = {
     let boughtTickspeed;
     if (Laitela.continuumActive) boughtTickspeed = this.continuumValue;
     else boughtTickspeed = player.totalTickBought;
-    return new Decimal(boughtTickspeed).add(player.totalTickGained).toNumber();
+    return new Decimal(boughtTickspeed).add(player.totalTickGained);
   },
 
   get perSecond() {
@@ -198,7 +198,7 @@ export const Tickspeed = {
 
   multiplySameCosts() {
     for (const dimension of AntimatterDimensions.all) {
-      if (dimension.cost.e === this.cost.e) dimension.costBumps++;
+      if (dimension.cost.e === this.cost.e) dimension.costBumps = dimension.costBumps.add(1);
     }
   }
 };
@@ -223,38 +223,41 @@ export const FreeTickspeed = {
   },
 
   fromShards(shards) {
-    const tickmult = (1 + (Effects.min(1.33, TimeStudy(171)) - 1) *
-      Math.max(getAdjustedGlyphEffect("cursedtickspeed"), 1));
-    const logTickmult = Math.log(tickmult);
-    const logShards = Decimal.max(1, shards).ln().toNumber();
-    const uncapped = Math.max(0, logShards / logTickmult);
-    if (uncapped <= FreeTickspeed.softcap) {
+    const alphaMult = Alpha.isRunning ? AlphaUnlocks.ec11Bulk.effects.nerfB.effectOrDefault(1.33) : 1.33;
+    const tickmult = Decimal.min(Effects.min(1.33, TimeStudy(171)), alphaMult).sub(1).times(
+      Decimal.max(getAdjustedGlyphEffect("cursedtickspeed"), 1)).add(1);
+    const logTickmult = Decimal.ln(tickmult);
+    const logShards = Decimal.max(1, shards).ln();
+    const uncapped = Decimal.max(0, logShards.div(logTickmult));
+    const exponentIncrease = new Decimal(FreeTickspeed.GROWTH_EXP).pow(Penteracts.softcapReduction());
+    if (uncapped.lte(FreeTickspeed.softcap)) {
       this.multToNext = tickmult;
       return {
-        newAmount: Math.ceil(uncapped),
-        nextShards: Decimal.pow(tickmult, Math.ceil(uncapped))
+        newAmount: Decimal.ceil(uncapped),
+        nextShards: Decimal.pow(tickmult, Decimal.ceil(uncapped))
       };
     }
     // Log of (cost - cost up to softcap)
-    const priceToCap = FreeTickspeed.softcap * logTickmult;
+    const priceToCap = new Decimal(FreeTickspeed.softcap).times(logTickmult);
     // In the following we're implicitly applying the function (ln(x) - priceToCap) / logTickmult to all costs,
     // so, for example, if the cost is 1 that means it's actually exp(priceToCap) * tickmult.
-    const desiredCost = (logShards - priceToCap) / logTickmult;
-    const costFormulaCoefficient = FreeTickspeed.GROWTH_RATE / FreeTickspeed.GROWTH_EXP / logTickmult;
+    const desiredCost = logShards.sub(priceToCap).div(logTickmult);
+    const costFormulaCoefficient = new Decimal(FreeTickspeed.GROWTH_RATE).div(exponentIncrease).div(logTickmult).times(
+      Decimal.pow(Effects.product(EndgameMastery(103)), 2));
     // In the following we're implicitly subtracting softcap from bought,
     // so, for example, if bought is 1 that means it's actually softcap + 1.
     // The first term (the big one) is the asymptotically more important term (since FreeTickspeed.GROWTH_EXP > 1),
     // but is small initially. The second term allows us to continue the pre-cap free tickspeed upgrade scaling
     // of tickmult per upgrade.
-    const boughtToCost = bought => costFormulaCoefficient * Math.pow(
-      Math.max(bought, 0), FreeTickspeed.GROWTH_EXP) + bought;
-    const derivativeOfBoughtToCost = x => FreeTickspeed.GROWTH_EXP * costFormulaCoefficient * Math.pow(
-      Math.max(x, 0), FreeTickspeed.GROWTH_EXP - 1) + 1;
-    const newtonsMethod = bought => bought - (boughtToCost(bought) - desiredCost) / derivativeOfBoughtToCost(bought);
+    const boughtToCost = bought => costFormulaCoefficient.times(Decimal.pow(
+      Decimal.max(bought, 0), exponentIncrease)).add(bought);
+    const derivativeOfBoughtToCost = x => new Decimal(exponentIncrease).times(costFormulaCoefficient).times(Decimal.pow(
+      Decimal.max(x, 0), exponentIncrease.sub(1))).add(1);
+    const newtonsMethod = bought => bought.sub(boughtToCost(bought).sub(desiredCost).div(derivativeOfBoughtToCost(bought)));
     let oldApproximation;
-    let approximation = Math.min(
+    let approximation = Decimal.min(
       desiredCost,
-      Math.pow(desiredCost / costFormulaCoefficient, 1 / FreeTickspeed.GROWTH_EXP)
+      Decimal.pow(desiredCost.div(costFormulaCoefficient), DC.D1.div(exponentIncrease))
     );
     let counter = 0;
     // The bought formula is concave upwards. We start with an over-estimate; when using newton's method,
@@ -263,15 +266,14 @@ export const FreeTickspeed = {
     do {
       oldApproximation = approximation;
       approximation = newtonsMethod(approximation);
-    } while (approximation < oldApproximation && ++counter < 100);
-    const purchases = Math.floor(approximation);
+    } while (approximation.lt(oldApproximation) && ++counter < 100);
+    const purchases = Decimal.floor(approximation);
     // This undoes the function we're implicitly applying to costs (the "+ 1") is because we want
     // the cost of the next upgrade.
-    const next = Decimal.exp(priceToCap + boughtToCost(purchases + 1) * logTickmult);
-    const reductions = Effects.product(EndgameMastery(103));
-    this.multToNext = Decimal.pow(Decimal.exp((boughtToCost(purchases + 1) - boughtToCost(purchases)) * logTickmult), reductions);
+    const next = Decimal.exp(priceToCap.add(boughtToCost(purchases.add(1)).times(logTickmult)));
+    this.multToNext = Decimal.exp(boughtToCost(purchases.add(1)).sub(boughtToCost(purchases)).times(logTickmult));
     return {
-      newAmount: purchases + FreeTickspeed.softcap,
+      newAmount: purchases.add(FreeTickspeed.softcap),
       nextShards: next,
     };
   }

@@ -71,7 +71,7 @@ export class InfinityUpgradeState extends SetPurchasableMechanicState {
       this.hasChargeEffect &&
       !this.isCharged &&
       Ra.chargesLeft !== 0 &&
-      (!Pelle.isDisabled("chargedInfinityUpgrades") || PelleCelestialUpgrade.raTeresa2.isBought);
+      (!Pelle.isDisabled("chargedInfinityUpgrades") || PelleCelestialUpgrade.raTeresa2.canBeApplied);
   }
 
   charge() {
@@ -101,9 +101,8 @@ export function totalIPMult() {
       Achievement(125),
       Achievement(141).effects.ipGain,
       InfinityUpgrade.ipMult,
-      DilationUpgrade.ipMultDT,
-      GlyphEffect.ipMult
-    );
+      DilationUpgrade.ipMultDT
+    ).times(getAdjustedGlyphEffect("infinityIP"));
   if (Replicanti.areUnlocked) ipMult = ipMult.times(Replicanti.amount.powEffectOf(AlchemyResource.exponential));
   return ipMult;
 }
@@ -182,7 +181,7 @@ class InfinityIPMultUpgrade extends GameMechanicState {
   }
 
   get canBeBought() {
-    return (!Pelle.isDoomed || PelleDestructionUpgrade.x2IPUpgrade.isBought) && !this.isCapped && Currency.infinityPoints.gte(this.cost) && this.isRequirementSatisfied;
+    return (!Pelle.isDoomed || PelleDestructionUpgrade.x2IPUpgrade.canBeApplied) && !this.isCapped && Currency.infinityPoints.gte(this.cost) && this.isRequirementSatisfied;
   }
 
   // This is only ever called with amount = 1 or within buyMax under conditions that ensure the scaling doesn't

@@ -19,7 +19,8 @@ export default {
       completedRows: 0,
       cappedResources: 0,
       hasStrike: false,
-      hasGalaxyGenerator: false
+      hasGalaxyGenerator: false,
+      hasEndgame: false,
     };
   },
   computed: {
@@ -44,6 +45,7 @@ export default {
       }
       this.hasStrike = PelleStrikes.all.some(s => s.hasStrike);
       this.hasGalaxyGenerator = PelleRifts.recursion.milestones[2].canBeApplied || GalaxyGenerator.spentGalaxies.gt(0);
+      this.hasEndgame = PlayerProgress.endgameUnlocked();
     },
     toggleBought() {
       Pelle.cel.showBought = !Pelle.cel.showBought;
@@ -61,11 +63,11 @@ export default {
 
 <template>
   <div class="l-pelle-celestial-tab">
+    <CelestialQuoteHistory celestial="pelle" v-if="isDoomed || hasEndgame" />
     <div
       v-if="isDoomed"
       class="l-pelle-all-content-container"
     >
-      <CelestialQuoteHistory celestial="pelle" />
       <div class="button-container">
         <button
           class="o-pelle-button"

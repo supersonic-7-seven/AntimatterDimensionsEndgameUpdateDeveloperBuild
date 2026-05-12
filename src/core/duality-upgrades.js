@@ -84,6 +84,10 @@ class DualityUpgradeState extends BitPurchasableMechanicState {
 
   onPurchased() {
     EventHub.dispatch(GAME_EVENT.REALITY_UPGRADE_BOUGHT);
+    if (this.id === 15) {
+      player.celestials.laitela.hadrons.total = Laitela.hadronizes;
+      player.celestials.laitela.hadrons.light = Laitela.hadronizes;
+    }
   }
 }
 
@@ -108,6 +112,22 @@ class RebuyableDualityUpgradeState extends RebuyableMechanicState {
     if (this.id === 7) {
       GameCache.staticGlyphWeights.invalidate();
     }
+  }
+
+  bulkPurchase() {
+    if (!this.isAffordable) return false;
+    this.boughtAmount += getInverseHybridCostScaling(
+      Currency.dualMachines.value,
+      1e20,
+      this.config.initialCost,
+      this.config.costMult,
+      this.config.costMult,
+      DC.E309,
+      1e3,
+      this.config.costMult
+    ).sub(player.reality.dualityRebuyables[this.id]).toNumber();
+    Currency.dualMachines.subtract(this.cost);
+    return true;
   }
 }
 

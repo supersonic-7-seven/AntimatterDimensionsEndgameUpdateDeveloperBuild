@@ -22,9 +22,9 @@ export default {
       isEnslavedRunning: false,
       isAnyAutobuyerUnlocked: false,
       conversionRate: 0,
-      nextDimCapIncrease: 0,
+      nextDimCapIncrease: new Decimal(0),
       tesseractCost: new Decimal(0),
-      totalDimCap: 0,
+      totalDimCap: new Decimal(0),
       canBuyTesseract: false,
       enslavedCompleted: false,
       boughtTesseracts: 0,
@@ -39,6 +39,7 @@ export default {
       freeTesseractHardcap: 0,
       isAutoUnlocked: false,
       isAutoActive: false,
+      isAlphaDestroyed: false,
     };
   },
   computed: {
@@ -73,9 +74,9 @@ export default {
       }
       this.isEnslavedRunning = Enslaved.isRunning;
       this.isAnyAutobuyerUnlocked = Autobuyer.infinityDimension(1).isUnlocked;
-      this.nextDimCapIncrease = Tesseracts.nextTesseractIncrease;
+      this.nextDimCapIncrease.copyFrom(Tesseracts.nextTesseractIncrease);
       this.tesseractCost.copyFrom(Tesseracts.nextCost);
-      this.totalDimCap = InfinityDimensions.totalDimCap;
+      this.totalDimCap.copyFrom(InfinityDimensions.totalDimCap);
       this.canBuyTesseract = Tesseracts.canBuyTesseract;
       this.enslavedCompleted = Enslaved.isCompleted && !player.disablePostReality;
       this.boughtTesseracts = Tesseracts.bought * Tesseracts.totalMult;
@@ -90,6 +91,7 @@ export default {
       const auto = Autobuyer.tesseract;
       this.isAutoUnlocked = auto.isUnlocked;
       this.isAutoActive = auto.isActive;
+      this.isAlphaDestroyed = Alpha.isDestroyed;
     },
     maxAll() {
       InfinityDimensions.buyMax();
@@ -188,9 +190,11 @@ export default {
     </div>
     <div>
       Free Tesseracts are softcapped past {{ format(freeTesseractSoftcap, 2, 2) }}.
-      <br>
-      This softcap causes Tesseracts past {{ format(freeTesseractSoftcap, 2, 2) }} to eternally approach
-      a hardcap of {{ format(freeTesseractHardcap, 2, 2) }} without ever actually reaching it.
+      <div v-if="!isAlphaDestroyed">
+        <br>
+        This softcap causes Tesseracts past {{ format(freeTesseractSoftcap, 2, 2) }} to eternally approach
+        a hardcap of {{ format(freeTesseractHardcap, 2, 2) }} without ever actually reaching it.
+      </div>
     </div>
     <div v-if="isEnslavedRunning">
       All Infinity Dimensions are limited to a single purchase.

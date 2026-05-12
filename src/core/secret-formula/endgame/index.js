@@ -1,3 +1,4 @@
+import { accelerators } from "./accelerators";
 import { breakEternityUpgrades } from "./break-eternity-upgrades";
 import { endgameMasteries } from "./endgame-masteries";
 import { permanentEndgameMasteries } from "./permanent-endgame-masteries";
@@ -6,6 +7,9 @@ import { endgameUpgrades } from "./endgame-upgrades";
 import { galacticPowerRewards } from "./galactic-power";
 import { expansionPacks } from "./expansion-packs";
 import { stars } from "./stars";
+import { celestialInfinityUpgrades } from "./celestial-dimension-expansion/celestial-infinity-upgrades";
+import { celestialBreakInfinityUpgrades } from "./celestial-dimension-expansion/celestial-break-infinity-upgrades";
+import { celestialEternityUpgrades } from "./celestial-dimension-expansion/celestial-eternity-upgrades";
 
 export const endgame = {
   breakUpgrades: breakEternityUpgrades,
@@ -15,5 +19,11 @@ export const endgame = {
   upgrades: endgameUpgrades,
   galacticPowers: galacticPowerRewards,
   packs: expansionPacks,
-  stars: stars
+  stars: stars,
+  celDimExpansion: {
+    celestialInfinityUpgrades: celestialInfinityUpgrades,
+    celestialBreakUpgrades: celestialBreakInfinityUpgrades,
+    celestialEternityUpgrades: celestialEternityUpgrades
+  },
+  accelerators: accelerators
 };

@@ -39,11 +39,15 @@ export class DilationTimeStudyState extends TimeStudyState {
       if (Perk.autounlockDilation2.canBeApplied && !player.disablePostReality) {
         for (const id of [7, 8, 9]) player.dilation.upgrades.add(id);
       }
-      if (!player.disablePostReality && (!Pelle.isDoomed || PellePerkUpgrade.perkSTP.isBought)) Currency.tachyonParticles.bumpTo(Perk.startTP.effectOrDefault(0));
+      if (!player.disablePostReality && (!Pelle.isDoomed || PellePerkUpgrade.perkSTP.canBeApplied)) Currency.tachyonParticles.bumpTo(Perk.startTP.effectOrDefault(0));
       if (Ra.unlocks.unlockDilationStartingTP.canBeApplied && !isInCelestialReality() && !Pelle.isDoomed && !player.disablePostReality) {
         Currency.tachyonParticles.bumpTo(getTP(Ra.unlocks.unlockDilationStartingTP.effectOrDefault(0), false));
       }
       TabNotification.dilationAfterUnlock.tryTrigger();
+      if (Alpha.isRunning && Alpha.currentStage === 23) {
+        Alpha.advanceLayer();
+        Alpha.quotes.unlockDilation.show();
+      }
     }
     if (this.id === 6) {
       // ID 6 is the reality unlock study

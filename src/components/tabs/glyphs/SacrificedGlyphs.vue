@@ -20,15 +20,17 @@ export default {
   computed: {
     types: () => GLYPH_TYPES.filter(type => type !== "cursed" && type !== "companion"),
     lastMachines() {
-      return this.lastMachinesTeresa.lt(DC.E10000)
-        ? `${quantify("Reality Machine", this.lastMachinesTeresa, 2)}`
-        : `${quantify("Imaginary Machine", this.lastMachinesTeresa.dividedBy(DC.E10000), 2)}`;
+      return this.lastMachinesTeresa.gte(DC.E20000)
+        ? `${quantify("Dual Machine", this.lastMachinesTeresa.dividedBy(DC.E20000), 2)}`
+        : (this.lastMachinesTeresa.lt(DC.E10000)
+          ? `${quantify("Reality Machine", this.lastMachinesTeresa, 2)}`
+          : `${quantify("Imaginary Machine", this.lastMachinesTeresa.dividedBy(DC.E10000), 2)}`);
     },
     dropDownIconClass() {
       return this.hideAlteration ? "far fa-plus-square" : "far fa-minus-square";
     },
     isDoomed() {
-      return (Pelle.isDisabled("glyphsac") && !PelleRealityUpgrade.scourToEmpower.isBought);
+      return (Pelle.isDisabled("glyphsac") && !PelleRealityUpgrade.scourToEmpower.canBeApplied);
     },
     addThreshold() {
       return GlyphAlteration.additionThreshold;

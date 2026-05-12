@@ -91,7 +91,7 @@ export const endgameMasteries = [
     requirement: [61],
     reqType: EM_REQUIREMENT_TYPE.AT_LEAST_ONE,
     description: () => `Start with ${formatInt(5)} of each basic Glyph on Endgame at ${formatInt(4)} effects, ${formatPercents(1)} rarity, and level based on Endgames and peak GL`,
-    effect: () => player.disablePostReality ? 1 : (1 - ((1 / Math.max(player.endgames, 1)) ** 0.1)) * player.records.bestEndgame.glyphLevel,
+    effect: () => player.disablePostReality ? 1 : (EffarigUnlock.endgame.canBeApplied ? player.records.bestEndgame.glyphLevel : (1 - ((1 / Math.max(player.endgames, 1)) ** 0.1)) * player.records.bestEndgame.glyphLevel),
     formatEffect: value => formatHybridSmall(value, 3)
   },
   {

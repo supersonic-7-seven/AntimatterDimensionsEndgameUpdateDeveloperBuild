@@ -17,11 +17,27 @@ export class PlayerProgress {
   }
 
   get isRealityUnlocked() {
-    return this._player.realities > 0 || this.isEndgameUnlocked;
+    return new Decimal(this._player.realities).gt(0) || this.isEndgameUnlocked;
   }
 
   get isEndgameUnlocked() {
     return this._player.endgames > 0;
+  }
+
+  get isCelestialInfinityUnlocked() {
+    return new Decimal(this._player.endgame.celDimExpansion.celestialInfinities).gt(0) || this.isCelestialEternityUnlocked;
+  }
+
+  get isCelestialEternityUnlocked() {
+    return new Decimal(this._player.endgame.celDimExpansion.celestialEternities).gt(0);
+  }
+
+  get isDivinityUnlocked() {
+    return this._player.celestials.pelle.divinities > 0;
+  }
+
+  get areDivineStarsUnlocked() {
+    return new Decimal(this._player.celestials.pelle.divinity.condenses).gt(0);
   }
 
   get hasFullCompletion() {
@@ -62,6 +78,22 @@ export class PlayerProgress {
 
   static endgameUnlocked() {
     return PlayerProgress.current.isEndgameUnlocked;
+  }
+
+  static divinityUnlocked() {
+    return PlayerProgress.current.isDivinityUnlocked;
+  }
+
+  static celestialInfinityUnlocked() {
+    return PlayerProgress.current.isCelestialInfinityUnlocked;
+  }
+
+  static celestialEternityUnlocked() {
+    return PlayerProgress.current.isCelestialEternityUnlocked;
+  }
+
+  static divineStarsUnlocked() {
+    return PlayerProgress.current.areDivineStarsUnlocked;
   }
 
   static seenAlteredSpeed() {

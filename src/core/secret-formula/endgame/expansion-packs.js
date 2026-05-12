@@ -80,5 +80,15 @@ export const expansionPacks = {
       a power based on your all-time record Galaxy amount, and unlock autobuyers for the repeatable Galaxy Generator upgrades.`,
     cost: Decimal.pow(10, 1e150),
     formatCost: value => formatPostBreak(value, 2, 0)
+  },
+  alphaPack: {
+    name: "Alpha's Expansion Pack",
+    id: "alphaPack",
+    symbol: "α",
+    description: () =>
+      `Unlock the Large Hadron Collider, which can accelerate your Hadrons to exponentially gain more Antimatter. This will also
+      unlock The Void, which is a feature that functions similarly to Time Dilation and boosts Accelerator production.`,
+    cost: Decimal.pow(10, 1e200),
+    formatCost: value => formatPostBreak(value, 2, 0)
   }
 };

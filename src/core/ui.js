@@ -60,6 +60,9 @@ Vue.mixin({
     formatPercents(value, places) {
       return formatPercents(value, places);
     },
+    formatDecimalPercents(value, places) {
+      return formatDecimalPercents(value, places);
+    },
     formatRarity(value) {
       return formatRarity(value);
     },

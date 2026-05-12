@@ -48,7 +48,7 @@ export const ra = {
       pet: "teresa",
       level: 1,
       displayIcon: `<span class="fas fa-atom"></span>`,
-      disabledByPelle: () => !PelleCelestialUpgrade.raTeresa1.isBought
+      disabledByPelle: () => !PelleCelestialUpgrade.raTeresa1.canBeApplied
     },
     chargedInfinityUpgrades: {
       id: 1,
@@ -58,7 +58,7 @@ export const ra = {
       pet: "teresa",
       level: 2,
       displayIcon: `<span class="fas fa-infinity"></span>`,
-      disabledByPelle: () => !PelleCelestialUpgrade.raTeresa2.isBought
+      disabledByPelle: () => !PelleCelestialUpgrade.raTeresa2.canBeApplied
     },
     teresaXP: {
       id: 2,
@@ -74,7 +74,7 @@ export const ra = {
       pet: "teresa",
       level: 10,
       displayIcon: `<span class="fas fa-bolt"></span>`,
-      disabledByPelle: () => !PelleCelestialUpgrade.raTeresa3.isBought
+      disabledByPelle: () => !PelleCelestialUpgrade.raTeresa3.canBeApplied
     },
     effarigUnlock: {
       id: 4,
@@ -161,19 +161,19 @@ export const ra = {
       pet: "enslaved",
       level: 1,
       displayIcon: `<span class="fas fa-circle"></span>`,
-      disabledByPelle: () => !PelleCelestialUpgrade.raNameless1.isBought
+      disabledByPelle: () => !PelleCelestialUpgrade.raNameless1.canBeApplied
     },
     improvedStoredTime: {
       id: 15,
       reward: "Stored game time is amplified and you can store more real time, increasing with Nameless levels",
       effects: {
-        gameTimeAmplification: () => player.disablePostReality ? 1 : Math.pow(20, Math.clampMax(Ra.pets.enslaved.level, Ra.levelCap)),
+        gameTimeAmplification: () => player.disablePostReality ? 1 : Decimal.pow(20, Decimal.clampMax(Ra.pets.enslaved.level, Ra.levelCap)),
         realTimeCap: () => player.disablePostReality ? 0 : 1000 * 3600 * Ra.pets.enslaved.level,
       },
       pet: "enslaved",
       level: 2,
       displayIcon: `<span class="fas fa-history"></span>`,
-      disabledByPelle: () => !PelleCelestialUpgrade.raNameless2.isBought
+      disabledByPelle: () => !PelleCelestialUpgrade.raNameless2.canBeApplied
     },
     enslavedXP: {
       id: 16,
@@ -190,7 +190,7 @@ export const ra = {
       pet: "enslaved",
       level: 10,
       displayIcon: `<span class="fas fa-expand-arrows-alt"></span>`,
-      disabledByPelle: () => !PelleCelestialUpgrade.raNameless3.isBought
+      disabledByPelle: () => !PelleCelestialUpgrade.raNameless3.canBeApplied
     },
     vUnlock: {
       id: 18,
@@ -206,7 +206,7 @@ export const ra = {
       pet: "enslaved",
       level: 15,
       displayIcon: `<span class="fas fa-tachometer-alt"></span>`,
-      disabledByPelle: () => !PelleCelestialUpgrade.raNameless4.isBought
+      disabledByPelle: () => !PelleCelestialUpgrade.raNameless4.canBeApplied
     },
     allGamespeedGlyphs: {
       id: 20,
@@ -228,7 +228,7 @@ export const ra = {
       pet: "v",
       level: 1,
       displayIcon: `<span class="fas fa-sync-alt"></span>`,
-      disabledByPelle: () => !PelleCelestialUpgrade.raV1.isBought
+      disabledByPelle: () => !PelleCelestialUpgrade.raV1.canBeApplied
     },
     autoUnlockDilation: {
       id: 22,
@@ -254,7 +254,7 @@ export const ra = {
       pet: "v",
       level: 6,
       displayIcon: `<span class="fas fa-trophy"></span>`,
-      disabledByPelle: () => !PelleCelestialUpgrade.raV2.isBought
+      disabledByPelle: () => !PelleCelestialUpgrade.raV2.canBeApplied
     },
     continuousTTBoost: {
       id: 25,
@@ -272,7 +272,7 @@ export const ra = {
       pet: "v",
       level: 10,
       displayIcon: `<span class="fas fa-university"></span>`,
-      disabledByPelle: () => !PelleCelestialUpgrade.raV3.isBought
+      disabledByPelle: () => !PelleCelestialUpgrade.raV3.canBeApplied
     },
     achievementTTMult: {
       id: 26,
@@ -281,7 +281,7 @@ export const ra = {
       pet: "v",
       level: 15,
       displayIcon: `<span class="fas fa-graduation-cap"></span>`,
-      disabledByPelle: () => !PelleCelestialUpgrade.raV4.isBought
+      disabledByPelle: () => !PelleCelestialUpgrade.raV4.canBeApplied
     },
     achievementPower: {
       id: 27,
@@ -290,7 +290,7 @@ export const ra = {
       pet: "v",
       level: 25,
       displayIcon: `<i class="fab fa-buffer"></i>`,
-      disabledByPelle: () => !PelleCelestialUpgrade.raV5.isBought
+      disabledByPelle: () => !PelleCelestialUpgrade.raV5.canBeApplied
     },
     eternityPointPower: {
       id: 28,
@@ -344,7 +344,7 @@ export const ra = {
         const sacrificeSum = new Decimal(player.reality.glyphs.sac.power).add(player.reality.glyphs.sac.infinity).add(
           player.reality.glyphs.sac.time).add(player.reality.glyphs.sac.replication).add(player.reality.glyphs.sac.dilation).add(
           player.reality.glyphs.sac.effarig).add(player.reality.glyphs.sac.reality);
-        return player.disablePostReality ? 1 : 1 + Decimal.log10(Decimal.log10(sacrificeSum.add(1)).add(1)).div(20);
+        return player.disablePostReality ? 1 : 1 + Decimal.log10(Decimal.log10(sacrificeSum.add(1)).add(1)).div(20).toNumber();
       },
       pet: "teresa",
       level: 100,
@@ -354,7 +354,7 @@ export const ra = {
     celestialDimensionPower: {
       id: 34,
       reward: "Endgames and Teresa level empower Celestial Dimensions",
-      effect: () => player.disablePostReality ? 1 : Math.pow(1 + Math.log10(1 + (Math.floor(Ra.pets.teresa.level) * player.endgames / 1e6)), 2),
+      effect: () => player.disablePostReality ? 1 : Math.pow(Math.clamp(Ra.pets.teresa.level * Math.log10(player.endgames + 1) / 2000, 1, 1.5) * Math.pow(Math.max(Ra.pets.teresa.level * Math.log10(player.endgames + 1) / 3000, 1), 0.1), 5),
       pet: "teresa",
       level: 125,
       displayIcon: `<span class="fas fa-award"></span>`,
@@ -479,8 +479,8 @@ export const ra = {
     },
     freeTesseractIncrease: {
       id: 48,
-      reward: "Nameless Level increases the Free Tesseract Softcap",
-      effect: () => player.disablePostReality ? 0 : Math.floor(Ra.pets.enslaved.level) / 5,
+      reward: "Nameless Level increases the Free Tesseract Softcap starting threshold",
+      effect: () => player.disablePostReality ? 1 : 1 + Math.floor(Ra.pets.enslaved.level) / 250,
       pet: "enslaved",
       level: 125,
       displayIcon: `<span class="fas fa-cubes"></span>`,

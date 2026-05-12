@@ -7,6 +7,8 @@ window.PRESTIGE_EVENT = {
   ETERNITY: 3,
   REALITY: 4,
   ENDGAME: 5,
+  CELESTIAL_INFINITY: 6,
+  CELESTIAL_ETERNITY: 7
 };
 
 function deepFreeze(obj) {
@@ -101,10 +103,13 @@ window.DC = deepFreeze({
   E12:                  new Decimal("1e12"),
   E15:                  new Decimal("1e15"),
   E20:                  new Decimal("1e20"),
+  E21:                  new Decimal("1e21"),
   E25:                  new Decimal("1e25"),
+  E28:                  new Decimal("1e28"),
   E29:                  new Decimal("1e29"),
   E30:                  new Decimal("1e30"),
   E31:                  new Decimal("1e31"),
+  E36:                  new Decimal("1e36"),
   E40:                  new Decimal("1e40"),
   E45:                  new Decimal("1e45"),
   E50:                  new Decimal("1e50"),
@@ -154,6 +159,7 @@ window.DC = deepFreeze({
   E1400:                new Decimal("1e1400"),
   E1500:                new Decimal("1e1500"),
   E1600:                new Decimal("1e1600"),
+  E1640:                new Decimal("1e1640"),
   E1650:                new Decimal("1e1650"),
   E1750:                new Decimal("1e1750"),
   E1800:                new Decimal("1e1800"),
@@ -246,7 +252,19 @@ window.AUTO_CRUNCH_MODE = {
   X_HIGHEST: 2
 };
 
+window.AUTO_CELESTIAL_CRUNCH_MODE = {
+  AMOUNT: 0,
+  TIME: 1,
+  X_HIGHEST: 2
+};
+
 window.AUTO_ETERNITY_MODE = {
+  AMOUNT: 0,
+  TIME: 1,
+  X_HIGHEST: 2
+};
+
+window.AUTO_CELESTIAL_ETERNITY_MODE = {
   AMOUNT: 0,
   TIME: 1,
   X_HIGHEST: 2
@@ -286,6 +304,34 @@ window.GLYPH_MIME_TYPE = "text/x-ivark-glyph";
 // in order for reality glyph color parsing to work properly in the cosmetic handler
 window.GlyphRarities = [
   {
+    minStrength: 8.5,
+    name: "Perfect",
+    darkColor: "#800000",
+    lightColor: "#800000",
+    darkHighContrast: "#900000",
+    lightHighContrast: "#a00000"
+  }, {
+    minStrength: 6,
+    name: "Superlunary",
+    darkColor: "#c0c040",
+    lightColor: "#c0c040",
+    darkHighContrast: "#e0e060",
+    lightHighContrast: "#ffff80"
+  }, {
+    minStrength: 5.375,
+    name: "Sublime",
+    darkColor: "#20c0a0",
+    lightColor: "#20c0a0",
+    darkHighContrast: "#00e0a0",
+    lightHighContrast: "#00ffc0"
+  }, {
+    minStrength: 4.75,
+    name: "Empyrean",
+    darkColor: "#c03000",
+    lightColor: "#c03000",
+    darkHighContrast: "#e03800",
+    lightHighContrast: "#ff4000"
+  }, {
     minStrength: 4.125,
     name: "Elysian",
     darkColor: "#8020a0",

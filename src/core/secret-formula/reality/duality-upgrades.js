@@ -112,24 +112,24 @@ export const dualityUpgrades = [
     name: "Interference of Forever",
     id: 11,
     cost: new Decimal(1e9),
-    requirement: () => `${format("1e1600")} total Relic Shards
+    requirement: () => `${format("1e1640")} total Relic Shards
       (You have ${format(player.celestials.effarig.relicShards, 2)})`,
     hasFailed: () => false,
-    checkRequirement: () => player.celestials.effarig.relicShards.gte(DC.E1600),
+    checkRequirement: () => player.celestials.effarig.relicShards.gte(DC.E1640),
     checkEvent: GAME_EVENT.REALITY_RESET_AFTER,
-    description: "Multiply Continuum purchases by Hadronization amount",
-    effect: () => player.disablePostReality ? 1 : Laitela.hadronizes,
-    formatEffect: value => `${formatX(value, 2)}`
+    description: "Multiply Continuum purchases based on Hadronization amount",
+    effect: () => player.disablePostReality ? 1 : Math.sqrt(Laitela.hadronizes),
+    formatEffect: value => `${formatX(value, 2, 2)}`
   },
   {
     name: "Repercussions of Apparitions",
     id: 12,
     cost: new Decimal(6e9),
-    requirement: () => `Make a level ${formatInt(102250)} Glyph with all Glyph level factor weights at
+    requirement: () => `Make a level ${formatInt(102500)} Glyph with all Glyph level factor weights at
     ${formatInt(0)}`,
     hasFailed: () => !Object.values(player.celestials.effarig.glyphWeights).every(w => w === 0),
     checkRequirement: () => Object.values(player.celestials.effarig.glyphWeights).every(w => w === 0) &&
-      gainedGlyphLevel().actualLevel >= 102250,
+      gainedGlyphLevel().actualLevel >= 102500,
     checkEvent: GAME_EVENT.REALITY_RESET_BEFORE,
     description: "Raise free Dimboost gain to a power based on repeatable Duality Upgrade purchases",
     effect: () => player.disablePostReality ? 1 : 1 + Math.log10(DualityUpgrades.totalRebuyables) * 1.5,
@@ -151,22 +151,22 @@ export const dualityUpgrades = [
     name: "Reminiscence of Corruption",
     id: 14,
     cost: new Decimal(3e11),
-    requirement: () => `Reach a tickspeed of ${format("e1e700")}?`,
+    requirement: () => `Reach a tickspeed of ${format("e1e666")}`,
     hasFailed: () => false,
-    checkRequirement: () => Tickspeed.perSecond.log10().gte(DC.E9E15),
+    checkRequirement: () => Tickspeed.perSecond.log10().gte("1e666"),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
-    description: () => `Raise the Continuum Purchase boost to ${formatPow(1.5, 0, 1)}`,
-    effect: () => player.disablePostReality ? 1 : 1.5
+    description: () => `Raise the Continuum Purchase boost to ${formatPow(1.2, 0, 1)}`,
+    effect: () => player.disablePostReality ? 1 : 1.2
   },
   {
     name: "Invention of Duplexes",
     id: 15,
     cost: new Decimal(1e12),
-    requirement: () => `Reach ${format("e1e40")}? antimatter without ever having Infinity, Time, or ${formatInt(8)}th Antimatter
+    requirement: () => `Reach ${format("e5e55")} antimatter without ever having Infinity, Time, or ${formatInt(8)}th Antimatter
       Dimensions this Endgame while Dilated`,
     hasFailed: () => !player.requirementChecks.endgame.onlyLowDims,
     checkRequirement: () => player.requirementChecks.endgame.onlyLowDims && player.dilation.active &&
-      player.antimatter.add(1).log10().gte(DC.E9E15),
+      player.antimatter.add(1).log10().gte(5e55),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     canLock: true,
     description: "Unlock Hadrons",
@@ -177,7 +177,7 @@ export const dualityUpgrades = [
     cost: new Decimal(4e12),
     requirement: () => "Have a fully empowered Hadron",
     hasFailed: () => false,
-    checkRequirement: () => false,
+    checkRequirement: () => Hadrons.timeFactor.times(4).gte(100),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Unlock a 2nd Hadron effect",
   },
@@ -185,9 +185,9 @@ export const dualityUpgrades = [
     name: "Prodigious Rotations",
     id: 17,
     cost: new Decimal(9e12),
-    requirement: () => `Reach ${format("1e40000")}? Singularities`,
+    requirement: () => `Reach ${format("1e44875")} Singularities`,
     hasFailed: () => false,
-    checkRequirement: () => player.celestials.laitela.singularities.gte(DC.E9E15),
+    checkRequirement: () => player.celestials.laitela.singularities.gte("1e44875"),
     checkEvent: GAME_EVENT.SINGULARITY_RESET_BEFORE,
     description: "Unlock a 3rd Hadron effect",
   },
@@ -196,10 +196,10 @@ export const dualityUpgrades = [
     id: 18,
     cost: new Decimal(1.6e13),
     formatCost: x => format(x, 1),
-    requirement: () => `Have ${format(1e8)}? total Galaxies outside Pelle`,
+    requirement: () => `Have ${format(2.4e9, 1)} total Galaxies outside Pelle`,
     hasFailed: () => Pelle.isDoomed,
     checkRequirement: () => Replicanti.galaxies.total.add(player.galaxies).add(
-      player.dilation.totalTachyonGalaxies).gte(DC.E9E15) && !Pelle.isDoomed,
+      player.dilation.totalTachyonGalaxies).gte(2.4e9) && !Pelle.isDoomed,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Unlock a 4th Hadron effect",
   },
@@ -208,10 +208,10 @@ export const dualityUpgrades = [
     id: 19,
     cost: new Decimal(4.2e13),
     formatCost: x => format(x, 1),
-    requirement: () => `Have ${format(1e37)}? Tickspeed Continuum without ever having Time Studies in this Endgame`,
+    requirement: () => `Have ${format(1e45)} Tickspeed Continuum without ever having Time Studies in this Endgame`,
     hasFailed: () => player.requirementChecks.endgame.maxStudies > 0,
     checkRequirement: () => player.requirementChecks.endgame.maxStudies <= 0 &&
-      Tickspeed.continuumValue.gte(DC.E9E15),
+      Tickspeed.continuumValue.gte(1e45),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     canLock: true,
     lockEvent: () => `purchase more than ${formatInt(0)} Time Studies`,
@@ -221,9 +221,9 @@ export const dualityUpgrades = [
     name: "Binate Velocity",
     id: 20,
     cost: new Decimal(1e16),
-    requirement: () => `Have a Continuum increase of at least ${formatX(1e15, 2, 2)}?`,
+    requirement: () => `Have a Continuum increase of at least ${formatX(4444444, 2, 2)}`,
     hasFailed: () => false,
-    checkRequirement: () => Laitela.matterExtraPurchaseFactor >= 1e300,
+    checkRequirement: () => Laitela.matterExtraPurchaseFactor >= 4444444,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: () => `Unlock Autobuyers for repeatable Duality Upgrades and generate Dual Machines
       ${formatInt(10)} times faster`,
@@ -233,25 +233,25 @@ export const dualityUpgrades = [
     name: "Empyrean Eradication",
     id: 21,
     cost: new Decimal(3e17),
-    requirement: () => `Reach ${format("e1e50")}? antimatter with Continuum disabled for the entire Endgame`,
+    requirement: () => `Reach ${format("e1e88")} antimatter with Continuum disabled for the entire Endgame`,
     hasFailed: () => !player.requirementChecks.endgame.noContinuum,
     checkRequirement: () => player.requirementChecks.endgame.noContinuum &&
-      Currency.antimatter.value.add(1).log10().gte(DC.E9E15),
+      Currency.antimatter.value.add(1).log10().gte(1e88),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     canLock: true,
     lockEvent: "enable Continuum",
     description: "Dark Hadrons are more powerful based on Dual Machines",
-    effect: () => player.disablePostReality ? 1 : Decimal.log10(Currency.dualMachines.value.add(1)).div(100).toNumber(),
+    effect: () => player.disablePostReality ? 0 : Decimal.log10(Currency.dualMachines.value.add(1)).div(100).toNumber(),
     formatEffect: value => `+${formatPercents(value, 2, 2)}`
   },
   {
     name: "Depiction Devastation",
     id: 22,
     cost: new Decimal(2e18),
-    requirement: () => `Reach ${format("e1e66")}? antimatter without ever equipping Glyphs this Endgame`,
+    requirement: () => `Reach ${format("e1e85")} antimatter without ever equipping Glyphs this Endgame`,
     hasFailed: () => !player.requirementChecks.endgame.noGlyphs,
     checkRequirement: () => player.requirementChecks.endgame.noGlyphs &&
-      Currency.antimatter.value.add(1).log10().gte(DC.E9E15),
+      Currency.antimatter.value.add(1).log10().gte(1e85),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     canLock: true,
     lockEvent: "equip Glyphs",
@@ -262,11 +262,12 @@ export const dualityUpgrades = [
     name: "Tetragrammatical Traumatization",
     id: 23,
     cost: new Decimal(6e18),
-    requirement: () => `Reach Glyph level ${formatInt(300000)}? in Ra's Reality with
+    requirement: () => `Reach Glyph level ${formatInt(385000)} in Ra's Reality with
       at least ${formatInt(5)} Cursed Glyphs equipped`,
-    hasFailed: () => player.reality.glyphs.active.filter(g => g.type !== "cursed").length > 0 || player.requirementChecks.reality.maxGlyphs > -15,
-    checkRequirement: () => player.reality.glyphs.active.filter(g => g.type !== "cursed").length === 0 &&
-      player.requirementChecks.reality.maxGlyphs <= -15 && gainedGlyphLevel().actualLevel >= 1e300,
+    hasFailed: () => !Ra.isRunning || player.reality.glyphs.active.filter(g => g.type !== "cursed").length > 0 ||
+      player.requirementChecks.reality.maxGlyphs > -15,
+    checkRequirement: () => Ra.isRunning && player.reality.glyphs.active.filter(g => g.type !== "cursed").length === 0 &&
+      player.requirementChecks.reality.maxGlyphs <= -15 && gainedGlyphLevel().actualLevel >= 385000,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Tesseracts increase Galaxy strength",
     effect: () => player.disablePostReality ? 1 : Tesseracts.effectiveCount / 100,
@@ -277,11 +278,11 @@ export const dualityUpgrades = [
     id: 24,
     cost: new Decimal(1.5e19),
     formatCost: x => format(x, 1),
-    requirement: () => `Have ${format(6e6, 2, 2)}? Antimatter Galaxies in Ra's Reality
+    requirement: () => `Have ${format(106e6, 2, 2)} Antimatter Galaxies in Ra's Reality
       with Celestial Matter toggled off`,
     hasFailed: () => !Ra.isRunning || !player.requirementChecks.reality.noCelMatter,
     checkRequirement: () => Ra.isRunning && player.requirementChecks.reality.noCelMatter &&
-      player.galaxies.gte(DC.E9E15),
+      player.galaxies.gte(106e6),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     canLock: true,
     lockEvent: "turn on Celestial Matter",
@@ -293,9 +294,9 @@ export const dualityUpgrades = [
     name: "Polydimensional Production",
     id: 25,
     cost: new Decimal(1e20),
-    requirement: () => `Have ${formatInt(25)}? fully empowered Dark Hadrons`,
+    requirement: () => `Have ${formatInt(32)} fully empowered Dark Hadrons`,
     hasFailed: () => false,
-    checkRequirement: () => false,
+    checkRequirement: () => player.celestials.laitela.hadrons.dark >= 32 && Hadrons.timeFactor.div(5).gte(100),
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Unlock Hypercubes",
   },

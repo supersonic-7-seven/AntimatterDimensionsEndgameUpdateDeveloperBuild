@@ -9,6 +9,12 @@ export const Alpha = {
   get isUnlocked() {
     return ImaginaryUpgrade(30).isBought;
   },
+  get isDestroyed() {
+    return this.currentStage >= 28 && !player.disablePostReality;
+  },
+  get isDestroyedForDisplay() {
+    return this.currentStage >= 28;
+  },
   initializeRun() {
     player.disablePostReality = true;
     Endgame.resetNoReward();
@@ -19,6 +25,7 @@ export const Alpha = {
     player.celestials.alpha.run = true;
     recalculateAllGlyphs();
     Tab.dimensions.antimatter.show(false);
+    if (this.currentStage === 0) Alpha.quotes.enter.show();
     if (player.celestials.alpha.records.records.totalEndgameAntimatter.gt(DC.E1)) {
       player.antimatter = player.celestials.alpha.records.antimatter;
       player.dimensions.antimatter[0].bought = player.celestials.alpha.records.dimensions.antimatter[0].bought;
@@ -491,12 +498,6 @@ export const Alpha = {
       player.timestudy.amBought = player.celestials.alpha.records.timestudy.amBought;
       player.timestudy.ipBought = player.celestials.alpha.records.timestudy.ipBought;
       player.timestudy.epBought = player.celestials.alpha.records.timestudy.epBought;
-      for (let ts = 0; ts < 305; ts++) {
-        if (player.celestials.alpha.records.timestudy.studies.includes(ts)) {
-          player.timestudy.theorem = player.timestudy.theorem.add(TimeStudy(ts).cost);
-          TimeStudy(ts).purchase();
-        }
-      }
       player.eternityChalls.eterc1 = player.celestials.alpha.records.eternityChalls.eterc1;
       player.eternityChalls.eterc2 = player.celestials.alpha.records.eternityChalls.eterc2;
       player.eternityChalls.eterc3 = player.celestials.alpha.records.eternityChalls.eterc3;
@@ -512,6 +513,12 @@ export const Alpha = {
       player.respec = player.celestials.alpha.records.respec;
       player.eterc8ids = player.celestials.alpha.records.eterc8ids;
       player.eterc8repl = player.celestials.alpha.records.eterc8repl;
+      for (let ts = 0; ts < 305; ts++) {
+        if (player.celestials.alpha.records.timestudy.studies.includes(ts)) {
+          player.timestudy.theorem = player.timestudy.theorem.add(TimeStudy(ts).cost);
+          TimeStudy(ts).purchase();
+        }
+      }
       for (let dts = 0; dts < 7; dts++) {
         if (player.celestials.alpha.records.dilation.studies.includes(dts)) {
           player.timestudy.theorem = player.timestudy.theorem.add(DilationTimeStudyState.studies[dts].cost);
@@ -532,6 +539,16 @@ export const Alpha = {
       player.dilation.rebuyables[12] = player.celestials.alpha.records.dilation.rebuyables[12];
       player.dilation.rebuyables[13] = player.celestials.alpha.records.dilation.rebuyables[13];
       player.dilation.lastEP = player.celestials.alpha.records.dilation.lastEP;
+      for (let sts = 0; sts < 305; sts++) {
+        if (player.celestials.alpha.records.timestudy.studies.includes(sts) && !TimeStudy(sts).isBought) {
+          TimeStudy(sts).purchase();
+        }
+      }
+      for (let sdts = 0; sdts < 7; sdts++) {
+        if (player.celestials.alpha.records.dilation.studies.includes(sdts) && !DilationTimeStudyState.studies[sdts].isBought) {
+          DilationTimeStudyState.studies[sdts].purchase();
+        }
+      }
       player.celestials.alpha.records.timestudy.studies = [];
       player.celestials.alpha.records.dilation.studies = [];
     }
@@ -991,18 +1008,18 @@ export const Alpha = {
         }
       }
     }
-    player.celestials.alpha.records.eternityChalls.eterc1 = player.eternityChalls.eterc1;
-    player.celestials.alpha.records.eternityChalls.eterc2 = player.eternityChalls.eterc2;
-    player.celestials.alpha.records.eternityChalls.eterc3 = player.eternityChalls.eterc3;
-    player.celestials.alpha.records.eternityChalls.eterc4 = player.eternityChalls.eterc4;
-    player.celestials.alpha.records.eternityChalls.eterc5 = player.eternityChalls.eterc5;
-    player.celestials.alpha.records.eternityChalls.eterc6 = player.eternityChalls.eterc6;
-    player.celestials.alpha.records.eternityChalls.eterc7 = player.eternityChalls.eterc7;
-    player.celestials.alpha.records.eternityChalls.eterc8 = player.eternityChalls.eterc8;
-    player.celestials.alpha.records.eternityChalls.eterc9 = player.eternityChalls.eterc9;
-    player.celestials.alpha.records.eternityChalls.eterc10 = player.eternityChalls.eterc10;
-    player.celestials.alpha.records.eternityChalls.eterc11 = player.eternityChalls.eterc11;
-    player.celestials.alpha.records.eternityChalls.eterc12 = player.eternityChalls.eterc12;
+    player.celestials.alpha.records.eternityChalls.eterc1 = player.eternityChalls.eterc1 ? player.eternityChalls.eterc1 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc2 = player.eternityChalls.eterc2 ? player.eternityChalls.eterc2 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc3 = player.eternityChalls.eterc3 ? player.eternityChalls.eterc3 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc4 = player.eternityChalls.eterc4 ? player.eternityChalls.eterc4 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc5 = player.eternityChalls.eterc5 ? player.eternityChalls.eterc5 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc6 = player.eternityChalls.eterc6 ? player.eternityChalls.eterc6 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc7 = player.eternityChalls.eterc7 ? player.eternityChalls.eterc7 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc8 = player.eternityChalls.eterc8 ? player.eternityChalls.eterc8 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc9 = player.eternityChalls.eterc9 ? player.eternityChalls.eterc9 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc10 = player.eternityChalls.eterc10 ? player.eternityChalls.eterc10 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc11 = player.eternityChalls.eterc11 ? player.eternityChalls.eterc11 : 0;
+    player.celestials.alpha.records.eternityChalls.eterc12 = player.eternityChalls.eterc12 ? player.eternityChalls.eterc12 : 0;
     player.celestials.alpha.records.respec = player.respec;
     player.celestials.alpha.records.eterc8ids = player.eterc8ids;
     player.celestials.alpha.records.eterc8repl = player.eterc8repl;
@@ -1072,13 +1089,14 @@ export const Alpha = {
   },
   get totalSpeedBoost() {
     return Decimal.pow(Decimal.max(Decimal.log10(Currency.etherealPower.value).sub(7), 0).div(7).add(1), 2).timesEffectsOf(
-      Achievement(202),
-      Achievement(203)
+      Achievement(212),
+      Achievement(213)
     );
   },
   get cosmicSectorMinBoost() {
     return (1 - Decimal.pow(0.8, Decimal.log10(Currency.etherealPower.value.add(1))).toNumber()) *
-      Math.min((Alpha.currentStage + 1) / 10, 1);
+      Math.max(1 - (Math.floor(Math.pow(0.8, Alpha.currentStage) * 10) / 10) - Math.max((4 - Alpha.currentStage) / 10, 0), 0) /
+      Math.max(5 - Alpha.currentStage, 1);
   },
   get cosmicSectorExtraBoost() {
     return Decimal.pow(Ethereal.cosmicSector, 2).div(100).times(4.8);

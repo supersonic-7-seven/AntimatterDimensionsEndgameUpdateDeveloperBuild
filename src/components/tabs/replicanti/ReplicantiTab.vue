@@ -52,7 +52,7 @@ export default {
     replicantiChanceSetup() {
       return new ReplicantiUpgradeButtonSetup(
         ReplicantiUpgrade.chance,
-        value => `Replicate chance: ${formatPercents(value)}`,
+        value => `Replicate chance: ${formatDecimalPercents(value)}`,
         cost => `+${formatPercents(0.01)} Costs: ${format(cost)} IP`
       );
     },
@@ -149,7 +149,7 @@ export default {
       this.mult.copyFrom(replicantiMult());
       this.hasTDMult = DilationUpgrade.tdMultReplicanti.isBought;
       this.multTD.copyFrom(DilationUpgrade.tdMultReplicanti.effectValue);
-      this.hasDTMult = getAdjustedGlyphEffect("replicationdtgain") !== 0 && !Pelle.isDoomed;
+      this.hasDTMult = getAdjustedGlyphEffect("replicationdtgain").neq(0) && !Pelle.isDoomed;
       this.multDT = Decimal.clampMin(
         Decimal.log10(Replicanti.amount.add(1)).times(
           getAdjustedGlyphEffect("replicationdtgain")),
@@ -160,7 +160,7 @@ export default {
       this.hasDEMult = !player.disablePostReality && Alpha.currentStage >= 21;
       this.multDE = Decimal.pow(Decimal.log2(Replicanti.amount.add(1)), 10).add(1);
       this.isUncapped = PelleRifts.vacuum.milestones[1].canBeApplied;
-      this.hasRaisedCap = (EffarigUnlock.infinity.isUnlocked && !this.isUncapped) || (Pelle.isDoomed && PelleCelestialUpgrade.replicantiCapIncrease.isBought);
+      this.hasRaisedCap = (EffarigUnlock.infinity.isUnlocked && !this.isUncapped) || (Pelle.isDoomed && PelleCelestialUpgrade.replicantiCapIncrease.canBeApplied);
       this.replicantiCap.copyFrom(replicantiCap());
       if (this.hasRaisedCap) {
         const mult = this.replicantiCap.div(DC.NUMMAX);
@@ -188,7 +188,7 @@ export default {
     calculateEstimate() {
       const updateRateMs = player.options.updateRate;
       const logGainFactorPerTick = Decimal.divide(getGameSpeedupForDisplay().times(updateRateMs).times(
-        (Math.log(player.replicanti.chance + 1))), getReplicantiInterval());
+        (Decimal.ln(player.replicanti.chance.add(1)))), getReplicantiInterval());
       const postScale = Math.log10(ReplicantiGrowth.scaleFactor) / ReplicantiGrowth.scaleLog10;
       const nextMilestone = this.maxReplicanti;
       const coeff = Decimal.divide(updateRateMs / 1000, logGainFactorPerTick.times(postScale));

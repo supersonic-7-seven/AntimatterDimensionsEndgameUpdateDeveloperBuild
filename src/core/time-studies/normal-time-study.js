@@ -64,7 +64,7 @@ export class NormalTimeStudyState extends TimeStudyState {
   // This checks for and forbids buying studies due to being part of a set which can't normally be bought
   // together (eg. active/passive/idle and light/dark) unless the player has the requisite ST.
   checkSetRequirement() {
-    return this.costsST() ? (!Pelle.isDisabled("V") || PelleDestructionUpgrade.spaceTheorems.isBought) && (V.availableST >= this.STCost) : true;
+    return this.costsST() ? (!Pelle.isDisabled("V") || PelleDestructionUpgrade.spaceTheorems.canBeApplied) && (V.availableST >= this.STCost) : true;
   }
 
   get canBeBought() {
@@ -96,9 +96,15 @@ export class NormalTimeStudyState extends TimeStudyState {
     if (this.id === 181 && Pelle.isDoomed) Achievement(186).unlock();
     if (this.id === 61 && Alpha.isRunning && Alpha.currentStage === 12) {
       Alpha.advanceLayer();
+      Alpha.quotes.improveEP.show();
     }
     if (this.id === 181 && Alpha.isRunning && Alpha.currentStage === 18) {
       Alpha.advanceLayer();
+      Alpha.quotes.passiveIPGen.show();
+    }
+    if (this.id === 192 && Alpha.isRunning && Alpha.currentStage === 20) {
+      Alpha.advanceLayer();
+      Alpha.quotes.uncapReplicanti.show();
     }
     return true;
   }

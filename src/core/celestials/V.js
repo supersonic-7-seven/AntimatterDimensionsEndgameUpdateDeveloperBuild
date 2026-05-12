@@ -130,7 +130,7 @@ class VUnlockState extends BitUpgradeState {
   }
 
   onUnlock() {
-    GameUI.notify.success(this.description);
+    if (!VUpgrade.auto.isCapped) GameUI.notify.success(this.description);
   }
 }
 

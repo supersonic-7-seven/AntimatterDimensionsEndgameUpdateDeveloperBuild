@@ -1,7 +1,7 @@
 import { GameMechanicState } from "./game-mechanics";
 
 export function tryCompleteInfinityChallenges() {
-  if (EternityMilestone.autoIC.isReached || (PelleDestructionUpgrade.autoICComp.isBought && !player.disablePostReality)) {
+  if (EternityMilestone.autoIC.isReached || (PelleDestructionUpgrade.autoICComp.canBeApplied && !player.disablePostReality)) {
     const toComplete = InfinityChallenges.all.filter(x => x.isUnlocked && !x.isCompleted);
     for (const challenge of toComplete) challenge.complete();
   }
@@ -68,6 +68,7 @@ class InfinityChallengeState extends GameMechanicState {
     EventHub.dispatch(GAME_EVENT.INFINITY_CHALLENGE_COMPLETED);
     if (player.challenge.infinity.completedBits === 510 && Alpha.isRunning && Alpha.currentStage === 8) {
       Alpha.advanceLayer();
+      Alpha.quotes.allInfinityChalls.show();
     }
   }
 

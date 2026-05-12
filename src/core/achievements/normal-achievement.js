@@ -200,7 +200,7 @@ export const Achievements = {
   }),
 
   get power() {
-    if ((Pelle.isDisabled("achievementMult") && !PelleDestructionUpgrade.achievementMultiplier.isBought) || player.disablePostReality) return DC.D1;
+    if ((Pelle.isDisabled("achievementMult") && !PelleDestructionUpgrade.achievementMultiplier.canBeApplied) || player.disablePostReality) return DC.D1;
     return Achievements._power.value;
   },
 

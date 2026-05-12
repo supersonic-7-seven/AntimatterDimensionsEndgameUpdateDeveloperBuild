@@ -18,6 +18,6 @@ export class TesseractAutobuyerState extends AutobuyerState {
   }
 
   tick() {
-    Tesseracts.buyTesseract();
+    Tesseracts.buyMaxTesseract();
   }
 }

@@ -215,7 +215,7 @@ class AlchemyReaction {
   combineReagents() {
     if (!this.isActive || this.reactionYield === 0) return;
     const unpredictabilityEffect = AlchemyResource.unpredictability.effectValue;
-    const times = 1 + poissonDistribution(unpredictabilityEffect / (1 - unpredictabilityEffect));
+    const times = Math.clampMax(1 + poissonDistribution(unpredictabilityEffect / (1 - unpredictabilityEffect)), 50);
     const cap = this._product.cap;
     for (let i = 0; i < times; i++) {
       const reactionYield = this.actualYield;

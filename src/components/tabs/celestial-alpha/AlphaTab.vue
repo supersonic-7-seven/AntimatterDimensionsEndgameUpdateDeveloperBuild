@@ -31,9 +31,10 @@ export default {
         "l-alpha-run-button": true,
         "c-alpha-run-button": true,
         "c-alpha-run-button--running": this.isRunning,
-        "c-alpha-run-button--not-running": !this.isRunning,
-        "c-celestial-run-button--clickable": !this.isDoomed,
-        "o-pelle-disabled-pointer": this.isDoomed
+        "c-alpha-run-button--not-running": !this.isRunning && !this.isDestroyed,
+        "c-alpha-run-button--not-running--dead": this.isDestroyed,
+        "c-celestial-run-button--clickable": !this.isDoomed && !this.isDestroyed,
+        "o-pelle-disabled-pointer": this.isDoomed || this.isDestroyed
       };
     },
     runButtonInnerClass() {
@@ -44,6 +45,7 @@ export default {
       ${GameDatabase.celestials.descriptions[7].description()}`;
     },
     isDoomed: () => Pelle.isDoomed,
+    isDestroyed: () => Alpha.isDestroyedForDisplay
   },
   watch: {
     isRunning() {

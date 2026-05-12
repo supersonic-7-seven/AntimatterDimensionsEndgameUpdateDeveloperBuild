@@ -26,12 +26,12 @@ export default {
       isCapped: false,
       multiplier: new Decimal(0),
       amount: new Decimal(0),
-      bought: 0,
+      bought: new Decimal(0),
       rateOfChange: new Decimal(0),
       cost: new Decimal(0),
       isAvailableForPurchase: false,
       isContinuumActive: false,
-      continuumValue: 0,
+      continuumValue: new Decimal(0),
       isAutobuyerOn: false,
       requirementReached: false,
       realityUnlocked: false,
@@ -95,11 +95,11 @@ export default {
     update() {
       const tier = this.tier;
       const dimension = TimeDimension(tier);
-      this.isCapped = Enslaved.isRunning && dimension.bought > 0;
+      this.isCapped = Enslaved.isRunning && dimension.bought.gt(0);
       this.isUnlocked = dimension.isUnlocked;
       this.multiplier.copyFrom(dimension.multiplier);
       this.amount.copyFrom(dimension.totalAmount);
-      this.bought = dimension.bought;
+      this.bought.copyFrom(dimension.bought);
       if (tier < 8) {
         this.rateOfChange.copyFrom(dimension.rateOfChange);
       }
@@ -109,14 +109,14 @@ export default {
         this.isAvailableForPurchase = dimension.requirementReached;
       }
       this.isContinuumActive = Laitela.continuumActive && Alpha.currentStage >= 17 && !player.disablePostReality;
-      if (this.isContinuumActive) this.continuumValue = dimension.continuumValue;
+      if (this.isContinuumActive) this.continuumValue.copyFrom(dimension.continuumValue);
       this.requirementReached = dimension.requirementReached;
       this.isAutobuyerOn = Autobuyer.timeDimension(this.tier).isActive;
       this.realityUnlocked = PlayerProgress.realityUnlocked();
       this.showTTCost = !this.isUnlocked && !this.shiftDown;
       if (this.tier > 4) this.ttCost = TimeStudy.timeDimension(this.tier).cost;
       this.currTT.copyFrom(Currency.timeTheorems.value);
-      this.ttGen.copyFrom(getTTPerSecond().times(getGameSpeedupFactor()));
+      this.ttGen.copyFrom(getTTPerSecond().times(Alpha.isRunning ? 1 : getGameSpeedupForDisplay()));
     },
     buyTimeDimension() {
       if (!this.isUnlocked) {

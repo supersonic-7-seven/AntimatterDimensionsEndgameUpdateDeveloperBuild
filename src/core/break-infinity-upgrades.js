@@ -24,13 +24,17 @@ export class BreakInfinityUpgradeState extends SetPurchasableMechanicState {
     if (this.id === "postGalaxy") {
       SpeedrunMilestones(7).tryComplete();
       PelleStrikes.powerGalaxies.trigger();
-      if (Alpha.isRunning && Alpha.currentStage === 6) Alpha.advanceLayer();
+      if (Alpha.isRunning && Alpha.currentStage === 6) {
+        Alpha.advanceLayer();
+        Alpha.quotes.powerGalaxies.show();
+      }
     }
     if (BreakInfinityUpgrade.all.filter(u => u.isBought).length === (BreakInfinityUpgrade.all.length - player.infinityRebuyables.length) &&
       BreakInfinityUpgrade.all.filter(u => u.isCapped).length === player.infinityRebuyables.length &&
       Alpha.isRunning && Alpha.currentStage === 7) {
       InfinityDimensions.fullReset();
       Alpha.advanceLayer();
+      Alpha.quotes.allBreakUpgrades.show();
     }
   }
 }
@@ -64,6 +68,7 @@ class RebuyableBreakInfinityUpgradeState extends RebuyableMechanicState {
       Alpha.isRunning && Alpha.currentStage === 7) {
       InfinityDimensions.fullReset()
       Alpha.advanceLayer();
+      Alpha.quotes.allBreakUpgrades.show();
     }
   }
 }

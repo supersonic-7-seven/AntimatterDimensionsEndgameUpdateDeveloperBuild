@@ -1,5 +1,6 @@
 <script>
 import BigCrunchButton from "../BigCrunchButton";
+import DivinityButton from "../DivinityButton";
 import GameHeader from "../GameHeader";
 import NewsTicker from "../NewsTicker";
 
@@ -18,11 +19,13 @@ export default {
     NewsTicker,
     InfinityPointsHeader,
     EternityPointsHeader,
-    BigCrunchButton
+    BigCrunchButton,
+    DivinityButton
   },
   data() {
     return {
       bigCrunch: false,
+      divine: false,
       smallCrunch: false,
       newGameKey: "",
     };
@@ -36,7 +39,9 @@ export default {
   methods: {
     update() {
       const crunchButtonVisible = !player.break && Player.canCrunch;
+      const divinityVisible = Pelle.isDoomed && player.antimatter.gte(DC.ENUMMAX);
       this.bigCrunch = crunchButtonVisible && Time.bestInfinityRealTime.totalMinutes.gt(1);
+      this.divine = divinityVisible;
       // This only exists to force a key-swap after pressing the button to start a new game; the news ticker can break
       // if it isn't redrawn
       this.newGameKey = Pelle.isDoomed;
@@ -57,7 +62,8 @@ export default {
       href="stylesheets/old-ui.css"
     >
     <BigCrunchButton />
-    <template v-if="!bigCrunch">
+    <DivinityButton />
+    <template v-if="!bigCrunch && !divine">
       <NewsTicker
         v-if="news"
         class="l-old-ui__news-bar"

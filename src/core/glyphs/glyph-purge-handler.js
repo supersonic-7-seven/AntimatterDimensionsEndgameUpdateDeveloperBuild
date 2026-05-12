@@ -43,17 +43,21 @@ export const GlyphSacrificeHandler = {
     else Modal.glyphDelete.show({ idx: glyph.idx });
   },
   glyphSacrificeGain(glyph) {
-    if (!this.canSacrifice || (Pelle.isDoomed && !PelleRealityUpgrade.scourToEmpower.isBought)) return new Decimal(0);
+    if (!this.canSacrifice || (Pelle.isDoomed && !PelleRealityUpgrade.scourToEmpower.canBeApplied)) return new Decimal(0);
     if (glyph.type === "reality") return new Decimal(glyph.level).times(0.01).times(Achievement(171).effectOrDefault(1));
     const pre10kFactor = Decimal.pow(Decimal.clampMax(glyph.level, 10000).add(10), 2.5);
     const post10kFactor = Decimal.clampMin(glyph.level - 10000, 0).div(100).add(1);
-    const power = player.disablePostReality
-      ? 1 : Effects.product(Ra.unlocks.maxGlyphRarityAndShardSacrificeBoost, EndgameUpgrade(24), Ra.unlocks.sacrificePower);
+    const power = player.disablePostReality ? 1 : Effects.product(
+        Ra.unlocks.maxGlyphRarityAndShardSacrificeBoost,
+        EndgameUpgrade(24),
+        Ra.unlocks.sacrificePower,
+        DualityUpgrade(22)
+      );
     return Decimal.pow(pre10kFactor.times(post10kFactor).times(glyph.strength).times(
       Teresa.runRewardMultiplier).times(Achievement(171).effectOrDefault(1)), power);
   },
   sacrificeGlyph(glyph, force = false) {
-    if (Pelle.isDoomed && !PelleRealityUpgrade.scourToEmpower.isBought) return;
+    if (Pelle.isDoomed && !PelleRealityUpgrade.scourToEmpower.canBeApplied) return;
     // This also needs to be here because this method is called directly from drag-and-drop sacrificing
     if (this.handleSpecialGlyphTypes(glyph)) return;
     const toGain = this.glyphSacrificeGain(glyph);
@@ -81,7 +85,8 @@ export const GlyphSacrificeHandler = {
     if (!Ra.unlocks.unlockGlyphAlchemy.canBeApplied) return 0;
     const glyphMaxValue = this.levelRefinementValue(glyph.level);
     const rarityModifier = strengthToRarity(glyph.strength) / 100;
-    return this.glyphRefinementEfficiency * glyphMaxValue * rarityModifier;
+    const extraEffects = Ra.unlocks.alchemyCapIncrease.effectOrDefault(1);
+    return this.glyphRefinementEfficiency * glyphMaxValue * rarityModifier * extraEffects;
   },
   glyphRefinementGain(glyph) {
     if (!Ra.unlocks.unlockGlyphAlchemy.canBeApplied || !generatedTypes.includes(glyph.type)) return 0;

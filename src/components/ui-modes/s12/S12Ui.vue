@@ -1,5 +1,6 @@
 <script>
 import BigCrunchButton from "../BigCrunchButton";
+import DivinityButton from "../DivinityButton";
 import HeaderBlackHole from "../HeaderBlackHole";
 import HeaderChallengeDisplay from "../HeaderChallengeDisplay";
 import HeaderChallengeEffects from "../HeaderChallengeEffects";
@@ -18,6 +19,7 @@ export default {
   name: "S12Ui",
   components: {
     BigCrunchButton,
+    DivinityButton,
     HeaderChallengeDisplay,
     HeaderChallengeEffects,
     NewsTicker,
@@ -31,6 +33,7 @@ export default {
   data() {
     return {
       bigCrunch: false,
+      divine: false,
       hasReality: false,
       newGameKey: "",
       tabName: "",
@@ -51,7 +54,9 @@ export default {
   methods: {
     update() {
       const crunchButtonVisible = !player.break && Player.canCrunch;
+      const divinityVisible = Pelle.isDoomed && player.antimatter.gte(DC.ENUMMAX);
       this.bigCrunch = crunchButtonVisible && Time.bestInfinityRealTime.totalMinutes.gt(1);
+      this.divine = divinityVisible;
       this.hasReality = PlayerProgress.realityUnlocked();
       // This only exists to force a key-swap after pressing the button to start a new game; the news ticker can break
       // if it isn't redrawn
@@ -93,8 +98,9 @@ export default {
           v-if="news"
         />
         <BigCrunchButton />
+        <DivinityButton />
         <div
-          v-if="!bigCrunch"
+          v-if="!bigCrunch && !divine"
           class="tab-container"
         >
           <HeaderPrestigeGroup />

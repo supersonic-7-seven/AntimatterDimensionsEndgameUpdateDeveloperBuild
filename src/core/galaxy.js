@@ -180,7 +180,8 @@ export class Galaxy {
 function galaxyReset() {
   EventHub.dispatch(GAME_EVENT.GALAXY_RESET_BEFORE);
   player.galaxies = player.galaxies.add(1);
-  if ((!Achievement(143).isUnlocked || ((Pelle.isDoomed && !PelleAchievementUpgrade.achievement143.isBought) && !PelleUpgrade.galaxyNoResetDimboost.canBeApplied)) || player.disablePostReality) {
+  if ((!Achievement(143).isUnlocked || ((Pelle.isDoomed && !PelleAchievementUpgrade.achievement143.canBeApplied) &&
+    !PelleUpgrade.galaxyNoResetDimboost.canBeApplied)) || (player.disablePostReality && !(Alpha.isRunning && Alpha.currentStage >= 20))) {
     player.dimensionBoosts = new Decimal(0);
   }
   softReset(0);
@@ -213,7 +214,10 @@ export function requestGalaxyReset(bulk, limit = DC.BEMAX) {
   if (player.galaxies.gte(restrictedLimit) || !Galaxy.canBeBought || !Galaxy.requirement.isSatisfied) return false;
   Tutorial.turnOffEffect(TUTORIAL_STATE.GALAXY);
   galaxyReset();
-  if (Alpha.isRunning && player.galaxies.gte(1) && Alpha.currentStage === 2) Alpha.advanceLayer();
+  if (Alpha.isRunning && player.galaxies.gte(1) && Alpha.currentStage === 2) {
+    Alpha.advanceLayer();
+    Alpha.quotes.galaxy.show();
+  }
   return true;
 }
 

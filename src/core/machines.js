@@ -1,14 +1,20 @@
 export const MachineHandler = {
   get baseRMCap() { return DC.E1000; },
 
-  get hardcapRM() {
+  get baseHardcapRM() {
     let effectMultipliers = DC.D1;
     if (ExpansionPack.teresaPack.isBought && !player.disablePostReality) effectMultipliers = effectMultipliers.timesEffectsOf(PerkShopUpgrade.rmMult);
-    if (ExpansionPack.teresaPack.isBought && !player.disablePostReality) effectMultipliers = effectMultipliers.times(Teresa.rmMultiplier);
+    if (ExpansionPack.teresaPack.isBought && !player.disablePostReality && !Alpha.isDestroyed) effectMultipliers = effectMultipliers.times(Teresa.rmMultiplier);
+    if (EffarigUnlock.endgame.canBeApplied) effectMultipliers = effectMultipliers.times(getAdjustedGlyphEffect("effarigrm"));
     const smallBoost = DC.D1.timesEffectsOf(EndgameMastery(153));
-    const largeBoost = DC.D1.timesEffectsOf(SingularityMilestone.rmCap, Ra.unlocks.realityMachineCap);
+    const largeBoost = DC.D1.timesEffectsOf(SingularityMilestone.rmCap, Ra.unlocks.realityMachineCap).times(DivineDimensions.conversionFormula2);
     return Decimal.pow(this.baseRMCap.times(effectMultipliers).times(
-      Decimal.pow(ImaginaryUpgrade(6).effectOrDefault(1), smallBoost)), largeBoost);
+      Decimal.pow(ImaginaryUpgrade(6).effectOrDefault(1), smallBoost)), largeBoost).times(
+      ResurgenceUpgrade.rmSurge.isBought ? player.realities : 1);
+  },
+
+  get hardcapRM() {
+    return Alpha.isDestroyed ? this.baseHardcapRM.pow(this.uncappedRM.div(this.baseHardcapRM).add(1).log10().add(1).log10().add(1).log10().add(1)).times(Teresa.rmMultiplier) : this.baseHardcapRM;
   },
 
   get distanceToRMCap() {
@@ -21,7 +27,7 @@ export const MachineHandler = {
   },
 
   get uncappedRM() {
-    let log10FinalEP = player.records.thisReality.maxEP.plus(gainedEternityPoints()).log10();
+    let log10FinalEP = player.records.thisReality.maxEP.plus(gainedEternityPoints()).add(1).log10();
     if (!PlayerProgress.realityUnlocked()) {
       if (log10FinalEP.gt(8000)) log10FinalEP = new Decimal(8000);
       if (log10FinalEP.gt(6000)) log10FinalEP = log10FinalEP.sub((log10FinalEP.sub(6000)).times(0.75));
@@ -34,6 +40,8 @@ export const MachineHandler = {
     if (EndgameMastery(143).isBought) {
       rmGain = rmGain.powEffectsOf(EndgameMastery(143));
     }
+    rmGain = rmGain.pow(DivineDimensions.conversionFormula2);
+    rmGain = rmGain.times(ResurgenceUpgrade.rmSurge.isBought ? player.realities : 1);
     return rmGain.floor();
   },
 
@@ -52,15 +60,20 @@ export const MachineHandler = {
       Decimal.pow(Decimal.clampMin(new Decimal(this.uncappedRM.add(1).log10()).div(1000000000), 1),
       new Decimal(Decimal.log10(this.uncappedRM.add(1).log10())).div(7.5)))).pow(
       new Decimal(Effects.product(EndgameMastery(144), Ra.unlocks.imaginaryMachines, Ra.unlocks.imaginaryMachineEternityPower)).times(
-      Decimal.max(Decimal.log10(this.uncappedRM.add(1).log10()).sub(45), 0).div(10).add(1))), this.hardcapIM);
+      Decimal.max(Decimal.log10(this.uncappedRM.add(1).log10()).sub(45), 0).div(10).add(1)).times(
+      EtherealStars.green.reward).times(DivineDimensions.conversionFormula2).timesEffectOf(ResurgenceUpgrade.imSurge)), this.hardcapIM);
   },
 
   get baseIMHardcap() {
     return DC.E1000;
   },
 
+  get baseHardcapIM() {
+    return this.baseIMHardcap.times(DualityUpgrade(6).effectOrDefault(1)).pow(EtherealStars.green.reward.times(DivineDimensions.conversionFormula2).timesEffectOf(ResurgenceUpgrade.imSurge));
+  },
+
   get hardcapIM() {
-    return this.baseIMHardcap.times(DualityUpgrade(6).effectOrDefault(1));
+    return Alpha.isDestroyed ? this.baseHardcapIM.pow(this.uncappedIM.div(this.baseHardcapIM).add(1).log10().add(1).log10().add(1).log10().add(1)) : this.baseHardcapIM;
   },
 
   get uncappedIM() {
@@ -71,7 +84,8 @@ export const MachineHandler = {
         Decimal.pow(Decimal.clampMin(new Decimal(this.uncappedRM.add(1).log10()).div(1000000000), 1),
         new Decimal(Decimal.log10(this.uncappedRM.add(1).log10())).div(7.5)))).pow(
         new Decimal(Effects.product(EndgameMastery(144), Ra.unlocks.imaginaryMachines, Ra.unlocks.imaginaryMachineEternityPower)).times(
-        Decimal.max(Decimal.log10(this.uncappedRM.add(1).log10()).sub(45), 0).div(10).add(1)));
+        Decimal.max(Decimal.log10(this.uncappedRM.add(1).log10()).sub(45), 0).div(10).add(1)).times(
+        EtherealStars.green.reward).times(DivineDimensions.conversionFormula2).timesEffectOf(ResurgenceUpgrade.imSurge));
   },
 
   get currentIMCap() {
@@ -120,12 +134,17 @@ export const MachineHandler = {
 
   get baseDMCap() {
     return Decimal.pow(Decimal.clampMin(this.uncappedIM.add(1).log10().sub(1000), 0), Decimal.clampMin(
-      Decimal.log10(Currency.realityMachines.value.add(1).log10().add(1)).sub(3), 1).times(
-      Decimal.clampMin(Decimal.log10(Decimal.log10(Decimal.log10(this.uncappedRM.add(1)).add(1)).add(1)).sub(1.75).times(12).add(1), 1)));
+      Decimal.log10(Currency.realityMachines.value.add(1).log10().add(1)).sub(3).min(2).times(
+      Decimal.log10(Currency.realityMachines.value.add(1).log10().add(1)).div(5).max(1).pow(0.5)), 1).times(
+      Decimal.clampMin(Decimal.log10(Decimal.log10(Decimal.log10(this.uncappedRM.add(1)).add(1)).add(1)).sub(
+      1.75).times(12).min(0.6).add(1), 1).add(Decimal.clampMin(Decimal.log10(Decimal.log10(Decimal.log10(
+      this.uncappedRM.add(1)).add(1)).add(1)).sub(1.8).times(4).min(0.6), 0)).add(Decimal.clampMin(
+      Decimal.log10(Decimal.log10(Decimal.log10(this.uncappedRM.add(1)).add(1)).add(1)).sub(1.95).times(2), 0))).times(
+      DivinityMilestone.firstDivine.isReached && !player.disablePostReality ? 1.1 : 1).times(DivineDimensions.conversionFormula2));
   },
 
   get currentDMCap() {
-    return player.reality.dmCap;
+    return player.reality.dmCap.times(DualityUpgrade(13).effectOrDefault(1));
   },
 
   // This is εM cap based on in-game values at that instant, may be lower than the actual cap
@@ -144,7 +163,7 @@ export const MachineHandler = {
 
   // Time in seconds to reduce the missing amount by a factor of two
   get scaleTimeForDM() {
-    return 600;
+    return (600 / DualityUpgrade(20).effectOrDefault(1)) / (DivinityUpgrade.divineL1U10.isBought ? 2 : 1);
   },
 
   gainedDualMachines(diff) {

@@ -16,7 +16,7 @@ export default {
       bestSet: [],
       tierNotCompleted: true,
       hadronizeUnlocked: false,
-      darkEnergyBoost: 0,
+      darkEnergyBoost: new Decimal(0),
       hasHadronizes: false,
       hadronizes: 0,
     };
@@ -44,7 +44,7 @@ export default {
       this.bestSet = Glyphs.copyForRecords(player.records.bestReality.laitelaSet);
       this.tierNotCompleted = this.realityTime === 3600 || (this.realityTime === 300 && this.maxDimTier < 8);
       this.hadronizeUnlocked = ExpansionPack.laitelaPack.isBought && !player.disablePostReality;
-      this.darkEnergyBoost = Laitela.realityRewardDE;
+      this.darkEnergyBoost.copyFrom(Laitela.realityRewardDE);
       this.hasHadronizes = this.hadronizes > 0;
       this.hadronizes = Laitela.hadronizes;
     },

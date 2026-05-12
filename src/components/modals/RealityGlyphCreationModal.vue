@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     update() {
-      this.isDoomed = Pelle.isDoomed && !PelleAlchemyUpgrade.alchemyReality.isBought;
+      this.isDoomed = Pelle.isDoomed && !PelleAlchemyUpgrade.alchemyReality.canBeApplied;
       this.realityGlyphLevel = AlchemyResource.reality.effectValue;
       const realityEffectConfigs = GlyphEffects.all
         .filter(eff => eff.glyphTypes.includes("reality"))

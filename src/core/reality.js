@@ -44,7 +44,7 @@ export const GlyphSelection = {
     // effects are spread out over the choices of each consecutive group of 5 realities
     // This is disabled when you can pick over 4 Glyphs.
     if (GlyphGenerator.isUniformityActive && GlyphSelection.choiceCount <= 4) {
-      glyphList = GlyphGenerator.uniformGlyphs(level, rng, player.realities);
+      glyphList = GlyphGenerator.uniformGlyphs(level, rng, player.realities.toNumber());
     } else {
       for (let out = 0; out < count; ++out) {
         types.push(GlyphGenerator.randomType(rng, types));
@@ -112,7 +112,7 @@ export const GlyphSelection = {
   // The uniformity code behaves poorly without START, so we generate actually generate them 4 at a time and then
   // deterministically pick one of them randomly
   get indexWithoutSTART() {
-    const lexIndex = player.realities * ((player.reality.initialSeed % 5) + 3);
+    const lexIndex = player.realities.times((player.reality.initialSeed % 5) + 3).toNumber();
     return permutationIndex(4, lexIndex)[0];
   }
 };
@@ -164,7 +164,7 @@ export function startManualReality(sacrifice, glyphID) {
 export function processManualReality(sacrifice, glyphID) {
   if (!isRealityAvailable()) return;
 
-  if (player.realities === 0) {
+  if (player.realities.eq(0)) {
     // If this is our first Reality, lock in the initial seed and then give the companion and starting glyphs
     player.reality.seed = player.reality.initialSeed;
     Glyphs.addToInventory(GlyphGenerator.startingGlyph(gainedGlyphLevel()));
@@ -303,7 +303,7 @@ function updateRealityRecords(realityProps) {
 }
 
 function giveRealityRewards(realityProps) {
-  const multiplier = realityProps.simulatedRealities + 1;
+  const multiplier = new Decimal(realityProps.simulatedRealities).add(1).toNumber();
   const realityAndPPMultiplier = multiplier + binomialDistribution(multiplier, Achievement(154).effectOrDefault(0));
   const gainedRM = Currency.realityMachines.gte(MachineHandler.hardcapRM) ? DC.D0 : realityProps.gainedRM;
   Currency.realityMachines.add(gainedRM.times(multiplier));
@@ -345,7 +345,8 @@ function giveRealityRewards(realityProps) {
       // Encode iM values into the RM variable as e10000 * iM in order to only require one prop
       let machineRecord;
       if (Currency.imaginaryMachines.value.eq(0)) machineRecord = player.reality.maxRM;
-      else machineRecord = DC.E10000.times(Currency.imaginaryMachines.value);
+      else if (Currency.dualMachines.value.eq(0)) machineRecord = DC.E10000.times(Currency.imaginaryMachines.value);
+      else machineRecord = DC.E20000.times(Currency.dualMachines.value);
       player.celestials.teresa.lastRepeatedMachines = player.celestials.teresa.lastRepeatedMachines
         .clampMin(machineRecord);
     }
@@ -375,8 +376,8 @@ export function beginProcessReality(realityProps) {
   // that we don't try to reality again while async is running, but we need to retain RNG and level or else
   // glyphs will be generated with values based on post-reset values
   const glyphsToProcess = (Ra.unlocks.maxGlyphRarityAndShardSacrificeBoost.canBeApplied && Ra.unlocks.glyphEffectCount.canBeApplied
-    ? Math.min(realityProps.simulatedRealities + (realityProps.alreadyGotGlyph ? 0 : 1), 99)
-    : realityProps.simulatedRealities + (realityProps.alreadyGotGlyph ? 0 : 1));
+    ? Decimal.min(new Decimal(realityProps.simulatedRealities).add(realityProps.alreadyGotGlyph ? 0 : 1), 99).toNumber()
+    : new Decimal(realityProps.simulatedRealities).add(realityProps.alreadyGotGlyph ? 0 : 1).toNumber());
   const rng = GlyphGenerator.getRNG(false);
   const glyphLevel = gainedGlyphLevel();
   finishProcessReality(realityProps);
@@ -613,7 +614,10 @@ export function finishProcessReality(realityProps) {
     AutomatorBackend.start(AutomatorBackend.state.topLevelScript);
   }
 
-  const celestialRunState = clearCelestialRuns();
+  let celestialRunState;
+  if (!(Alpha.isRunning && Alpha.currentStage === 27 || Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ENDGAME)) {
+    celestialRunState = clearCelestialRuns();
+  }
   recalculateAllGlyphs();
   Glyphs.updateMaxGlyphCount(true);
 
@@ -637,7 +641,7 @@ export function finishProcessReality(realityProps) {
   player.galaxies = DC.D0;
   player.partInfinityPoint = DC.D0;
   player.partInfinitied = 0;
-  if (!Pelle.isDoomed || !PelleRealityUpgrade.existentiallyProlong.isBought) player.break = false;
+  if (!Pelle.isDoomed || !PelleRealityUpgrade.existentiallyProlong.canBeApplied) player.break = false;
   player.IPMultPurchases = DC.D0;
   Currency.infinityPower.reset();
   Currency.timeShards.reset();
@@ -653,7 +657,7 @@ export function finishProcessReality(realityProps) {
   player.records.bestEternity.time = new Decimal(999999999999);
   player.records.bestEternity.realTime = 999999999999;
   if (!PelleUpgrade.keepEternityUpgrades.canBeApplied) player.eternityUpgrades.clear();
-  player.totalTickGained = 0;
+  player.totalTickGained = DC.D0;
   if (!PelleUpgrade.keepEternityChallenges.canBeApplied) player.eternityChalls = {};
   player.reality.unlockedEC = 0;
   player.reality.lastAutoEC = 0;
@@ -759,6 +763,12 @@ export function finishProcessReality(realityProps) {
   if (Pelle.isDoomed && PelleUpgrade.keepAutobuyers.canBeApplied && Autobuyer.bigCrunch.hasMaxedInterval) {
     player.break = true;
   }
+
+  if (Alpha.isRunning && Alpha.currentStage === 27) {
+    Alpha.advanceLayer();
+    Alpha.quotes.reality.show();
+    Pelle.quotes.beatAlpha.show();
+  }
 }
 
 function restoreCelestialRuns(celestialRunState) {
@@ -774,6 +784,8 @@ function restoreCelestialRuns(celestialRunState) {
   if (player.celestials.ra.run) Ra.initializeRun();
   player.celestials.laitela.run = celestialRunState.laitela;
   if (player.celestials.laitela.run) Laitela.initializeRun();
+  player.celestials.alpha.run = celestialRunState.alpha;
+  if (player.celestials.alpha.run) Alpha.initializeRun();
 }
 
 // This is also called when the upgrade is purchased, be aware of potentially having "default" values overwrite values

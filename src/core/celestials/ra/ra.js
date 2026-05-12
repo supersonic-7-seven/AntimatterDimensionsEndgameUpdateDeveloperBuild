@@ -267,7 +267,7 @@ export const Ra = {
     for (const pet of Ra.pets.all) pet.tick(realDiff, generateChunks);
   },
   get productionPerMemoryChunk() {
-    let res = new Decimal(Effects.product(Ra.unlocks.continuousTTBoost.effects.memories, Achievement(168)));
+    let res = new Decimal(Effects.product(Ra.unlocks.continuousTTBoost.effects.memories, Achievement(168), Achievement(236)));
     for (const pet of Ra.pets.all) {
       if (pet.isUnlocked) res = res.times(pet.memoryProductionMultiplier);
     }
@@ -395,8 +395,10 @@ export const Ra = {
       : 25000 * Ra.unlocks.alchemyCapIncrease.effectOrDefault(1);
   },
   get momentumValue() {
-    const hoursFromUnlock = TimeSpan.fromMilliseconds(new Decimal(player.celestials.ra.momentumTime)).totalHours.toNumber();
-    return Math.clampMax(1 + 0.005 * hoursFromUnlock, AlchemyResource.momentum.effectValue);
+    const hoursFromUnlock = EffarigUnlock.maxMomentum.isUnlocked
+      ? Infinity
+      : TimeSpan.fromMilliseconds(new Decimal(player.celestials.ra.momentumTime)).totalHours.toNumber();
+    return Math.clampMax(1 + 0.01 * hoursFromUnlock, AlchemyResource.momentum.effectValue);
   },
   quotes: Quotes.ra,
   symbol: "<i class='fas fa-sun'></i>"
@@ -416,7 +418,7 @@ export const GlyphAlteration = {
     return new Decimal(1e60);
   },
   getSacrificePower(type) {
-    if (Pelle.isDisabled("alteration") && !PelleCelestialUpgrade.raTeresa3.isBought) return new Decimal(0);
+    if (Pelle.isDisabled("alteration") && !PelleCelestialUpgrade.raTeresa3.canBeApplied) return new Decimal(0);
     const sacPower = player.reality.glyphs.sac[type];
     if (sacPower === undefined) {
       throw new Error("Unknown sacrifice type");
@@ -424,7 +426,7 @@ export const GlyphAlteration = {
     return sacPower;
   },
   get isUnlocked() {
-    if (Pelle.isDisabled("alteration") && !PelleCelestialUpgrade.raTeresa3.isBought) return false;
+    if (Pelle.isDisabled("alteration") && !PelleCelestialUpgrade.raTeresa3.canBeApplied) return false;
     return Ra.unlocks.alteredGlyphs.canBeApplied && !player.disablePostReality;
   },
   isAdded(type) {
