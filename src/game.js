@@ -204,6 +204,10 @@ export function gainedInfinityPoints() {
     ));
   }
 
+  if (!player.disablePostReality && AlchemyResource.exponential.amount > 0 && ResurgenceUpgrade.repSurge.isBought) {
+    ip = ip.pow(ReplicantiMultipliers.ipPow);
+  }
+
   return ip.floor();
 }
 
