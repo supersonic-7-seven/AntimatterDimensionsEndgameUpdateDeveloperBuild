@@ -244,10 +244,12 @@ export function resetForDivineStars() {
   if (!DivinityUpgrade.divineL2U5.isBought) {
     let upgR = [];
     for (let upgL = 0; upgL < DivinityUpgrades.all.filter(u => u.layer !== 1).length; upgL++) {
-      upgR.push(DivinityUpgrades.all.filter(u => u.layer !== 1)[upgL].id)
+      if (DivinityUpgrades.all.filter(u => u.layer !== 1)[upgL].isBought) {
+        upgR.push(DivinityUpgrades.all.filter(u => u.layer !== 1)[upgL].id);
+      }
     }
     upgR.push("divineL1U5");
-    player.celestials.pelle.divineUpgrades = new Set(upgR);
+    player.celestials.pelle.divinityUpgrades = new Set(upgR);
   }
   player.records.thisCondense.time = DC.D0;
   player.records.thisCondense.realTime = 0;
