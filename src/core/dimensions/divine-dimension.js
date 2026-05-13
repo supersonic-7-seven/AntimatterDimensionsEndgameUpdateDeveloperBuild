@@ -233,14 +233,35 @@ export const DivineDimensions = {
   }
 };
 
+function giveCondenseRewards(auto) {
+  player.records.bestCondense.time = Decimal.min(player.records.thisCondense.time, player.records.bestCondense.time);
+  Currency.divineStars.add(gainedDivineStars());
+
+  const newCondenses = gainedCondenses();
+
+  Currency.condenses.add(newCondenses);
+
+  addCondenseTime(
+    player.records.thisCondense.time,
+    player.records.thisCondense.realTime,
+    gainedDivineStars(),
+    newCondenses
+  );
+
+  player.records.thisSupernova.bestCondensesPerMs = player.records.thisSupernova.bestCondensesPerMs.clampMin(
+    newCondenses.div(Math.clampMin(33, player.records.thisCondense.realTime))
+  );
+  player.records.bestCondense.bestVSminSupernova =
+    player.records.bestCondense.bestVSminSupernova.max(player.records.thisCondense.bestVSmin);
+}
+
 export function resetForDivineStars() {
   if (Currency.divineMatter.lt(DC.NUMMAX)) return;
-  player.celestials.pelle.divinity.divineStars = player.celestials.pelle.divinity.divineStars.add(gainedDivineStars());
-  player.celestials.pelle.divinity.condenses = player.celestials.pelle.divinity.condenses.add(1);
+  giveCondenseRewards();
   Endgame.resetNoReward();
   DivineDimensions.fullReset();
+  player.records.thisCondense.maxVM = DC.E1;
   Currency.divineMatter.reset();
-  player.records.totalCondenseDivineMatter = DC.E1;
   if (!DivinityUpgrade.divineL2U5.isBought) {
     let upgR = [];
     for (let upgL = 0; upgL < DivinityUpgrades.all.filter(u => u.layer !== 1).length; upgL++) {
@@ -253,4 +274,5 @@ export function resetForDivineStars() {
   }
   player.records.thisCondense.time = DC.D0;
   player.records.thisCondense.realTime = 0;
+  player.records.totalCondenseDivineMatter = DC.E1;
 };
