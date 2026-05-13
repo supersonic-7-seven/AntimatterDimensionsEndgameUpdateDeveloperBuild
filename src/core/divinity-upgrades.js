@@ -11,7 +11,7 @@ export class DivinityUpgradeState extends SetPurchasableMechanicState {
   
   get currency() {
     //if (this.layer === 4 || this.layer === 5) return Currency.nebulae;
-    //if (this.layer === 2 || this.layer === 3) return Currency.divineStars;
+    if (this.layer === 2 || this.layer === 3) return Currency.divineStars;
     if (this.layer === 1) return Currency.divineMatter;
   }
 

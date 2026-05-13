@@ -733,7 +733,7 @@ Currency.divineMatter = new class extends DecimalCurrency {
   }
 
   get startingValue() {
-    return Effects.max(10).toDecimal();
+    return Effects.max(10, DivinityUpgrade.divineL2U6).toDecimal();
   }
 
   reset() {

@@ -22,6 +22,8 @@ export default {
     return {
       canBeBought: false,
       isBought: false,
+      isSecond: false,
+      isThird: false
     };
   },
   computed: {
@@ -40,6 +42,8 @@ export default {
       const upgrade = this.upgrade;
       this.canBeBought = upgrade.canBeBought;
       this.isBought = upgrade.isBought;
+      this.isSecond = upgrade.config.layer === 2 || upgrade.config.layer === 3;
+      this.isThird = upgrade.config.layer === 4 || upgrade.config.layer === 5;
     }
   }
 };
@@ -69,7 +73,7 @@ export default {
             v-if="!isBought"
             :config="config"
             br
-            :name="false ? 'Nebula' : (false ? 'Divine Star' : 'Divine Matter')"
+            :name="isThird ? 'Nebula' : (isSecond ? 'Divine Star' : 'Divine Matter')"
           />
         </template>
       </span>
