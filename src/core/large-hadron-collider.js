@@ -267,3 +267,15 @@ class PowerCoreState extends GameMechanicState {
 }
 
 LHC.powerCores = new PowerCoreState();
+
+export function enterTheVoid() {
+  player.disablePostReality = true;
+  Endgame.resetNoReward();
+  player.endgame.largeHadronCollider.void.isRunning = true;
+};
+
+export function exitTheVoid() {
+  player.disablePostReality = false;
+  Endgame.resetNoReward();
+  player.endgame.largeHadronCollider.void.isRunning = false;
+};
