@@ -167,7 +167,7 @@ export function getReplicantiInterval(overCapOverride, intervalIn) {
 
   if (!player.disablePostReality) interval = interval.pow(AlphaUnlocks.replicanti.effects.buff.effectOrDefault(1));
 
-  if (getSecondaryGlyphEffect("replicationdtgain").neq(0) && ResurgenceUpgrade.repSurge.isBought) {
+  if (getSecondaryGlyphEffect("replicationdtgain").neq(0) && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) {
     interval = interval.pow(1 / ReplicantiMultipliers.dtPow);
   }
   
