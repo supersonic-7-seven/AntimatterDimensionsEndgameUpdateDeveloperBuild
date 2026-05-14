@@ -166,6 +166,10 @@ export function getReplicantiInterval(overCapOverride, intervalIn) {
   if (Alpha.isRunning) interval = interval.pow(AlphaUnlocks.replicanti.effects.nerf.effectOrDefault(1));
 
   if (!player.disablePostReality) interval = interval.pow(AlphaUnlocks.replicanti.effects.buff.effectOrDefault(1));
+
+  if (getSecondaryGlyphEffect("replicationdtgain").neq(0) && ResurgenceUpgrade.repSurge.isBought) {
+    interval = interval.pow(1 / ReplicantiMultipliers.dtPow);
+  }
   
   return interval;
 }
@@ -217,8 +221,7 @@ export function totalReplicantiSpeedMult(overCap) {
   }
   totalMult = totalMult.times(getAdjustedGlyphEffect("replicationspeed"));
   if (GlyphAlteration.isAdded("replication")) {
-    totalMult = totalMult.times(
-      Decimal.clampMin(Decimal.log10(Replicanti.amount.add(1)).times(getSecondaryGlyphEffect("replicationdtgain")), 1));
+    totalMult = totalMult.times(ReplicantiMultipliers.dtMult);
   }
   totalMult = totalMult.timesEffectsOf(AlchemyResource.replication, Ra.unlocks.continuousTTBoost.effects.replicanti);
 
