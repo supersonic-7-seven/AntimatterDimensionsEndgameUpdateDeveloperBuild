@@ -10403,15 +10403,16 @@ kbd {
 .c-void-run-button--running {
   z-index: 0;
   color: white;
-  animation: a-void-run-glow 12s ease-in-out infinite alternate;
+  animation: a-void-glow 2s ease-in-out infinite alternate;
+  animation: a-void-run-glow 20s ease-in-out infinite alternate;
 }
 
 @keyframes a-void-run-glow {
-  0% { background-color: #000040; }
+  0% { background-color: #000020; }
   25% { background-color: black; }
-  50% { background-color: #400040; }
+  50% { background-color: #200020; }
   75% { background-color: black; }
-  100% { background-color: #000040; }
+  100% { background-color: #000020; }
 }
 
 .c-performance-stats {
