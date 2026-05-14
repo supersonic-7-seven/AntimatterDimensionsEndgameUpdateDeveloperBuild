@@ -156,8 +156,7 @@ export function getDilationGainPerSecond() {
     if (PelleCelestialUpgrade.raV3.canBeApplied) pelleExtraDT = pelleExtraDT.timesEffectOf(Ra.unlocks.continuousTTBoost.effects.dilatedTime);
     if (PelleCelestialUpgrade.raNameless4.canBeApplied) pelleExtraDT = pelleExtraDT.timesEffectOf(Ra.unlocks.peakGamespeedDT);
     if (PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied) pelleExtraDT = pelleExtraDT.times(getAdjustedGlyphEffect("dilationDT"));
-    if (PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied) pelleExtraDT = pelleExtraDT.times(
-      Decimal.clampMin(Decimal.log10(Replicanti.amount.add(1)).times(getAdjustedGlyphEffect("replicationdtgain")), 1));
+    if (PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied) pelleExtraDT = pelleExtraDT.times(ReplicantiMultipliers.dtMult);
     if (!PelleDestructionUpgrade.disableDTNerf.canBeApplied) pelleExtraDT = pelleExtraDT.div(1e5);
     if (EndgameMilestone.realityShardDTBoost.isReached && !player.disablePostReality) pelleExtraDT = pelleExtraDT.times(Currency.realityShards.value.plus(1));
     const tachyonEffect = Currency.tachyonParticles.value.pow(PelleRifts.paradox.milestones[1].effectOrDefault(1));
@@ -166,6 +165,9 @@ export function getDilationGainPerSecond() {
       .times(ShopPurchase.dilatedTimePurchases.currentMult ** 0.5)
       .times(Pelle.specialGlyphEffect.dilation).times(pelleExtraDT)
       .times(Alpha.isRunning ? getGameSpeedupForDisplay().pow(0.01) : getGameSpeedupForDisplay());
+    if (getAdjustedGlyphEffect("replicationdtgain").neq(0) && PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied && ResurgenceUpgrade.repSurge.isBought) {
+      dtRate = dtRate.pow(ReplicantiMultipliers.dtPow);
+    }
     if (dtRate.gte(DilationSoftcapStart.PRIMARY_THRESHOLD)) {
       dtRate = Decimal.pow(10, (((Decimal.log10(dtRate).sub(Decimal.log10(DilationSoftcapStart.PRIMARY_THRESHOLD))).div(10)).add(
         Decimal.log10(DilationSoftcapStart.PRIMARY_THRESHOLD))));
@@ -184,11 +186,13 @@ export function getDilationGainPerSecond() {
     );
   dtRate = dtRate.times(getAdjustedGlyphEffect("dilationDT"));
   dtRate = dtRate.times(ShopPurchase.dilatedTimePurchases.currentMult);
-  dtRate = dtRate.times(
-    Decimal.clampMin(Decimal.log10(Replicanti.amount.add(1)).times(getAdjustedGlyphEffect("replicationdtgain")), 1));
+  dtRate = dtRate.times(ReplicantiMultipliers.dtMult);
   if (Enslaved.isRunning && !dtRate.eq(0)) dtRate = Decimal.pow10(Decimal.pow(dtRate.plus(1).log10(), 0.85).sub(1));
   if (V.isRunning) dtRate = dtRate.pow(0.5);
   dtRate = dtRate.times(Alpha.isRunning ? getGameSpeedupForDisplay().pow(0.01) : getGameSpeedupForDisplay());
+  if (getAdjustedGlyphEffect("replicationdtgain").neq(0) && ResurgenceUpgrade.repSurge.isBought) {
+    dtRate = dtRate.pow(ReplicantiMultipliers.dtPow);
+  }
   if (dtRate.gte(DilationSoftcapStart.PRIMARY_THRESHOLD)) {
     dtRate = Decimal.pow(10, (((Decimal.log10(dtRate).sub(Decimal.log10(DilationSoftcapStart.PRIMARY_THRESHOLD))).div(10)).add(
       Decimal.log10(DilationSoftcapStart.PRIMARY_THRESHOLD))));

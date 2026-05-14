@@ -13,6 +13,43 @@ export const ReplicantiGrowth = {
   }
 };
 
+export function replicantiMultToPower(value) {
+  return Decimal.log10(Decimal.log10(value.max(1)).add(1)).div(100).add(1).toNumber();
+};
+
+export const ReplicantiMultipliers = {
+  get idMult() {
+    return replicantiMult();
+  },
+  get idPow() {
+    return replicantiMultToPower(this.idMult);
+  },
+  get tdMult() {
+    return DilationUpgrade.tdMultReplicanti.effectOrDefault(1);
+  },
+  get tdPow() {
+    return replicantiMultToPower(this.tdMult);
+  },
+  get dtMult() {
+    return Decimal.clampMin(Decimal.log10(Replicanti.amount.add(1)).times(getAdjustedGlyphEffect("replicationdtgain")), 1);
+  },
+  get dtPow() {
+    return replicantiMultToPower(this.dtMult);
+  },
+  get ipMult() {
+    return Replicanti.amount.powEffectOf(AlchemyResource.exponential);
+  },
+  get ipPow() {
+    return replicantiMultToPower(this.ipMult);
+  },
+  get deMult() {
+    return Decimal.pow(Decimal.log2(Replicanti.amount.add(1)), 10).add(1);
+  },
+  get dePow() {
+    return replicantiMultToPower(this.deMult);
+  }
+};
+
 // Internal function to add RGs; called both from within the fast replicanti code and from the function
 // used externally. Only called in cases of automatic RG and does not actually modify replicanti amount
 function addReplicantiGalaxies(newGalaxiesNum) {

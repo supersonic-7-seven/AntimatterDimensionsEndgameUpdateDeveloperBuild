@@ -204,6 +204,10 @@ export function gainedInfinityPoints() {
     ));
   }
 
+  if (!player.disablePostReality && AlchemyResource.exponential.amount > 0 && ResurgenceUpgrade.repSurge.isBought) {
+    ip = ip.pow(ReplicantiMultipliers.ipPow);
+  }
+
   return ip.floor();
 }
 
@@ -398,6 +402,11 @@ export function addCelestialEternityTime(time, realTime, cep, celeternities) {
   player.records.recentCelestialEternities.unshift([time, realTime, cep, celeternities]);
 }
 
+export function addCondenseTime(time, realTime, vs, condenses) {
+  player.records.recentCondenses.pop();
+  player.records.recentCondenses.unshift([time, realTime, vs, condenses]);
+}
+
 export function gainedInfinities() {
   if (EternityChallenge(4).isRunning) {
     return DC.D1;
@@ -460,6 +469,10 @@ export function gainedCelestialEternityPoints() {
     gainedCelestialInfinityPoints()).add(1).log10().div(308).sub(0.7)).times(totalCEPMult());
 
   return cep.floor();
+}
+
+export function gainedCondenses() {
+  return DC.D1;
 }
 
 export function gainedDivineStars() {
@@ -1114,6 +1127,12 @@ function updatePrestigeRates() {
   if (currentCEPmin.gt(player.records.thisCelestialEternity.bestCEPmin) && Currency.celestialInfinityPoints.gte(DC.NUMMAX)) {
     player.records.thisCelestialEternity.bestCEPmin = currentCEPmin;
     player.records.thisCelestialEternity.bestCEPminVal = gainedCelestialEternityPoints();
+  }
+
+  const currentVSmin = gainedDivineStars().dividedBy(Decimal.clampMin(0.0005, Time.thisCondenseRealTime.totalMinutes));
+  if (currentVSmin.gt(player.records.thisCondense.bestVSmin) && Currency.divineMatter.gte(DC.NUMMAX)) {
+    player.records.thisCondense.bestVSmin = currentVSmin;
+    player.records.thisCondense.bestVSminVal = gainedDivineStars();
   }
 }
 

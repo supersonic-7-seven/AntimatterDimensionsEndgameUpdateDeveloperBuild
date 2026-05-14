@@ -22,7 +22,7 @@ export function infinityDimensionCommonMultiplier() {
     );
 
   if (Replicanti.areUnlocked && Replicanti.amount.gt(1)) {
-    mult = mult.times(replicantiMult());
+    mult = mult.times(ReplicantiMultipliers.idMult);
   }
 
   return mult;
@@ -205,6 +205,8 @@ class InfinityDimensionState extends DimensionState {
     if (Alpha.isRunning) mult = mult.pow(AlphaUnlocks.eternityUpgrades.effects.nerf.effectOrDefault(1));
 
     mult = mult.powEffectOf(DualityUpgrade(8));
+
+    if (Replicanti.areUnlocked && ResurgenceUpgrade.repSurge.isBought) mult = mult.pow(ReplicantiMultipliers.idPow);
 
     mult = dilateMultiplier(mult, EtherealStars.orange.reward);
 

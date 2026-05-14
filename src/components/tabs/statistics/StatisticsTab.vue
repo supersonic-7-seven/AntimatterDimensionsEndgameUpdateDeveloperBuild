@@ -96,6 +96,17 @@ export default {
         isUnlocked: false,
         count: 0
       },
+      condense: {
+        isUnlocked: false,
+        count: new Decimal(0),
+        totalCondenseDivineMatter: new Decimal(0),
+        hasBest: false,
+        best: TimeSpan.zero,
+        bestReal: TimeSpan.zero,
+        this: TimeSpan.zero,
+        thisReal: TimeSpan.zero,
+        bestRate: new Decimal(0),
+      },
       matterScale: [],
       lastMatterTime: 0,
       paperclips: 0,
@@ -146,6 +157,12 @@ export default {
       return num.gt(0)
         ? `${this.formatDecimalAmount(num)} ${pluralize("Divinity", num.floor())}`
         : "no Divinities";
+    },
+    condenseCountString() {
+      const num = this.condense.count;
+      return num.gt(0)
+        ? `${this.formatDecimalAmount(num)} ${pluralize("Condense", num.floor())}`
+        : "no Condenses";
     },
     fullGameCompletions() {
       return player.records.fullGameCompletions;
@@ -282,6 +299,21 @@ export default {
       if (isDivinityUnlocked) {
         divinity.count = Math.floor(player.celestials.pelle.divinities);
       }
+
+      const isCondenseUnlocked = progress.isCondenseUnlocked;
+      const condense = this.condense;
+      const bestCondense = records.bestCondense;
+      condense.isUnlocked = isCondenseUnlocked;
+      if (isCondenseUnlocked) {
+        condense.count.copyFrom(Currency.condenses);
+        condense.totalCondenseDivineMatter.copyFrom(records.totalCondenseDivineMatter);
+        condense.hasBest = bestCondense.realTime < 999999999999;
+        condense.best.setFrom(bestCondense.time);
+        condense.bestReal.setFrom(new Decimal(bestCondense.realTime));
+        condense.this.setFrom(records.thisCondense.time);
+        condense.thisReal.setFrom(new Decimal(records.thisCondense.realTime));
+        condense.bestRate.copyFrom(bestCondense.bestVSminSupernova);
+      }
       this.updateMatterScale();
 
       this.isDoomed = Pelle.isDoomed;
@@ -349,6 +381,9 @@ export default {
         <div v-if="celestialInfinity.isUnlocked" class="c-stats-tab-celestials">
           You have made a total of {{ format(celestialInfinity.totalCelestialInfinityCelMatter, 2, 1) }} Celestial Matter
           this Celestial Infinity.
+        </div>
+        <div v-if="condense.isUnlocked" class="c-stats-tab-divinity">
+          You have made a total of {{ format(condense.totalCondenseDivineMatter, 2, 1) }} Divine Matter this Condense.
         </div>
         <div v-if="hasSeenDivineDims" class="c-stats-tab-divinity">
           You have made a total of {{ format(totalDivineMatter, 2, 1) }} Divine Matter.
@@ -608,6 +643,33 @@ export default {
       </div>
       <br>
     </div>
+    <div
+      v-if="condense.isUnlocked"
+      class="c-stats-tab-subheader c-stats-tab-general"
+    >
+      <div class="c-stats-tab-title c-stats-tab-condense">
+        Condense
+      </div>
+      <div>
+        You have {{ condenseCountString }}.
+      </div>
+      <div v-if="celestialInfinity.hasBest">
+        Your fastest game-time Condense was {{ condense.best.toStringShort() }}.
+        Your fastest real-time Condense was {{ condense.bestReal.toStringShort() }}.
+      </div>
+      <div v-else>
+        You have no fastest Condense.
+      </div>
+      <div>
+        You have spent {{ condense.this.toStringShort() }} in this Condense.
+        ({{ condense.thisReal.toStringShort() }} real time)
+      </div>
+      <div>
+        Your best Divine Stars per minute
+        is {{ format(condense.bestRate, 2, 2) }}.
+      </div>
+      <br>
+    </div>
   </div>
 </template>
 
@@ -669,5 +731,12 @@ export default {
 
 .c-stats-tab-divinity {
   color: var(--color-pelle--base);
+}
+
+.c-stats-tab-condense {
+  background: linear-gradient(red, yellow, cyan);
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
 }
 </style>

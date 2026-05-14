@@ -426,6 +426,8 @@ window.player = {
       [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1]),
     recentCelestialEternities: Array.range(0, 10).map(() =>
       [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1]),
+    recentCondenses: Array.range(0, 10).map(() =>
+      [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1]),
     thisInfinity: {
       time: DC.D0,
       realTime: 0,
@@ -545,6 +547,15 @@ window.player = {
       time: DC.BEMAX,
       realTime: Number.MAX_VALUE,
       bestVSminSupernova: DC.D0,
+    },
+    thisSupernova: {
+      time: DC.D0,
+      realTime: 0,
+      maxVM: DC.D0,
+      maxVS: DC.D0,
+      bestNebmin: DC.D0,
+      bestNebminVal: DC.D0,
+      bestCondensesPerMs: DC.D0,
     },
     permanent: {
       maxCP: DC.D0,

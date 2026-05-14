@@ -206,7 +206,7 @@ export const alphaUnlocks = {
     buffDescription: "Replicanti boosts Dark Energy gain at a reduced rate",
     effects: {
       nerf: 1.5,
-      buff: () => Decimal.pow(Decimal.log2(player.replicanti.amount.add(1)), 10).add(1)
+      buff: () => ReplicantiMultipliers.deMult
     }
   },
   eternityChallenge11: {
