@@ -56,7 +56,7 @@ export default {
   methods: {
     update() {
       this.has1 = DivinityMilestone.divineDimensions.isReached;
-      this.has2 = PlayerProgress.divineStarsUnlocked();
+      this.has2 = PlayerProgress.condenseUnlocked();
       this.has3 = (DivinityUpgrades.all.filter(u => u.layer === 2 && u.isBought).length === DivinityUpgrades.all.filter(u => u.layer === 2).length);
       //this.has4 = PlayerProgress.nebulaeUnlocked();
       //this.has5 = (DivinityUpgrades.all.filter(u => u.layer === 4 && u.isBought).length === DivinityUpgrades.all.filter(u => u.layer === 4).length);
