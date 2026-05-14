@@ -175,11 +175,11 @@ export default {
       this.multIP.copyFrom(ReplicantiMultipliers.ipMult);
       this.hasDEMult = !player.disablePostReality && Alpha.currentStage >= 21;
       this.multDE.copyFrom(ReplicantiMultipliers.deMult);
-      this.hasPow = ResurgenceUpgrade.repSurge.isBought;
+      this.hasPow = ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality;
       this.pow = ReplicantiMultipliers.idPow;
-      this.hasTDPow = ResurgenceUpgrade.repSurge.isBought && DilationUpgrade.tdMultReplicanti.isBought;
+      this.hasTDPow = ResurgenceUpgrade.repSurge.isBought && DilationUpgrade.tdMultReplicanti.isBought && !player.disablePostReality;
       this.powTD = ReplicantiMultipliers.tdPow;
-      this.hasDTPow = ResurgenceUpgrade.repSurge.isBought && getAdjustedGlyphEffect("replicationdtgain").neq(0) && !Pelle.isDoomed;
+      this.hasDTPow = ResurgenceUpgrade.repSurge.isBought && getAdjustedGlyphEffect("replicationdtgain").neq(0) && !Pelle.isDoomed && !player.disablePostReality;
       this.powDT = ReplicantiMultipliers.dtPow;
       this.hasIPPow = ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality && AlchemyResource.exponential.amount > 0 && !this.isDoomed;
       this.powIP = ReplicantiMultipliers.ipPow;
