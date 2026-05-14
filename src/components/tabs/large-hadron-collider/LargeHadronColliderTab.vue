@@ -12,7 +12,8 @@ export default {
       hadronSpeed: 0,
       accelPower: 1,
       amSoftcap: new Decimal(),
-      amHardcap: new Decimal()
+      amHardcap: new Decimal(),
+      isRunning: false
     };
   },
   computed: {
@@ -20,6 +21,20 @@ export default {
       if (this.hadronSpeed === 0) return `Your Hadrons are stationary`;
       if (this.hadronSpeed >= 1000) return `Your Hadrons are moving at ${formatHybridLarge(this.hadronSpeed, 3)} m/s`;
       return `Your Hadrons are moving at ${format(this.hadronSpeed, 3, 3)} m/s`;
+    },
+    voidText() {
+      return "[Enter the Void.]";
+    },
+    runButtonOuterClass() {
+      return {
+        "l-void-run-button": true,
+        "c-void-run-button": true,
+        "c-void-run-button--running": this.isRunning,
+        "c-void-run-button--not-running": !this.isRunning,
+      };
+    },
+    runButtonInnerClass() {
+      return this.isRunning ? "c-void-run-button__inner--running" : "c-void-run-button__inner--not-running";
     },
   },
   methods: {
@@ -29,6 +44,7 @@ export default {
       this.accelPower = LHC.acceleratorSpeed * 100000;
       this.amSoftcap.copyFrom(Pelle.isDoomed ? DC.E9E15 : Decimal.pow10(1e200));
       this.amHardcap.copyFrom(Pelle.isDoomed ? DC.ENUMMAX : LHC.breakingPoint);
+      this.isRunning = player.endgame.largeHadronCollider.void.isRunning;
     },
   }
 };
@@ -55,6 +71,19 @@ export default {
       <div class="c-large-hadron-collider-entropy">
         Excess Entropy in the universe has caused your Antimatter to decay past {{ format(amSoftcap, 2, 2) }},
         and has restricted it from exceeding {{ format(amHardcap, 2, 2) }}.
+      </div>
+    </div>
+    <div class="l-void-run">
+      <div
+        :class="runButtonOuterClass"
+        @click="startRun"
+      >
+        <div
+          :class="runButtonInnerClass"
+          :button-symbol="voidText"
+        >
+          {{ voidText }}
+        </div>
       </div>
     </div>
   </div>
