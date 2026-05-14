@@ -10,7 +10,7 @@ export const MachineHandler = {
     const largeBoost = DC.D1.timesEffectsOf(SingularityMilestone.rmCap, Ra.unlocks.realityMachineCap).times(DivineDimensions.conversionFormula2);
     return Decimal.pow(this.baseRMCap.times(effectMultipliers).times(
       Decimal.pow(ImaginaryUpgrade(6).effectOrDefault(1), smallBoost)), largeBoost).times(
-      ResurgenceUpgrade.rmSurge.isBought ? player.realities : 1);
+      ResurgenceUpgrade.rmSurge.isBought && !player.disablePostReality ? player.realities : 1);
   },
 
   get hardcapRM() {
@@ -41,7 +41,7 @@ export const MachineHandler = {
       rmGain = rmGain.powEffectsOf(EndgameMastery(143));
     }
     rmGain = rmGain.pow(DivineDimensions.conversionFormula2);
-    rmGain = rmGain.times(ResurgenceUpgrade.rmSurge.isBought ? player.realities : 1);
+    rmGain = rmGain.times(ResurgenceUpgrade.rmSurge.isBought && !player.disablePostReality ? player.realities : 1);
     return rmGain.floor();
   },
 
