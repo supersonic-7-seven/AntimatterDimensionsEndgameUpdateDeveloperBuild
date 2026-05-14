@@ -165,7 +165,7 @@ export function getDilationGainPerSecond() {
       .times(ShopPurchase.dilatedTimePurchases.currentMult ** 0.5)
       .times(Pelle.specialGlyphEffect.dilation).times(pelleExtraDT)
       .times(Alpha.isRunning ? getGameSpeedupForDisplay().pow(0.01) : getGameSpeedupForDisplay());
-    if (getAdjustedGlyphEffect("replicationdtgain").neq(0) && PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied && ResurgenceUpgrade.repSurge.isBought) {
+    if (getAdjustedGlyphEffect("replicationdtgain").neq(0) && PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) {
       dtRate = dtRate.pow(ReplicantiMultipliers.dtPow);
     }
     if (dtRate.gte(DilationSoftcapStart.PRIMARY_THRESHOLD)) {
@@ -190,7 +190,7 @@ export function getDilationGainPerSecond() {
   if (Enslaved.isRunning && !dtRate.eq(0)) dtRate = Decimal.pow10(Decimal.pow(dtRate.plus(1).log10(), 0.85).sub(1));
   if (V.isRunning) dtRate = dtRate.pow(0.5);
   dtRate = dtRate.times(Alpha.isRunning ? getGameSpeedupForDisplay().pow(0.01) : getGameSpeedupForDisplay());
-  if (getAdjustedGlyphEffect("replicationdtgain").neq(0) && ResurgenceUpgrade.repSurge.isBought) {
+  if (getAdjustedGlyphEffect("replicationdtgain").neq(0) && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) {
     dtRate = dtRate.pow(ReplicantiMultipliers.dtPow);
   }
   if (dtRate.gte(DilationSoftcapStart.PRIMARY_THRESHOLD)) {
