@@ -1044,6 +1044,13 @@ body.t-s12 {
   -webkit-text-fill-color: transparent;
 }
 
+.c-game-header__vs-amount {
+  background: linear-gradient(red, yellow, cyan);
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
 .t-normal .c-game-header__antimatter,
 .t-s12 .c-game-header__antimatter {
   color: var(--color-accent);
