@@ -27,7 +27,7 @@ export const accelerators = {
         resource: "potency",
         requirement: 0.4,
         description: "Total Hadrons increase the Antimatter Hardcap",
-        effect: () => player.disablePostReality ? 0 : Math.clampMax(Math.pow(2 * (player.celestials.laitela.hadrons.total - 100) + 0.25, 0.5) - 0.5, 25)
+        effect: () => player.disablePostReality ? 0 : Math.clamp(Math.floor(Math.pow(2 * (player.celestials.laitela.hadrons.total - 100) + 0.25, 0.5) - 0.5), 0, 25)
       },
       {
         resource: "potency",
