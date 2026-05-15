@@ -68,10 +68,6 @@ export class EtherealStarState {
   get hasStar() {
     return player.endgame.ethereal.stars[this.config.name].gte(1);
   }
-
-  get isEffectActive() {
-    return !player.disablePostReality;
-  }
 }
 
 export const EtherealStars = mapGameDataToObject(
