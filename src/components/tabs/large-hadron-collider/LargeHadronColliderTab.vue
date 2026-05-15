@@ -82,6 +82,7 @@ export default {
     </div>
     <div v-if="highestAntimatter.gt(10)">
       <span class="c-void-antimatter-amount">[Your highest Antimatter inside The Void is {{ format(highestAntimatter, 2, 1) }}.]</span>
+      <br>
       <span class="c-null">[You have {{ format(nullMatter, 2, 2) }} Null Matter. +{{ format(nullPerSecond, 2, 2) }}/s]</span>
     </div>
     <div class="l-void-run">
