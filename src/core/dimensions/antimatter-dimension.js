@@ -723,7 +723,7 @@ export const AntimatterDimensions = {
     const hasBigCrunchGoal = !player.break || Player.isInAntimatterChallenge;
     let pendAmount = AntimatterDimension(1).productionPerSecond;
     let amountLost = Decimal.pow(pendAmount, 0.01);
-    let amountGained = pendAmount.div(amountLost);
+    let amountGained = amountLost.eq(0) ? DC.D0 : pendAmount.div(amountLost);
     let conversionToNull = Decimal.log10(amountLost.max(1)).pow(Decimal.log10(Decimal.log10(amountLost.max(1)).max(1)));
     if (player.endgame.largeHadronCollider.void.isRunning) {
       Currency.nullMatter.add(conversionToNull.times(diff).div(1000));
