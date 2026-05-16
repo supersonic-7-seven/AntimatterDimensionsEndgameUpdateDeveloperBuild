@@ -6283,6 +6283,20 @@ properly on certain themes. */
 
 /* #endregion Break Eternity Upgrades */
 
+/* #region l-null-upgrades-tab */
+
+.l-null-upgrades-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.l-null-upgrades-tab__grid {
+  margin-top: 1rem;
+}
+
+/* #endregion l-null-upgrades-tab */
+
 /* #region l-null-upgrade-grid */
 
 .l-null-upgrade-grid {
