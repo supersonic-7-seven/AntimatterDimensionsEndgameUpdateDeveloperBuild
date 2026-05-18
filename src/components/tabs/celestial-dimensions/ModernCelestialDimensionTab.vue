@@ -32,6 +32,9 @@ export default {
       overflowMag: 0,
       overflow: new Decimal(0),
       isOverflowing: false,
+      massOverflowMag: 0,
+      massOverflow: new Decimal(0),
+      isCorrupted: false,
       isEffectActive: false,
       alphaDecayRemnant: 0,
       hasRemnant: false,
@@ -63,6 +66,9 @@ export default {
       this.overflowMag = CelestialDimensions.OVERFLOW_MAG;
       this.overflow.copyFrom(CelestialDimensions.OVERFLOW);
       this.isOverflowing = this.celestialMatter.gt(this.overflow);
+      this.massOverflowMag = CelestialDimensions.MASS_OVERFLOW_MAG;
+      this.massOverflow.copyFrom(CelestialDimensions.MASS_OVERFLOW);
+      this.isCorrupted = this.celestialMatter.gt(this.massOverflow);
       this.isEffectActive = player.endgame.celestialMatterMultiplier.isActive;
       this.alphaDecayRemnant = CelestialDimensions.alphaDecayRemnant;
       this.hasRemnant = Alpha.isDestroyed;
@@ -137,7 +143,8 @@ export default {
           <br>
           You have
           <span :class="instabilityClassObject()">{{ format(celestialMatter, 2, 1) }}</span>
-          <span v-if="unstable"> Unstable</span> <span v-if="isOverflowing">Overflowing</span> Celestial Matter,
+          <span v-if="unstable"> Unstable</span> <span v-if="isOverflowing">Overflowing</span>
+          <span v-if="isCorrupted">Corrupted</span> Celestial Matter,
           <br>
           <span>
             increased by
@@ -171,6 +178,16 @@ export default {
             <br>
             The Celestial Matter Overflow is solely based on your Celestial Matter Overflow Magnitude, which is currently
             <span :class="instabilityClassObject()">{{ format(overflowMag, 2, 3) }}</span>.
+          </div>
+          <div v-if="isCorrupted">
+            After <span :class="instabilityClassObject()">{{ format(massOverflow, 2, 1) }}</span> Celestial Matter, your
+            Celestial Matter was softcapped <i>once again</i>.
+            <br>
+            Currently, Celestial Matter above this amount is being raised to the power of
+            <span :class="instabilityClassObject()">{{ format(1 / massOverflowMag, 2, 3) }}</span>.
+            <br>
+            The Celestial Matter Corruption is solely based on your Celestial Matter Corruption Magnitude, which is currently
+            <span :class="instabilityClassObject()">{{ format(massOverflowMag, 2, 3) }}</span>.
           </div>
         </p>
       </div>
