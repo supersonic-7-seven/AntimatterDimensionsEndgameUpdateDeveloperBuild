@@ -10,6 +10,7 @@ export class TickspeedAutobuyerState extends UpgradeableAutobuyerState {
   }
 
   get isUnlocked() {
+    if (LHC.voidRunning && NullUpgrade.limerick5.isBought) return true;
     if (Pelle.isDisabled("tickspeedAutobuyer")) return false;
     return this.canBeUpgraded;
   }
