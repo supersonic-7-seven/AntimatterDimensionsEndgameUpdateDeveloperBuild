@@ -203,7 +203,7 @@ export const Pelle = {
       this.cel.remnants = this.cel.remnants.add(this.remnantsGain);
     }
     finishProcessReality({ reset: true, armageddon: true });
-    if (this.isAlwaysDischargeCIU || player.celestials.ra.disCharge) disChargeAll();
+    if ((this.isAlwaysDischargeCIU && !DivinityMilestone.pelleQoL.isReached) || player.celestials.ra.disCharge) disChargeAll();
     player.celestials.enslaved.isStoringReal = false;
     player.celestials.enslaved.autoStoreReal = false;
     if (PelleStrikes.dilation.hasStrike && !PelleStrikes.dilation.isDestroyed()) player.dilation.active = true;
