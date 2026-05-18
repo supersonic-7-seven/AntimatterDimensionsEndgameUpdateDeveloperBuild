@@ -1445,7 +1445,7 @@ window.player = {
   tabNotifications: new Set(),
   triggeredTabNotificationBits: 0,
   tutorialState: 0,
-  tutorialActive: true,
+  tutorialActive: false,
   options: {
     hasSeenUsernameModal: false,
     news: {
@@ -1610,7 +1610,7 @@ window.player = {
       id: false,
     }
   },
-  DEV: false,
+  DEV: true,
   password: ""
 };
 
