@@ -225,6 +225,8 @@ export function totalReplicantiSpeedMult(overCap) {
   }
   totalMult = totalMult.timesEffectsOf(AlchemyResource.replication, Ra.unlocks.continuousTTBoost.effects.replicanti);
 
+  if (LHC.voidRunning) totalMult = totalMult.timesEffectOf(NullUpgrade.replicantiSpeedMult);
+
   return totalMult;
 }
 
