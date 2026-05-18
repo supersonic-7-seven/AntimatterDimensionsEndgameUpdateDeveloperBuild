@@ -683,6 +683,7 @@ export function finishProcessReality(realityProps) {
     player.dilation.studies = [];
     player.dilation.active = false;
   }
+  if (LHC.voidRunning && NullUpgrade.limerick4.isBought) player.dilation.studies = [1];
   if (!PelleUpgrade.dilationUpgradesNoReset.canBeApplied) {
     player.dilation.upgrades.clear();
     player.dilation.rebuyables = {
