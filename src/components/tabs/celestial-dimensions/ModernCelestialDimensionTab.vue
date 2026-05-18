@@ -49,6 +49,11 @@ export default {
       eternityPoints: new Decimal(0),
     };
   },
+  computed: {
+    timeToCapText() {
+      return TimeSpan.fromHours(this.timeToCap).toStringShort();
+    }
+  },
   methods: {
     update() {
       this.showLockedDimCostNote = !CelestialDimension(8).isUnlocked;
@@ -194,7 +199,7 @@ export default {
       <div v-if="hasRemnant">
         Remnants of Alpha Decay are raising all Celestial Dimensions to the power of
         <span class="c-celestial-dim-description__accent-unstable">{{ format(alphaDecayRemnant, 2, 3) }}</span>,
-        which increases to a cap of {{ formatInt(1) }} over {{ format(timeToCap, 2, 2) }} real-time hours this Celestial Infinity.
+        which increases to a cap of {{ formatInt(1) }} over {{ timeToCapText }} this Celestial Infinity.
       </div>
       <div>
         All Celestial Dimensions can be purchased until {{ format(totalDimCap, 2, 2) }} Celestial Points.
