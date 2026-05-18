@@ -1414,7 +1414,9 @@ window.player = {
       void: {
         isRunning: false,
         highestAntimatter: DC.E1,
-        nullMatter: DC.D0
+        nullMatter: DC.D0,
+        upgrades: new Set(),
+        rebuyables: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       }
     }
   },
@@ -1522,6 +1524,7 @@ window.player = {
       endgameUpgrades: true,
       divinityUpgrades: true,
       resurgenceUpgrades: true,
+      nullUpgrades: true,
     },
     animations: {
       bigCrunch: true,

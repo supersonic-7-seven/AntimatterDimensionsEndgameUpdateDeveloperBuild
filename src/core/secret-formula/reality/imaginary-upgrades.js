@@ -11,7 +11,7 @@ const rebuyable = props => {
   );
   const { effect } = props;
   if (props.isDecimal) props.effect = () => player.disablePostReality ? DC.D1 : Decimal.pow(effect, player.reality.imaginaryRebuyables[props.id]);
-  else props.effect = () => player.disablePostReality ? 1 : (props.id < 6
+  else props.effect = () => player.disablePostReality ? 0 : (props.id < 6
     ? (effect + DualityUpgrade(props.id).effectOrDefault(0)) * player.reality.imaginaryRebuyables[props.id]
     : effect * player.reality.imaginaryRebuyables[props.id]);
   if (!props.description) props.description = () => props.textTemplate.replace("{value}",

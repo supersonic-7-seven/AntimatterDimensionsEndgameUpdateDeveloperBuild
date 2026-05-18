@@ -30,6 +30,7 @@ export default {
       endgameUpgrades: false,
       divinityUpgrades: false,
       resurgenceUpgrades: false,
+      nullUpgrades: false,
     };
   },
   computed: {
@@ -80,6 +81,9 @@ export default {
     resurgenceUpgrades(newValue) {
       player.options.showHintText.resurgenceUpgrades = newValue;
     },
+    nullUpgrades(newValue) {
+      player.options.showHintText.nullUpgrades = newValue;
+    },
   },
   methods: {
     update() {
@@ -90,6 +94,7 @@ export default {
       this.alchemyUnlocked = this.fullCompletion || Ra.unlocks.effarigUnlock.canBeApplied;
       this.endgameUnlocked = this.fullCompletion || progress.isEndgameUnlocked;
       this.divinityUnlocked = this.fullCompletion || player.celestials.pelle.divinities > 0;
+      this.lhcUnlocked = this.fullCompletion || ExpansionPack.alphaPack.isBought;
 
       const options = player.options.showHintText;
       this.showPercentage = options.showPercentage;
@@ -106,6 +111,7 @@ export default {
       this.endgameUpgrades = options.endgameUpgrades;
       this.divinityUpgrades = options.divinityUpgrades;
       this.resurgenceUpgrades = options.resurgenceUpgrades;
+      this.nullUpgrades = options.nullUpgrades;
     }
   },
 };
@@ -183,6 +189,11 @@ export default {
         v-if="divinityUnlocked"
         v-model="resurgenceUpgrades"
         text="Resurgence Upgrade names:"
+      />
+      <ModalOptionsToggleButton
+        v-if="lhcUnlocked"
+        v-model="nullUpgrades"
+        text="Null Upgrade names:"
       />
     </div>
     Note: All types of additional info above will always display when holding shift.

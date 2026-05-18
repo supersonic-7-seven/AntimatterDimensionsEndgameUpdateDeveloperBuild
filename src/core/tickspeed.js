@@ -69,9 +69,11 @@ export function getTickSpeedMultiplier() {
   if (Pelle.isDoomed && EndgameMilestone.remnantGalaxy.isReached && !player.disablePostReality) galaxies = galaxies.times(Decimal.pow(Decimal.log10(Currency.remnants.value.add(1)).add(1), 0.5));
   if (GalacticPowers.galaxyStrength.isUnlocked) galaxies = galaxies.times(GalacticPowers.galaxyStrength.reward);
   galaxies = galaxies.timesEffectsOf(DualityUpgrade(9), DualityUpgrade(23), DualityUpgrade(24));
+  if (player.endgame.largeHadronCollider.void.isRunning) galaxies = galaxies.timesEffectOf(Accelerators.cosmic._milestones[0]);
 
   galaxies = galaxies.times(Pelle.specialGlyphEffect.power);
   if (Alpha.isRunning) galaxies = galaxies.times(AlphaUnlocks.firstGalaxy.effects.nerf.effectOrDefault(1));
+  if (Alpha.isRunning && Alpha.currentStage >= 6) galaxies = galaxies.times(2);
   const perGalaxy = DC.D0_965;
   return perGalaxy.pow(galaxies.sub(2)).times(baseMultiplier);
 }

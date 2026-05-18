@@ -10,9 +10,9 @@ export const accelerators = {
     percentage: totalFill => Decimal.log10(totalFill.plus(1).log10().div(1e200)).div(100).toNumber(),
     percentageToFill: percentage => Decimal.pow10(Decimal.pow10(percentage * 100).times(1e200)).sub(1),
     effects: {
-      alpha: percentage => Decimal.pow10(percentage / 10),
-      beta: percentage => Decimal.pow10(percentage),
-      gamma: percentage => Decimal.pow10(percentage / 5),
+      alpha: percentage => player.disablePostReality ? DC.D1 : Decimal.pow10(percentage / 10),
+      beta: percentage => player.disablePostReality ? DC.D1 : Decimal.pow10(percentage),
+      gamma: percentage => player.disablePostReality ? DC.D1 : Decimal.pow10(percentage / 5),
     },
     currency: () => Currency.antimatter,
     unlockReq: () => Decimal.pow10(1e200),
@@ -27,7 +27,7 @@ export const accelerators = {
         resource: "potency",
         requirement: 0.4,
         description: "Total Hadrons increase the Antimatter Hardcap",
-        effect: () => Math.clampMax(Math.pow(2 * (player.celestials.laitela.hadrons.total - 100) + 0.25, 0.5) - 0.5, 25)
+        effect: () => player.disablePostReality ? 0 : Math.clamp(Math.floor(Math.pow(2 * (player.celestials.laitela.hadrons.total - 100) + 0.25, 0.5) - 0.5), 0, 25)
       },
       {
         resource: "potency",
@@ -48,8 +48,8 @@ export const accelerators = {
     percentageToFill: percentage => Decimal.max(new Decimal(percentage * 100).times(20000), Decimal.pow10(percentage * 100)),
     effects: {
       alpha: percentage => Decimal.pow(1 + percentage / 100, 1 + percentage / 100),
-      beta: percentage => 1 + percentage / 100,
-      gamma: percentage => 1 / (0.1 + percentage / 250),
+      beta: percentage => player.disablePostReality ? 1 : 1 + percentage / 100,
+      gamma: percentage => player.disablePostReality ? 10 : 1 / (0.1 + percentage / 250),
     },
     currency: () => Currency.nullMatter,
     unlockReq: () => Decimal.pow10(5),
@@ -64,13 +64,13 @@ export const accelerators = {
         resource: "emptiness",
         requirement: 0.3,
         description: "Divine Dimensions are powered based on best Antimatter inside The Void",
-        effect: () => Decimal.log10(Decimal.log10(player.records.totalAntimatterOutsideDoom)).div(100).add(1)
+        effect: () => player.disablePostReality ? DC.D1 : Decimal.log10(Decimal.log10(player.endgame.largeHadronCollider.void.highestAntimatter)).div(100).add(1)
       },
       {
         resource: "emptiness",
         requirement: 1,
         description: () => `The Antimatter Hardcap is increased by ${formatInt(25)} OoM^2s`,
-        effect: () => 25
+        effect: () => player.disablePostReality ? 0 : 25
       },
     ]
   },
@@ -87,9 +87,9 @@ export const accelerators = {
     percentageToFill: percentage => Decimal.max(Decimal.pow10(Decimal.sqr(percentage * 100 / 20).times(5000).add(3000)),
       Decimal.pow10(new Decimal(percentage * 100 / 20).times(5000).add(3000))),
     effects: {
-      alpha: percentage => 1 + percentage / 200,
-      beta: percentage => 1 + percentage / 100,
-      gamma: percentage => 1 + percentage / 2000,
+      alpha: percentage => player.disablePostReality ? 1 : 1 + percentage / 200,
+      beta: percentage => player.disablePostReality ? 1 : 1 + percentage / 100,
+      gamma: percentage => player.disablePostReality ? 1 : 1 + percentage / 2000,
     },
     currency: () => Currency.galaxyGeneratorGalaxies,
     unlockReq: () => Decimal.pow10(3000),
@@ -109,7 +109,7 @@ export const accelerators = {
         resource: "cosmic",
         requirement: 1,
         description: () => `The Antimatter Hardcap is increased by ${format(Decimal.log10(DC.NUMMAX).sub(275), 4, 4)} OoM^2s`,
-        effect: () => Decimal.log10(DC.NUMMAX).sub(275).toNumber()
+        effect: () => player.disablePostReality ? 0 : Decimal.log10(DC.NUMMAX).sub(275).toNumber()
       },
     ]
   }

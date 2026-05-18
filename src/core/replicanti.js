@@ -25,7 +25,7 @@ export const ReplicantiMultipliers = {
     return replicantiMultToPower(this.idMult);
   },
   get tdMult() {
-    return DilationUpgrade.tdMultReplicanti.effectOrDefault(1);
+    return DilationUpgrade.tdMultReplicanti.effectOrDefault(DC.D1);
   },
   get tdPow() {
     return replicantiMultToPower(this.tdMult);

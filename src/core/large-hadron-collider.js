@@ -1,4 +1,4 @@
-import { GameMechanicState } from "./game-mechanics";
+import { GameMechanicState, RebuyableMechanicState, SetPurchasableMechanicState } from "./game-mechanics";
 
 class AcceleratorMilestoneState extends GameMechanicState {
 
@@ -24,7 +24,7 @@ class AcceleratorMilestoneState extends GameMechanicState {
   }
 
   get isEffectActive() {
-    return this.isUnlocked && !player.disablePostReality;
+    return this.isUnlocked;
   }
 
   get description() {
@@ -111,15 +111,15 @@ class AcceleratorState extends GameMechanicState {
   get isCustomEffect() { return true; }
 
   get effectValue1() {
-    return player.disablePostReality ? this.config.effects.alpha(0) : this.config.effects.alpha(this.percentage * 100);
+    return this.config.effects.alpha(this.percentage * 100);
   }
 
   get effectValue2() {
-    return player.disablePostReality ? this.config.effects.beta(0) : this.config.effects.beta(this.percentage * 100);
+    return this.config.effects.beta(this.percentage * 100);
   }
 
   get effectValue3() {
-    return player.disablePostReality ? this.config.effects.gamma(0) : this.config.effects.gamma(this.percentage * 100);
+    return this.config.effects.gamma(this.percentage * 100);
   }
 
   get maxValue() {
@@ -285,3 +285,54 @@ export function exitTheVoid() {
   Endgame.resetNoReward();
   player.endgame.largeHadronCollider.void.isRunning = false;
 };
+
+export class NullUpgradeState extends SetPurchasableMechanicState {
+  get name() {
+    return this.config.name;
+  }
+  
+  get currency() {
+    return Currency.nullMatter;
+  }
+
+  get set() {
+    return player.endgame.largeHadronCollider.void.upgrades;
+  }
+
+  onPurchased() {
+    this.config.onPurchased?.();
+  }
+}
+
+class RebuyableNullUpgradeState extends RebuyableMechanicState {
+  get name() {
+    return this.config.name;
+  }
+  
+  get currency() {
+    return Currency.nullMatter;
+  }
+
+  get boughtAmount() {
+    return player.endgame.largeHadronCollider.void.rebuyables[this.id];
+  }
+
+  set boughtAmount(value) {
+    player.endgame.largeHadronCollider.void.rebuyables[this.id] = value;
+  }
+
+  get isCapped() {
+    return this.boughtAmount === this.config.maxUpgrades;
+  }
+
+  onPurchased() {
+    this.config.onPurchased?.();
+  }
+}
+
+export const NullUpgrade = mapGameDataToObject(
+  GameDatabase.endgame.nullUpgrades,
+  config => (config.rebuyable
+    ? new RebuyableNullUpgradeState(config)
+    : new NullUpgradeState(config))
+);
