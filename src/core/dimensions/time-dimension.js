@@ -194,6 +194,8 @@ export function timeDimensionCommonMultiplier() {
         4)
         .clampMin(1));
   }
+
+  if (LHC.voidRunning) mult = mult.timesEffectOf(NullUpgrade.timeDimensionMult);
   
   return mult;
 }
