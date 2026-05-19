@@ -28,7 +28,8 @@ export class InfinityDimensionAutobuyerState extends IntervaledAutobuyerState {
   }
 
   get isUnlocked() {
-    return EternityMilestone[`autobuyerID${this.tier}`].isReached || PelleUpgrade.IDAutobuyers.canBeApplied;
+    return EternityMilestone[`autobuyerID${this.tier}`].isReached || PelleUpgrade.IDAutobuyers.canBeApplied ||
+      (LHC.voidRunning && NullUpgrade.limerick5.isBought);
   }
 
   get resetTickOn() {

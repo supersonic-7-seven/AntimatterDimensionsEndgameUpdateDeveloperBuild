@@ -104,6 +104,7 @@ export function totalIPMult() {
       DilationUpgrade.ipMultDT
     ).times(getAdjustedGlyphEffect("infinityIP"));
   if (Replicanti.areUnlocked) ipMult = ipMult.times(ReplicantiMultipliers.ipMult);
+  if (LHC.voidRunning) ipMult = ipMult.timesEffectOf(NullUpgrade.infinityPointMult);
   return ipMult;
 }
 

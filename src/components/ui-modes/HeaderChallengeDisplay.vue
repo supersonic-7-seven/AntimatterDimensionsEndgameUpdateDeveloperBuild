@@ -53,7 +53,7 @@ export default {
         {
           name: () => "The Void",
           isActive: token => token,
-          activityToken: () => player.endgame.largeHadronCollider.void.isRunning
+          activityToken: () => LHC.voidRunning
         },
         {
           name: () => "Time Dilation",
@@ -156,7 +156,7 @@ export default {
         };
       } else {
         names = { chall: this.activeChallengeNames[0], normal: this.inEndgame ? "Endgame" : "Reality" };
-        clickFn = () => player.endgame.largeHadronCollider.void.isRunning ? exitTheVoid() : (Alpha.isRunning ? Alpha.escapeTheMatrix() :
+        clickFn = () => LHC.voidRunning ? exitTheVoid() : (Alpha.isRunning ? Alpha.escapeTheMatrix() :
           ((Effarig.isRunning && Effarig.currentStage === EFFARIG_STAGES.ENDGAME) ? Endgame.resetNoReward() :
           beginProcessReality(getRealityProps(true))));
       }
@@ -194,13 +194,13 @@ export default {
       else if (fullName.match("Infinity Challenge")) Tab.challenges.infinity.show(true);
       else if (fullName.match("Eternity Challenge")) Tab.challenges.eternity.show(true);
       else if (player.dilation.active) Tab.eternity.dilation.show(true);
-      else if (player.endgame.largeHadronCollider.void.isRunning) Tab.endgame.collider.show(true);
+      else if (LHC.voidRunning) Tab.endgame.collider.show(true);
       else Tab.celestials[celestial].show(true);
     },
     exitDisplay() {
       if (Player.isInAnyChallenge) return player.options.retryChallenge ? "Retry Challenge" : "Exit Challenge";
       if (player.dilation.active) return "Exit Dilation";
-      if (player.endgame.largeHadronCollider.void.isRunning) return "Exit The Void";
+      if (LHC.voidRunning) return "Exit The Void";
       if (this.resetCelestial && this.inEndgame) return "Restart Endgame";
       if (this.inEndgame) return "Exit Endgame";
       if (this.resetCelestial) return "Restart Reality";

@@ -19,7 +19,7 @@ export class ReplicantiUpgradeAutobuyerState extends IntervaledAutobuyerState {
 
   get isUnlocked() {
     return ReplicantiUpgrade[this._upgradeName].autobuyerMilestone.isReached ||
-      PelleUpgrade.replicantiAutobuyers.canBeApplied;
+      PelleUpgrade.replicantiAutobuyers.canBeApplied || (LHC.voidRunning && NullUpgrade.limerick5.isBought);
   }
 
   get resetTickOn() {

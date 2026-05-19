@@ -49,6 +49,8 @@ export function antimatterDimensionCommonMultiplier() {
   if (Pelle.isDoomed && !PelleDestructionUpgrade.disableADNerf.canBeApplied) multiplier = multiplier.dividedBy(Currency.antimatter.value.add(1).log10().times(50).max(1));
   if (Alpha.isRunning) multiplier = multiplier.div(Currency.antimatter.value.add(1).log10().times(125).max(1));
 
+  if (LHC.voidRunning) multiplier = multiplier.timesEffectOf(NullUpgrade.antimatterDimensionMult);
+
   return multiplier;
 }
 
@@ -93,7 +95,7 @@ export function getDimensionFinalMultiplierUncached(tier) {
 
   if (!player.disablePostReality) multiplier = multiplier.pow(AlphaUnlocks.timestudy181.effects.buff.effectOrDefault(1));
 
-  if (player.endgame.largeHadronCollider.void.isRunning) {
+  if (LHC.voidRunning) {
     multiplier = multiplier.powEffectOf(Accelerators.potency._milestones[0]);
     multiplier = multiplier.pow(Accelerators.emptiness.effectValue1);
     multiplier = multiplier.powEffectOf(Accelerators.emptiness._milestones[0]);
@@ -725,7 +727,7 @@ export const AntimatterDimensions = {
     let amountLost = Decimal.pow(pendAmount, 0.01);
     let amountGained = amountLost.eq(0) ? DC.D0 : pendAmount.div(amountLost);
     let conversionToNull = Decimal.log10(amountLost.max(1)).pow(Decimal.log10(Decimal.log10(amountLost.max(1)).max(1)));
-    if (player.endgame.largeHadronCollider.void.isRunning) {
+    if (LHC.voidRunning) {
       Currency.nullMatter.add(conversionToNull.times(diff).div(1000));
     }
     if (hasBigCrunchGoal && Currency.antimatter.gte(Player.infinityGoal)) return;
@@ -745,10 +747,10 @@ export const AntimatterDimensions = {
     if (AntimatterDimension(8).amount.gt(0) || AntimatterDimension(8).continuumAmount.gt(0)) {
       player.requirementChecks.endgame.onlyLowDims = false;
     }
-    if (!player.endgame.largeHadronCollider.void.isRunning) {
+    if (!LHC.voidRunning) {
       AntimatterDimension(1).produceCurrency(Currency.antimatter, diff);
     }
-    if (player.endgame.largeHadronCollider.void.isRunning) {
+    if (LHC.voidRunning) {
       Currency.antimatter.add(amountGained.times(diff).div(1000));
     }
     if (NormalChallenge(12).isRunning) {

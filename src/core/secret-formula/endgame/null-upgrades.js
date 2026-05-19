@@ -143,31 +143,36 @@ export const nullUpgrades = {
     name: "Nullified Normalcy",
     id: "ncComp",
     cost: Decimal.pow10(5),
-    description: "Normal Challenges are always complete inside the Void"
+    description: "Normal Challenges are always complete inside the Void",
+    onPurchased: () => NormalChallenges.completeAll()
   },
   alwaysBroken: {
     name: "Barren Brokenness",
     id: "alwaysBroken",
     cost: Decimal.pow10(10),
-    description: "Infinity is always Broken inside the Void"
+    description: "Infinity is always Broken inside the Void",
+    onPurchased: () => player.break = true
   },
   icComp: {
     name: "Concave Challenges",
     id: "icComp",
     cost: Decimal.pow10(15),
-    description: "Infinity Challenges are always complete inside the Void"
+    description: "Infinity Challenges are always complete inside the Void",
+    onPurchased: () => InfinityChallenges.completeAll()
   },
   repUnl: {
     name: "Renounced Replications",
     id: "repUnl",
     cost: Decimal.pow10(20),
-    description: "Replicanti is always unlocked inside The Void"
+    description: "Replicanti is always unlocked inside The Void",
+    onPurchased: () => Replicanti.unlock(true)
   },
   eterMiles: {
     name: "Permanent Pretendings",
     id: "eterMiles",
     cost: Decimal.pow10(25),
-    description: () => `Start The Void with ${formatInt(100)} Eternities`
+    description: () => `Start The Void with ${formatInt(100)} Eternities`,
+    onPurchased: () => Currency.eternities.bumpTo(100)
   },
   limerick1: {
     name: "There was an AI made of dust",
@@ -185,13 +190,32 @@ export const nullUpgrades = {
     name: "If Is follows Ought",
     id: "limerick3",
     cost: Decimal.pow10(60),
-    description: "Eternity Challenges are always fully complete inside The Void"
+    description: "Eternity Challenges are always fully complete inside The Void",
+    onPurchased: () => {
+      player.eternityChalls = {
+        eterc1: 5,
+        eterc2: 5,
+        eterc3: 5,
+        eterc4: 5,
+        eterc5: 5,
+        eterc6: 5,
+        eterc7: 5,
+        eterc8: 5,
+        eterc9: 5,
+        eterc10: 5,
+        eterc11: 5,
+        eterc12: 5
+      }
+    }
   },
   limerick4: {
     name: "It will do as they thought",
     id: "limerick4",
     cost: Decimal.pow10(80),
-    description: "Start The Void with Time Dilation unlocked"
+    description: "Start The Void with Time Dilation unlocked",
+    onPurchased: () => {
+      if (!player.dilation.studies.includes(1)) player.dilation.studies.push(1);
+    }
   },
   limerick5: {
     name: "In the End we all do what we must",

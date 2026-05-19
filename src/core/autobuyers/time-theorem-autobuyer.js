@@ -10,6 +10,7 @@ export class TimeTheoremAutobuyerState extends AutobuyerState {
   }
 
   get isUnlocked() {
+    if (LHC.voidRunning && NullUpgrade.limerick5.isBought) return true;
     return (Perk.ttBuySingle.isBought && !player.disablePostReality) && (!Pelle.isDisabled("timeTheoremAutobuyer") || PellePerkUpgrade.perkTTS.canBeApplied);
   }
 

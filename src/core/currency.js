@@ -231,7 +231,7 @@ Currency.antimatter = new class extends DecimalCurrency {
     if (!Pelle.isDoomed) {
       player.records.totalAntimatterOutsideDoom = player.records.totalAntimatterOutsideDoom.max(value);
     }
-    if (player.endgame.largeHadronCollider.void.isRunning) {
+    if (LHC.voidRunning) {
       player.endgame.largeHadronCollider.void.highestAntimatter = player.endgame.largeHadronCollider.void.highestAntimatter.max(value);
     }
   }
@@ -357,6 +357,7 @@ Currency.eternities = new class extends DecimalCurrency {
   set value(value) { player.eternities = value; }
 
   get startingValue() {
+    if (LHC.voidRunning && NullUpgrade.eterMiles.isBought) return new Decimal(100);
     if (Pelle.isDoomed) {
       if (PelleRealityUpgrade.existentiallyProlong.canBeApplied) return Effects.max(0, RealityUpgrade(10)).toDecimal();
       return new Decimal(0);

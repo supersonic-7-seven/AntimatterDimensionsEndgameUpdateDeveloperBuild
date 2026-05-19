@@ -190,6 +190,10 @@ export const LHC = {
       Accelerators.emptiness._milestones[2].effectOrDefault(0) + Accelerators.cosmic._milestones[2].effectOrDefault(0)));
   },
 
+  get voidRunning() {
+    return player.endgame.largeHadronCollider.void.isRunning;
+  },
+
   gameLoop(diff) {
     Accelerators.all.forEach(a => a.fill(diff));
   }

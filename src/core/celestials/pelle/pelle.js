@@ -88,7 +88,7 @@ export const Pelle = {
     Currency.infinityPoints.reset();
     player.IPMultPurchases = DC.D0;
     Autobuyer.bigCrunch.mode = AUTO_CRUNCH_MODE.AMOUNT;
-    disChargeAll();
+    if (!DivinityMilestone.pelleQoL.isReached) disChargeAll();
     if (!Effarig.isRunning || Effarig.currentStage !== EFFARIG_STAGES.ENDGAME) clearCelestialRuns();
     CelestialDimensions.resetAmount();
     player.records.thisEndgame.peakGameSpeed = DC.D1;
@@ -134,6 +134,14 @@ export const Pelle = {
       player.celestials.pelle.rebuyables.glyphLevels = 26;
       player.celestials.pelle.rebuyables.infConversion = 21;
       player.celestials.pelle.rebuyables.galaxyPower = 9;
+    }
+
+    if (DivinityMilestone.pelleQoL.isReached) {
+      player.celestials.pelle.rifts.vacuum.fill = DC.D1;
+      player.celestials.pelle.rifts.decay.fill = DC.D1;
+      player.celestials.pelle.rifts.chaos.fill = 1;
+      player.celestials.pelle.rifts.recursion.fill = DC.D1;
+      player.celestials.pelle.rifts.paradox.fill = DC.D1;
     }
 
     // Force-unhide all tabs except for the shop tab, for which we retain the hide state instead
@@ -203,7 +211,7 @@ export const Pelle = {
       this.cel.remnants = this.cel.remnants.add(this.remnantsGain);
     }
     finishProcessReality({ reset: true, armageddon: true });
-    if (this.isAlwaysDischargeCIU || player.celestials.ra.disCharge) disChargeAll();
+    if ((this.isAlwaysDischargeCIU && !DivinityMilestone.pelleQoL.isReached) || player.celestials.ra.disCharge) disChargeAll();
     player.celestials.enslaved.isStoringReal = false;
     player.celestials.enslaved.autoStoreReal = false;
     if (PelleStrikes.dilation.hasStrike && !PelleStrikes.dilation.isDestroyed()) player.dilation.active = true;

@@ -40,9 +40,11 @@ export default {
       if (this.lockText !== null) return this.lockText;
       const reset = [];
       if (!Achievement(111).isUnlocked ||
-        (player.disablePostReality && !(Alpha.isRunning && Alpha.currentStage >= 12))) reset.push("Dimensions");
+        (player.disablePostReality && !(Alpha.isRunning && Alpha.currentStage >= 12) &&
+        !(LHC.voidRunning && NullUpgrade.limerick1.isBought))) reset.push("Dimensions");
       if (!Achievement(143).isUnlocked ||
-        (player.disablePostReality && !(Alpha.isRunning && Alpha.currentStage >= 20))) reset.push("Dimension Boosts");
+        (player.disablePostReality && !(Alpha.isRunning && Alpha.currentStage >= 20) &&
+        !(LHC.voidRunning && NullUpgrade.limerick2.isBought))) reset.push("Dimension Boosts");
       return reset.length === 0
         ? `Increase the power of Tickspeed upgrades`
         : `Reset your ${makeEnumeration(reset)} to increase the power of Tickspeed upgrades`;

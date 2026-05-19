@@ -6317,6 +6317,16 @@ properly on certain themes. */
 
 /* #region Null Upgrades */
 
+.l-null-upgrade-btn {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin: 1.2rem;
+  padding: 0 0.5rem;
+}
+
 .o-null-upgrade {
   width: 20rem;
   height: 9rem;

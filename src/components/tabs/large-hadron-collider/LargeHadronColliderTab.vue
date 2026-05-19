@@ -46,10 +46,10 @@ export default {
       this.accelPower = LHC.acceleratorSpeed * 100000;
       this.amSoftcap.copyFrom(Pelle.isDoomed ? DC.E9E15 : Decimal.pow10(1e200));
       this.amHardcap.copyFrom(Pelle.isDoomed ? DC.ENUMMAX : LHC.breakingPoint);
-      this.isRunning = player.endgame.largeHadronCollider.void.isRunning;
+      this.isRunning = LHC.voidRunning;
       this.highestAntimatter.copyFrom(player.endgame.largeHadronCollider.void.highestAntimatter);
       this.nullMatter.copyFrom(player.endgame.largeHadronCollider.void.nullMatter);
-      this.nullPerSecond.copyFrom(!player.endgame.largeHadronCollider.void.isRunning ? DC.D0 :
+      this.nullPerSecond.copyFrom(!LHC.voidRunning ? DC.D0 :
         Decimal.log10(Decimal.pow(AntimatterDimension(1).productionPerSecond, 0.01).max(1)).pow(
         Decimal.log10(Decimal.log10(Decimal.pow(AntimatterDimension(1).productionPerSecond, 0.01).max(1)).max(1))));
     },

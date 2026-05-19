@@ -22,7 +22,7 @@ import { GameKeyboard } from "./keyboard";
 // for the other modifier keys (#3093).
 
 // Free keys:
-// i, j, k, l, o, p, q, v, w, x
+// i, j, k, l, p, q, v, w, x
 
 
 export const shortcuts = [
@@ -99,7 +99,7 @@ export const shortcuts = [
     name: "Eternity",
     keys: ["e"],
     type: "bindRepeatableHotkey",
-    function: () => eternityResetRequest(),
+    function: () => player.options.simpleHotkeysCelestialMode ? celestialEternityResetRequest() : eternityResetRequest(),
     visible: () => PlayerProgress.eternityUnlocked() || Player.canEternity || PlayerProgress.endgameUnlocked()
   }, {
     name: "Toggle Time Study respec",
@@ -229,6 +229,15 @@ export const shortcuts = [
       GameUI.notify.info(`Simple Hotkey Celestial commands are now ${player.options.simpleHotkeysCelestialMode ? "active" : "inactive"}`);
     },
     visible: () => Alpha.isDestroyedForDisplay
+  }, {
+    name: "Condense",
+    keys: ["o"],
+    type: "bindRepeatableHotkey",
+    function: () => {
+      if (!PlayerProgress.condenseUnlocked()) return;
+      resetForDivineStars();
+    },
+    visible: () => PlayerProgress.condenseUnlocked()
   }, {
     name: "Save game",
     keys: ["mod", "s"],

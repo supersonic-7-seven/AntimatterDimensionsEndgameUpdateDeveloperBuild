@@ -40,6 +40,12 @@ export function playerInfinityUpgradesOnReset() {
       "ipOffline"]
   );
 
+  if (player.celestials.pelle.doomed && DivinityMilestone.pelleQoL.isReached) {
+    player.infinityUpgrades = breakInfinityUpgrades;
+    player.infinityRebuyables = [8, 7, 10];
+    return;
+  }
+
   if (PelleUpgrade.keepBreakInfinityUpgrades.canBeApplied) {
     player.infinityUpgrades = new Set([...player.infinityUpgrades].filter(u => breakInfinityUpgrades.has(u)));
     return;
@@ -224,7 +230,7 @@ function totalEPMult() {
     if (!player.disablePostReality) ep = ep.times(AlphaUnlocks.timestudy61.effects.buff.effectOrDefault(1));
     return ep;
   }
-  return getAdjustedGlyphEffect("cursedEP")
+  let ep = getAdjustedGlyphEffect("cursedEP")
     .times(ShopPurchase.EPPurchases.currentMult)
     .timesEffectsOf(
       EternityUpgrade.epMult,
@@ -234,6 +240,8 @@ function totalEPMult() {
       TimeStudy(123),
       RealityUpgrade(12)
     ).times(getAdjustedGlyphEffect("timeEP")).times(player.disablePostReality ? 1 : AlphaUnlocks.timestudy61.effects.buff.effectOrDefault(1));
+  if (LHC.voidRunning) ep = ep.timesEffectOf(NullUpgrade.eternityPointMult);
+  return ep;
 }
 
 export function gainedEternityPoints() {
@@ -441,6 +449,7 @@ export function gainedInfinities() {
     Ra.unlocks.continuousTTBoost.effects.infinity
   );
   infGain = infGain.times(getAdjustedGlyphEffect("infinityinfmult"));
+  if (LHC.voidRunning) infGain = infGain.timesEffectOf(NullUpgrade.infinityMult);
   infGain = infGain.powEffectOf(SingularityMilestone.infinitiedPow);
   if (!player.disablePostReality) infGain = infGain.pow(AlphaUnlocks.eternityChallenge10.effects.buff.effectOrDefault(1));
   return infGain;
@@ -990,7 +999,9 @@ export function gameLoop(passedDiff, options = {}) {
   const instability = Decimal.pow(Decimal.max(player.endgame.unnerfedCelestialMatter.div(CelestialDimensions.SOFTCAP), 1), 1 / CelestialDimensions.softcapPow);
   const beforeOverflow = Decimal.min(uncapped.times(instability), CelestialDimensions.OVERFLOW);
   const afterOverflow = Decimal.pow(Decimal.max(uncapped.times(instability).div(CelestialDimensions.OVERFLOW), 1), 1 / CelestialDimensions.OVERFLOW_MAG);
-  const totalPending = player.endgame.celDimExpansion.isBroken ? beforeOverflow.times(afterOverflow) : Decimal.min(beforeOverflow.times(afterOverflow), CelestialDimensions.OVERFLOW);
+  const beforeMassOverflow = Decimal.min(beforeOverflow.times(afterOverflow), CelestialDimensions.MASS_OVERFLOW);
+  const afterMassOverflow = Decimal.pow(Decimal.max(beforeOverflow.times(afterOverflow).div(CelestialDimensions.MASS_OVERFLOW), 1), 1 / CelestialDimensions.MASS_OVERFLOW_MAG);
+  const totalPending = player.endgame.celDimExpansion.isBroken ? beforeMassOverflow.times(afterMassOverflow) : Decimal.min(beforeMassOverflow.times(afterMassOverflow), DC.NUMMAX);
   player.endgame.celestialMatter = totalPending;
   player.records.thisCelestialInfinity.maxCM = player.records.thisCelestialInfinity.maxCM.max(totalPending);
   player.records.thisCelestialEternity.maxCM = player.records.thisCelestialEternity.maxCM.max(totalPending);

@@ -10,7 +10,8 @@ export class IPMultAutobuyerState extends AutobuyerState {
   }
 
   get isUnlocked() {
-    return EternityMilestone.autobuyerIPMult.isReached && (!Pelle.isDoomed || PelleDestructionUpgrade.x2IPUpgrade.canBeApplied);
+    return (EternityMilestone.autobuyerIPMult.isReached && (!Pelle.isDoomed || PelleDestructionUpgrade.x2IPUpgrade.canBeApplied)) ||
+      (LHC.voidRunning && NullUpgrade.limerick5.isBought);
   }
 
   get hasUnlimitedBulk() {
@@ -32,6 +33,7 @@ export class EPMultAutobuyerState extends AutobuyerState {
   }
 
   get isUnlocked() {
+    if (LHC.voidRunning && NullUpgrade.limerick5.isBought) return true;
     return !player.disablePostReality && RealityUpgrade(13).isBought && (!Pelle.isDoomed || PelleDestructionUpgrade.x5EPUpgrade.canBeApplied);
   }
 

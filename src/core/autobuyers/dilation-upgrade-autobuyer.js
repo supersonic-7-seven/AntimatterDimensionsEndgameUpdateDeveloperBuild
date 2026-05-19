@@ -18,6 +18,7 @@ export class DilationUpgradeAutobuyerState extends IntervaledAutobuyerState {
   }
 
   get isUnlocked() {
+    if (LHC.voidRunning && NullUpgrade.limerick5.isBought) return true;
     return (Perk.autobuyerDilation.isEffectActive && (!Pelle.isDoomed || PellePerkUpgrade.perkDAU.canBeApplied)) && !player.disablePostReality;
   }
 

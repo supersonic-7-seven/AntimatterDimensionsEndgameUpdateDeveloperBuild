@@ -9,7 +9,8 @@ export const Hadrons = {
     return DC.D1.timesEffectOf(Achievement(235)).times(
       DivinityMilestone.firstDivine.isReached && !player.disablePostReality ? 1.25 : 1).times(
       DivinityMilestone.divineDimensions.isReached && !player.disablePostReality ? 1.25 : 1).div(
-      1 - DivineDimensions.conversionFormula3).times(Decimal.pow(1.025, this.hadrons.exotic));
+      1 - DivineDimensions.conversionFormula3).times(
+      Decimal.pow(DivinityMilestone.pelleQoL.isReached ? 1.04 : 1.025, this.hadrons.exotic));
   },
   get singularityMultiplier() {
     let time = this.timeFactor.times(4).times(this.speedFactor);

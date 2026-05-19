@@ -39,5 +39,17 @@ export const divinityMilestones = {
         Ethereal Power generation is multiplied by ${formatInt(10)}
         Unlock Alpha's Expansion Pack`;
     }
+  },
+  pelleQoL: {
+    divinities: 4,
+    get reward() {
+      return ` Start Pelle with Infinity/Break Upgrades purchased/charged
+        Upon entering Pelle, rifts automatically reach ${formatPercents(1)} fill
+        After uncapping the Galaxy Generator, rifts fill ${formatX(10)} faster
+        Divine Dimensions are raised ${formatPow(1.05, 2, 2)}
+        Reduce the time for Remnants of Alpha Decay to cap by ${formatPercents(0.5)}
+        Reduce the Celestial Matter Softcap by ${formatPercents(0.2)}
+        Improve the effect of Exotic Hadrons`;
+    }
   }
 };

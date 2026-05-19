@@ -25,6 +25,8 @@ export function infinityDimensionCommonMultiplier() {
     mult = mult.times(ReplicantiMultipliers.idMult);
   }
 
+  if (LHC.voidRunning) mult = mult.timesEffectOf(NullUpgrade.infinityDimensionMult);
+
   return mult;
 }
 

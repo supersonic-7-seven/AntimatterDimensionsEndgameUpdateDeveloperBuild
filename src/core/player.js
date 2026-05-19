@@ -1697,6 +1697,7 @@ export const Player = {
   },
 
   get automatorUnlocked() {
+    if (LHC.voidRunning && NullUpgrade.limerick5.isBought) return true;
     return (AutomatorPoints.totalPoints >= AutomatorPoints.pointsForAutomator || player.reality.automator.forceUnlock) && !player.disablePostReality;
   },
 

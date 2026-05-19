@@ -10,7 +10,7 @@ export class SacrificeAutobuyerState extends AutobuyerState {
   }
 
   get isUnlocked() {
-    return EternityMilestone.autoIC.isReached || InfinityChallenge(2).isCompleted;
+    return EternityMilestone.autoIC.isReached || InfinityChallenge(2).isCompleted || (LHC.voidRunning && NullUpgrade.limerick5.isBought);
   }
 
   get multiplier() {

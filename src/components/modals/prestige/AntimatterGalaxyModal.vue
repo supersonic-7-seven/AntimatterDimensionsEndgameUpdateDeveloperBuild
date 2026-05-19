@@ -64,10 +64,12 @@ export default {
           this.newGalaxies = Galaxy.buyableGalaxies(Decimal.round(dim.totalAmount.toNumber())).sub(player.galaxies);
         }
       }
-      this.keepAntimatter = Achievement(111).isUnlocked && (!player.disablePostReality || (Alpha.isRunning && Alpha.currentStage >= 12));
+      this.keepAntimatter = Achievement(111).isUnlocked && (!player.disablePostReality || (Alpha.isRunning && Alpha.currentStage >= 12) ||
+        (LHC.voidRunning && NullUpgrade.limerick1.isBought));
       this.perkANRBought = (Perk.antimatterNoReset.canBeApplied && !player.disablePostReality);
       this.keepDimBoost = ((Achievement(143).isUnlocked && (!Pelle.isDoomed || PelleAchievementUpgrade.achievement143.canBeApplied)) ||
-        PelleUpgrade.galaxyNoResetDimboost.canBeApplied) && (!player.disablePostReality || (Alpha.isRunning && Alpha.currentStage >= 20));
+        PelleUpgrade.galaxyNoResetDimboost.canBeApplied) && (!player.disablePostReality || (Alpha.isRunning && Alpha.currentStage >= 20) ||
+        (LHC.voidRunning && NullUpgrade.limerick2.isBought));
     },
     handleYesClick() {
       requestGalaxyReset(this.bulk);

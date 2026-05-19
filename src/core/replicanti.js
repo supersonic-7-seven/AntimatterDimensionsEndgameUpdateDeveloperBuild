@@ -225,6 +225,8 @@ export function totalReplicantiSpeedMult(overCap) {
   }
   totalMult = totalMult.timesEffectsOf(AlchemyResource.replication, Ra.unlocks.continuousTTBoost.effects.replicanti);
 
+  if (LHC.voidRunning) totalMult = totalMult.timesEffectOf(NullUpgrade.replicantiSpeedMult);
+
   return totalMult;
 }
 
@@ -741,7 +743,7 @@ export const Replicanti = {
     return player.replicanti.unl;
   },
   reset(force = false) {
-    const unlocked = force ? false : EternityMilestone.unlockReplicanti.isReached;
+    const unlocked = force ? false : EternityMilestone.unlockReplicanti.isReached || (LHC.voidRunning && NullUpgrade.repUnl.isBought);
     player.replicanti = {
       unl: unlocked,
       amount: unlocked ? DC.D1 : DC.D0,

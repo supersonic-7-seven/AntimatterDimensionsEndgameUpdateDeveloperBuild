@@ -187,6 +187,7 @@ export function getDilationGainPerSecond() {
   dtRate = dtRate.times(getAdjustedGlyphEffect("dilationDT"));
   dtRate = dtRate.times(ShopPurchase.dilatedTimePurchases.currentMult);
   dtRate = dtRate.times(ReplicantiMultipliers.dtMult);
+  if (LHC.voidRunning) dtRate = dtRate.timesEffectOf(NullUpgrade.dilatedTimeMult);
   if (Enslaved.isRunning && !dtRate.eq(0)) dtRate = Decimal.pow10(Decimal.pow(dtRate.plus(1).log10(), 0.85).sub(1));
   if (V.isRunning) dtRate = dtRate.pow(0.5);
   dtRate = dtRate.times(Alpha.isRunning ? getGameSpeedupForDisplay().pow(0.01) : getGameSpeedupForDisplay());
@@ -223,6 +224,8 @@ export function tachyonGainMultiplier() {
       RealityUpgrade(15),
       Ra.unlocks.gameSpeedTachyonMult
     );
+
+  if (LHC.voidRunning) mult = mult.timesEffectOf(NullUpgrade.tachyonParticleMult);
 
   mult = mult.pow(pow);
   

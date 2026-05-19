@@ -99,7 +99,7 @@ export function eternity(force, auto, specialConditions = {}) {
   initializeChallengeCompletions();
   initializeResourcesAfterEternity();
 
-  if (!EternityMilestone.keepAutobuyers.isReached && !(Pelle.isDoomed && PelleUpgrade.keepAutobuyers.canBeApplied)) {
+  if ((!EternityMilestone.keepAutobuyers.isReached && !(Pelle.isDoomed && PelleUpgrade.keepAutobuyers.canBeApplied)) || (LHC.voidRunning && !NullUpgrade.alwaysBroken.isBought)) {
     // Fix infinity because it can only break after big crunch autobuyer interval is maxed
     player.break = false;
   }
@@ -203,8 +203,8 @@ export function animateAndEternity(callback) {
 }
 
 export function initializeChallengeCompletions(isReality) {
-  NormalChallenges.clearCompletions();
-  if (!PelleUpgrade.keepInfinityChallenges.canBeApplied) InfinityChallenges.clearCompletions();
+  if (LHC.voidRunning && !NullUpgrade.ncComp.isBought) NormalChallenges.clearCompletions();
+  if (!PelleUpgrade.keepInfinityChallenges.canBeApplied || (LHC.voidRunning && !NullUpgrade.icComp.isBought)) InfinityChallenges.clearCompletions();
   if (!isReality && EternityMilestone.keepAutobuyers.isReached || Pelle.isDoomed) {
     NormalChallenges.completeAll();
   }
@@ -275,9 +275,11 @@ export function gainedEternities() {
     if (PelleAlchemyUpgrade.alchemyEternity.canBeApplied) pelleEternities = pelleEternities.pow(AlchemyResource.eternity.effectValue);
     return pelleEternities;
   }
-  return new Decimal(getAdjustedGlyphEffect("timeetermult"))
+  let eter = new Decimal(getAdjustedGlyphEffect("timeetermult"))
       .timesEffectsOf(RealityUpgrade(3),Achievement(102),Achievement(113))
       .pow(AlchemyResource.eternity.effectValue);
+  if (LHC.voidRunning) eter = eter.timesEffectOf(NullUpgrade.eternityMult);
+  return eter;
 }
 
 export class EternityMilestoneState {
