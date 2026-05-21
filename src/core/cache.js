@@ -69,6 +69,12 @@ export const GameCache = {
       .reduce(Decimal.maxReducer)
   ),
 
+  bestRunVSPM: new Lazy(() =>
+    player.records.recentCondenses
+      .map(run => ratePerMinute(run[2], run[1]))
+      .reduce(Decimal.maxReducer)
+  ),
+
   averageRealTimePerEternity: new Lazy(() => player.records.recentEternities
     .map(run => run[1])
     .reduce(Number.sumReducer) / (1000 * player.records.recentEternities.length)),
