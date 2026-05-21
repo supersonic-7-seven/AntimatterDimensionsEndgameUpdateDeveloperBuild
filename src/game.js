@@ -432,6 +432,7 @@ export function gainedInfinities() {
     if (PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied) pelleInfs = pelleInfs.times(getAdjustedGlyphEffect("infinityinfmult"));
     if (PelleDestructionUpgrade.singularityMilestones.canBeApplied) pelleInfs = pelleInfs.powEffectOf(SingularityMilestone.infinitiedPow);
     if (!player.disablePostReality) pelleInfs = pelleInfs.pow(AlphaUnlocks.eternityChallenge10.effects.buff.effectOrDefault(1));
+    if (ResurgenceUpgrade.curr1Surge.isBought && !player.disablePostReality) pelleInfs = pelleInfs.pow(player.infinities.max(1e10).log10().log10());
     return pelleInfs;
   }
   let infGain = Effects.max(
@@ -452,6 +453,7 @@ export function gainedInfinities() {
   if (LHC.voidRunning) infGain = infGain.timesEffectOf(NullUpgrade.infinityMult);
   infGain = infGain.powEffectOf(SingularityMilestone.infinitiedPow);
   if (!player.disablePostReality) infGain = infGain.pow(AlphaUnlocks.eternityChallenge10.effects.buff.effectOrDefault(1));
+  if (ResurgenceUpgrade.curr1Surge.isBought && !player.disablePostReality) infGain = infGain.pow(player.infinities.max(1e10).log10().log10());
   return infGain;
 }
 
