@@ -1683,7 +1683,7 @@ export const Player = {
   },
 
   get divineDimensionMultDecrease() {
-    return GameCache.celestialDimensionMultDecrease.value;
+    return GameCache.divineDimensionMultDecrease.value;
   },
 
   get infinityGoal() {
