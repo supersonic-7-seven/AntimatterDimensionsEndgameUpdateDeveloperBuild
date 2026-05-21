@@ -549,6 +549,7 @@ export function getGameSpeedupFactor(effectsToConsider, _applyMaxThisEndgame, bl
         factor = factor.times(Decimal.pow(blackHole.power, BlackHoles.unpauseAccelerationFactor));
         factor = factor.times(VUnlocks.achievementBH.effectOrDefault(1));
         if (Pelle.isDoomed && PelleCelestialUpgrade.vMilestones3.canBeApplied) factor = factor.times(VUnlocks.achievementBH.effectValue);
+        if (ResurgenceUpgrade.achSurge.isBought && !player.disablePostReality) factor = factor.pow(Achievements.powerConv(Achievements.power));
       }
     }
   }
