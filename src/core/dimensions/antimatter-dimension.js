@@ -101,6 +101,8 @@ export function getDimensionFinalMultiplierUncached(tier) {
     multiplier = multiplier.powEffectOf(Accelerators.emptiness._milestones[0]);
   }
 
+  if (ResurgenceUpgrade.achSurge.isBought && !player.disablePostReality) multiplier = multiplier.pow(Achievements.powerConv(Achievements.power));
+
   multiplier = dilateMultiplier(multiplier, Achievement(231).effectOrDefault(1));
 
   multiplier = dilateMultiplier(multiplier, EtherealStars.red.reward);
