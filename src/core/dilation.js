@@ -77,7 +77,7 @@ export function buyDilationUpgrade(id, bulk = 1) {
     buying = Math.clampMax(buying, bulk);
     buying = Math.clampMax(buying, upgrade.purchaseCap - upgAmount);
     if (upgrade.cost.lt(DilationUpgradeScaling.PRIMARY_SCALING)) buying = Math.clampMax(buying, upgrade.capIncreaseAt - upgAmount);
-    if (upgrade.cost.lt(Decimal.pow10(1e10)) && upgrade.superExponent) buying = Math.clampMax(buying, upgrade.superExponent - upgAmount);
+    if (upgrade.cost.lt(Decimal.pow10(1e10)) && upgrade.superExponent !== Infinity) buying = Math.clampMax(buying, upgrade.superExponent - upgAmount);
     const hasBoughtOverThreshold = Math.max(upgAmount - upgrade.capIncreaseAt, 0);
     const exactCostAtThreshold = Decimal.multiply(upgrade.config.initialCost, Decimal.pow(upgrade.config.increment, upgrade.capIncreaseAt));
     const dtOverThreshold = Decimal.log10(Currency.dilatedTime.value.div(exactCostAtThreshold)).toNumber();
@@ -86,9 +86,9 @@ export function buyDilationUpgrade(id, bulk = 1) {
     const logCostAtSuperscale = 1e10;
     const dtOverSuperscale = Currency.dilatedTime.value.max(1).log10().div(logCostAtSuperscale).toNumber();
     const canBuyOverSuperscale = Decimal.floor(Decimal.log(dtOverSuperscale, 1.0001)).toNumber();
-    if (upgrade.cost.gte(Decimal.pow10(1e10)) && upgrade.superExponent) buying = canBuyOverSuperscale - hasBoughtOverSuperscale + 1;
+    if (upgrade.cost.gte(Decimal.pow10(1e10)) && upgrade.superExponent !== Infinity) buying = canBuyOverSuperscale - hasBoughtOverSuperscale + 1;
     else if (upgrade.cost.gte(DilationUpgradeScaling.PRIMARY_SCALING)) buying = canBuyOverThreshold - hasBoughtOverThreshold + 1;
-    if (upgrade.cost.lt(Decimal.pow10(1e10)) && upgrade.superExponent) buying = Math.clampMax(buying, upgrade.superExponent - upgAmount);
+    if (upgrade.cost.lt(Decimal.pow10(1e10)) && upgrade.superExponent !== Infinity) buying = Math.clampMax(buying, upgrade.superExponent - upgAmount);
     const cost = Decimal.sumGeometricSeries(buying, upgrade.config.initialCost, upgrade.config.increment, upgAmount);
     Currency.dilatedTime.subtract(cost);
     player.dilation.rebuyables[id] += buying;
