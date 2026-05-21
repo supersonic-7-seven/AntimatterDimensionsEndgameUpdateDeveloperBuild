@@ -138,11 +138,12 @@ export const Pelle = {
     }
 
     if (DivinityMilestone.pelleQoL.isReached) {
-      player.celestials.pelle.rifts.vacuum.fill = DC.D1;
-      player.celestials.pelle.rifts.decay.fill = DC.D1;
-      player.celestials.pelle.rifts.chaos.fill = 1;
-      player.celestials.pelle.rifts.recursion.fill = DC.D1;
-      player.celestials.pelle.rifts.paradox.fill = DC.D1;
+      player.celestials.pelle.rifts.decay.percentageSpent = 10;
+      player.celestials.pelle.rifts.vacuum.fill = PelleRifts.vacuum.config.percentageToFill(1);
+      player.celestials.pelle.rifts.decay.fill = PelleRifts.decay.config.percentageToFill(1);
+      player.celestials.pelle.rifts.chaos.fill = PelleRifts.chaos.config.percentageToFill(1);
+      player.celestials.pelle.rifts.recursion.fill = PelleRifts.recursion.config.percentageToFill(1);
+      player.celestials.pelle.rifts.paradox.fill = PelleRifts.paradox.config.percentageToFill(1);
     }
 
     // Force-unhide all tabs except for the shop tab, for which we retain the hide state instead
