@@ -55,7 +55,7 @@ export default {
     },
     glitchAnim() {
       const flux = Math.random() / 4;
-      const negFlux = Math.random() / -4;
+      const negFlux = -flux;
       return {
         "text-shadow": `${negFlux}rem 0 red, ${flux}rem 0 blue`,
       };
