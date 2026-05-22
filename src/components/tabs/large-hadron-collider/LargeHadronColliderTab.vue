@@ -40,8 +40,8 @@ export default {
       };
     },
     glitchAnim() {
-      const flux = this.randKey / 4;
-      const negFlux = -flux;
+      let flux = this.randKey / 4;
+      let negFlux = -flux;
       return {
         "text-shadow": `${negFlux}rem 0 red, ${flux}rem 0 blue`,
       };
