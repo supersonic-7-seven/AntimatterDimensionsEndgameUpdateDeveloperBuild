@@ -39,6 +39,13 @@ export default {
         "c-void-run-button--not-running": !this.isRunning,
       };
     },
+    glitchAnim() {
+      const flux = this.randKey / 4;
+      const negFlux = -flux;
+      return {
+        "text-shadow": `${negFlux}rem 0 red, ${flux}rem 0 blue`,
+      };
+    },
   },
   methods: {
     update() {
@@ -54,13 +61,6 @@ export default {
         Decimal.log10(Decimal.pow(AntimatterDimension(1).productionPerSecond, 0.01).max(1)).pow(
         Decimal.log10(Decimal.log10(Decimal.pow(AntimatterDimension(1).productionPerSecond, 0.01).max(1)).max(1))));
       this.randKey = Math.random();
-    },
-    glitchAnim() {
-      const flux = this.randKey / 4;
-      const negFlux = -flux;
-      return {
-        "text-shadow": `${negFlux}rem 0 red, ${flux}rem 0 blue`,
-      };
     },
     startRun() {
       if (this.isRunning) exitTheVoid();
@@ -104,7 +104,7 @@ export default {
       <div
         :class="runButtonOuterClass"
         @click="startRun"
-        :style="glitchAnim()"
+        :style="glitchAnim"
       >
         <div
           :button-symbol="voidText"
