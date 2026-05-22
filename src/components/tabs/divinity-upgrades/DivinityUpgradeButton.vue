@@ -41,7 +41,7 @@ export default {
     update() {
       const upgrade = this.upgrade;
       this.canBeBought = upgrade.canBeBought;
-      this.isBought = upgrade.isBought;
+      this.isBought = upgrade.isBought || upgrade.isCapped;
       this.isSecond = upgrade.config.layer === 2 || upgrade.config.layer === 3;
       this.isThird = upgrade.config.layer === 4 || upgrade.config.layer === 5;
     }
