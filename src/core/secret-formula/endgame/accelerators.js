@@ -49,7 +49,7 @@ export const accelerators = {
     effects: {
       alpha: percentage => Decimal.pow(1 + percentage / 100, 1 + percentage / 100),
       beta: percentage => player.disablePostReality ? 1 : 1 + percentage / 100,
-      gamma: percentage => player.disablePostReality ? 10 : 1 / (0.1 + percentage * 3 / 1000),
+      gamma: percentage => player.disablePostReality ? 10 : 1 / (0.1 + percentage / 1000),
     },
     currency: () => Currency.nullMatter,
     unlockReq: () => Decimal.pow10(5),
