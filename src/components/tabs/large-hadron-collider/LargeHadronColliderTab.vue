@@ -18,7 +18,7 @@ export default {
       isRunning: false,
       highestAntimatter: new Decimal(),
       nullMatter: new Decimal(),
-      nullPerSecond: new Decimal()
+      nullPerSecond: new Decimal(),
     };
   },
   computed: {
@@ -52,6 +52,13 @@ export default {
       this.nullPerSecond.copyFrom(!LHC.voidRunning ? DC.D0 :
         Decimal.log10(Decimal.pow(AntimatterDimension(1).productionPerSecond, 0.01).max(1)).pow(
         Decimal.log10(Decimal.log10(Decimal.pow(AntimatterDimension(1).productionPerSecond, 0.01).max(1)).max(1))));
+    },
+    glitchAnim() {
+      let flux = Math.random() / 4;
+      let negFlux = -flux;
+      return {
+        "text-shadow": `${negFlux}rem 0 red, ${flux}rem 0 blue`,
+      };
     },
     startRun() {
       if (this.isRunning) exitTheVoid();
@@ -98,6 +105,7 @@ export default {
       >
         <div
           :button-symbol="voidText"
+          :style="glitchAnim()"
         >
           {{ voidText }}
         </div>

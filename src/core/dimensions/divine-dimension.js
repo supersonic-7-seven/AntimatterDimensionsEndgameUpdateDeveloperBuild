@@ -6,7 +6,8 @@ export function divineDimensionCommonMultiplier() {
     DivinityUpgrade.divineL2U9);
   mult = mult.times(DivinityMilestone.hadronEmpowerment.isReached ? 77 : 1);
   mult = mult.times(Accelerators.potency.effectValue3);
-  mult = mult.times(Decimal.pow(7, Decimal.log10(player.celestials.pelle.divinity.divineStars.add(1))));
+  mult = mult.times(Decimal.pow(7, Decimal.log10(player.celestials.pelle.divinity.divineStars.add(1))).powEffectOf(
+    DivinityUpgrade.divineL3U3));
   return mult;
 }
 
@@ -62,7 +63,7 @@ class DivineDimensionState extends DimensionState {
     mult = mult.times(Decimal.pow(this.powerMultiplier, Decimal.floor(this.baseAmount)));
     if (DivinityMilestone.pelleQoL.isReached) mult = mult.pow(1.05);
     mult = mult.pow(Accelerators.emptiness._milestones[1].effectOrDefault(1));
-    mult = mult.powEffectsOf(DivinityUpgrade.divineL2U7);
+    mult = mult.powEffectsOf(DivinityUpgrade.divineL2U7, DivinityUpgrade.divineL3U5);
     return mult;
   }
 
@@ -81,7 +82,7 @@ class DivineDimensionState extends DimensionState {
   }
 
   get powerMultiplier() {
-    return new Decimal(DivinityUpgrade.divineL2U8 ? 17 : this._powerMultiplier);
+    return new Decimal(DivinityUpgrade.divineL2U8 ? 17 : this._powerMultiplier).timesEffectOf(DivinityUpgrade.divineL3U2);
   }
 
   get purchases() {
@@ -92,7 +93,7 @@ class DivineDimensionState extends DimensionState {
     return new ExponentialCostScaling({
       baseCost: this.baseCost,
       baseIncrease: this.costMultiplier,
-      costScale: 10,
+      costScale: Player.divineDimensionMultDecrease,
       scalingCostThreshold: Number.MAX_VALUE
     });
   }
@@ -282,3 +283,7 @@ export function resetForDivineStars() {
   player.records.thisCondense.realTime = 0;
   player.records.totalCondenseDivineMatter = DC.E1;
 };
+
+export function preProductionGenerateVS(diff) {
+  Currency.divineStars.add(DivinityUpgrade.divineL3U4.effectOrDefault(DC.D0).times(diff).div(60000));
+}

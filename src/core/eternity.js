@@ -273,12 +273,14 @@ export function gainedEternities() {
     if (PelleRealityUpgrade.eternalAmplifier.canBeApplied) pelleEternities = pelleEternities.timesEffectsOf(RealityUpgrade(3));
     if (PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied) pelleEternities = pelleEternities.times(getAdjustedGlyphEffect("timeetermult"));
     if (PelleAlchemyUpgrade.alchemyEternity.canBeApplied) pelleEternities = pelleEternities.pow(AlchemyResource.eternity.effectValue);
+    if (ResurgenceUpgrade.curr1Surge.isBought && !player.disablePostReality) pelleEternities = pelleEternities.pow(player.eternities.max(1e10).log10().log10());
     return pelleEternities;
   }
   let eter = new Decimal(getAdjustedGlyphEffect("timeetermult"))
       .timesEffectsOf(RealityUpgrade(3),Achievement(102),Achievement(113))
       .pow(AlchemyResource.eternity.effectValue);
   if (LHC.voidRunning) eter = eter.timesEffectOf(NullUpgrade.eternityMult);
+  if (ResurgenceUpgrade.curr1Surge.isBought && !player.disablePostReality) eter = eter.pow(player.eternities.max(1e10).log10().log10());
   return eter;
 }
 

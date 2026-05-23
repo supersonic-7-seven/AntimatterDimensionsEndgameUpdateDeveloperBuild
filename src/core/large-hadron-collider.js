@@ -182,6 +182,7 @@ export const LHC = {
   },
 
   get nextAccelerator() {
+    if (!Accelerators.all.find(a => !a.isUnlocked)) return;
     return Accelerators.all.first(a => !a.isUnlocked);
   },
 

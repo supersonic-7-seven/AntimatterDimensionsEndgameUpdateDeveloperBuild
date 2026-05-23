@@ -173,6 +173,12 @@ export const Endgame = {
       for (let slotNo = 0; slotNo < Glyphs.activeSlotCount; slotNo++) {
         for (const type of BASIC_GLYPH_TYPES) Glyphs.addToInventory(GlyphGenerator.endgameGlyph(type));
       }
+      if (EffarigUnlock.endgame.canBeApplied) {
+        Glyphs.addToInventory(GlyphGenerator.endgameGlyph("effarig"));
+        Glyphs.addToInventory(GlyphGenerator.endgameGlyph("effarig"));
+        Glyphs.addToInventory(GlyphGenerator.realityGlyph(AlchemyResource.reality.effectValue));
+        Glyphs.addToInventory(GlyphGenerator.realityGlyph(AlchemyResource.reality.effectValue));
+      }
     }
     EventHub.dispatch(GAME_EVENT.ENDGAME_RESET_AFTER);
 

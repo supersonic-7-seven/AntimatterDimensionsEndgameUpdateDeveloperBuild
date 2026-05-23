@@ -204,6 +204,10 @@ export const Achievements = {
     return Achievements._power.value;
   },
 
+  powerConv(power) {
+    return Decimal.log10(Decimal.log10(power).add(1)).div(20).add(1).toNumber();
+  },
+
   updateSteamStatus() {
     for (const achievement of Achievements.all.filter(x => x.isUnlocked)) {
       SteamRuntime.activateAchievement(achievement.id);

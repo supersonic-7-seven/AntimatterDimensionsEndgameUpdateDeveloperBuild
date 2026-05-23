@@ -57,21 +57,21 @@ export function toggleAllTimeDims() {
 }
 
 export function calcHighestPurchaseableTD(tier, currency) {
-  const logC = currency.max(1).log10().times(PelleRifts.paradox.milestones[0].canBeApplied && tier > 4 ? 2 : 1);
+  const logC = currency.max(1).log10();
   const logBase = (TimeDimension(tier)._baseCost.max(1).log10().sub(
     PelleRifts.paradox.milestones[0].canBeApplied && tier > 4 ? 2250 : 0)).div(
     PelleRifts.paradox.milestones[0].canBeApplied && tier > 4 ? 2 : 1);
   let logMult = Math.log10(TimeDimension(tier)._costMultiplier);
 
   if (tier > 4 && currency.lt(DC.E6000)) {
-    return Decimal.floor(Decimal.max(0, (logC.sub(logBase)).div(logMult)));
+    return Decimal.floor(Decimal.max(0, (logC.sub(logBase)).div(logMult))).add(1);
   }
 
   if (currency.gte(DC.E6000)) {
     logMult = Math.log10(Math.max(TimeDimension(tier)._costMultiplier * (tier <= 4 ? 2.2 : 1), 1));
     const preInc = (Decimal.log10(DC.E6000).sub(logBase)).div(logMult);
     const postInc = Decimal.clampMin(((logC.sub(6000)).div(logMult)).div(TimeDimensions.scalingPast1e6000), 0);
-    return Decimal.floor(postInc.add(preInc));
+    return Decimal.floor(postInc.add(preInc)).add(1);
   }
 
   if (currency.lt(DC.NUMMAX)) {
@@ -83,7 +83,7 @@ export function calcHighestPurchaseableTD(tier, currency) {
     logMult = Math.log10(Math.max(TimeDimension(tier)._costMultiplier * 1.5, 1));
     const decCur = logC.sub(preInc.times(logMult));
     const postInc = Decimal.floor(Decimal.clampMin(decCur.div(logMult), 0));
-    return preInc.add(postInc);
+    return preInc.add(postInc).add(1);
   }
 
   if (currency.lt(DC.E6000)) {
@@ -92,7 +92,7 @@ export function calcHighestPurchaseableTD(tier, currency) {
     logMult = Math.log10(Math.max(TimeDimension(tier)._costMultiplier * 2.2, 1));
     const decCur = logC.sub(preInc.times(logMult));
     const postInc = Decimal.floor(Decimal.clampMin(decCur.div(logMult), 0));
-    return preInc.add(postInc);
+    return preInc.add(postInc).add(1);
   }
   throw new Error("calcHighestPurchasableTD reached too far in code");
 }
@@ -321,6 +321,8 @@ class TimeDimensionState extends DimensionState {
     }
 
     if (DilationUpgrade.tdMultReplicanti.isBought && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) mult = mult.pow(ReplicantiMultipliers.tdPow);
+
+    if (ResurgenceUpgrade.achSurge.isBought && !player.disablePostReality) mult = mult.pow(Achievements.powerConv(EternityUpgrade.tdMultAchs.effectOrDefault(1)));
 
     mult = dilateMultiplier(mult, EtherealStars.purple.reward);
 

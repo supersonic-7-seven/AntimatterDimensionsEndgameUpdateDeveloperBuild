@@ -51,7 +51,18 @@ export default {
           DivinityUpgrade.divineL2U10,
         ]
       ];
-    }
+    },
+    grid3() {
+      return [
+        [
+          DivinityUpgrade.divineL3U1,
+          DivinityUpgrade.divineL3U2,
+          DivinityUpgrade.divineL3U3,
+          DivinityUpgrade.divineL3U4,
+          DivinityUpgrade.divineL3U5,
+        ]
+      ];
+    },
   },
   methods: {
     update() {
@@ -89,6 +100,22 @@ export default {
       </div>
       <div
         v-for="(column, columnId) in grid2"
+        :key="columnId"
+        class="l-divinity-upgrade-grid__row"
+      >
+        <DivinityUpgradeButton
+          v-for="upgrade in column"
+          :key="upgrade.id"
+          :upgrade="upgrade"
+        />
+      </div>
+    </div>
+    <div v-if="has3">
+      <div class="c-divinity-header">
+        Layer Three Upgrades
+      </div>
+      <div
+        v-for="(column, columnId) in grid3"
         :key="columnId"
         class="l-divinity-upgrade-grid__row"
       >

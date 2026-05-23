@@ -89,6 +89,10 @@ export const Pelle = {
     player.IPMultPurchases = DC.D0;
     Autobuyer.bigCrunch.mode = AUTO_CRUNCH_MODE.AMOUNT;
     if (!DivinityMilestone.pelleQoL.isReached) disChargeAll();
+    if (DivinityMilestone.pelleQoL.isReached) {
+      PelleStrikes.powerGalaxies.trigger();
+      Replicanti.unlock(true);
+    }
     if (!Effarig.isRunning || Effarig.currentStage !== EFFARIG_STAGES.ENDGAME) clearCelestialRuns();
     CelestialDimensions.resetAmount();
     player.records.thisEndgame.peakGameSpeed = DC.D1;
@@ -137,11 +141,14 @@ export const Pelle = {
     }
 
     if (DivinityMilestone.pelleQoL.isReached) {
-      player.celestials.pelle.rifts.vacuum.fill = DC.D1;
-      player.celestials.pelle.rifts.decay.fill = DC.D1;
-      player.celestials.pelle.rifts.chaos.fill = 1;
-      player.celestials.pelle.rifts.recursion.fill = DC.D1;
-      player.celestials.pelle.rifts.paradox.fill = DC.D1;
+      player.celestials.pelle.rifts.decay.percentageSpent = 10;
+      player.celestials.pelle.rifts.vacuum.fill = PelleRifts.vacuum.config.percentageToFill(1);
+      player.celestials.pelle.rifts.decay.fill = PelleRifts.decay.config.percentageToFill(11);
+      player.celestials.pelle.rifts.chaos.fill = PelleRifts.chaos.config.percentageToFill(1);
+      player.celestials.pelle.rifts.recursion.fill = PelleRifts.recursion.config.percentageToFill(1);
+      player.celestials.pelle.rifts.paradox.fill = PelleRifts.paradox.config.percentageToFill(1);
+      if (PelleRifts.vacuum.milestones[0].canBeApplied) Glyphs.refreshActive();
+      PelleRifts.all.forEach(x => x.checkMilestoneStates());
     }
 
     // Force-unhide all tabs except for the shop tab, for which we retain the hide state instead

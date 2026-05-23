@@ -69,6 +69,12 @@ export const GameCache = {
       .reduce(Decimal.maxReducer)
   ),
 
+  bestRunVSPM: new Lazy(() =>
+    player.records.recentCondenses
+      .map(run => ratePerMinute(run[2], run[1]))
+      .reduce(Decimal.maxReducer)
+  ),
+
   averageRealTimePerEternity: new Lazy(() => player.records.recentEternities
     .map(run => run[1])
     .reduce(Number.sumReducer) / (1000 * player.records.recentEternities.length)),
@@ -96,6 +102,10 @@ export const GameCache = {
   celestialDimensionMultDecrease: new Lazy(() => 10 - Effects.sum(
     CelestialBreakInfinityUpgrade.celDimCostMult
   ) - CelestialEternityUpgrade.celDimReduction.effectOrDefault(0)),
+
+  divineDimensionMultDecrease: new Lazy(() => 10 - Effects.sum(
+    DivinityUpgrade.divineL3U1
+  )),
 
   timeStudies: new Lazy(() => NormalTimeStudyState.studies
     .map(s => player.timestudy.studies.includes(s.id))),

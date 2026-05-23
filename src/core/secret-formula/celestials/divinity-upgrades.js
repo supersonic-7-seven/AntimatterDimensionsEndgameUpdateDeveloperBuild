@@ -1,3 +1,29 @@
+function rebuyable(config) {
+  const effectFunction = config.effect || (x => x);
+  const { name, id, layer, maxUpgrades, description, isDisabled, noLabel, onPurchased } = config;
+  return {
+    rebuyable: true,
+    name,
+    id,
+    layer,
+    cost: () => new Decimal(config.initialCost).times(
+      Decimal.pow(config.costIncrease, player.celestials.pelle.divinityRebuyables[config.id])),
+    maxUpgrades,
+    description,
+    effect: () => effectFunction(player.celestials.pelle.divinityRebuyables[config.id]),
+    isDisabled,
+    formatEffect: config.formatEffect ||
+      (value => {
+        return (value === config.maxUpgrades
+          ? `Currently: ${formatX(10 - value)}`
+          : `Currently: ${formatX(10 - value)} | Next: ${formatX(10 - value - 1)}`);
+      }),
+    formatCost: value => formatPostBreak(value, 2, 0),
+    noLabel,
+    onPurchased
+  };
+}
+
 export const divinityUpgrades = {
   divineL1U1: {
     name: "Celestial Storage",
@@ -150,7 +176,7 @@ export const divinityUpgrades = {
     layer: 2,
     cost: new Decimal(77777),
     description: "Divine Dimensions are multiplied based on Celestial Matter",
-    effect: () => Decimal.pow(Decimal.log10(Currency.celestialMatter.value).add(1), 7),
+    effect: () => Decimal.pow(Decimal.log10(Currency.celestialMatter.value.max(1)).add(1), 7),
     formatEffect: value => formatX(value, 2, 2)
   },
   divineL2U10: {
@@ -160,5 +186,68 @@ export const divinityUpgrades = {
     cost: new Decimal(1777777),
     description: () => `Divine Matter effects are set to highest-ever Divine Matter and Divine Energy gain
       is always produced at a ${formatPercents(1)} rate with no penalty`
+  },
+  divineL3U1: rebuyable({
+    name: "Entropy Reduction",
+    id: 0,
+    layer: 3,
+    initialCost: 1e7,
+    costIncrease: 200,
+    maxUpgrades: 7,
+    description: () => `Decrease the post-Infinite Divine Dimension cost scaling multiplier by ${formatInt(1)}`,
+    noLabel: true,
+    onPurchased: () => GameCache.divineDimensionMultDecrease.invalidate()
+  }),
+  divineL3U2: rebuyable({
+    name: "Divine Excellence",
+    id: 1,
+    layer: 3,
+    initialCost: 1e8,
+    costIncrease: 1e4,
+    maxUpgrades: 10,
+    description: () => `Multiply the Divine Dimension Per-Purchase Multiplier by ${formatX(7)}`,
+    effect: value => player.disablePostReality ? 1 : Math.pow(7, value),
+    formatEffect: value => formatX(value, 2),
+    noLabel: false
+  }),
+  divineL3U3: rebuyable({
+    name: "Stellar Supercharger",
+    id: 2,
+    layer: 3,
+    initialCost: 1e10,
+    costIncrease: 1e10,
+    maxUpgrades: 6,
+    description: "Raise the Divine Star boost to a power",
+    effect: value => player.disablePostReality ? 1 : value + 1,
+    formatEffect: value => formatPow(value, 2),
+    noLabel: false
+  }),
+  divineL3U4: rebuyable({
+    name: "Nebulous Generation",
+    id: 3,
+    layer: 3,
+    initialCost: 1e12,
+    costIncrease: 100,
+    maxUpgrades: 10,
+    effect: value => player.disablePostReality ? DC.D0 : Player.bestRunVSPM.times(value / 20),
+    description: () => {
+      let generation = `Generate ${formatInt(5 * player.celestials.pelle.divinityRebuyables[3])}%`;
+      if (!DivinityUpgrade.divineL3U4.isCapped) {
+        generation += ` ➜ ${formatInt(5 * (1 + player.celestials.pelle.divinityRebuyables[3]))}%`;
+      }
+      return `${generation} of your best VS/min from your last 10 Condenses`;
+    },
+    isDisabled: effect => effect.eq(0),
+    formatEffect: value => `${format(value, 2, 1)} VS/min`,
+    noLabel: false
+  }),
+  divineL3U5: {
+    name: "Power is a Journey",
+    id: "divineL3U5",
+    layer: 3,
+    cost: new Decimal(1e77),
+    description: "Gain a power effect to Divine Dimensions based on Condenses",
+    effect: () => Decimal.log10(player.celestials.pelle.divinity.condenses.div(100).add(1)).div(2).add(1),
+    formatEffect: value => formatPow(value, 2, 3)
   },
 };

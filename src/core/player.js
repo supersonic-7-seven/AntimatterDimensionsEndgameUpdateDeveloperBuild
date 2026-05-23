@@ -1042,6 +1042,7 @@ window.player = {
         divineStars: DC.D0
       },
       divinityUpgrades: new Set(),
+      divinityRebuyables: [0, 0, 0, 0],
       resurgenceUpgrades: new Set()
     },
     alpha: {
@@ -1657,6 +1658,10 @@ export const Player = {
     return GameCache.bestRunCIPPM.value;
   },
 
+  get bestRunVSPM() {
+    return GameCache.bestRunVSPM.value;
+  },
+
   get averageRealTimePerEternity() {
     return GameCache.averageRealTimePerEternity.value;
   },
@@ -1675,6 +1680,10 @@ export const Player = {
 
   get celestialDimensionMultDecrease() {
     return GameCache.celestialDimensionMultDecrease.value;
+  },
+
+  get divineDimensionMultDecrease() {
+    return GameCache.divineDimensionMultDecrease.value;
   },
 
   get infinityGoal() {
