@@ -51,5 +51,17 @@ export const divinityMilestones = {
         Reduce the Celestial Matter Softcap by ${formatPercents(0.2)}
         Improve the effect of Exotic Hadrons`;
     }
-  }
+  },
+  celestialSurge: {
+    divinities: 5,
+    get reward() {
+      return ` The Hepteract effect now also affects the Celestial Matter Corruption Magnitude
+        While inside The Void, Antimatter Dimension multipliers are squared
+        After uncapping the Galaxy Generator, rifts fill an additional ${formatX(10)} faster
+        Unlock a new Galaxy Generator Upgrade
+        Reduce the time for Hadrons to cap by ${formatPercents(0.75)}
+        Multiply Ethereal Power Generation by ${formatInt(1000)}
+        Effarig Level ${formatInt(40)} applies to the first ${formatInt(5)} levels of Glyph Instability instead of the first ${formatInt(3)}`;
+    }
+  },
 };
