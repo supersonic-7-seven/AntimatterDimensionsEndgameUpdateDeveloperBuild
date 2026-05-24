@@ -85,7 +85,7 @@ export function buyDilationUpgrade(id, bulk = 1) {
     const hasBoughtOverSuperscale = Math.max(upgAmount - upgrade.superExponent, 0);
     const logCostAtSuperscale = 1e10;
     const dtOverSuperscale = Currency.dilatedTime.value.max(1).log10().div(logCostAtSuperscale).toNumber();
-    const canBuyOverSuperscale = Decimal.floor(Decimal.log(dtOverSuperscale, 1.0001)).toNumber();
+    const canBuyOverSuperscale = Decimal.floor(Decimal.log(dtOverSuperscale, 1.00004)).toNumber();
     if (upgrade.cost.gte(Decimal.pow10(1e10)) && upgrade.superExponent !== Infinity) buying = canBuyOverSuperscale - hasBoughtOverSuperscale + 1;
     else if (upgrade.cost.gte(DilationUpgradeScaling.PRIMARY_SCALING)) buying = canBuyOverThreshold - hasBoughtOverThreshold + 1;
     if (upgrade.cost.lt(Decimal.pow10(1e10)) && upgrade.superExponent !== Infinity) buying = Math.clampMax(buying, upgrade.superExponent - upgAmount);
