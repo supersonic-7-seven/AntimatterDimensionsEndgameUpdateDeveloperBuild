@@ -127,23 +127,23 @@ when they're open. It looks slightly hacky but actually can't be done any other 
 its own stacking context, which means that all z-indices specified within are essentially scoped and the
 AutobuyerBox components will always render in page order regardless of internal z-indices without these. */
 .c-endgame-pos {
-  z-index: 6;
+  z-index: 3.5;
 }
   
 .c-reality-pos {
-  z-index: 5;
-}
-
-.c-celestial-eternity-pos {
-  z-index: 4;
-}
-
-.c-eternity-pos {
   z-index: 3;
 }
 
-.c-celestial-infinity-pos {
+.c-celestial-eternity-pos {
+  z-index: 2.5;
+}
+
+.c-eternity-pos {
   z-index: 2;
+}
+
+.c-celestial-infinity-pos {
+  z-index: 1.5;
 }
 
 .c-infinity-pos {
