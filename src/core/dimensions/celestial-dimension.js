@@ -246,6 +246,7 @@ export const CelestialDimensions = {
   },
 
   get MASS_OVERFLOW_MAG() {
+    if (DivinityMilestone.celestialSurge.isReached && !player.disablePostReality) return DC.E2.pow(Hepteracts.softcapReduction()).toNumber();
     return DC.E2.toNumber();
   },
 

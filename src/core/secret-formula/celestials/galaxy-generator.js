@@ -86,5 +86,14 @@ export const pelleGalaxyGeneratorUpgrades = {
     formatEffect: x => formatPow(x, 2, 3),
     currency: () => Currency.remnants,
     currencyLabel: "Remnant"
+  }),
+  exponential: rebuyable({
+    id: "galaxyGeneratorExponential",
+    description: "Empower Galaxy generation",
+    cost: x => new Decimal(1e100).times(Decimal.pow(1e100, (x*(x+1)/2)+x)),
+    effect: x => 1 + x / 200,
+    formatEffect: x => formatPow(x, 2, 3),
+    currency: () => Currency.galaxyGeneratorGalaxies,
+    currencyLabel: "Galaxy"
   })
 };

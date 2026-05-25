@@ -678,10 +678,12 @@ export const Glyphs = {
   },
   get immenseInstabilityThreshold() {
     return 200000 + DualityUpgrade(7).effectOrDefault(0) +
-      (EffarigUnlock.endgame.canBeApplied ? getAdjustedGlyphEffect("effarigglyph") : 0);
+      (EffarigUnlock.endgame.canBeApplied ? getAdjustedGlyphEffect("effarigglyph") : 0) +
+      (DivinityMilestone.celestialSurge.isReached && !player.disablePostReality ? Ra.unlocks.instabilityDelay.effectOrDefault(0) : 0);
   },
   get extensiveInstabilityThreshold() {
-    return 1000000;
+    return 1000000 + (DivinityMilestone.celestialSurge.isReached && !player.disablePostReality ?
+      Ra.unlocks.instabilityDelay.effectOrDefault(0) : 0);
   },
   get prodigiousInstabilityThreshold() {
     return 2500000;

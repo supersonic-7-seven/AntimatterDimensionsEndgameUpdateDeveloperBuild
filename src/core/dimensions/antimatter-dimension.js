@@ -99,6 +99,7 @@ export function getDimensionFinalMultiplierUncached(tier) {
     multiplier = multiplier.powEffectOf(Accelerators.potency._milestones[0]);
     multiplier = multiplier.pow(Accelerators.emptiness.effectValue1);
     multiplier = multiplier.powEffectOf(Accelerators.emptiness._milestones[0]);
+    if (DivinityMilestone.celestialSurge.isReached && !player.disablePostReality) multiplier = multiplier.pow(2);
   }
 
   if (ResurgenceUpgrade.achSurge.isBought && !player.disablePostReality) multiplier = multiplier.pow(Achievements.powerConv(Achievements.power));

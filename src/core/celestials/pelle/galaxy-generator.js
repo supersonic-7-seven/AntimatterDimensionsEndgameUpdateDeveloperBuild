@@ -36,7 +36,7 @@ export const GalaxyGenerator = {
       GalaxyGeneratorUpgrades.EPMult,
       GalaxyGeneratorUpgrades.RSMult,
       GalaxyGeneratorUpgrades.DTMult
-    ).times(extraGain).pow(GalaxyGeneratorUpgrades.remnantPow.effectValue).pow(Accelerators.cosmic.effectValue1);
+    ).times(extraGain).powEffectsOf(GalaxyGeneratorUpgrades.remnantPow, GalaxyGeneratorUpgrades.exponential).pow(Accelerators.cosmic.effectValue1);
   },
 
   get galGenInstability() {
@@ -167,7 +167,7 @@ export const GalaxyGenerator = {
     );
 
     if (!this.capRift) {
-      PelleRifts.all.forEach(r => r.reducedTo = new Decimal(diff).div(DivinityMilestone.pelleQoL.isReached ? 1e4 : 1e5).times(3).add(r.reducedTo).clampMax(Alpha.isDestroyed ? Infinity : 2).toNumber());
+      PelleRifts.all.forEach(r => r.reducedTo = new Decimal(diff).div(DivinityMilestone.celestialSurge.isReached ? 1e3 : (DivinityMilestone.pelleQoL.isReached ? 1e4 : 1e5)).times(3).add(r.reducedTo).clampMax(Alpha.isDestroyed ? Infinity : 2).toNumber());
       if (PelleRifts.vacuum.milestones[0].canBeApplied && !this.hasReturnedGlyphSlot) {
         Glyphs.refreshActive();
         EventHub.dispatch(GAME_EVENT.GLYPHS_EQUIPPED_CHANGED);
@@ -208,15 +208,15 @@ export class GalaxyGeneratorUpgrade extends RebuyableMechanicState {
       }
     }
     let price;
-    let logC = [3, 10, 10, 100, 1000, 1e10, 1e100, 10];
-    let exD = [1/3, 0.1, 1e7, 20000, 10, 1e90, 1, 1];
+    let logC = [3, 10, 10, 100, 1000, 1e10, 1e100, 10, 1e100];
+    let exD = [1/3, 0.1, 1e7, 20000, 10, 1e90, 1, 1, 1];
     let currV = (i >= 2 && i <= 4 ? upg.currency.value.max(1).log10().div(exD[i]) : upg.currency.value.div(exD[i]));
-    let currW = (i === 6 ? Decimal.sqrt(Decimal.log(currV, logC[i]).times(2).add(0.25)).sub(0.5) : Decimal.log(currV, logC[i]));
+    let currW = ((i === 6 || i === 8) ? Decimal.sqrt(Decimal.log(currV, logC[i]).times(2).add(0.25)).sub(0.5) : Decimal.log(currV, logC[i]));
     if (bulk) {
       pending = Decimal.floor(currW).sub(player.celestials.pelle.rebuyables[this.id]);
       player.celestials.pelle.rebuyables[this.id] += pending.toNumber();
       price = player.celestials.pelle.rebuyables[this.id] - 1;
-      price = (i === 6 ? Decimal.pow(logC[i], new Decimal(price).add(0.5).pow(2).sub(0.25).div(2)) : Decimal.pow(logC[i], price));
+      price = ((i === 6 || i === 8) ? Decimal.pow(logC[i], new Decimal(price).add(0.5).pow(2).sub(0.25).div(2)) : Decimal.pow(logC[i], price));
       price = (i >= 2 && i <= 4 ? Decimal.pow10(price.times(exD[i])) : price.times(exD[i]));
       upg.currency.value = upg.currency.value.sub(price);
     } else {

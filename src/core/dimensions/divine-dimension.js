@@ -155,7 +155,7 @@ export const DivineDimensions = {
   all: DivineDimension.index.compact(),
 
   get HARDCAP() {
-    return DC.NUMMAX.pow(Decimal.log10(player.celestials.pelle.divinity.divineStars.add(1)).add(1));
+    return DC.NUMMAX.pow(Decimal.log10(player.celestials.pelle.divinity.divineStars.min(DC.NUMMAX).add(1)).add(1));
   },
 
   get energyPerSecond() {

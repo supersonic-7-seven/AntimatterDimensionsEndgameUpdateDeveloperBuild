@@ -85,7 +85,7 @@ export function buyDilationUpgrade(id, bulk = 1) {
     const hasBoughtOverSuperscale = Math.max(upgAmount - upgrade.superExponent, 0);
     const logCostAtSuperscale = 1e10;
     const dtOverSuperscale = Currency.dilatedTime.value.max(1).log10().div(logCostAtSuperscale).toNumber();
-    const canBuyOverSuperscale = Decimal.floor(Decimal.log(dtOverSuperscale, 1.0001)).toNumber();
+    const canBuyOverSuperscale = Decimal.floor(Decimal.log(dtOverSuperscale, 1.00004)).toNumber();
     if (upgrade.cost.gte(Decimal.pow10(1e10)) && upgrade.superExponent !== Infinity) buying = canBuyOverSuperscale - hasBoughtOverSuperscale + 1;
     else if (upgrade.cost.gte(DilationUpgradeScaling.PRIMARY_SCALING)) buying = canBuyOverThreshold - hasBoughtOverThreshold + 1;
     if (upgrade.cost.lt(Decimal.pow10(1e10)) && upgrade.superExponent !== Infinity) buying = Math.clampMax(buying, upgrade.superExponent - upgAmount);
@@ -175,6 +175,9 @@ export function getDilationGainPerSecond() {
     if (getAdjustedGlyphEffect("replicationdtgain").neq(0) && PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) {
       dtRate = dtRate.pow(ReplicantiMultipliers.dtPow);
     }
+    if (ResurgenceUpgrade.curr2Surge.isBought && !player.disablePostReality) {
+      dtRate = dtRate.pow(player.dilation.dilatedTime.max(1e10).log10().log10());
+    }
     if (dtRate.gte(DilationSoftcapStart.PRIMARY_THRESHOLD)) {
       dtRate = Decimal.pow(10, (((Decimal.log10(dtRate).sub(Decimal.log10(DilationSoftcapStart.PRIMARY_THRESHOLD))).div(10)).add(
         Decimal.log10(DilationSoftcapStart.PRIMARY_THRESHOLD))));
@@ -200,6 +203,9 @@ export function getDilationGainPerSecond() {
   dtRate = dtRate.times(Alpha.isRunning ? getGameSpeedupForDisplay().pow(0.01) : getGameSpeedupForDisplay());
   if (getAdjustedGlyphEffect("replicationdtgain").neq(0) && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) {
     dtRate = dtRate.pow(ReplicantiMultipliers.dtPow);
+  }
+  if (ResurgenceUpgrade.curr2Surge.isBought && !player.disablePostReality) {
+    dtRate = dtRate.pow(player.dilation.dilatedTime.max(1e10).log10().log10());
   }
   if (dtRate.gte(DilationSoftcapStart.PRIMARY_THRESHOLD)) {
     dtRate = Decimal.pow(10, (((Decimal.log10(dtRate).sub(Decimal.log10(DilationSoftcapStart.PRIMARY_THRESHOLD))).div(10)).add(
@@ -265,6 +271,7 @@ export function getBaseTP(antimatter, requireEternity) {
 export function getTP(antimatter, requireEternity) {
   let pend = getBaseTP(antimatter, requireEternity).times(tachyonGainMultiplier()).pow(player.disablePostReality ? 1 : AlphaUnlocks.dilatedEternity.effects.buff.effectOrDefault(1));
   if (ResurgenceUpgrade.achSurge.isBought && !player.disablePostReality) pend = pend.pow(Achievements.powerConv(RealityUpgrade(8).effectOrDefault(1)));
+  if (ResurgenceUpgrade.curr2Surge.isBought && !player.disablePostReality) pend = pend.pow(player.dilation.tachyonParticles.max(1e10).log10().log10());
   return pend;
 }
 
