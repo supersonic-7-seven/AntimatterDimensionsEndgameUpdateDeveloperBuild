@@ -271,6 +271,7 @@ export function getBaseTP(antimatter, requireEternity) {
 export function getTP(antimatter, requireEternity) {
   let pend = getBaseTP(antimatter, requireEternity).times(tachyonGainMultiplier()).pow(player.disablePostReality ? 1 : AlphaUnlocks.dilatedEternity.effects.buff.effectOrDefault(1));
   if (ResurgenceUpgrade.achSurge.isBought && !player.disablePostReality) pend = pend.pow(Achievements.powerConv(RealityUpgrade(8).effectOrDefault(1)));
+  if (ResurgenceUpgrade.curr2Surge.isBought && !player.disablePostReality) pend = pend.pow(player.dilation.tachyonParticles.max(1e10).log10().log10());
   return pend;
 }
 

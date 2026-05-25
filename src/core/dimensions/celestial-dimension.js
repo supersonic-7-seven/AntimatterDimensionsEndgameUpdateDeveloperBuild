@@ -1215,3 +1215,24 @@ export const CelestialEternityUpgrade = mapGameDataToObject(
 );
 
 CelestialEternityUpgrade.cepMult = new CEPMultiplierState();
+
+class CelestialEternityPlusUpgradeState extends SetPurchasableMechanicState {
+  get currency() {
+    return Currency.celestialEternityPoints;
+  }
+
+  get set() {
+    return player.endgame.celDimExpansion.celestialEternityPlusUpgrades;
+  }
+
+  get isEffectActive() {
+    return !player.disablePostReality && this.isBought;
+  }
+}
+
+export const CelestialEternityPlusUpgrade = mapGameDataToObject(
+  GameDatabase.endgame.celDimExpansion.celestialEternityPlusUpgrades,
+  config => (config.rebuyable
+    ? new CelestialEternityPlusUpgradeState(config)
+    : new CelestialEternityPlusUpgradeState(config))
+);

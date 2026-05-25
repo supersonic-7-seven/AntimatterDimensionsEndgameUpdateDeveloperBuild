@@ -1396,6 +1396,7 @@ window.player = {
       celestialEternityUpgrades: new Set(),
       cepMultUpgrades: DC.D0,
       celestialEternityRebuyables: [0, 0, 0],
+      celestialEternityPlusUpgrades: new Set()
     },
     largeHadronCollider: {
       accelerators: {
