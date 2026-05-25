@@ -103,7 +103,7 @@ export const stars = {
     resetReq: 1e125,
     effect: (amount = player.endgame.ethereal.stars.gray) => {
       if (player.disablePostReality) return DC.D0;
-      return Decimal.log10(Decimal.log10(amount.add(1)).add(1)).times(40);
+      return Decimal.log10(Decimal.log10(amount.add(1)).add(1)).times(20);
     },
     description: amount => `Increase the effectiveness of all other stars by ${formatPercents(amount.div(100).toNumber(), 2)}`
   },

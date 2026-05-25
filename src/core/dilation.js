@@ -85,7 +85,7 @@ export function buyDilationUpgrade(id, bulk = 1) {
     const hasBoughtOverSuperscale = Math.max(upgAmount - upgrade.superExponent, 0);
     const logCostAtSuperscale = 1e10;
     const dtOverSuperscale = Currency.dilatedTime.value.max(1).log10().div(logCostAtSuperscale).toNumber();
-    const canBuyOverSuperscale = Decimal.floor(Decimal.log(dtOverSuperscale, 1.00004)).toNumber();
+    const canBuyOverSuperscale = Decimal.floor(Decimal.log(dtOverSuperscale, 1.0002)).toNumber();
     if (upgrade.cost.gte(Decimal.pow10(1e10)) && upgrade.superExponent !== Infinity) buying = canBuyOverSuperscale - hasBoughtOverSuperscale + 1;
     else if (upgrade.cost.gte(DilationUpgradeScaling.PRIMARY_SCALING)) buying = canBuyOverThreshold - hasBoughtOverThreshold + 1;
     if (upgrade.cost.lt(Decimal.pow10(1e10)) && upgrade.superExponent !== Infinity) buying = Math.clampMax(buying, upgrade.superExponent - upgAmount);
@@ -271,7 +271,6 @@ export function getBaseTP(antimatter, requireEternity) {
 export function getTP(antimatter, requireEternity) {
   let pend = getBaseTP(antimatter, requireEternity).times(tachyonGainMultiplier()).pow(player.disablePostReality ? 1 : AlphaUnlocks.dilatedEternity.effects.buff.effectOrDefault(1));
   if (ResurgenceUpgrade.achSurge.isBought && !player.disablePostReality) pend = pend.pow(Achievements.powerConv(RealityUpgrade(8).effectOrDefault(1)));
-  if (ResurgenceUpgrade.curr2Surge.isBought && !player.disablePostReality) pend = pend.pow(player.dilation.tachyonParticles.max(1e10).log10().log10());
   return pend;
 }
 
