@@ -16,7 +16,8 @@ export default {
       isExtended: false,
       canExtend: false,
       isBetter: false,
-      nextStarReq: 0
+      nextStarReq: 0,
+      stellarProd: new Decimal()
     };
   },
   computed: {
@@ -64,6 +65,7 @@ export default {
       this.canExtend = this.etherealPower.gte(1e25);
       this.isBetter = Alpha.isDestroyed;
       this.nextStarReq = Ethereal.nextStarDMReq;
+      this.stellarProd.copyFrom(Ethereal.stellarProduct);
     },
     extendEthereal() {
       return player.endgame.ethereal.isExtended = true;
@@ -132,6 +134,9 @@ export default {
       v-if="isExtended"
       class="l-star-grid"
     >
+      <span class="c-stellar-glow">Your Stellar Product is </span>
+      <span class="c-cooler-stellar-glow">{{ format(stellarProd, 2, 2) }}</span><span class="c-stellar-glow">.</span>
+      <br>
       <div
         v-for="row in rows"
         :key="row"
@@ -183,5 +188,16 @@ export default {
 
 .c-really-cool-ethereal-text::before{
   text-shadow: 0 0 white;
+}
+
+.c-stellar-glow {
+  font-size: 2rem;
+  animation: a-galactic-power-amount-cycle 12s infinite;
+}
+
+.c-cooler-stellar-glow {
+  font-size: 3rem;
+  font-weight: bold;
+  animation: a-galactic-power-amount-cycle 12s infinite;
 }
 </style>
