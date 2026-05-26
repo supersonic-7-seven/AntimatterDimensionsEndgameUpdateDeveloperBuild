@@ -64,7 +64,7 @@ export default {
         .div(this.etherealPowerPerSecond)).toTimeEstimate();
     },
     starPowerReqText() {
-      return `Reach ${format(DC.NUMMAX, 2, 2)} Ethereal Power to unlock Star Power.`;
+      return `Reach a Stellar Product of ${format(DC.NUMMAX, 2, 2)} to unlock Star Power.`;
     }
   },
   methods: {
@@ -81,7 +81,7 @@ export default {
       this.stellarProd.copyFrom(Ethereal.stellarProduct);
       this.allStarsUnlocked = !this.nextStarReq;
       this.isStarPowerUnlocked = false;
-      this.canUnlockStarPower = this.etherealPower.gte(DC.NUMMAX);
+      this.canUnlockStarPower = this.stellarProd.gte(DC.NUMMAX);
     },
     extendEthereal() {
       return player.endgame.ethereal.isExtended = true;
