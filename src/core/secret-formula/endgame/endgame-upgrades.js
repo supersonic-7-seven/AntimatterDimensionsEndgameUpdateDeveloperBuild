@@ -308,6 +308,6 @@ export const endgameUpgrades = [
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Glyph Level gains a multiplier based on Antimatter which applies after Instability",
     effect: () => player.disablePostReality ? 1 : Decimal.min(Decimal.pow(Decimal.max(Decimal.log10(Decimal.log10(player.antimatter.add(1)).add(1)).div(100), 1), 0.05), 1.2).toNumber(),
-    formatEffect: value => formatX(value, 2, 2)
+    formatEffect: value => formatX(value, 2, 4)
   },
 ];

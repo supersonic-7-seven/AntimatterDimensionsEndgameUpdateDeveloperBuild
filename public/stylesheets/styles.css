@@ -11451,6 +11451,96 @@ kbd {
   }
 }
 
+@keyframes a-galactic-power-border-cycle {
+  0% {
+    border-color: #ff0000;
+  }
+
+  17% {
+    border-color: #ffff00;
+  }
+
+  33% {
+    border-color: #00ff00;
+  }
+
+  50% {
+    border-color: #00ffff;
+  }
+
+  67% {
+    border-color: #0000ff;
+  }
+
+  83% {
+    border-color: #ff00ff;
+  }
+
+  100% {
+    border-color: #ff0000;
+  }
+}
+
+@keyframes a-galactic-power-color-cycle {
+  0% {
+    color: #ff0000;
+  }
+
+  17% {
+    color: #ffff00;
+  }
+
+  33% {
+    color: #00ff00;
+  }
+
+  50% {
+    color: #00ffff;
+  }
+
+  67% {
+    color: #0000ff;
+  }
+
+  83% {
+    color: #ff00ff;
+  }
+
+  100% {
+    color: #ff0000;
+  }
+}
+
+@keyframes a-galactic-power-background-cycle {
+  0% {
+    background-color: #ff0000;
+  }
+
+  17% {
+    background-color: #ffff00;
+  }
+
+  33% {
+    background-color: #00ff00;
+  }
+
+  50% {
+    background-color: #00ffff;
+  }
+
+  67% {
+    background-color: #0000ff;
+  }
+
+  83% {
+    background-color: #ff00ff;
+  }
+
+  100% {
+    background-color: #ff0000;
+  }
+}
+
 .l-endgame-button-column {
   display: flex;
   flex-direction: row;
@@ -11655,7 +11745,7 @@ kbd {
   font-weight: bold;
   color: black;
   background-color: var(--color-disabled);
-  border: var(--var-border-width, 0.2rem) solid #0000c0;
+  border: var(--var-border-width, 0.2rem) solid #0000ff;
   border-radius: var(--var-border-radius, 0.5rem);
   margin-bottom: 1rem;
   padding: 1rem;
@@ -11663,17 +11753,49 @@ kbd {
 }
 
 .o-ethereal-button--available {
-  color: #0000c0;
+  color: #0000ff;
   background-color: black;
   cursor: pointer;
 }
 
 .o-ethereal-button--available:hover {
   color: black;
-  background-color: #0000c0;
+  background-color: #0000ff;
 }
 
 .c-ethereal-btn {
+  width: 30rem;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+
+.o-cool-ethereal-button {
+  font-family: Typewriter, serif;
+  font-size: 1rem;
+  font-weight: bold;
+  color: black;
+  background-color: var(--color-disabled);
+  border: var(--var-border-width, 0.2rem) solid;
+  border-radius: var(--var-border-radius, 0.5rem);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  transition-duration: 0.15s;
+  animation: a-galactic-power-border-cycle 12s infinite;
+}
+
+.o-cool-ethereal-button--available {
+  background-color: black;
+  cursor: pointer;
+  animation: a-galactic-power-color-cycle 12s infinite;
+}
+
+.o-cool-ethereal-button--available:hover {
+  color: black;
+  animation: a-galactic-power-background-cycle 12s infinite;
+}
+
+.c-cool-ethereal-btn {
   width: 30rem;
   font-size: 2rem;
   margin-bottom: 1rem;

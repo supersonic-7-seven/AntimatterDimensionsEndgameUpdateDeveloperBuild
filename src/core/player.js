@@ -295,7 +295,7 @@ window.player = {
       hasUpperBound: false,
     },
     galaxyGenerator: {
-      all: Array.range(0, 9).map(() => ({
+      all: Array.range(0, 10).map(() => ({
         isActive: false,
         lastTick: 0,
       })),
@@ -581,7 +581,7 @@ window.player = {
     previousRuns: {}
   },
   IPMultPurchases: DC.D0,
-  version: 103,
+  version: 104,
   infinityPower: DC.D1,
   postC4Tier: 0,
   eternityPoints: DC.D0,
@@ -989,6 +989,7 @@ window.player = {
         galaxyGeneratorDTMult: 0,
         galaxyGeneratorRemnantPow: 0,
         galaxyGeneratorExponential: 0,
+        galaxyGeneratorSuperExponential: 0
       },
       rifts: {
         vacuum: {

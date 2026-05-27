@@ -175,7 +175,7 @@ export function getDilationGainPerSecond() {
     if (getAdjustedGlyphEffect("replicationdtgain").neq(0) && PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) {
       dtRate = dtRate.pow(ReplicantiMultipliers.dtPow);
     }
-    if (ResurgenceUpgrade.curr2Surge.isBought && !player.disablePostReality) {
+    if (ResurgenceUpgrade.curr2Surge.isBought && !player.disablePostReality && !Pelle.isDoomed) {
       dtRate = dtRate.pow(player.dilation.dilatedTime.max(1e10).log10().log10());
     }
     if (dtRate.gte(DilationSoftcapStart.PRIMARY_THRESHOLD)) {
@@ -204,7 +204,7 @@ export function getDilationGainPerSecond() {
   if (getAdjustedGlyphEffect("replicationdtgain").neq(0) && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) {
     dtRate = dtRate.pow(ReplicantiMultipliers.dtPow);
   }
-  if (ResurgenceUpgrade.curr2Surge.isBought && !player.disablePostReality) {
+  if (ResurgenceUpgrade.curr2Surge.isBought && !player.disablePostReality && !Pelle.isDoomed) {
     dtRate = dtRate.pow(player.dilation.dilatedTime.max(1e10).log10().log10());
   }
   if (dtRate.gte(DilationSoftcapStart.PRIMARY_THRESHOLD)) {
@@ -271,7 +271,7 @@ export function getBaseTP(antimatter, requireEternity) {
 export function getTP(antimatter, requireEternity) {
   let pend = getBaseTP(antimatter, requireEternity).times(tachyonGainMultiplier()).pow(player.disablePostReality ? 1 : AlphaUnlocks.dilatedEternity.effects.buff.effectOrDefault(1));
   if (ResurgenceUpgrade.achSurge.isBought && !player.disablePostReality) pend = pend.pow(Achievements.powerConv(RealityUpgrade(8).effectOrDefault(1)));
-  if (ResurgenceUpgrade.curr2Surge.isBought && !player.disablePostReality) pend = pend.pow(player.dilation.tachyonParticles.max(1e10).log10().log10());
+  if (ResurgenceUpgrade.curr2Surge.isBought && !player.disablePostReality && !Pelle.isDoomed) pend = pend.pow(player.dilation.tachyonParticles.max(1e10).log10().log10());
   return pend;
 }
 

@@ -16,7 +16,11 @@ export default {
       isExtended: false,
       canExtend: false,
       isBetter: false,
-      nextStarReq: 0
+      nextStarReq: 0,
+      stellarProd: new Decimal(),
+      allStarsUnlocked: false,
+      isStarPowerUnlocked: false,
+      canUnlockStarPower: false
     };
   },
   computed: {
@@ -36,6 +40,13 @@ export default {
         "o-ethereal-button--available": true
       };
     },
+    etherealCoolClassObject() {
+      return {
+        "o-cool-ethereal-button": true,
+        "c-cool-ethereal-btn": true,
+        "o-cool-ethereal-button--available": true
+      };
+    },
     stars() {
       return Object.values(GameDatabase.endgame.stars)
         .sort((a, b) => a.dmReq - b.dmReq)
@@ -45,12 +56,15 @@ export default {
       return Math.ceil(this.stars.length / 3);
     },
     nextStarText() {
-      if (!this.nextStarReq) return `All stars have been unlocked`;
+      if (this.allStarsUnlocked) return `All stars have been unlocked`;
       return `The next star unlocks at ${format(this.nextStarReq, 2, 2)} Dual Machines`;
     },
     etherealPowerTimeEstimate() {
       return TimeSpan.fromSeconds(Decimal.sub(this.nextSectorAt, this.etherealPower)
         .div(this.etherealPowerPerSecond)).toTimeEstimate();
+    },
+    starPowerReqText() {
+      return `Reach a Stellar Product of ${format(DC.NUMMAX, 2, 2)} to unlock Star Power.`;
     }
   },
   methods: {
@@ -64,12 +78,19 @@ export default {
       this.canExtend = this.etherealPower.gte(1e25);
       this.isBetter = Alpha.isDestroyed;
       this.nextStarReq = Ethereal.nextStarDMReq;
+      this.stellarProd.copyFrom(Ethereal.stellarProduct);
+      this.allStarsUnlocked = !this.nextStarReq;
+      this.isStarPowerUnlocked = false;
+      this.canUnlockStarPower = this.stellarProd.gte(DC.NUMMAX);
     },
     extendEthereal() {
       return player.endgame.ethereal.isExtended = true;
     },
     getStar(row, column) {
       return () => this.stars[(row - 1) * 3 + column - 1];
+    },
+    unlockStarPower() {
+      return;
     }
   }
 };
@@ -132,6 +153,11 @@ export default {
       v-if="isExtended"
       class="l-star-grid"
     >
+      <div>
+        <span class="c-stellar-glow">Your Stellar Product is </span>
+        <span class="c-cooler-stellar-glow">{{ format(stellarProd, 2, 2) }}</span><span class="c-stellar-glow">.</span>
+      </div>
+      <br>
       <div
         v-for="row in rows"
         :key="row"
@@ -148,6 +174,22 @@ export default {
       <span class="c-normal-ethereal-text">
         {{ nextStarText }}
       </span>
+    </div>
+    <div
+      v-if="!isStarPowerUnlocked && allStarsUnlocked"
+      class="l-ethereal-extension-unlock"
+    >
+      <div v-if="!canUnlockStarPower">
+        <span class="c-stellar-glow">{{ starPowerReqText }}</span>
+      </div>
+      <div v-if="canUnlockStarPower">
+        <button
+          :class="etherealCoolClassObject"
+          @click="unlockStarPower"
+        >
+          Unlock Star Power
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -183,5 +225,16 @@ export default {
 
 .c-really-cool-ethereal-text::before{
   text-shadow: 0 0 white;
+}
+
+.c-stellar-glow {
+  font-size: 2rem;
+  animation: a-galactic-power-amount-cycle 12s infinite;
+}
+
+.c-cooler-stellar-glow {
+  font-size: 3rem;
+  font-weight: bold;
+  animation: a-galactic-power-amount-cycle 12s infinite;
 }
 </style>

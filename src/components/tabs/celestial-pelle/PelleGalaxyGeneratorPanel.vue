@@ -41,10 +41,11 @@ export default {
         : "fas fa-compress-arrows-alt";
     },
     upgrades() {
-      if (!EndgameMilestone.fasterGalaxies.isReached || player.disablePostReality) return GalaxyGeneratorUpgrades.all.filter(u => u.id !== "galaxyGeneratorRSMult" && u.id !== "galaxyGeneratorDTMult" && u.id !== "galaxyGeneratorRemnantPow" && u.id !== "galaxyGeneratorExponential");
-      if (!DivinityMilestone.firstDivine.isReached || player.disablePostReality) return GalaxyGeneratorUpgrades.all.filter(u => u.id !== "galaxyGeneratorDTMult" && u.id !== "galaxyGeneratorRemnantPow" && u.id !== "galaxyGeneratorExponential");
-      if (!DivinityMilestone.divineDimensions.isReached || player.disablePostReality) return GalaxyGeneratorUpgrades.all.filter(u => u.id !== "galaxyGeneratorRemnantPow" && u.id !== "galaxyGeneratorExponential");
-      if (!DivinityMilestone.celestialSurge.isReached || player.disablePostReality) return GalaxyGeneratorUpgrades.all.filter(u => u.id !== "galaxyGeneratorExponential");
+      if (!EndgameMilestone.fasterGalaxies.isReached || player.disablePostReality) return GalaxyGeneratorUpgrades.all.filter(u => u.id !== "galaxyGeneratorRSMult" && u.id !== "galaxyGeneratorDTMult" && u.id !== "galaxyGeneratorRemnantPow" && u.id !== "galaxyGeneratorExponential" && u.id !== "galaxyGeneratorSuperExponential");
+      if (!DivinityMilestone.firstDivine.isReached || player.disablePostReality) return GalaxyGeneratorUpgrades.all.filter(u => u.id !== "galaxyGeneratorDTMult" && u.id !== "galaxyGeneratorRemnantPow" && u.id !== "galaxyGeneratorExponential" && u.id !== "galaxyGeneratorSuperExponential");
+      if (!DivinityMilestone.divineDimensions.isReached || player.disablePostReality) return GalaxyGeneratorUpgrades.all.filter(u => u.id !== "galaxyGeneratorRemnantPow" && u.id !== "galaxyGeneratorExponential" && u.id !== "galaxyGeneratorSuperExponential");
+      if (!DivinityMilestone.celestialSurge.isReached || player.disablePostReality) return GalaxyGeneratorUpgrades.all.filter(u => u.id !== "galaxyGeneratorExponential" && u.id !== "galaxyGeneratorSuperExponential");
+      if (!Accelerators.cosmic._milestones[1].isUnlocked || player.disablePostReality) return GalaxyGeneratorUpgrades.all.filter(u => u.id !== "galaxyGeneratorSuperExponential");
       return GalaxyGeneratorUpgrades.all;
     },
     galaxyText() {

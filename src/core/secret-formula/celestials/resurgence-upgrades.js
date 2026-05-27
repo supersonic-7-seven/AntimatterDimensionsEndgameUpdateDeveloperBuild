@@ -53,7 +53,7 @@ export const resurgenceUpgrades = {
     name: "Dilated Surge",
     id: "curr2Surge",
     cost: new Decimal(1e80),
-    description: "Dilated Time and Tachyon Particles are raised to their own double-logarithm"
+    description: "Dilated Time and Tachyon Particles are raised to their own double-logarithm, but only outside Pelle"
   },
   glyphSurge: {
     name: "Sacrificial Surge",

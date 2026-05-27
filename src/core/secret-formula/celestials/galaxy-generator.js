@@ -95,5 +95,14 @@ export const pelleGalaxyGeneratorUpgrades = {
     formatEffect: x => formatPow(x, 2, 3),
     currency: () => Currency.galaxyGeneratorGalaxies,
     currencyLabel: "Galaxy"
+  }),
+  superExponential: rebuyable({
+    id: "galaxyGeneratorSuperExponential",
+    description: "Dilate Galaxy generation",
+    cost: x => Decimal.pow(1e100, Decimal.pow(2, x)),
+    effect: x => 1 + x / 1000,
+    formatEffect: x => formatPow(x, 2, 3),
+    currency: () => Currency.galaxyGeneratorGalaxies,
+    currencyLabel: "Galaxy"
   })
 };
