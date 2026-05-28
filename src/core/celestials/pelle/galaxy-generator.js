@@ -39,7 +39,7 @@ export const GalaxyGenerator = {
     ).times(extraGain).powEffectsOf(GalaxyGeneratorUpgrades.remnantPow, GalaxyGeneratorUpgrades.exponential).pow(Accelerators.cosmic.effectValue1);
     if (galaxyGen.gt(10)) {
       let logGal = galaxyGen.log10();
-      galaxyGen = Decimal.pow10(logGal.powEffectOf(GalaxyGeneratorUpgrade.superExponential));
+      galaxyGen = Decimal.pow10(logGal.powEffectOf(GalaxyGeneratorUpgrades.superExponential));
     }
     return galaxyGen;
   },
