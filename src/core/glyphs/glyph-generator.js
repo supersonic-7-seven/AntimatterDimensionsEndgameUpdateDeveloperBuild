@@ -236,7 +236,8 @@ export const GlyphGenerator = {
   musicGlyph() {
     const rng = new GlyphGenerator.MusicGlyphRNG();
     const glyph =
-      this.randomGlyph({ actualLevel: Math.floor(player.records.bestReality.glyphLevel * 0.8), rawLevel: 1 }, rng);
+      this.randomGlyph({ actualLevel: (ResurgenceUpgrade.glyphSurge.isBought && !player.disablePostReality
+        ? player.records.bestEndgame.glyphLevel - 1 : Math.floor(player.records.bestReality.glyphLevel * 0.8)), rawLevel: 1 }, rng);
     rng.finalize();
     glyph.cosmetic = "music";
     glyph.fixedCosmetic = "music";
