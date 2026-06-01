@@ -205,9 +205,9 @@ export const divinityUpgrades = {
     initialCost: 1e8,
     costIncrease: 1e4,
     maxUpgrades: 10,
-    description: () => `Multiply the Divine Dimension Per-Purchase Multiplier by ${formatX(3)}`,
-    effect: value => player.disablePostReality ? 1 : Math.pow(3, value),
-    formatEffect: value => formatX(value, 2),
+    description: () => `Multiply the Divine Dimension Per-Purchase Multiplier`,
+    effect: value => player.disablePostReality ? 1 : Math.pow(1 + value/2, 3),
+    formatEffect: value => formatX(value, 2, 2),
     noLabel: false
   }),
   divineL3U3: rebuyable({
