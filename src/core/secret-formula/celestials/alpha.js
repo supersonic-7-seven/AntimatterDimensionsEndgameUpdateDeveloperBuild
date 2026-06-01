@@ -41,10 +41,10 @@ export const alphaUnlocks = {
   autoCrunchChallenge: {
     id: 4,
     requirement: 5,
-    nerfDescription: "The Big Crunch Autobuyer purchase scaling triples instead of doubles",
+    nerfDescription: () => `The Big Crunch Autobuyer purchase scaling is increased to ${formatX(2.5, 1, 1)}`,
     buffDescription: "Charged Infinity Upgrades act as if your Teresa Level was twice as high",
     effects: {
-      nerf: 3,
+      nerf: 2.5,
       buff: 2
     }
   },
@@ -105,10 +105,10 @@ export const alphaUnlocks = {
   infinityDimensions: {
     id: 10,
     requirement: 11,
-    nerfDescription: () => `Infinity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(player.records.thisInfinity.maxAM.add(1)).sub(72500).div(218750).toNumber(), 0, 1), 2, 3)} (only applies first Eternity)`,
+    nerfDescription: () => `Infinity Point gain is raised ${formatPow(Math.clamp(1 - Decimal.log10(player.records.thisInfinity.maxAM.add(1)).sub(72500).div(200000).toNumber(), 0, 1), 2, 3)} (only applies first Eternity)`,
     buffDescription: () => `The ${formatInt(8)}th Infinity Dimension is powered ${formatInt(100)}`,
     effects: {
-      nerf: () => Math.clamp(1 - Decimal.log10(player.records.thisInfinity.maxAM.add(1)).sub(72500).div(218750).toNumber(), 0, 1),
+      nerf: () => Math.clamp(1 - Decimal.log10(player.records.thisInfinity.maxAM.add(1)).sub(72500).div(200000).toNumber(), 0, 1),
       buff: 100
     }
   },
