@@ -1048,6 +1048,10 @@ export function gameLoop(passedDiff, options = {}) {
   if (Ethereal.isUnlocked) {
     Currency.etherealPower.add(getEtherealPowerGainPerSecond().times(realDiff).div(1000));
   }
+
+  if (Ethereal.isStarPowerUnlocked) {
+    Currency.starPower.add(getStarPowerGainPerSecond().times(realDiff).div(1000));
+  }
   
   player.records.bestAntimatterExponentOutsideDoom = Decimal.max(Decimal.log10(
     Decimal.max(player.records.totalAntimatterOutsideDoom, 1)), player.records.bestAntimatterExponentOutsideDoom);
