@@ -33,6 +33,9 @@ export const Ethereal = {
       }
     }
     return prod.reduce(Decimal.prodReducer, DC.D1);
+  },
+  get isStarPowerUnlocked() {
+    return player.endgame.ethereal.isStarPowerUnlocked;
   }
 };
 
@@ -84,7 +87,7 @@ export function getEtherealPowerGainPerSecond() {
   return cpFactor.times(singFactor).times(rmFactor).times(gpFactor).div(1000).times(
     Achievement(216).effectOrDefault(1)).times(alphaBoost).times(EtherealStars.blue.reward).times(
     DivineDimensions.conversionFormula1).times(DivinityMilestone.hadronEmpowerment.isReached ? 10 : 1).timesEffectOf(
-    DivinityUpgrade.divineL2U3).times(DivinityMilestone.celestialSurge.isReached ? 1000 : 1);
+    DivinityUpgrade.divineL2U3).times(DivinityMilestone.celestialSurge.isReached ? 1000 : 1).timesEffectOf(ResurgenceUpgrade.ethSurge);
 }
 
 export function tryAdvanceSector() {
@@ -101,4 +104,8 @@ export function resetForStar(id) {
   player.endgame.ethereal.power = DC.D0;
   player.endgame.ethereal.sector = 1;
   player.endgame.ethereal.stars[starName] = player.endgame.ethereal.stars[starName].add(resetFormula);
+}
+
+export function getStarPowerGainPerSecond() {
+  return Decimal.pow10(Ethereal.stellarProduct.div(DC.NUMMAX).max(1).log10().div(25));
 }

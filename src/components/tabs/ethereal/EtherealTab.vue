@@ -80,7 +80,7 @@ export default {
       this.nextStarReq = Ethereal.nextStarDMReq;
       this.stellarProd.copyFrom(Ethereal.stellarProduct);
       this.allStarsUnlocked = !this.nextStarReq;
-      this.isStarPowerUnlocked = false;
+      this.isStarPowerUnlocked = Ethereal.isStarPowerUnlocked;
       this.canUnlockStarPower = this.stellarProd.gte(DC.NUMMAX);
     },
     extendEthereal() {
@@ -90,7 +90,7 @@ export default {
       return () => this.stars[(row - 1) * 3 + column - 1];
     },
     unlockStarPower() {
-      return;
+      return player.endgame.ethereal.isStarPowerUnlocked = true;
     }
   }
 };

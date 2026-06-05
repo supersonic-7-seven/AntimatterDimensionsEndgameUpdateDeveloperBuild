@@ -27,7 +27,9 @@ export const pelleGalaxyGeneratorUpgrades = {
   multiplicative: rebuyable({
     id: "galaxyGeneratorMultiplicative",
     description: "Multiply Galaxy generation",
-    cost: x => Decimal.pow(10, x),
+    //The command "x > 10000 ? 10 : 1" is to prevent rounding error after the superscaling starts
+    cost: x => Decimal.pow(10, Decimal.min(x, 10000)).times(x > 10000 ? 10 : 1).times(
+      Decimal.pow(10, (Math.max(x-10001, 0)*(Math.max(x-10001, 0)+1)/2)+Math.max(x-10001, 0))),
     effect: x => Decimal.pow(2.5 ** (DivinityMilestone.firstDivine.isReached && !player.disablePostReality ? 2 : 1), x),
     formatEffect: x => formatX(x, 2, 1),
     currency: () => Currency.galaxyGeneratorGalaxies,
