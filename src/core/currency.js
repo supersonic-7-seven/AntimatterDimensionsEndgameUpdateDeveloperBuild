@@ -779,3 +779,11 @@ Currency.divineStars = new class extends DecimalCurrency {
     player.celestials.pelle.divinity.divineStars = newValue;
   }
 }();
+
+Currency.starPower = new class extends DecimalCurrency {
+  get value() { return player.endgame.ethereal.starPower; }
+  set value(value) {
+    const newValue = new Decimal(value);
+    player.endgame.ethereal.starPower = newValue;
+  }
+}();
