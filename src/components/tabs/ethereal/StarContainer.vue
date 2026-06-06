@@ -62,7 +62,8 @@ export default {
       this.isUnlocked = this.star.isUnlocked;
       this.amount.copyFrom(player.endgame.ethereal.stars[this.config.name]);
       this.reward.copyFrom(this.star.rewardForDisplay(this.displayedAmount));
-      this.pending.copyFrom(Decimal.pow(Currency.etherealPower.value.div(this.config.resetReq), 0.5 - this.star.id / 20))
+      this.pending.copyFrom(Decimal.pow(Currency.etherealPower.value.div(
+        this.config.resetReq), 0.5 - this.star.id / 20).times(Ethereal.allStarBoost));
     },
     starReset() {
       resetForStar(this.star.id);

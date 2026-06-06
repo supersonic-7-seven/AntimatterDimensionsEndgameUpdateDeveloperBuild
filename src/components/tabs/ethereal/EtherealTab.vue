@@ -20,7 +20,10 @@ export default {
       stellarProd: new Decimal(),
       allStarsUnlocked: false,
       isStarPowerUnlocked: false,
-      canUnlockStarPower: false
+      canUnlockStarPower: false,
+      starPower: new Decimal(),
+      starPowerPerSecond: new Decimal(),
+      starBoost: new Decimal()
     };
   },
   computed: {
@@ -65,6 +68,10 @@ export default {
     },
     starPowerReqText() {
       return `Reach a Stellar Product of ${format(DC.NUMMAX, 2, 2)} to unlock Star Power.`;
+    },
+    starPowerDisplay() {
+      if (this.starPower.lt(1000)) return `${format(this.starPower, 2, 2)}`;
+      return `${formatHybridLarge(this.starPower, 3)}`;
     }
   },
   methods: {
@@ -82,6 +89,9 @@ export default {
       this.allStarsUnlocked = !this.nextStarReq;
       this.isStarPowerUnlocked = Ethereal.isStarPowerUnlocked;
       this.canUnlockStarPower = this.stellarProd.gte(DC.NUMMAX);
+      this.starPower.copyFrom(Ethereal.starPower);
+      this.starPowerPerSecond.copyFrom(getStarPowerGainPerSecond());
+      this.starBoost.copyFrom(Ethereal.allStarBoost);
     },
     extendEthereal() {
       return player.endgame.ethereal.isExtended = true;
@@ -175,6 +185,7 @@ export default {
         {{ nextStarText }}
       </span>
     </div>
+    <br>
     <div
       v-if="!isStarPowerUnlocked && allStarsUnlocked"
       class="l-ethereal-extension-unlock"
@@ -189,6 +200,21 @@ export default {
         >
           Unlock Star Power
         </button>
+      </div>
+    </div>
+    <div
+      v-if="isStarPowerUnlocked"
+      class="l-star-grid"
+    >
+      <div>
+        <span class="c-stellar-glow">You have </span>
+        <span class="c-cooler-stellar-glow">{{ starPowerDisplay }}</span>
+        <span class="c-stellar-glow"> Star Power. </span>
+        <span class="c-cooler-stellar-glow">+{{ format(starPowerPerSecond, 3, 3) }}/s</span>
+      </div>
+      <div>
+        <span class="c-stellar-glow">Your Star Power is currently multiplying the gain of all Star types by </span>
+        <span class="c-cooler-stellar-glow">{{ formatX(starBoost, 3, 3) }}</span><span class="c-stellar-glow">.</span>
       </div>
     </div>
   </div>

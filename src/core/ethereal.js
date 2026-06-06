@@ -36,6 +36,12 @@ export const Ethereal = {
   },
   get isStarPowerUnlocked() {
     return player.endgame.ethereal.isStarPowerUnlocked;
+  },
+  get starPower() {
+    return player.endgame.ethereal.starPower;
+  },
+  get allStarBoost() {
+    return Decimal.max(this.starPower.pow(0.2), 1);
   }
 };
 
@@ -100,7 +106,7 @@ export function resetForStar(id) {
   const starName = gainedStarType.config.name;
   const resetReq = gainedStarType.config.resetReq;
   if (Currency.etherealPower.lt(resetReq) || !gainedStarType.isUnlocked) return;
-  const resetFormula = Decimal.pow(Currency.etherealPower.value.div(resetReq), 0.5 - id / 20);
+  const resetFormula = Decimal.pow(Currency.etherealPower.value.div(resetReq), 0.5 - id / 20).times(Ethereal.allStarBoost);
   player.endgame.ethereal.power = DC.D0;
   player.endgame.ethereal.sector = 1;
   player.endgame.ethereal.stars[starName] = player.endgame.ethereal.stars[starName].add(resetFormula);
