@@ -125,6 +125,16 @@ export function resetForStar(id) {
   player.endgame.ethereal.stars[starName] = player.endgame.ethereal.stars[starName].add(resetFormula);
 }
 
+export function freeStarReset(id) {
+  const gainedStarType = EtherealStars.all.find(x => x.id === id);
+  const starName = gainedStarType.config.name;
+  const resetReq = gainedStarType.config.resetReq;
+  if (Currency.etherealPower.lt(resetReq) || !gainedStarType.isUnlocked) return;
+  const resetFormula = Decimal.pow(Currency.etherealPower.value.div(resetReq), 0.5 - id / 20).times(Ethereal.allStarBoost).times(
+    Ethereal.starGeneration(id));
+  player.endgame.ethereal.stars[starName] = player.endgame.ethereal.stars[starName].add(resetFormula);
+}
+
 export function getStarPowerGainPerSecond() {
   return Decimal.pow10(Ethereal.stellarProduct.div(DC.NUMMAX).max(1).log10().div(25));
 }
