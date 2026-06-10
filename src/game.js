@@ -166,10 +166,11 @@ export function gainedInfinityPoints() {
     if (PelleDestructionUpgrade.x2IPUpgrade.canBeApplied) ip = ip.timesEffectOf(InfinityUpgrade.ipMult);
     if (PelleDestructionUpgrade.reenableIPDilationUpgrade.canBeApplied) ip = ip.timesEffectOf(DilationUpgrade.ipMultDT);
     if (PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied) ip = ip.times(getAdjustedGlyphEffect("infinityIP"));
-    if (PelleAlchemyUpgrade.alchemyExponential.canBeApplied && Replicanti.areUnlocked) ip = ip.times(Replicanti.amount.powEffectOf(AlchemyResource.exponential));
+    if (PelleAlchemyUpgrade.alchemyExponential.canBeApplied && Replicanti.areUnlocked) ip = ip.times(ReplicantiMultipliers.ipMult);
     if (PelleCelestialUpgrade.raTeresa3.canBeApplied) ip = ip.pow(getSecondaryGlyphEffect("infinityIP"));
     if (EndgameMastery(141).isBought) ip = ip.powEffectsOf(EndgameMastery(141));
     if (!player.disablePostReality) ip = ip.pow(AlphaUnlocks.infinity.effects.buff.effectOrDefault(1));
+    if (AlchemyResource.exponential.amount > 0 && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) ip = ip.pow(ReplicantiMultipliers.ipPow);
     return ip.floor();
   }
   let ip = player.break
@@ -210,7 +211,7 @@ export function gainedInfinityPoints() {
     ));
   }
 
-  if (!player.disablePostReality && AlchemyResource.exponential.amount > 0 && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) {
+  if (AlchemyResource.exponential.amount > 0 && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) {
     ip = ip.pow(ReplicantiMultipliers.ipPow);
   }
 
