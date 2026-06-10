@@ -206,7 +206,7 @@ export const divinityUpgrades = {
     costIncrease: 1e4,
     maxUpgrades: 12,
     description: () => `Multiply the Divine Dimension Per-Purchase Multiplier`,
-    effect: value => player.disablePostReality ? 1 : Math.pow(1 + value/2, 3),
+    effect: value => player.disablePostReality ? 1 : Math.pow(1 + value/2, Math.log2(10)),
     formatEffect: value => formatX(value, 2, 2),
     noLabel: false
   }),

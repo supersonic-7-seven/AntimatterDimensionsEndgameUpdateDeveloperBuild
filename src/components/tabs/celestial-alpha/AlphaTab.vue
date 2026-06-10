@@ -72,7 +72,7 @@ export default {
     <br>
     <div>
       <span class="l-alpha-text">
-        Each Alpha layer beaten also increases Endgame and Ethereal Power gain by {{ formatPercents(0.25, 2) }}
+        Each Alpha layer beaten also increases Endgame and Ethereal Power gain by {{ formatPercents(0.33) }}
       </span>
     </div>
     <div class="l-alpha-unlocks-and-run">

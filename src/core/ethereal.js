@@ -42,6 +42,19 @@ export const Ethereal = {
   },
   get allStarBoost() {
     return Decimal.max(this.starPower.pow(0.2), 1);
+  },
+  get nextGeneration() {
+    let arr = [];
+    let unl = [6, 8, 10, 12, 15, 18, 21, 25, 30];
+    for (let t = 0; t < 9; t++) {
+      if (Ethereal.starPower.lt(Decimal.pow10(unl[t]))) arr.push(Decimal.pow10(unl[t]));
+    }
+    return arr[0];
+  },
+  starGeneration(tier) {
+    let unl = [6, 8, 10, 12, 15, 18, 21, 25, 30][tier];
+    if (Ethereal.starPower.lt(Decimal.pow10(unl))) return DC.D0;
+    return Ethereal.starPower.max(1).log10().div(unl).pow(2).div(100);
   }
 };
 
@@ -89,7 +102,7 @@ export function getEtherealPowerGainPerSecond() {
   const singFactor = Decimal.pow(Decimal.log10(player.celestials.laitela.singularities.add(1)).div(20000), 3);
   const rmFactor = Decimal.pow(Decimal.log10(Decimal.log10(player.reality.realityMachines.add(1)).add(1)).div(5), 75);
   const gpFactor = Decimal.pow(Decimal.log10(Decimal.max(player.endgame.galacticPower, DC.NUMMAX)).div(308.25), 5);
-  const alphaBoost = player.disablePostReality ? DC.D1 : Decimal.pow(1.25, Alpha.currentStage);
+  const alphaBoost = player.disablePostReality ? DC.D1 : Decimal.pow(1.33, Alpha.currentStage);
   return cpFactor.times(singFactor).times(rmFactor).times(gpFactor).div(1000).times(
     Achievement(216).effectOrDefault(1)).times(alphaBoost).times(EtherealStars.blue.reward).times(
     DivineDimensions.conversionFormula1).times(DivinityMilestone.hadronEmpowerment.isReached ? 10 : 1).timesEffectOf(
@@ -109,6 +122,16 @@ export function resetForStar(id) {
   const resetFormula = Decimal.pow(Currency.etherealPower.value.div(resetReq), 0.5 - id / 20).times(Ethereal.allStarBoost);
   player.endgame.ethereal.power = DC.D0;
   player.endgame.ethereal.sector = 1;
+  player.endgame.ethereal.stars[starName] = player.endgame.ethereal.stars[starName].add(resetFormula);
+}
+
+export function freeStarReset(id, diff) {
+  const gainedStarType = EtherealStars.all.find(x => x.id === id);
+  const starName = gainedStarType.config.name;
+  const resetReq = gainedStarType.config.resetReq;
+  if (Currency.etherealPower.lt(resetReq) || !gainedStarType.isUnlocked) return;
+  const resetFormula = Decimal.pow(Currency.etherealPower.value.div(resetReq), 0.5 - id / 20).times(Ethereal.allStarBoost).times(
+    Ethereal.starGeneration(id).times(diff).div(1000));
   player.endgame.ethereal.stars[starName] = player.endgame.ethereal.stars[starName].add(resetFormula);
 }
 

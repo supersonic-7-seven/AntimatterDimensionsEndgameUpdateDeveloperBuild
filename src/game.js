@@ -1050,6 +1050,9 @@ export function gameLoop(passedDiff, options = {}) {
 
   if (Ethereal.isStarPowerUnlocked) {
     Currency.starPower.add(getStarPowerGainPerSecond().times(realDiff).div(1000));
+    for (let star = 0; star < 9; star++) {
+      freeStarReset(star, realDiff);
+    }
   }
   
   player.records.bestAntimatterExponentOutsideDoom = Decimal.max(Decimal.log10(
@@ -1170,7 +1173,7 @@ function globalPassivePrestigeGen(realDiff) {
   endgameMult *= ((ExpansionPack.enslavedPack.isBought && !player.disablePostReality)
     ? Math.floor(1 + Math.pow(Math.log10(Math.min(Tesseracts.effectiveCount, 1000) * Math.max(Math.log10(Tesseracts.effectiveCount) - 2, 1) + 1), Math.log10(player.endgames + 1)))
     : 1);
-  endgameMult *= Math.pow(1.25, Alpha.currentStage);
+  endgameMult *= Math.pow(1.33, Alpha.currentStage);
   if (DivinityMilestone.firstDivine.isReached && !player.disablePostReality) endgameMult *= 10;
   endgameMult *= DivineDimensions.conversionFormula1.toNumber();
   if (EndgameUpgrade(8).isBought) {

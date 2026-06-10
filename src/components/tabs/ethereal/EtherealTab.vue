@@ -23,7 +23,9 @@ export default {
       canUnlockStarPower: false,
       starPower: new Decimal(),
       starPowerPerSecond: new Decimal(),
-      starBoost: new Decimal()
+      starBoost: new Decimal(),
+      nextGeneration: new Decimal(),
+      allGenerationsUnlocked: false
     };
   },
   computed: {
@@ -72,6 +74,20 @@ export default {
     starPowerDisplay() {
       if (this.starPower.lt(1000)) return `${format(this.starPower, 2, 2)}`;
       return `${formatHybridLarge(this.starPower, 3)}`;
+    },
+    nextGenerationText() {
+      if (this.allGenerationsUnlocked) return `All Star Power rewards have been unlocked`;
+      return `You will get a new Star Power reward at ${format(this.nextGeneration, 2, 2)} Star Power`;
+    },
+    starTexts() {
+      let arr = [];
+      let starName = ["Red", "Orange", "Yellow", "Green", "Blue", "Purple", "White", "Black", "Gray"];
+      for (let t = 0; t < 9; t++) {
+        if (Ethereal.starGeneration(t).neq(0)) {
+          arr.push(`Star Power is currently generating ${formatDecimalPercents(Ethereal.starGeneration(t), 2)} of pending ${starName[t]} Stars per second`);
+        }
+      }
+      return arr;
     }
   },
   methods: {
@@ -92,6 +108,8 @@ export default {
       this.starPower.copyFrom(Ethereal.starPower);
       this.starPowerPerSecond.copyFrom(getStarPowerGainPerSecond());
       this.starBoost.copyFrom(Ethereal.allStarBoost);
+      this.nextGeneration.copyFrom(!Ethereal.nextGeneration ? new Decimal(Infinity) : Ethereal.nextGeneration);
+      this.allGenerationsUnlocked = !this.nextGeneration;
     },
     extendEthereal() {
       return player.endgame.ethereal.isExtended = true;
@@ -216,6 +234,18 @@ export default {
         <span class="c-stellar-glow">Your Star Power is currently multiplying the gain of all Star types by </span>
         <span class="c-cooler-stellar-glow">{{ formatX(starBoost, 3, 3) }}</span><span class="c-stellar-glow">.</span>
       </div>
+      <br>
+      <span
+        class="c-stellar-glow"
+        v-for="(line, index) in starTexts"
+        :key="index"
+      >
+        {{ line }} <br>
+      </span>
+      <br>
+      <span class="c-stellar-glow">
+        {{ nextGenerationText }}
+      </span>
     </div>
   </div>
 </template>

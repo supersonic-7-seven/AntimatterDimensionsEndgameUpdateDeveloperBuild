@@ -7,7 +7,7 @@ export const MachineHandler = {
     if (ExpansionPack.teresaPack.isBought && !player.disablePostReality && !Alpha.isDestroyed) effectMultipliers = effectMultipliers.times(Teresa.rmMultiplier);
     if (EffarigUnlock.endgame.canBeApplied) effectMultipliers = effectMultipliers.times(getAdjustedGlyphEffect("effarigrm"));
     const smallBoost = DC.D1.timesEffectsOf(EndgameMastery(153));
-    const largeBoost = DC.D1.timesEffectsOf(SingularityMilestone.rmCap, Ra.unlocks.realityMachineCap).times(DivineDimensions.conversionFormula2);
+    const largeBoost = DC.D1.timesEffectsOf(SingularityMilestone.rmCap, Ra.unlocks.realityMachineCap).times(DivineDimensions.conversionFormula2).timesEffectOf(ResurgenceUpgrade.machineSurge);
     return Decimal.pow(this.baseRMCap.times(effectMultipliers).times(
       Decimal.pow(ImaginaryUpgrade(6).effectOrDefault(1), smallBoost)), largeBoost).times(
       ResurgenceUpgrade.rmSurge.isBought && !player.disablePostReality ? player.realities : 1);
@@ -61,7 +61,8 @@ export const MachineHandler = {
       new Decimal(Decimal.log10(this.uncappedRM.add(1).log10())).div(7.5)))).pow(
       new Decimal(Effects.product(EndgameMastery(144), Ra.unlocks.imaginaryMachines, Ra.unlocks.imaginaryMachineEternityPower)).times(
       Decimal.max(Decimal.log10(this.uncappedRM.add(1).log10()).sub(45), 0).div(10).add(1)).times(
-      EtherealStars.green.reward).times(DivineDimensions.conversionFormula2).timesEffectOf(ResurgenceUpgrade.imSurge)), this.hardcapIM);
+      EtherealStars.green.reward).times(DivineDimensions.conversionFormula2).timesEffectsOf(
+      ResurgenceUpgrade.imSurge, ResurgenceUpgrade.machineSurge)), this.hardcapIM);
   },
 
   get baseIMHardcap() {
@@ -69,7 +70,8 @@ export const MachineHandler = {
   },
 
   get baseHardcapIM() {
-    return this.baseIMHardcap.times(DualityUpgrade(6).effectOrDefault(1)).pow(EtherealStars.green.reward.times(DivineDimensions.conversionFormula2).timesEffectOf(ResurgenceUpgrade.imSurge));
+    return this.baseIMHardcap.times(DualityUpgrade(6).effectOrDefault(1)).pow(EtherealStars.green.reward.times(
+      DivineDimensions.conversionFormula2).timesEffectsOf(ResurgenceUpgrade.imSurge, ResurgenceUpgrade.machineSurge));
   },
 
   get hardcapIM() {
@@ -85,7 +87,8 @@ export const MachineHandler = {
         new Decimal(Decimal.log10(this.uncappedRM.add(1).log10())).div(7.5)))).pow(
         new Decimal(Effects.product(EndgameMastery(144), Ra.unlocks.imaginaryMachines, Ra.unlocks.imaginaryMachineEternityPower)).times(
         Decimal.max(Decimal.log10(this.uncappedRM.add(1).log10()).sub(45), 0).div(10).add(1)).times(
-        EtherealStars.green.reward).times(DivineDimensions.conversionFormula2).timesEffectOf(ResurgenceUpgrade.imSurge));
+        EtherealStars.green.reward).times(DivineDimensions.conversionFormula2).timesEffectsOf(
+        ResurgenceUpgrade.imSurge, ResurgenceUpgrade.machineSurge));
   },
 
   get currentIMCap() {
@@ -140,7 +143,8 @@ export const MachineHandler = {
       1.75).times(12).min(0.6).add(1), 1).add(Decimal.clampMin(Decimal.log10(Decimal.log10(Decimal.log10(
       this.uncappedRM.add(1)).add(1)).add(1)).sub(1.8).times(4).min(0.6), 0)).add(Decimal.clampMin(
       Decimal.log10(Decimal.log10(Decimal.log10(this.uncappedRM.add(1)).add(1)).add(1)).sub(1.95).times(2), 0))).times(
-      DivinityMilestone.firstDivine.isReached && !player.disablePostReality ? 1.1 : 1).times(DivineDimensions.conversionFormula2));
+      DivinityMilestone.firstDivine.isReached && !player.disablePostReality ? 1.1 : 1).times(
+      DivineDimensions.conversionFormula2).timesEffectOf(ResurgenceUpgrade.machineSurge));
   },
 
   get currentDMCap() {

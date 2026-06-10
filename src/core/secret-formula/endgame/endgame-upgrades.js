@@ -103,7 +103,7 @@ export const endgameUpgrades = [
       endgames *= ((ExpansionPack.enslavedPack.isBought && !player.disablePostReality)
         ? Math.floor(1 + Math.pow(Math.log10(Math.min(Tesseracts.effectiveCount, 1000) * Math.max(Math.log10(Tesseracts.effectiveCount) - 2, 1) + 1), Math.log10(player.endgames + 1)))
         : 1);
-      endgames *= Math.pow(1.25, Alpha.currentStage);
+      endgames *= Math.pow(1.33, Alpha.currentStage);
       if (DivinityMilestone.firstDivine.isReached && !player.disablePostReality) endgames *= 10;
       endgames *= DivineDimensions.conversionFormula1.toNumber();
       const timeStr = Time.bestEndgameRealTime.totalMilliseconds.lte(100) && !Alpha.isDestroyed
