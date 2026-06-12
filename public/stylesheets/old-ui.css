@@ -74,6 +74,14 @@
   font-size: 5rem;
 }
 
+.o-nullify-btn {
+  width: 36rem;
+  height: 10rem;
+  z-index: 1;
+  font-family: Typewriter, serif;
+  font-size: 5rem;
+}
+
 .l-old-ui-antimatter-dim-tab {
   display: flex;
   flex-direction: column;
