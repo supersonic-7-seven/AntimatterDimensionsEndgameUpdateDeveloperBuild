@@ -45,7 +45,8 @@ export default {
     update() {
       const crunchButtonVisible = !player.break && Player.canCrunch;
       const divinityVisible = Pelle.isDoomed && player.antimatter.gte(DC.ENUMMAX);
-      const nullifyVisible = player.endgame.largeHadronCollider.void.nullMatter.gte(DC.NUMMAX);
+      const nullifyVisible = player.endgame.largeHadronCollider.void.nullMatter.gte(DC.NUMMAX) &&
+        !player.endgame.largeHadronCollider.void.nullified;
       this.bigCrunch = crunchButtonVisible && Time.bestInfinityRealTime.totalMinutes.gt(1);
       this.divine = divinityVisible;
       this.nullified = nullifyVisible;
