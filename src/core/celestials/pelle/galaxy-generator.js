@@ -172,7 +172,7 @@ export const GalaxyGenerator = {
     );
 
     if (!this.capRift) {
-      PelleRifts.all.forEach(r => r.reducedTo = new Decimal(diff).div(DivinityMilestone.celestialSurge.isReached ? 1e3 : (DivinityMilestone.pelleQoL.isReached ? 1e4 : 1e5)).times(3).add(r.reducedTo).clampMax(Alpha.isDestroyed ? Infinity : 2).toNumber());
+      PelleRifts.all.forEach(r => r.reducedTo = new Decimal(diff).div(player.disablePostReality ? 1e5 : (DivinityMilestone.finalRebirth.isReached ? 10 : (DivinityMilestone.celestialSurge.isReached ? 1e3 : (DivinityMilestone.pelleQoL.isReached ? 1e4 : 1e5)))).times(3).add(r.reducedTo).clampMax(Alpha.isDestroyed ? Infinity : 2).toNumber());
       if (PelleRifts.vacuum.milestones[0].canBeApplied && !this.hasReturnedGlyphSlot) {
         Glyphs.refreshActive();
         EventHub.dispatch(GAME_EVENT.GLYPHS_EQUIPPED_CHANGED);
