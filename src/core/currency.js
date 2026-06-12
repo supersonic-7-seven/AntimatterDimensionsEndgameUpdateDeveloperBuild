@@ -787,3 +787,11 @@ Currency.starPower = new class extends DecimalCurrency {
     player.endgame.ethereal.starPower = newValue;
   }
 }();
+
+Currency.nullParticles = new class extends DecimalCurrency {
+  get value() { return player.endgame.largeHadronCollider.void.nullParticles; }
+  set value(value) {
+    const newValue = new Decimal(value);
+    player.endgame.largeHadronCollider.void.nullParticles = newValue;
+  }
+}();
