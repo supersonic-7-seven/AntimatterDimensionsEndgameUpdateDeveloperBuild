@@ -64,7 +64,7 @@ class DivineDimensionState extends DimensionState {
     if (DivinityMilestone.pelleQoL.isReached && !player.disablePostReality) mult = mult.pow(1.05);
     mult = mult.pow(Accelerators.emptiness._milestones[1].effectOrDefault(1));
     mult = mult.powEffectsOf(DivinityUpgrade.divineL2U7, DivinityUpgrade.divineL3U5);
-    if (DivinityMilestone.finalRebirth.isReached && !player.disablePostReality) mult = mult.pow(1.1);
+    if (DivinityMilestone.finalRebirth.isReached && !player.disablePostReality) mult = mult.pow(1.05);
     return mult;
   }
 
