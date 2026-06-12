@@ -3,6 +3,7 @@ import BigCrunchButton from "../BigCrunchButton";
 import DivinityButton from "../DivinityButton";
 import GameHeader from "../GameHeader";
 import NewsTicker from "../NewsTicker";
+import NullifyButton from "../NullifyButton";
 
 
 import ClassicSubtabBar from "./ClassicSubtabBar";
@@ -20,7 +21,8 @@ export default {
     InfinityPointsHeader,
     EternityPointsHeader,
     BigCrunchButton,
-    DivinityButton
+    DivinityButton,
+    NullifyButton
   },
   data() {
     return {
