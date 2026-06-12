@@ -114,6 +114,11 @@ export default {
         </div>
       </div>
     </div>
+    <div>
+      Entering the Void will force an Endgame reset and disable all Reality and beyond mechanics.
+      <br>
+      Your Antimatter will slowly decay and you will gain Null Matter from the decayed Antimatter.
+    </div>
     <NullUpgradesTabComponent />
   </div>
 </template>
