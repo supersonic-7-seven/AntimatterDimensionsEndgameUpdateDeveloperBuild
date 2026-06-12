@@ -1056,6 +1056,10 @@ export function gameLoop(passedDiff, options = {}) {
       freeStarReset(star, realDiff);
     }
   }
+
+  if (LHC.nullifiedVoidRunning) {
+    Currency.nullParticles.add(getNullParticleGainPerSecond().times(realDiff).div(1000));
+  }
   
   player.records.bestAntimatterExponentOutsideDoom = Decimal.max(Decimal.log10(
     Decimal.max(player.records.totalAntimatterOutsideDoom, 1)), player.records.bestAntimatterExponentOutsideDoom);
