@@ -379,3 +379,7 @@ export const NullUpgrade = mapGameDataToObject(
     ? new RebuyableNullUpgradeState(config)
     : new NullUpgradeState(config))
 );
+
+export function getNullParticleGainPerSecond() {
+  return player.antimatter.max(1).log10().div(Decimal.log10(DC.NUMMAX)).add(1).pow(10);
+}
