@@ -192,7 +192,11 @@ export const LHC = {
   },
 
   get voidRunning() {
-    return player.endgame.largeHadronCollider.void.isRunning;
+    return player.endgame.largeHadronCollider.void.isRunning && player.endgame.largeHadronCollider.void.mode === 0;
+  },
+
+  get nullifiedVoidRunning() {
+    return player.endgame.largeHadronCollider.void.isRunning && player.endgame.largeHadronCollider.void.mode === 1;
   },
 
   gameLoop(diff) {
