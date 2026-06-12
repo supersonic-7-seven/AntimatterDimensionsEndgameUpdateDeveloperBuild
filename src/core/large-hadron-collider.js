@@ -315,6 +315,16 @@ export function exitTheVoid() {
   player.endgame.largeHadronCollider.void.isRunning = false;
 };
 
+export function enterNullifiedVoid() {
+  Endgame.resetNoReward();
+  player.endgame.largeHadronCollider.void.isRunning = true;
+};
+
+export function exitNullifiedVoid() {
+  Endgame.resetNoReward();
+  player.endgame.largeHadronCollider.void.isRunning = false;
+};
+
 export class NullUpgradeState extends SetPurchasableMechanicState {
   get name() {
     return this.config.name;
