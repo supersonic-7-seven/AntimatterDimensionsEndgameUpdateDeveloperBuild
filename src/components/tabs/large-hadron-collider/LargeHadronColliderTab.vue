@@ -53,7 +53,7 @@ export default {
       this.accelPower = LHC.acceleratorSpeed * 100000;
       this.amSoftcap.copyFrom(Pelle.isDoomed ? DC.E9E15 : Decimal.pow10(1e200));
       this.amHardcap.copyFrom(Pelle.isDoomed ? DC.ENUMMAX : LHC.breakingPoint);
-      this.isRunning = LHC.voidRunning;
+      this.isRunning = LHC.voidRunning || LHC.nullifiedVoidRunning;
       this.highestAntimatter.copyFrom(player.endgame.largeHadronCollider.void.highestAntimatter);
       this.nullMatter.copyFrom(player.endgame.largeHadronCollider.void.nullMatter);
       this.nullPerSecond.copyFrom(!LHC.voidRunning ? DC.D0 :
@@ -73,6 +73,10 @@ export default {
       };
     },
     startRun() {
+      if (this.voidMode === 1) {
+        if (this.isRunning) exitNullifiedVoid();
+        else enterNullifiedVoid();
+      }
       if (this.isRunning) exitTheVoid();
       else enterTheVoid();
     },
