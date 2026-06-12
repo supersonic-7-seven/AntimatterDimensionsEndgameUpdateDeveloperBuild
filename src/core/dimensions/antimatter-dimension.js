@@ -671,6 +671,10 @@ class AntimatterDimensionState extends DimensionState {
         const log10 = production.log10();
         production = Decimal.pow10(Decimal.pow(log10.div(1e200), 1 / Accelerators.emptiness.effectValue3).times(1e200));
       }
+      if (production.gt(10) && LHC.nullifiedVoidRunning) {
+        const log10 = production.log10();
+        production = Decimal.pow10(Decimal.pow(log10, 0.01));
+      }
     }
     production = production.min(this.cappedProductionInNormalChallenges);
     return production;
