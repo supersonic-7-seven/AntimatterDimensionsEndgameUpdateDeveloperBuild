@@ -20,7 +20,9 @@ export default {
       nullMatter: new Decimal(),
       nullPerSecond: new Decimal(),
       nullified: false,
-      voidMode: 0
+      voidMode: 0,
+      nullParticles: new Decimal(),
+      nullParticlesPerSecond: new Decimal()
     };
   },
   computed: {
@@ -61,6 +63,8 @@ export default {
         Decimal.log10(Decimal.log10(Decimal.pow(AntimatterDimension(1).productionPerSecond, 0.01).max(1)).max(1))));
       this.nullified = player.endgame.largeHadronCollider.void.nullified;
       this.voidMode = player.endgame.largeHadronCollider.void.mode;
+      this.nullParticles.copyFrom(player.endgame.largeHadronCollider.void.nullParticles);
+      this.nullParticlesPerSecond.copyFrom(getNullParticleGainPerSecond());
     },
     formatNullAmount(amount) {
       return amount.gte(DC.NUMMAX) ? Notations.current.infinite : format(amount, 2, 2);
@@ -116,6 +120,9 @@ export default {
       <span class="c-void-antimatter-amount">[Your highest Antimatter inside The Void is {{ format(highestAntimatter, 2, 1) }}.]</span>
       <br>
       <span class="c-null">[You have {{ formatNullAmount(nullMatter) }} Null Matter. +{{ formatNullAmount(nullPerSecond) }}/s]</span>
+    </div>
+    <div v-if="nullified">
+      <span class="c-null">[You have {{ format(nullParticles, 2, 2) }} Null Particles. +{{ format(nullParticlesPerSecond, 2, 2) }}/s]</span>
     </div>
     <div class="l-void-run">
       <div
