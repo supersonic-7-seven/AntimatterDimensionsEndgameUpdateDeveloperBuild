@@ -70,7 +70,7 @@ export const divinityMilestones = {
       return ` The sixth Glyph Instability threshold is weaker
         While inside The Void, Antimatter Dimension are powered based on real-time spent this Endgame
         After uncapping the Galaxy Generator, rifts fill an additional ${formatX(100)} faster
-        Divine Dimensions are raised ${formatPow(1.1, 1, 1)}
+        Divine Dimensions are raised ${formatPow(1.05, 2, 2)}
         Reduce the time for Hadrons to cap by ${formatPercents(0.5)}
         Reduce the time for Remnants of Alpha Decay to cap by ${formatPercents(0.25)}
         Gain a multiplier to Entropy based on real-time spent this Endgame
