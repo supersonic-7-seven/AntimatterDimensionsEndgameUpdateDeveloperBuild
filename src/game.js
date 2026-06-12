@@ -1349,7 +1349,7 @@ function laitelaBeatText(disabledDim) {
 function applyAutoprestige(diff) {
   Currency.infinityPoints.add(TimeStudy(181).effectOrDefault(0));
 
-  if (TeresaUnlocks.epGen.canBeApplied) {
+  if (TeresaUnlocks.epGen.canBeApplied || (LHC.voidRunning && player.endgame.largeHadronCollider.void.nullified)) {
     Currency.eternityPoints.add(player.records.thisEternity.bestEPmin.times(DC.D0_01)
       .times(getGameSpeedupFactor().times(diff).div(1000)).timesEffectOf(Ra.unlocks.continuousTTBoost.effects.autoPrestige));
   }
