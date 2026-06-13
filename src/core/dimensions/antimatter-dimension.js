@@ -99,7 +99,9 @@ export function getDimensionFinalMultiplierUncached(tier) {
     multiplier = multiplier.powEffectOf(Accelerators.potency._milestones[0]);
     multiplier = multiplier.pow(Accelerators.emptiness.effectValue1);
     multiplier = multiplier.powEffectOf(Accelerators.emptiness._milestones[0]);
-    if (DivinityMilestone.celestialSurge.isReached && !player.disablePostReality) multiplier = multiplier.pow(2);
+    if (DivinityMilestone.celestialSurge.isReached) multiplier = multiplier.pow(2);
+    if (DivinityMilestone.finalRebirth.isReached) multiplier = multiplier.pow(Time.thisEndgameRealTime.totalSeconds.max(1).log10().div(5).pow(3).add(1));
+    multiplier = multiplier.pow(Currency.nullParticles.value.max(1).log10().div(5).add(1).pow(5));
   }
 
   if (ResurgenceUpgrade.achSurge.isBought && !player.disablePostReality) multiplier = multiplier.pow(Achievements.powerConv(Achievements.power));
@@ -644,12 +646,6 @@ class AntimatterDimensionState extends DimensionState {
         const pelleOnly = Pelle.isDoomed ? DivineDimensions.conversionFormula2 * Accelerators.cosmic.effectValue2 : 1;
         production = Decimal.pow10(Decimal.pow(log10, getAdjustedGlyphEffect("effarigantimatter") * Effects.product(EndgameMastery(101), EndgameUpgrade(15), SingularityMilestone.antimatterExponentPower, Achievement(233)) * endgameMultValue * EtherealStars.black.reward.toNumber() * pelleOnly));
       }
-      if (ResurgenceUpgrade.ipSurge.isBought && !player.disablePostReality) {
-        production = production.times(gainedInfinityPoints());
-      }
-      if (ResurgenceUpgrade.epSurge.isBought && !player.disablePostReality) {
-        production = production.times(gainedEternityPoints());
-      }
       if (production.gt(Decimal.pow10(1e150)) && Pelle.isDoomed && player.celestials.pelle.divinities < 1) {
         const log10 = production.log10();
         production = Decimal.pow10(Decimal.pow(log10.div(1e150), 0.5).times(1e150));
@@ -666,9 +662,19 @@ class AntimatterDimensionState extends DimensionState {
         const log10 = production.log10().log10();
         production = Decimal.pow10(Decimal.pow10(Decimal.pow(log10, DivinityUpgrade.divineL1U4.effectOrDefault(1) * Accelerators.cosmic.effectValue3)));
       }
+      if (ResurgenceUpgrade.ipSurge.isBought && !player.disablePostReality) {
+        production = production.times(gainedInfinityPoints());
+      }
+      if (ResurgenceUpgrade.epSurge.isBought && !player.disablePostReality) {
+        production = production.times(gainedEternityPoints());
+      }
       if (production.gt(Decimal.pow10(1e200)) && !Pelle.isDoomed) {
         const log10 = production.log10();
         production = Decimal.pow10(Decimal.pow(log10.div(1e200), 1 / Accelerators.emptiness.effectValue3).times(1e200));
+      }
+      if (production.gt(10) && LHC.nullifiedVoidRunning) {
+        const log10 = production.log10();
+        production = Decimal.pow10(Decimal.pow(log10, 0.01));
       }
     }
     production = production.min(this.cappedProductionInNormalChallenges);

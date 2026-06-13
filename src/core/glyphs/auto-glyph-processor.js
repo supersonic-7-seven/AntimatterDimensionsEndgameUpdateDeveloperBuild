@@ -341,7 +341,7 @@ export function getGlyphLevelInputs() {
   scaledLevel = instabilitySoftcap(scaledLevel, staticFactors.extremeInstability, (EndgameUpgrade(13).isBought && !player.disablePostReality) ? 5 : 1);
   scaledLevel = instabilitySoftcap(scaledLevel, staticFactors.immenseInstability, 1);
   scaledLevel = instabilitySoftcap(scaledLevel, staticFactors.extensiveInstability, 0.1);
-  scaledLevel = instabilitySoftcap(scaledLevel, staticFactors.prodigiousInstability, 0.00001);
+  scaledLevel = instabilitySoftcap(scaledLevel, staticFactors.prodigiousInstability, (DivinityMilestone.firstDivine.isReached && !player.disablePostReality) ? 0.001 : 0.00001);
 
   const scalePenalty = scaledLevel > 0 ? baseLevel / scaledLevel : 1;
   const incAfterInstability = staticFactors.realityUpgrades + staticFactors.achievements;

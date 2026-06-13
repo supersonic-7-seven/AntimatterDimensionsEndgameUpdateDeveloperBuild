@@ -114,9 +114,10 @@ export const Effarig = {
     return countValuesFromBitmask(genEffectBitmaskTotal) + countValuesFromBitmask(nongenEffectBitmaskTotal);
   },
   get shardsGained() {
+    const effectAmount = ResurgenceUpgrade.rsSurge.isBought ? this.fullGlyphEffectAmount : this.glyphEffectAmount;
     const extraBoost = (ExpansionPack.effarigPack.isBought && !player.disablePostReality) ? Decimal.log10(player.antimatter.add(10)) : DC.D1;
     if (!TeresaUnlocks.effarig.canBeApplied && !EndgameMilestone.celestialEarlyUnlock.isReached) return new Decimal(0);
-    return Decimal.floor(Decimal.pow(Currency.eternityPoints.value.add(1).log10().div(7500), this.glyphEffectAmount)).times(
+    return Decimal.floor(Decimal.pow(Currency.eternityPoints.value.add(1).log10().div(7500), effectAmount)).times(
       AlchemyResource.effarig.effectValue).times(extraBoost).timesEffectOf(Ra.unlocks.relicShardBoost);
   },
   get maxRarityBoost() {

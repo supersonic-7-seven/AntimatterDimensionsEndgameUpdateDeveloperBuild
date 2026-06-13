@@ -9,6 +9,7 @@ import BreakInfinityTab from "./break-infinity/BreakInfinityTab";
 import BreakEternityTab from "./break-eternity/BreakEternityTab";
 import CelestialBreakInfinityTab from "./celestial-dimension-expansion/CelestialBreakInfinityTab";
 import CelestialDimensionsTab from "./celestial-dimensions/CelestialDimensionsTab";
+import CelestialEternityPlusUpgradesTab from "./celestial-dimension-expansion/CelestialEternityPlusUpgradesTab";
 import CelestialEternityUpgradesTab from "./celestial-dimension-expansion/CelestialEternityUpgradesTab";
 import CelestialInfinityUpgradesTab from "./celestial-dimension-expansion/CelestialInfinityUpgradesTab";
 import CelestialNavigationTab from "./celestial-navigation/CelestialNavigationTab";
@@ -124,6 +125,7 @@ const TabComponents = {
   CelestialInfinityUpgradesTab,
   CelestialBreakInfinityTab,
   CelestialEternityUpgradesTab,
+  CelestialEternityPlusUpgradesTab,
   DivinityMilestonesTab,
   DivinityUpgradesTab,
   ResurgenceUpgradesTab,

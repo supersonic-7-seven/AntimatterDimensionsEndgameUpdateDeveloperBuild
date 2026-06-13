@@ -97,11 +97,13 @@ export const GameCache = {
 
   celestialTickSpeedMultDecrease: new Lazy(() => 10 - Effects.sum(
     CelestialBreakInfinityUpgrade.celTickspeedCostMult
-  ) - CelestialEternityUpgrade.celTickReduction.effectOrDefault(0)),
+  ) - CelestialEternityUpgrade.celTickReduction.effectOrDefault(0) -
+  CelestialEternityPlusUpgrade.megaCelTickspeedReduction.effectOrDefault(0)),
 
   celestialDimensionMultDecrease: new Lazy(() => 10 - Effects.sum(
     CelestialBreakInfinityUpgrade.celDimCostMult
-  ) - CelestialEternityUpgrade.celDimReduction.effectOrDefault(0)),
+  ) - CelestialEternityUpgrade.celDimReduction.effectOrDefault(0) -
+  CelestialEternityPlusUpgrade.megaCelDimReduction.effectOrDefault(0)),
 
   divineDimensionMultDecrease: new Lazy(() => 10 - Effects.sum(
     DivinityUpgrade.divineL3U1

@@ -10,8 +10,10 @@ export const Hadrons = {
       DivinityMilestone.firstDivine.isReached && !player.disablePostReality ? 1.25 : 1).times(
       DivinityMilestone.divineDimensions.isReached && !player.disablePostReality ? 1.25 : 1).div(
       1 - DivineDimensions.conversionFormula3).times(
-      Decimal.pow(DivinityMilestone.pelleQoL.isReached ? 1.04 : 1.025, this.hadrons.exotic)).times(
-      DivinityMilestone.celestialSurge.isReached && !player.disablePostReality ? 4 : 1);
+      Decimal.pow(DivinityMilestone.finalRebirth.isReached && !player.disablePostReality ? 1.05 :
+      (DivinityMilestone.pelleQoL.isReached && !player.disablePostReality ? 1.04 : 1.025), this.hadrons.exotic)).times(
+      DivinityMilestone.celestialSurge.isReached && !player.disablePostReality ? 4 : 1).times(
+      DivinityMilestone.finalRebirth.isReached && !player.disablePostReality ? 2 : 1);
   },
   get singularityMultiplier() {
     let time = this.timeFactor.times(4).times(this.speedFactor);

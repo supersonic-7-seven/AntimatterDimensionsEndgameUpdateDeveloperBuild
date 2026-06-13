@@ -166,10 +166,11 @@ export function gainedInfinityPoints() {
     if (PelleDestructionUpgrade.x2IPUpgrade.canBeApplied) ip = ip.timesEffectOf(InfinityUpgrade.ipMult);
     if (PelleDestructionUpgrade.reenableIPDilationUpgrade.canBeApplied) ip = ip.timesEffectOf(DilationUpgrade.ipMultDT);
     if (PelleDestructionUpgrade.destroyedGlyphEffects.canBeApplied) ip = ip.times(getAdjustedGlyphEffect("infinityIP"));
-    if (PelleAlchemyUpgrade.alchemyExponential.canBeApplied && Replicanti.areUnlocked) ip = ip.times(Replicanti.amount.powEffectOf(AlchemyResource.exponential));
+    if (PelleAlchemyUpgrade.alchemyExponential.canBeApplied && Replicanti.areUnlocked) ip = ip.times(ReplicantiMultipliers.ipMult);
     if (PelleCelestialUpgrade.raTeresa3.canBeApplied) ip = ip.pow(getSecondaryGlyphEffect("infinityIP"));
     if (EndgameMastery(141).isBought) ip = ip.powEffectsOf(EndgameMastery(141));
     if (!player.disablePostReality) ip = ip.pow(AlphaUnlocks.infinity.effects.buff.effectOrDefault(1));
+    if (AlchemyResource.exponential.amount > 0 && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) ip = ip.pow(ReplicantiMultipliers.ipPow);
     return ip.floor();
   }
   let ip = player.break
@@ -210,7 +211,7 @@ export function gainedInfinityPoints() {
     ));
   }
 
-  if (!player.disablePostReality && AlchemyResource.exponential.amount > 0 && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) {
+  if (AlchemyResource.exponential.amount > 0 && ResurgenceUpgrade.repSurge.isBought && !player.disablePostReality) {
     ip = ip.pow(ReplicantiMultipliers.ipPow);
   }
 
@@ -462,7 +463,7 @@ export function gainedCelestialInfinities() {
 }
 
 export function gainedCelestialInfinityPoints() {
-  const div = 308 * CelestialEternityUpgrade.betterCIP.effectOrDefault(1);
+  const div = 308 * CelestialEternityUpgrade.betterCIP.effectOrDefault(1) * CelestialEternityPlusUpgrade.betterCIPFormula.effectOrDefault(1);
   let cip = player.endgame.celDimExpansion.isBroken
     ? Decimal.pow10(player.records.thisCelestialInfinity.maxCM.add(1).log10().div(div).sub(0.75))
     : new Decimal(308 / div);
@@ -1054,6 +1055,10 @@ export function gameLoop(passedDiff, options = {}) {
       freeStarReset(star, realDiff);
     }
   }
+
+  if (LHC.nullifiedVoidRunning) {
+    Currency.nullParticles.add(getNullParticleGainPerSecond().times(realDiff).div(1000));
+  }
   
   player.records.bestAntimatterExponentOutsideDoom = Decimal.max(Decimal.log10(
     Decimal.max(player.records.totalAntimatterOutsideDoom, 1)), player.records.bestAntimatterExponentOutsideDoom);
@@ -1343,7 +1348,7 @@ function laitelaBeatText(disabledDim) {
 function applyAutoprestige(diff) {
   Currency.infinityPoints.add(TimeStudy(181).effectOrDefault(0));
 
-  if (TeresaUnlocks.epGen.canBeApplied) {
+  if (TeresaUnlocks.epGen.canBeApplied || (LHC.voidRunning && player.endgame.largeHadronCollider.void.nullified)) {
     Currency.eternityPoints.add(player.records.thisEternity.bestEPmin.times(DC.D0_01)
       .times(getGameSpeedupFactor().times(diff).div(1000)).timesEffectOf(Ra.unlocks.continuousTTBoost.effects.autoPrestige));
   }

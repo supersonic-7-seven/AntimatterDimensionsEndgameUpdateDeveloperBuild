@@ -192,7 +192,11 @@ export const LHC = {
   },
 
   get voidRunning() {
-    return player.endgame.largeHadronCollider.void.isRunning;
+    return player.endgame.largeHadronCollider.void.isRunning && player.endgame.largeHadronCollider.void.mode === 0;
+  },
+
+  get nullifiedVoidRunning() {
+    return player.endgame.largeHadronCollider.void.isRunning && player.endgame.largeHadronCollider.void.mode === 1;
   },
 
   gameLoop(diff) {
@@ -315,6 +319,16 @@ export function exitTheVoid() {
   player.endgame.largeHadronCollider.void.isRunning = false;
 };
 
+export function enterNullifiedVoid() {
+  Endgame.resetNoReward();
+  player.endgame.largeHadronCollider.void.isRunning = true;
+};
+
+export function exitNullifiedVoid() {
+  Endgame.resetNoReward();
+  player.endgame.largeHadronCollider.void.isRunning = false;
+};
+
 export class NullUpgradeState extends SetPurchasableMechanicState {
   get name() {
     return this.config.name;
@@ -365,3 +379,7 @@ export const NullUpgrade = mapGameDataToObject(
     ? new RebuyableNullUpgradeState(config)
     : new NullUpgradeState(config))
 );
+
+export function getNullParticleGainPerSecond() {
+  return player.antimatter.max(1).log10().div(1e15).add(1).pow(10);
+}

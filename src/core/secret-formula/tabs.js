@@ -693,6 +693,15 @@ export const tabs = [
         id: 2,
         hidable: true,
       },
+      {
+        key: "celestial-eternity-plus",
+        name: "Celestial Eternity+ Upgrades",
+        symbol: "<i class='fas fa-hourglass-end'></i>",
+        component: "CelestialEternityPlusUpgradesTab",
+        condition: () => Currency.celestialEternityPoints.gte("1e1000"),
+        id: 3,
+        hidable: true,
+      },
     ],
   },
   {

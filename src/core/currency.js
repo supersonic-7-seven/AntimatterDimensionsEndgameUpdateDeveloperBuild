@@ -759,7 +759,7 @@ Currency.divineEnergy = new class extends DecimalCurrency {
 Currency.nullMatter = new class extends DecimalCurrency {
   get value() { return player.endgame.largeHadronCollider.void.nullMatter; }
   set value(value) {
-    const newValue = new Decimal(value);
+    const newValue = Decimal.min(value, DC.NUMMAX);
     player.endgame.largeHadronCollider.void.nullMatter = newValue;
   }
 }();
@@ -785,5 +785,13 @@ Currency.starPower = new class extends DecimalCurrency {
   set value(value) {
     const newValue = new Decimal(value);
     player.endgame.ethereal.starPower = newValue;
+  }
+}();
+
+Currency.nullParticles = new class extends DecimalCurrency {
+  get value() { return player.endgame.largeHadronCollider.void.nullParticles; }
+  set value(value) {
+    const newValue = new Decimal(value);
+    player.endgame.largeHadronCollider.void.nullParticles = newValue;
   }
 }();

@@ -316,8 +316,9 @@ export const CelestialDimensions = {
   },
 
   get alphaDecaySpeed() {
+    if (player.disablePostReality) return DC.D1;
     return new Decimal(1 - DivineDimensions.conversionFormula3).times(DivinityMilestone.divineDimensions.isReached ? 0.8 : 1).timesEffectOf(
-      DivinityUpgrade.divineL1U2).times(DivinityMilestone.pelleQoL.isReached ? 0.5 : 1);
+      DivinityUpgrade.divineL1U2).times(DivinityMilestone.pelleQoL.isReached ? 0.5 : 1).times(DivinityMilestone.finalRebirth.isReached ? 0.75 : 1);
   },
 
   get alphaDecayRemnant() {

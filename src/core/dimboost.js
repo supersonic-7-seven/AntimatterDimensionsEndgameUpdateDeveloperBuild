@@ -183,7 +183,7 @@ export class DimBoost {
 
     if (boostEffects === "") return "Dimension Boosts are currently useless";
     const areDimensionsKept = (Perk.antimatterNoReset.isBought || Achievement(111).canBeApplied) &&
-      (!player.disablePostReality || (Alpha.isRunning && Alpha.currentStage >= 12) || (LHC.voidRunning && NullUpgrade.limerick1.isBought)) &&
+      (!player.disablePostReality || (LHC.voidRunning && player.endgame.largeHadronCollider.void.nullified) || (Alpha.isRunning && Alpha.currentStage >= 12) || (LHC.voidRunning && NullUpgrade.limerick1.isBought)) &&
       ((!Pelle.isDoomed || PelleAchievementUpgrade.achievement111.canBeApplied) || PelleUpgrade.dimBoostResetsNothing.isBought);
     if (areDimensionsKept) return boostEffects[0].toUpperCase() + boostEffects.substring(1);
     return `Reset your Dimensions to ${boostEffects}`;
@@ -307,7 +307,7 @@ export function softReset(tempBulk, forcedADReset = false, forcedAMReset = false
   resetChallengeStuff();
   const canKeepDimensions = Pelle.isDoomed
     ? PelleUpgrade.dimBoostResetsNothing.canBeApplied
-    : (Perk.antimatterNoReset.canBeApplied && !player.disablePostReality);
+    : (Perk.antimatterNoReset.canBeApplied && (!player.disablePostReality || (LHC.voidRunning && player.endgame.largeHadronCollider.void.nullified)));
   if (forcedADReset || !canKeepDimensions) {
     AntimatterDimensions.reset();
     player.sacrificed = DC.D0;
@@ -317,7 +317,7 @@ export function softReset(tempBulk, forcedADReset = false, forcedAMReset = false
   const canKeepAntimatter = Pelle.isDoomed
     ? (PelleUpgrade.dimBoostResetsNothing.canBeApplied || PelleAchievementUpgrade.achievement111.canBeApplied)
     : (Achievement(111).isUnlocked || Perk.antimatterNoReset.canBeApplied) &&
-      (!player.disablePostReality || (Alpha.isRunning && Alpha.currentStage >= 12) || (LHC.voidRunning && NullUpgrade.limerick1.isBought));
+      (!player.disablePostReality || (LHC.voidRunning && player.endgame.largeHadronCollider.void.nullified) || (Alpha.isRunning && Alpha.currentStage >= 12) || (LHC.voidRunning && NullUpgrade.limerick1.isBought));
   if (!forcedAMReset && canKeepAntimatter) {
     Currency.antimatter.bumpTo(Currency.antimatter.startingValue);
   } else {

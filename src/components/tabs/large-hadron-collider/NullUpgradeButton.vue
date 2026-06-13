@@ -21,12 +21,17 @@ export default {
   data() {
     return {
       isBought: false,
-      isAffordable: false
+      isAffordable: false,
+      cost: new Decimal()
     };
   },
   computed: {
     config() {
       return this.upgrade.config;
+    },
+    costText() {
+      if (this.cost.gte(DC.NUMMAX)) return `Cost: ${Notations.current.infinite} Null Matter`;
+      return `Cost: ${format(this.cost, 2)} Null Matter`;
     },
     classObject() {
       return {
@@ -42,6 +47,7 @@ export default {
       const upgrade = this.upgrade;
       this.isBought = upgrade.isBought || upgrade.isCapped;
       this.isAffordable = upgrade.isAffordable;
+      this.cost.copyFrom(upgrade.cost);
     }
   }
 };
@@ -62,11 +68,7 @@ export default {
       </HintText>
       <DescriptionDisplay :config="upgrade.config" />
       <EffectDisplay :config="upgrade.config" />
-      <CostDisplay
-        v-if="!isBought"
-        :config="upgrade.config"
-        name="Null Matter"
-      />
+      <span v-html="costText" />
     </button>
   </div>
 </template>

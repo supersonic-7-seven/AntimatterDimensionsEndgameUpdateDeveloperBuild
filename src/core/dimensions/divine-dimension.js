@@ -61,9 +61,10 @@ class DivineDimensionState extends DimensionState {
     const tier = this.tier;
     let mult = GameCache.divineDimensionCommonMultiplier.value;
     mult = mult.times(Decimal.pow(this.powerMultiplier, Decimal.floor(this.baseAmount)));
-    if (DivinityMilestone.pelleQoL.isReached) mult = mult.pow(1.05);
+    if (DivinityMilestone.pelleQoL.isReached && !player.disablePostReality) mult = mult.pow(1.05);
     mult = mult.pow(Accelerators.emptiness._milestones[1].effectOrDefault(1));
     mult = mult.powEffectsOf(DivinityUpgrade.divineL2U7, DivinityUpgrade.divineL3U5);
+    if (DivinityMilestone.finalRebirth.isReached && !player.disablePostReality) mult = mult.pow(1.05);
     return mult;
   }
 

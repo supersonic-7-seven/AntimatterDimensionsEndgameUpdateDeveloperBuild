@@ -1,12 +1,14 @@
 <script>
 import AcceleratorsPanel from "./AcceleratorsPanel";
 import NullUpgradesTabComponent from "./NullUpgradesTabComponent";
+import PrimaryButton from "@/components/PrimaryButton";
 
 export default {
   name: "LargeHadronColliderTab",
   components: {
     AcceleratorsPanel,
-    NullUpgradesTabComponent
+    NullUpgradesTabComponent,
+    PrimaryButton
   },
   data() {
     return {
@@ -19,6 +21,10 @@ export default {
       highestAntimatter: new Decimal(),
       nullMatter: new Decimal(),
       nullPerSecond: new Decimal(),
+      nullified: false,
+      voidMode: 0,
+      nullParticles: new Decimal(),
+      nullParticlesPerSecond: new Decimal()
     };
   },
   computed: {
@@ -26,6 +32,11 @@ export default {
       if (this.hadronSpeed === 0) return `Your Hadrons are stationary`;
       if (this.hadronSpeed >= 1000) return `Your Hadrons are moving at ${formatHybridLarge(this.hadronSpeed, 3)} m/s`;
       return `Your Hadrons are moving at ${format(this.hadronSpeed, 3, 3)} m/s`;
+    },
+    modeDisplay() {
+      return this.voidMode === 0
+        ? "Void Mode: Normal"
+        : "Void Mode: Nullified";
     },
     voidText() {
       return this.isRunning ? "[Exit the Void.]" : "[Enter the Void.]";
@@ -46,23 +57,40 @@ export default {
       this.accelPower = LHC.acceleratorSpeed * 100000;
       this.amSoftcap.copyFrom(Pelle.isDoomed ? DC.E9E15 : Decimal.pow10(1e200));
       this.amHardcap.copyFrom(Pelle.isDoomed ? DC.ENUMMAX : LHC.breakingPoint);
-      this.isRunning = LHC.voidRunning;
+      this.isRunning = LHC.voidRunning || LHC.nullifiedVoidRunning;
       this.highestAntimatter.copyFrom(player.endgame.largeHadronCollider.void.highestAntimatter);
       this.nullMatter.copyFrom(player.endgame.largeHadronCollider.void.nullMatter);
       this.nullPerSecond.copyFrom(!LHC.voidRunning ? DC.D0 :
         Decimal.log10(Decimal.pow(AntimatterDimension(1).productionPerSecond, 0.01).max(1)).pow(
         Decimal.log10(Decimal.log10(Decimal.pow(AntimatterDimension(1).productionPerSecond, 0.01).max(1)).max(1))));
+      this.nullified = player.endgame.largeHadronCollider.void.nullified;
+      this.voidMode = player.endgame.largeHadronCollider.void.mode;
+      this.nullParticles.copyFrom(player.endgame.largeHadronCollider.void.nullParticles);
+      this.nullParticlesPerSecond.copyFrom(!LHC.nullifiedVoidRunning ? DC.D0 : getNullParticleGainPerSecond());
+    },
+    formatNullAmount(amount) {
+      return amount.gte(DC.NUMMAX) ? Notations.current.infinite : format(amount, 2, 2);
     },
     glitchAnim() {
-      let flux = Math.random() / 4;
+      let flux = Math.random() / (4 / (this.voidMode + 1));
       let negFlux = -flux;
       return {
         "text-shadow": `${negFlux}rem 0 red, ${flux}rem 0 blue`,
       };
     },
     startRun() {
-      if (this.isRunning) exitTheVoid();
-      else enterTheVoid();
+      if (this.voidMode === 1) {
+        if (this.isRunning) exitNullifiedVoid();
+        else enterNullifiedVoid();
+      }
+      else {
+        if (this.isRunning) exitTheVoid();
+        else enterTheVoid();
+      }
+    },
+    changeMode() {
+      if (this.isRunning) return;
+      player.endgame.largeHadronCollider.void.mode = (player.endgame.largeHadronCollider.void.mode + 1) % 2;
     }
   }
 };
@@ -96,7 +124,10 @@ export default {
     <div v-if="highestAntimatter.gt(10)">
       <span class="c-void-antimatter-amount">[Your highest Antimatter inside The Void is {{ format(highestAntimatter, 2, 1) }}.]</span>
       <br>
-      <span class="c-null">[You have {{ format(nullMatter, 2, 2) }} Null Matter. +{{ format(nullPerSecond, 2, 2) }}/s]</span>
+      <span class="c-null">[You have {{ formatNullAmount(nullMatter) }} Null Matter. +{{ formatNullAmount(nullPerSecond) }}/s]</span>
+    </div>
+    <div v-if="nullified">
+      <span class="c-null">[You have {{ format(nullParticles, 2, 2) }} Null Particles. +{{ format(nullParticlesPerSecond, 2, 2) }}/s]</span>
     </div>
     <div class="l-void-run">
       <div
@@ -110,6 +141,27 @@ export default {
           {{ voidText }}
         </div>
       </div>
+    </div>
+    <PrimaryButton
+      v-if="nullified"
+      class="o-primary-btn--subtab-option"
+      @click="changeMode"
+    >
+      {{ modeDisplay }}
+    </PrimaryButton>
+    <div v-if="voidMode === 0">
+      Entering The Void will force an Endgame reset and disable all Reality and beyond mechanics.
+      <br>
+      Your Antimatter will slowly decay and you will gain Null Matter from the decayed Antimatter.
+      <span v-if="nullified">
+        <br>
+        Since you Nullified the Multiverse, the ANR Perk and Passive EP Generation are reenabled inside The Void.
+      </span>
+    </div>
+    <div v-if="voidMode === 1">
+      Entering The Void in Nullified Mode will force an Endgame reset and Dilate your Antimatter by {{ format(0.01, 2, 2) }}.
+      <br>
+      You will generate Null Particles based on your Antimatter, which empower Antimatter Dimensions while inside The Void in normal mode.
     </div>
     <NullUpgradesTabComponent />
   </div>

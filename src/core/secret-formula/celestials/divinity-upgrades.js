@@ -247,7 +247,7 @@ export const divinityUpgrades = {
     layer: 3,
     cost: new Decimal(1e77),
     description: "Gain a power effect to Divine Dimensions based on Condenses",
-    effect: () => Decimal.log10(player.celestials.pelle.divinity.condenses.div(100).add(1)).div(2).add(1),
+    effect: () => Decimal.log10(player.celestials.pelle.divinity.condenses.div(1000).add(1)).div(2).add(1),
     formatEffect: value => formatPow(value, 2, 3)
   },
 };

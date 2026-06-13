@@ -162,7 +162,7 @@ class InfinityIPMultUpgrade extends GameMechanicState {
   }
 
   get costIncrease() {
-    return this.hasIncreasedCost ? 1e10 : 10;
+    return this.hasIncreasedCost ? (Pelle.isDoomed ? 1e100 : 1e10) : 10;
   }
 
   get costCap() {

@@ -1423,6 +1423,9 @@ window.player = {
         nullMatter: DC.D0,
         upgrades: new Set(),
         rebuyables: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        nullified: false,
+        nullParticles: DC.D0,
+        mode: 0
       }
     }
   },

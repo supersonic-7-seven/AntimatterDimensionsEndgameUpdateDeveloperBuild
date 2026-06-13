@@ -263,10 +263,10 @@ export const dualityUpgrades = [
     id: 23,
     cost: new Decimal(6e18),
     requirement: () => `Reach Glyph level ${formatInt(385000)} in Ra's Reality with
-      at least ${formatInt(5)} Cursed Glyphs equipped`,
-    hasFailed: () => !Ra.isRunning || player.reality.glyphs.active.filter(g => g.type !== "cursed").length > 0 ||
+      at most -15 Glyphs equipped`,
+    hasFailed: () => !Ra.isRunning ||
       player.requirementChecks.reality.maxGlyphs > -15,
-    checkRequirement: () => Ra.isRunning && player.reality.glyphs.active.filter(g => g.type !== "cursed").length === 0 &&
+    checkRequirement: () => Ra.isRunning &&
       player.requirementChecks.reality.maxGlyphs <= -15 && gainedGlyphLevel().actualLevel >= 385000,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     description: "Tesseracts increase Galaxy strength",

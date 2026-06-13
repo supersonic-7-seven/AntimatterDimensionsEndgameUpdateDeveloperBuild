@@ -72,7 +72,9 @@ export const Laitela = {
     const hadronizeBump = this.hadronizes > 0 ? 1e12 : 1;
     const hadronizeAntimatter = Decimal.pow(1000, this.hadronizes).times(hadronizeBump).times(1e11)
       .div(Hadrons.entropyFormulaBoost).div(Decimal.log10(player.records.bestEndgame.galaxies.max(1)))
-      .div(Accelerators.potency.effectValue2);
+      .div(Accelerators.potency.effectValue2).div(
+      DivinityMilestone.finalRebirth.isReached && !player.disablePostReality ? Time.thisEndgameRealTime.totalMinutes.pow(3).add(1) : 1)
+      .dividedByEffectOf(ResurgenceUpgrade.entropySurge);
     return Decimal.clamp(Decimal.pow(new Decimal(Currency.antimatter.value.add(1).log10()).div(
       hadronizeAntimatter), 2), 0, maxSpeed).div(200);
   },
@@ -80,7 +82,9 @@ export const Laitela = {
     const hadrBump = this.hadronizes > 0 ? 1e12 : 1;
     const hadrAM = Decimal.pow(1000, this.hadronizes).times(hadrBump).times(1e11)
       .div(Hadrons.entropyFormulaBoost).div(Decimal.log10(player.records.bestEndgame.galaxies.max(1)))
-      .div(Accelerators.potency.effectValue2);
+      .div(Accelerators.potency.effectValue2).div(
+      DivinityMilestone.finalRebirth.isReached && !player.disablePostReality ? Time.thisEndgameRealTime.totalMinutes.pow(3).add(1) : 1)
+      .dividedByEffectOf(ResurgenceUpgrade.entropySurge);
     const currRoot = (this.maxAllowedDimension === 0 ? DC.BEMAX : 8 / this.maxAllowedDimension);
     return Decimal.pow10(hadrAM).pow(Decimal.sqrt(20/3)).pow(currRoot);
   },

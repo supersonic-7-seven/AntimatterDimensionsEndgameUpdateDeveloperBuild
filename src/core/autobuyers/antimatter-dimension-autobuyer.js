@@ -136,7 +136,8 @@ export class AntimatterDimensionAutobuyerState extends UpgradeableAutobuyerState
   }
 
   get resetTickOn() {
-    return (Perk.antimatterNoReset.canBeApplied && !player.disablePostReality)
+    return (Perk.antimatterNoReset.canBeApplied &&
+      (!player.disablePostReality || (LHC.voidRunning && player.endgame.largeHadronCollider.void.nullified)))
       ? PRESTIGE_EVENT.ANTIMATTER_GALAXY : PRESTIGE_EVENT.DIMENSION_BOOST;
   }
 

@@ -551,6 +551,24 @@ body.t-s12 {
   background-color: var(--color-pelle--base);
 }
 
+.btn-nullify {
+  z-index: 1;
+  font-family: Typewriter;
+  font-size: 5rem;
+  color: white;
+  background-color: black;
+  border: var(--var-border-width, 0.2rem) solid white;
+  border-radius: var(--var-border-radius, 0.5rem);
+  padding: 2rem;
+  transition-duration: 0.15s;
+  cursor: pointer;
+}
+
+.btn-nullify:hover {
+  color: black;
+  background-color: white;
+}
+
 .t-normal .c-game-header__tesseract-available,
 .t-s12 .c-game-header__tesseract-available {
   background: #eeeeee;
