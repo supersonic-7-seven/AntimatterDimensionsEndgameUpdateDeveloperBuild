@@ -381,5 +381,5 @@ export const NullUpgrade = mapGameDataToObject(
 );
 
 export function getNullParticleGainPerSecond() {
-  return player.antimatter.max(1).log10().div(Decimal.log10(DC.NUMMAX)).add(1).pow(10);
+  return player.antimatter.max(1).log10().div(1e15).add(1).pow(10);
 }
