@@ -19,7 +19,7 @@ export const pelleRifts = {
         const goal = chall.goalAtCompletions(chall.gainedCompletionStatus.totalCompletions);
         return totalFill.plus(1).pow(0.1).min(goal.pow(0.15));
       }
-      return totalFill.plus(1).pow(0.33);
+      return totalFill.plus(1).pow(0.33).min(Decimal.pow10(1e150));
     },
     currency: () => Currency.infinityPoints,
     galaxyGeneratorThreshold: 1000,
