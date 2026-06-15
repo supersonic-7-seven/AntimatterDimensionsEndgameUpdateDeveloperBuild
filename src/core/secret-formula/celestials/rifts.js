@@ -152,7 +152,7 @@ export const pelleRifts = {
     strike: () => PelleStrikes.ECs,
     percentage: totalFill => Decimal.pow(totalFill.plus(1).log10(), 0.4).div(4000 ** 0.4).toNumber(),
     percentageToFill: percentage => Decimal.pow(10, percentage ** 2.5 * 4000).minus(1),
-    effect: totalFill => Decimal.pow(totalFill.plus(1).log10(), 0.2).div(4000 ** 0.2).times(58).min(100).times(new Decimal(2.08).times(DC.D1.sub(Decimal.pow(0.8, totalFill.plus(1).log10().plus(1).log10().sub(5).max(0)))).add(1)),
+    effect: totalFill => Decimal.pow(totalFill.plus(1).log10(), 0.2).div(4000 ** 0.2).times(58).min(100).times(new Decimal(2.08).times(DC.D1.sub(Decimal.pow(0.8, totalFill.plus(1).log10().plus(1).log10().plus(1).log10().sub(0.7).times(10).max(0)))).add(1)),
     currency: () => Currency.eternityPoints,
     galaxyGeneratorThreshold: 1e10,
     milestones: [
