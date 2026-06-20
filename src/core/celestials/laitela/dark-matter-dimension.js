@@ -195,31 +195,43 @@ export class DarkMatterDimensionState extends DimensionState {
   }
 
   buyManyInterval(x) {
-    const cost = this.rawIntervalCost.times(
-      Decimal.pow(this.intervalCostIncrease, x).minus(1)).div(this.intervalCostIncrease.sub(1)).floor();
+    const isBought = this.data.intervalUpgrades;
+    const canBuyTotal = Currency.darkMatter.value.div(INTERVAL_START_COST).div(this.adjustedStartingCost).times(
+      this.intervalCostIncrease.sub(1)).add(1).log(this.intervalCostIncrease).floor();
+    const gained = new Decimal(x).min(canBuyTotal.sub(isBought));
+    const cost = new Decimal(INTERVAL_START_COST).times(this.adjustedStartingCost).times(
+      Decimal.pow(this.intervalCostIncrease, canBuyTotal).minus(1)).div(this.intervalCostIncrease.sub(1)).floor();
     if (!Currency.darkMatter.purchase(cost)) return false;
     else {
-      this.data.intervalUpgrades = this.data.intervalUpgrades.add(x);
+      this.data.intervalUpgrades = this.data.intervalUpgrades.add(gained);
       return true;
     }
   }
 
   buyManyPowerDM(x) {
-    const cost = this.rawPowerDMCost.times(
-      Decimal.pow(this.powerDMCostIncrease, x).minus(1)).div(this.powerDMCostIncrease.sub(1)).floor();
+    const isBought = this.data.powerDMUpgrades;
+    const canBuyTotal = Currency.darkMatter.value.div(POWER_DM_START_COST).div(this.adjustedStartingCost).times(
+      this.powerDMCostIncrease.sub(1)).add(1).log(this.powerDMCostIncrease).floor();
+    const gained = new Decimal(x).min(canBuyTotal.sub(isBought));
+    const cost = new Decimal(POWER_DM_START_COST).times(this.adjustedStartingCost).times(
+      Decimal.pow(this.powerDMCostIncrease, canBuyTotal).minus(1)).div(this.powerDMCostIncrease.sub(1)).floor();
     if (!Currency.darkMatter.purchase(cost)) return false;
     else {
-      this.data.powerDMUpgrades = this.data.powerDMUpgrades.add(x);
+      this.data.powerDMUpgrades = this.data.powerDMUpgrades.add(gained);
       return true;
     }
   }
 
   buyManyPowerDE(x) {
-    const cost = this.rawPowerDECost.times(
-      Decimal.pow(this.powerDECostIncrease, x).minus(1)).div(this.powerDECostIncrease.sub(1)).floor();
+    const isBought = this.data.powerDEUpgrades;
+    const canBuyTotal = Currency.darkMatter.value.div(POWER_DE_START_COST).div(this.adjustedStartingCost).times(
+      this.powerDECostIncrease.sub(1)).add(1).log(this.powerDECostIncrease).floor();
+    const gained = new Decimal(x).min(canBuyTotal.sub(isBought));
+    const cost = new Decimal(POWER_DE_START_COST).times(this.adjustedStartingCost).times(
+      Decimal.pow(this.powerDECostIncrease, canBuyTotal).minus(1)).div(this.powerDECostIncrease.sub(1)).floor();
     if (!Currency.darkMatter.purchase(cost)) return false;
     else {
-      this.data.powerDEUpgrades = this.data.powerDEUpgrades.add(x);
+      this.data.powerDEUpgrades = this.data.powerDEUpgrades.add(gained);
       return true;
     }
   }
