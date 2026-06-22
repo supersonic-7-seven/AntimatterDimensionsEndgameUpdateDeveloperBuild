@@ -475,6 +475,58 @@ export const Time = {
   },
 
   /**
+   * @returns {TimeSpan}
+   */
+  get thisSupernova() {
+    return this.fromMilliseconds(() => player.records.thisSupernova.time);
+  },
+  /**
+   * @param {TimeSpan} timespan
+   */
+  set thisSupernova(timespan) {
+    this.toMilliseconds(timespan, value => player.records.thisSupernova.time = value);
+  },
+
+  /**
+   * @returns {TimeSpan}
+   */
+  get thisSupernovaRealTime() {
+    return this.fromMilliseconds(() => new Decimal(player.records.thisSupernova.realTime));
+  },
+  /**
+   * @param {TimeSpan} timespan
+   */
+  set thisSupernovaRealTime(timespan) {
+    this.toMilliseconds(timespan, value => player.records.thisSupernova.realTime = value.toNumber());
+  },
+
+  /**
+   * @returns {TimeSpan}
+   */
+  get bestSupernova() {
+    return this.fromMilliseconds(() => player.records.bestSupernova.time);
+  },
+  /**
+   * @param {TimeSpan} timespan
+   */
+  set bestSupernova(timespan) {
+    this.toMilliseconds(timespan, value => player.records.bestSupernova.time = value);
+  },
+
+  /**
+   * @returns {TimeSpan}
+   */
+  get bestSupernovaRealTime() {
+    return this.fromMilliseconds(() => new Decimal(player.records.bestSupernova.realTime));
+  },
+  /**
+   * @param {TimeSpan} timespan
+   */
+  set bestSupernovaRealTime(timespan) {
+    this.toMilliseconds(timespan, value => player.records.bestSupernova.realTime = value.toNumber());
+  },
+
+  /**
    * @return {TimeSpan}
    */
   get worstChallenge() {
