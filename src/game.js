@@ -503,7 +503,7 @@ export function gainedCondenses() {
 export function gainedDivineStars() {
   const div = 308;
   let divs = Decimal.pow10(player.records.thisCondense.maxVM.add(1).log10().div(div).sub(0.75));
-
+  if (DivinityUpgrade.divineL4U1.isBought) divs = divs.times(2);
   return divs.floor();
 }
 
