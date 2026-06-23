@@ -1233,7 +1233,7 @@ function globalPassivePrestigeGen(realDiff) {
   }
   condenseGen = condenseGen.plus(player.celestials.pelle.divinity.partCondensed);
   Currency.condenses.add(condenseGen.floor());
-  player.endgame.pelle.divinity.partCondensed = condenseGen.minus(condenseGen.floor()).toNumber();
+  player.celestials.pelle.divinity.partCondensed = condenseGen.minus(condenseGen.floor()).toNumber();
 }
 
 function passivePrestigeGen(realDiff) {
