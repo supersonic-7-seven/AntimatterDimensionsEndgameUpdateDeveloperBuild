@@ -20,7 +20,7 @@ export default {
     update() {
       this.showContainer = DivinityMilestone.divineDimensions.isReached;
       this.divineStars.copyFrom(Currency.divineStars.value.floor());
-      this.hasSupernova = PlayerProgress.supernovaUnlocked();
+      this.hasSupernova = PlayerProgress.supernovaUnlocked() || Currency.divineStars.gte(DC.NUMMAX);
       this.nebulae.copyFrom(Currency.nebulae.value.floor());
     },
   },
