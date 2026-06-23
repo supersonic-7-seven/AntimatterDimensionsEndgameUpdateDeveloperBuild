@@ -270,16 +270,13 @@ export function resetForDivineStars(nova = false) {
   if (Currency.divineMatter.lt(DC.NUMMAX)) return;
   if (!nova) giveCondenseRewards();
   Endgame.resetNoReward();
-  DivineDimensions.fullReset();
-  player.records.thisCondense.maxVM = DC.E1;
-  Currency.divineMatter.reset();
   if (!DivinityUpgrade.divineL2U5.isBought || nova) {
     let upgR = [];
     let min = DivinityUpgrade.divineL5U2.isBought ? 4 :
       (DivinityUpgrade.divineL4U4.isBought ? 3 : (DivinityUpgrade.divineL4U2.isBought ? 2 : 1));
-    for (let upgL = 0; upgL < DivinityUpgrades.all.filter(u => u.layer <= (nova ? 3 : 1) && u.layer >= min).length; upgL++) {
-      if (DivinityUpgrades.all.filter(u => u.layer <= (nova ? 3 : 1) && u.layer >= min)[upgL].isBought) {
-        upgR.push(DivinityUpgrades.all.filter(u => u.layer <= (nova ? 3 : 1) && u.layer >= min)[upgL].id);
+    for (let upgL = 0; upgL < DivinityUpgrades.all.filter(u => u.layer > (nova ? 3 : 1) && u.layer < min).length; upgL++) {
+      if (DivinityUpgrades.all.filter(u => u.layer > (nova ? 3 : 1) && u.layer < min)[upgL].isBought) {
+        upgR.push(DivinityUpgrades.all.filter(u => u.layer > (nova ? 3 : 1) && u.layer < min)[upgL].id);
       }
     }
     upgR.push("divineL1U5");
@@ -292,6 +289,9 @@ export function resetForDivineStars(nova = false) {
     }
     player.celestials.pelle.divinityUpgrades = new Set(upgR);
   }
+  DivineDimensions.fullReset();
+  player.records.thisCondense.maxVM = DC.E1;
+  Currency.divineMatter.reset();
   player.records.thisCondense.time = DC.D0;
   player.records.thisCondense.realTime = 0;
   player.records.totalCondenseDivineMatter = DC.E1;
@@ -341,8 +341,6 @@ export function supernova(force, auto, specialConditions = {}) {
     giveSupernovaRewards(auto);
   }
 
-  initializeResourcesAfterSupernova();
-
   resetCondenseRuns();
 
   Currency.divineStars.reset();
@@ -353,6 +351,8 @@ export function supernova(force, auto, specialConditions = {}) {
   resetForDivineStars(true);
   player.records.thisCondense.maxVM = DC.D0;
   player.records.thisSupernova.maxVM = DC.D0;
+
+  initializeResourcesAfterSupernova();
 
   EventHub.dispatch(GAME_EVENT.SUPERNOVA_RESET_AFTER);
   return true;
