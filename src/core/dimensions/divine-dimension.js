@@ -270,11 +270,11 @@ export function resetForDivineStars(nova = false) {
   DivineDimensions.fullReset();
   player.records.thisCondense.maxVM = DC.E1;
   Currency.divineMatter.reset();
-  if (!DivinityUpgrade.divineL2U5.isBought) {
+  if (!DivinityUpgrade.divineL2U5.isBought || nova) {
     let upgR = [];
-    for (let upgL = 0; upgL < DivinityUpgrades.all.filter(u => u.layer <= (neb ? 3 : 1)).length; upgL++) {
-      if (DivinityUpgrades.all.filter(u => u.layer <= (neb ? 3 : 1))[upgL].isBought) {
-        upgR.push(DivinityUpgrades.all.filter(u => u.layer <= (neb ? 3 : 1))[upgL].id);
+    for (let upgL = 0; upgL < DivinityUpgrades.all.filter(u => u.layer <= (nova ? 3 : 1)).length; upgL++) {
+      if (DivinityUpgrades.all.filter(u => u.layer <= (nova ? 3 : 1))[upgL].isBought) {
+        upgR.push(DivinityUpgrades.all.filter(u => u.layer <= (nova ? 3 : 1))[upgL].id);
       }
     }
     upgR.push("divineL1U5");
