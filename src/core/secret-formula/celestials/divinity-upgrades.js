@@ -112,7 +112,8 @@ export const divinityUpgrades = {
     layer: 2,
     cost: new Decimal(1),
     description: "Divine Dimensions gain a multiplier based on real time since your last Condense",
-    effect: () => Decimal.pow(Time.thisCondenseRealTime.totalSeconds.add(1), 3),
+    effect: () => Decimal.pow(DivinityUpgrade.divineL5U1.isBought ? Time.thisSupernovaRealTime.totalSeconds.add(1) :
+      Time.thisCondenseRealTime.totalSeconds.add(1), 3),
     formatEffect: value => formatX(value, 2, 2)
   },
   divineL2U2: {
