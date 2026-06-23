@@ -1,10 +1,12 @@
 <script>
 import CondenseButton from "./CondenseButton";
+import SupernovaButton from "./SupernovaButton";
 
 export default {
   name: "DivinityContainer",
   components: {
-    CondenseButton
+    CondenseButton,
+    SupernovaButton
   },
   data() {
     return {
@@ -18,23 +20,10 @@ export default {
     update() {
       this.showContainer = DivinityMilestone.divineDimensions.isReached;
       this.divineStars.copyFrom(Currency.divineStars.value.floor());
-      //this.hasSupernova = PlayerProgress.nebulaeUnlocked();
-      //this.nebulae.copyFrom(Currency.nebulae.value.floor());
+      this.hasSupernova = PlayerProgress.supernovaUnlocked();
+      this.nebulae.copyFrom(Currency.nebulae.value.floor());
     },
   },
-  /*
-  <div
-    v-if="showContainer && hasSupernova"
-    class="c-prestige-button-container"
-  >
-    <div class="c-divine-stars">
-      You have
-      <span class="c-game-header__neb-amount">{{ format(nebulae, 2) }}</span>
-      {{ pluralize("Nebula", nebulae) }}.
-    </div>
-    <SupernovaButton />
-  </div>
-  */
 };
 </script>
 
@@ -50,6 +39,17 @@ export default {
         {{ pluralize("Divine Star", divineStars) }}.
       </div>
       <CondenseButton />
+    </div>
+    <div
+      v-if="showContainer && hasSupernova"
+      class="c-prestige-button-container"
+    >
+      <div class="c-divine-stars">
+        You have
+        <span class="c-game-header__neb-amount">{{ format(nebulae, 2) }}</span>
+        {{ pluralize("Nebula", nebulae) }}.
+      </div>
+      <SupernovaButton />
     </div>
   </div>
 </template>
