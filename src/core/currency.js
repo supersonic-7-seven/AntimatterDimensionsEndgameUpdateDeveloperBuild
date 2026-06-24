@@ -736,6 +736,7 @@ Currency.divineMatter = new class extends DecimalCurrency {
     player.records.thisCondense.maxVM = player.records.thisCondense.maxVM.max(newValue);
     player.records.thisSupernova.maxVM = player.records.thisSupernova.maxVM.max(newValue);
     player.records.totalDivineMatter = player.records.totalDivineMatter.max(newValue);
+    player.records.totalCondenseDivineMatter = player.records.totalCondenseDivineMatter.max(newValue);
     player.records.totalSupernovaDivineMatter = player.records.totalSupernovaDivineMatter.max(newValue);
   }
 
