@@ -107,6 +107,17 @@ export default {
         thisReal: TimeSpan.zero,
         bestRate: new Decimal(0),
       },
+      supernova: {
+        isUnlocked: false,
+        count: new Decimal(0),
+        totalSupernovaDivineMatter: new Decimal(0),
+        hasBest: false,
+        best: TimeSpan.zero,
+        bestReal: TimeSpan.zero,
+        this: TimeSpan.zero,
+        thisReal: TimeSpan.zero,
+        bestRate: new Decimal(0),
+      },
       matterScale: [],
       lastMatterTime: 0,
       paperclips: 0,
@@ -163,6 +174,12 @@ export default {
       return num.gt(0)
         ? `${this.formatDecimalAmount(num)} ${pluralize("Condense", num.floor())}`
         : "no Condenses";
+    },
+    supernovaCountString() {
+      const num = this.supernova.count;
+      return num.gt(0)
+        ? `${this.formatDecimalAmount(num)} ${pluralize("Supernova", num.floor())}`
+        : "no Supernovae";
     },
     fullGameCompletions() {
       return player.records.fullGameCompletions;
@@ -314,6 +331,21 @@ export default {
         condense.thisReal.setFrom(new Decimal(records.thisCondense.realTime));
         condense.bestRate.copyFrom(bestCondense.bestVSminSupernova);
       }
+
+      const isSupernovaUnlocked = progress.isSupernovaUnlocked;
+      const supernova = this.supernova;
+      const bestSupernova = records.bestSupernova;
+      supernova.isUnlocked = isSupernovaUnlocked;
+      if (isSupernovaUnlocked) {
+        supernova.count.copyFrom(Currency.supernovae);
+        supernova.totalSupernovaDivineMatter.copyFrom(records.totalSupernovaDivineMatter);
+        supernova.hasBest = bestSupernova.realTime < 999999999999;
+        supernova.best.setFrom(bestSupernova.time);
+        supernova.bestReal.setFrom(new Decimal(bestSupernova.realTime));
+        supernova.this.setFrom(records.thisSupernova.time);
+        supernova.thisReal.setFrom(new Decimal(records.thisSupernova.realTime));
+        supernova.bestRate.copyFrom(bestSupernova.bestNebminTotal);
+      }
       this.updateMatterScale();
 
       this.isDoomed = Pelle.isDoomed;
@@ -382,11 +414,14 @@ export default {
           You have made a total of {{ format(celestialInfinity.totalCelestialInfinityCelMatter, 2, 1) }} Celestial Matter
           this Celestial Infinity.
         </div>
-        <div v-if="condense.isUnlocked" class="c-stats-tab-divinity">
-          You have made a total of {{ format(condense.totalCondenseDivineMatter, 2, 1) }} Divine Matter this Condense.
-        </div>
         <div v-if="hasSeenDivineDims" class="c-stats-tab-divinity">
           You have made a total of {{ format(totalDivineMatter, 2, 1) }} Divine Matter.
+        </div>
+        <div v-if="supernova.isUnlocked" class="c-stats-tab-divinity">
+          You have made a total of {{ format(supernova.totalSupernovaDivineMatter, 2, 1) }} Divine Matter this Supernova.
+        </div>
+        <div v-if="condense.isUnlocked" class="c-stats-tab-divinity">
+          You have made a total of {{ format(condense.totalCondenseDivineMatter, 2, 1) }} Divine Matter this Condense.
         </div>
         <div>You have played for {{ realTimePlayed }}. (real time)</div>
         <div v-if="reality.isUnlocked">
@@ -651,22 +686,49 @@ export default {
         Condense
       </div>
       <div>
-        You have {{ condenseCountString }}.
+        You have {{ condenseCountString }}<span v-if="supernova.isUnlocked"> this Supernova</span>.
       </div>
-      <div v-if="celestialInfinity.hasBest">
+      <div v-if="condense.hasBest">
         Your fastest game-time Condense was {{ condense.best.toStringShort() }}.
         Your fastest real-time Condense was {{ condense.bestReal.toStringShort() }}.
       </div>
       <div v-else>
-        You have no fastest Condense.
+        You have no fastest Condense<span v-if="supernova.isUnlocked"> this Supernova</span>.
       </div>
       <div>
         You have spent {{ condense.this.toStringShort() }} in this Condense.
         ({{ condense.thisReal.toStringShort() }} real time)
       </div>
       <div>
-        Your best Divine Stars per minute
+        Your best Divine Stars per minute<span v-if="supernova.isUnlocked"> this Supernova</span>
         is {{ format(condense.bestRate, 2, 2) }}.
+      </div>
+      <br>
+    </div>
+    <div
+      v-if="supernova.isUnlocked"
+      class="c-stats-tab-subheader c-stats-tab-general"
+    >
+      <div class="c-stats-tab-title c-stats-tab-supernova">
+        Supernova
+      </div>
+      <div>
+        You have {{ supernovaCountString }}.
+      </div>
+      <div v-if="supernova.hasBest">
+        Your fastest game-time Supernova was {{ supernova.best.toStringShort() }}.
+        Your fastest real-time Supernova was {{ supernova.bestReal.toStringShort() }}.
+      </div>
+      <div v-else>
+        You have no fastest Supernova.
+      </div>
+      <div>
+        You have spent {{ supernova.this.toStringShort() }} in this Supernova.
+        ({{ supernova.thisReal.toStringShort() }} real time)
+      </div>
+      <div>
+        Your best Nebulae per minute
+        is {{ format(supernova.bestRate, 2, 2) }}.
       </div>
       <br>
     </div>
@@ -735,6 +797,13 @@ export default {
 
 .c-stats-tab-condense {
   background: linear-gradient(red, yellow, cyan);
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+.c-stats-tab-supernova {
+  background: linear-gradient(cyan, blue, indigo, purple);
   background-clip: text;
 
   -webkit-text-fill-color: transparent;

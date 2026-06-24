@@ -72,7 +72,7 @@ export default {
       return amount.gte(DC.NUMMAX) ? Notations.current.infinite : format(amount, 2, 2);
     },
     glitchAnim() {
-      let flux = Math.random() / 4;
+      let flux = Math.random() / (this.voidMode === 1 ? 2 : 4);
       let negFlux = -flux;
       return {
         "text-shadow": `${negFlux}rem 0 red, ${flux}rem 0 blue`,

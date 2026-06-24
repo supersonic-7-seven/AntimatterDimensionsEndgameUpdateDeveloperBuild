@@ -638,6 +638,9 @@ class AntimatterDimensionState extends DimensionState {
       if (production.gt(1)) {
         production = production.pow(Accelerators.potency.effectValue1);
       }
+      if (production.gt(1)) {
+        production = production.powEffectOf(ResurgenceUpgrade.synergy5);
+      }
       if (production.gt(10)) {
         const log10 = production.log10();
         const eg = Currency.endgames.value;

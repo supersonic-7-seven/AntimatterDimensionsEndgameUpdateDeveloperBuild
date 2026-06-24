@@ -2645,6 +2645,39 @@ br {
 
 /* #endregion Condense */
 
+/* #region Supernova */
+
+.o-supernova-button {
+  font-weight: bold;
+  color: #a000ff;
+  background-color: var(--color-prestige--accent);
+  border-color: #a000ff;
+}
+
+.o-supernova-button:hover {
+  color: black;
+  background: linear-gradient(cyan, blue, indigo, purple);
+}
+
+.o-supernova-button span {
+  transition-duration: 0.2s;
+}
+
+.o-supernova-button:hover span {
+  color: black;
+}
+
+.t-metro .o-supernova-button {
+  box-shadow: 0.1rem 0.1rem 0.1rem 0 #9e9e9e;
+}
+
+.o-supernova-button--unavailable {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* #endregion Supernova */
+
 /* #endregion o-prestige-btn */
 
 /* #region l-spoon-btn-group */
@@ -2984,6 +3017,44 @@ br {
 }
 
 /* #endregion CEP Amount */
+
+/* #region Neb Amount */
+
+.l-game-header__nebulae {
+  position: absolute;
+  right: 75%;
+}
+
+.c-game-header__neb-amount {
+  font-weight: bold;
+}
+
+.t-dark .c-game-header__neb-amount,
+.t-s6 .c-game-header__neb-amount,
+.t-s10 .c-game-header__neb-amount {
+  background: linear-gradient(cyan, blue, indigo, purple);
+  background-clip: text;
+  text-shadow: 0 0 0.7rem var(--color-pelle--base);
+
+  -webkit-text-fill-color: transparent;
+}
+
+.s-base--metro .c-game-header__neb-amount {
+  background: linear-gradient(cyan, blue, indigo, purple);
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+.t-s1 .c-game-header__neb-amount {
+  background: linear-gradient(cyan, blue, indigo, purple);
+  background-clip: text;
+  text-shadow: 0.1rem 0.1rem 0 black;
+
+  -webkit-text-fill-color: transparent;
+}
+
+/* #endregion Neb Amount */
 
 /* #region c-game-header__antimatter */
 

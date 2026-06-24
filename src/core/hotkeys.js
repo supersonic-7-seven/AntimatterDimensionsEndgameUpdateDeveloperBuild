@@ -22,7 +22,7 @@ import { GameKeyboard } from "./keyboard";
 // for the other modifier keys (#3093).
 
 // Free keys:
-// i, j, k, l, p, q, v, w, x
+// i, j, k, l, p, q, w, x
 
 
 export const shortcuts = [
@@ -238,6 +238,15 @@ export const shortcuts = [
       resetForDivineStars();
     },
     visible: () => PlayerProgress.condenseUnlocked()
+  }, {
+    name: "Supernova",
+    keys: ["v"],
+    type: "bindRepeatableHotkey",
+    function: () => {
+      if (!PlayerProgress.supernovaUnlocked()) return;
+      supernovaResetRequest();
+    },
+    visible: () => PlayerProgress.supernovaUnlocked()
   }, {
     name: "Save game",
     keys: ["mod", "s"],

@@ -37,7 +37,11 @@ export class PlayerProgress {
   }
 
   get isCondenseUnlocked() {
-    return new Decimal(this._player.celestials.pelle.divinity.condenses).gt(0);
+    return new Decimal(this._player.celestials.pelle.divinity.condenses).gt(0) || this.isSupernovaUnlocked;
+  }
+
+  get isSupernovaUnlocked() {
+    return new Decimal(this._player.celestials.pelle.divinity.supernovae).gt(0);
   }
 
   get hasFullCompletion() {
@@ -94,6 +98,10 @@ export class PlayerProgress {
 
   static condenseUnlocked() {
     return PlayerProgress.current.isCondenseUnlocked;
+  }
+
+  static supernovaUnlocked() {
+    return PlayerProgress.current.isSupernovaUnlocked;
   }
 
   static seenAlteredSpeed() {

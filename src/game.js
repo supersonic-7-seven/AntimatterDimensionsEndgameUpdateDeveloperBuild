@@ -416,6 +416,19 @@ export function addCondenseTime(time, realTime, vs, condenses) {
   player.records.recentCondenses.unshift([time, realTime, vs, condenses]);
 }
 
+export function resetCondenseRuns() {
+  player.records.recentCondenses = Array.from(
+    { length: 10 },
+    () => [DC.E9E15, Number.MAX_VALUE, DC.D1, DC.D1]
+  );
+  GameCache.bestRunVSPM.invalidate();
+}
+
+export function addSupernovaTime(time, realTime, neb, supernovae) {
+  player.records.recentSupernovae.pop();
+  player.records.recentSupernovae.unshift([time, realTime, neb, supernovae]);
+}
+
 export function gainedInfinities() {
   if (EternityChallenge(4).isRunning) {
     return DC.D1;
@@ -490,8 +503,19 @@ export function gainedCondenses() {
 export function gainedDivineStars() {
   const div = 308;
   let divs = Decimal.pow10(player.records.thisCondense.maxVM.add(1).log10().div(div).sub(0.75));
-
+  divs = divs.timesEffectOf(DivinityUpgrade.divineL4U1.effects.stars);
   return divs.floor();
+}
+
+function totalNebMult() {
+  return DC.D1;
+}
+
+export function gainedNebulae() {
+  let neb = DC.D5.pow(player.records.thisSupernova.maxVS.plus(
+    gainedDivineStars()).add(1).log10().div(308).sub(0.7)).times(totalNebMult());
+
+  return neb.floor();
 }
 
 export function updateRefresh() {
@@ -798,6 +822,8 @@ export function gameLoop(passedDiff, options = {}) {
     player.records.thisCelestialReality.time = player.records.thisCelestialReality.time.add(diff);
     player.records.thisCondense.time = player.records.thisCondense.time.add(diff);
     player.records.thisCondense.realTime += realDiff;
+    player.records.thisSupernova.time = player.records.thisSupernova.time.add(diff);
+    player.records.thisSupernova.realTime += realDiff;
   }
 
   DeltaTimeState.update(realDiff, diff);
@@ -1161,6 +1187,12 @@ function updatePrestigeRates() {
     player.records.thisCondense.bestVSmin = currentVSmin;
     player.records.thisCondense.bestVSminVal = gainedDivineStars();
   }
+
+  const currentNebmin = gainedSupernovae().dividedBy(Decimal.clampMin(0.0005, Time.thisSupernovaRealTime.totalMinutes));
+  if (currentNebmin.gt(player.records.thisSupernova.bestNebmin) && Currency.divineStars.gte(DC.NUMMAX)) {
+    player.records.thisSupernova.bestNebmin = currentNebmin;
+    player.records.thisSupernova.bestNebminVal = gainedSupernovae();
+  }
 }
 
 function globalPassivePrestigeGen(realDiff) {
@@ -1196,6 +1228,15 @@ function globalPassivePrestigeGen(realDiff) {
   celInfGen = celInfGen.plus(player.endgame.celDimExpansion.partCelestialInfinitied);
   Currency.celestialInfinities.add(celInfGen.floor());
   player.endgame.celDimExpansion.partCelestialInfinitied = celInfGen.minus(celInfGen.floor()).toNumber();
+
+  let condenseGen = DC.D0;
+  if (DivinityUpgrade.divineL5U4.isBought) {
+    condenseGen = condenseGen.plus(new Decimal(0.1).times(Time.unscaledDeltaTime.totalMilliseconds).div(
+      player.records.bestCondense.realTime));
+  }
+  condenseGen = condenseGen.plus(player.celestials.pelle.divinity.partCondensed);
+  Currency.condenses.add(condenseGen.floor());
+  player.celestials.pelle.divinity.partCondensed = condenseGen.minus(condenseGen.floor()).toNumber();
 }
 
 function passivePrestigeGen(realDiff) {
@@ -1367,6 +1408,10 @@ function applyAutoprestige(diff) {
   if (CelestialEternityUpgrade.passiveCIP.isBought) {
     Currency.celestialInfinityPoints.add(player.records.thisCelestialInfinity.bestCIPmin.times(DC.D0_01).times(diff).div(1000));
   }
+
+  if (DivinityUpgrade.divineL5U5.isBought) {
+    Currency.divineStars.add(player.records.thisCondense.bestVSmin.times(DC.D0_01).times(diff).div(1000));
+  }
 }
 
 function updateImaginaryMachines(diff) {
@@ -1430,6 +1475,7 @@ export function getTTPerSecond() {
     finalTT = finalTT.pow(player.disablePostReality ? 1 : AlphaUnlocks.timeTheoremGeneration.effects.buff.effectOrDefault(1));
     if (ResurgenceUpgrade.achSurge.isBought && !player.disablePostReality) finalTT = finalTT.pow(Achievements.powerConv(Ra.unlocks.achievementTTMult.effectOrDefault(1)));
     if (ResurgenceUpgrade.curr1Surge.isBought && !player.disablePostReality) finalTT = finalTT.pow(player.timestudy.theorem.max(1e10).log10().log10());
+    finalTT = finalTT.powEffectOf(ResurgenceUpgrade.synergy1);
   }
 
   return finalTT;

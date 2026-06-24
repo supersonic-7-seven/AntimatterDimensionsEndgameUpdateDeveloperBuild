@@ -106,7 +106,8 @@ export function getEtherealPowerGainPerSecond() {
   return cpFactor.times(singFactor).times(rmFactor).times(gpFactor).div(1000).times(
     Achievement(216).effectOrDefault(1)).times(alphaBoost).times(EtherealStars.blue.reward).times(
     DivineDimensions.conversionFormula1).times(DivinityMilestone.hadronEmpowerment.isReached ? 10 : 1).timesEffectOf(
-    DivinityUpgrade.divineL2U3).times(DivinityMilestone.celestialSurge.isReached ? 1000 : 1).timesEffectOf(ResurgenceUpgrade.ethSurge);
+    DivinityUpgrade.divineL2U3).times(DivinityMilestone.celestialSurge.isReached ? 1000 : 1).timesEffectsOf(
+    ResurgenceUpgrade.ethSurge, ResurgenceUpgrade.synergy6);
 }
 
 export function tryAdvanceSector() {

@@ -3,13 +3,15 @@ export const celestialEternityPlusUpgrades = {
     id: "megaCelTickspeedReduction",
     cost: DC.E1000,
     description: () => `Reduce the Celestial Tickspeed cost scaling multiplier to ${formatX(1.5, 1, 1)}`,
-    effect: 0.15
+    effect: 0.15,
+    onPurchased: () => GameCache.celestialTickSpeedMultDecrease.invalidate()
   },
   megaCelDimReduction: {
     id: "megaCelDimReduction",
     cost: DC.E2000,
     description: () => `Reduce the Celestial Dimension cost scaling multiplier to ${formatX(1.8, 1, 1)}`,
-    effect: 0.2
+    effect: 0.2,
+    onPurchased: () => GameCache.celestialDimensionMultDecrease.invalidate()
   },
   betterCIPFormula: {
     id: "betterCIPFormula",

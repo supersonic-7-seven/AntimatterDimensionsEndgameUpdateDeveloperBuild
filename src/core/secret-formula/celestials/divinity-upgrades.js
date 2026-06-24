@@ -112,7 +112,8 @@ export const divinityUpgrades = {
     layer: 2,
     cost: new Decimal(1),
     description: "Divine Dimensions gain a multiplier based on real time since your last Condense",
-    effect: () => Decimal.pow(Time.thisCondenseRealTime.totalSeconds.add(1), 3),
+    effect: () => Decimal.pow(DivinityUpgrade.divineL5U1.isBought ? Time.thisSupernovaRealTime.totalSeconds.add(1) :
+      Time.thisCondenseRealTime.totalSeconds.add(1), 3),
     formatEffect: value => formatX(value, 2, 2)
   },
   divineL2U2: {
@@ -250,4 +251,84 @@ export const divinityUpgrades = {
     effect: () => Decimal.log10(player.celestials.pelle.divinity.condenses.div(777).add(1)).div(2).add(1),
     formatEffect: value => formatPow(value, 2, 3)
   },
+  divineL4U1: {
+    name: "Power Grab",
+    id: "divineL4U1",
+    layer: 4,
+    cost: new Decimal(1),
+    description: () => `Gain a multiplier to Divine Energy and Divine Stars and a power to Divine Dimensions,
+      all based on highest Nebulae`,
+    effects: {
+      energy: () => player.records.bestSupernova.maxNeb.div(10).add(1).pow(777),
+      matter: () => Decimal.log10(player.records.bestSupernova.maxNeb.add(1)).add(1).pow(0.2),
+      stars: () => player.records.bestSupernova.maxNeb.add(1)
+    }
+  },
+  divineL4U2: {
+    name: "Reawaken",
+    id: "divineL4U2",
+    layer: 4,
+    cost: new Decimal(3),
+    description: "Keep the first five Layer Two Upgrades on Supernova and unlock autobuyers for all Divine Dimensions"
+  },
+  divineL4U3: {
+    name: "Divine Art",
+    id: "divineL4U3",
+    layer: 4,
+    cost: new Decimal(10),
+    description: "Divine Dimensions gain a power effect based on real time spent in this Supernova",
+    effect: () => Time.thisSupernovaRealTime.totalHours.div(12).add(1).pow(0.5),
+    formatEffect: value => formatPow(value, 2, 3)
+  },
+  divineL4U4: {
+    name: "Reinforcement",
+    id: "divineL4U4",
+    layer: 4,
+    cost: new Decimal(30),
+    description: "Keep the other five Layer Two Upgrades on Supernova"
+  },
+  divineL4U5: {
+    name: "No More Limitations",
+    id: "divineL4U5",
+    layer: 4,
+    cost: new Decimal(100),
+    description: "Remove the Divine Matter Cap"
+  },
+  divineL5U1: {
+    name: "Security",
+    id: "divineL5U1",
+    layer: 5,
+    cost: new Decimal(700),
+    description: () => "Completion’s effect now applies through Supernova"
+  },
+  divineL5U2: {
+    name: "Bounty",
+    id: "divineL5U2",
+    layer: 5,
+    cost: new Decimal(17000),
+    description: "Keep Layer Three Upgrades on Supernova"
+  },
+  divineL5U3: {
+    name: "Potency",
+    id: "divineL5U3",
+    layer: 5,
+    cost: new Decimal(7e5),
+    description: "Gain an additional power to Divine Dimensions based on current Nebulae",
+    effect: () => Decimal.log10(player.celestials.pelle.divinity.nebulae.add(1)).div(10).add(1),
+    formatEffect: value => formatPow(value, 2, 3)
+  },
+  divineL5U4: {
+    name: "Tenacity",
+    id: "divineL5U4",
+    layer: 5,
+    cost: new Decimal(7e7),
+    description: () => `Generate Condenses at ${formatPercents(0.1)} the speed of your fastest`
+  },
+  divineL5U5: {
+    name: "Goodbye",
+    id: "divineL5U5",
+    layer: 5,
+    cost: new Decimal(1e10),
+    description: () => `Generate ${formatPercents(0.01)} of your pending Divine Stars per second`
+  }
 };

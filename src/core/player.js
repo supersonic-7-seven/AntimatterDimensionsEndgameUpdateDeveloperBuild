@@ -220,6 +220,13 @@ window.player = {
       })),
       isActive: true,
     },
+    divineDims: {
+      all: Array.range(0, 8).map(() => ({
+        isActive: false,
+        lastTick: 0,
+      })),
+      isActive: true,
+    },
     replicantiGalaxies: {
       isActive: false,
     },
@@ -414,6 +421,7 @@ window.player = {
     totalCelestialInfinityCelMatter: DC.D0,
     totalDivineMatter: DC.E1,
     totalCondenseDivineMatter: DC.E1,
+    totalSupernovaDivineMatter: DC.E1,
     recentInfinities: Array.range(0, 10).map(() =>
       [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1, ""]),
     recentEternities: Array.range(0, 10).map(() =>
@@ -427,6 +435,8 @@ window.player = {
     recentCelestialEternities: Array.range(0, 10).map(() =>
       [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1]),
     recentCondenses: Array.range(0, 10).map(() =>
+      [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1]),
+    recentSupernovae: Array.range(0, 10).map(() =>
       [DC.BEMAX, Number.MAX_VALUE, DC.D1, DC.D1]),
     thisInfinity: {
       time: DC.D0,
@@ -556,6 +566,13 @@ window.player = {
       bestNebmin: DC.D0,
       bestNebminVal: DC.D0,
       bestCondensesPerMs: DC.D0,
+    },
+    bestSupernova: {
+      time: DC.BEMAX,
+      realTime: Number.MAX_VALUE,
+      bestNebminTotal: DC.D0,
+      bestSupernovaePerMs: DC.D0,
+      maxNeb: DC.D0
     },
     permanent: {
       maxCP: DC.D0,
@@ -1041,7 +1058,10 @@ window.player = {
         divineEnergy: DC.D0,
         isProducingEnergy: false,
         condenses: DC.D0,
-        divineStars: DC.D0
+        divineStars: DC.D0,
+        partCondensed: 0,
+        supernovae: DC.D0,
+        nebulae: DC.D0
       },
       divinityUpgrades: new Set(),
       divinityRebuyables: [0, 0, 0, 0],

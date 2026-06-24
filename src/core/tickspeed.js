@@ -70,7 +70,7 @@ export function getTickSpeedMultiplier() {
   if (GalacticPowers.galaxyStrength.isUnlocked) galaxies = galaxies.times(GalacticPowers.galaxyStrength.reward);
   galaxies = galaxies.timesEffectsOf(DualityUpgrade(9), DualityUpgrade(23), DualityUpgrade(24));
   if (LHC.voidRunning) galaxies = galaxies.timesEffectOf(Accelerators.cosmic._milestones[0]);
-
+  galaxies = galaxies.timesEffectOf(ResurgenceUpgrade.synergy4);
   galaxies = galaxies.times(Pelle.specialGlyphEffect.power);
   if (Alpha.isRunning) galaxies = galaxies.times(AlphaUnlocks.firstGalaxy.effects.nerf.effectOrDefault(1));
   if (Alpha.isRunning && Alpha.currentStage >= 6) galaxies = galaxies.times(2);

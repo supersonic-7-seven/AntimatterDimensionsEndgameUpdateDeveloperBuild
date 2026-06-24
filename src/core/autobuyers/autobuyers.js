@@ -13,6 +13,7 @@ import { DarkMatterDimensionAscensionAutobuyerState } from "./dark-matter-dimens
 import { DarkMatterDimensionAutobuyerState } from "./dark-matter-dimension-autobuyer";
 import { DilationUpgradeAutobuyerState } from "./dilation-upgrade-autobuyer";
 import { DimBoostAutobuyerState } from "./dimboost-autobuyer";
+import { DivineDimensionAutobuyerState } from "./divine-dimension-autobuyer";
 import { DualityUpgradeAutobuyerState } from "./duality-upgrade-autobuyer";
 import { EndgameAutobuyerState } from "./endgame-autobuyer";
 import { EternityAutobuyerState } from "./eternity-autobuyer";
@@ -50,6 +51,7 @@ export const Autobuyer = {
   darkMatterDims: new DarkMatterDimensionAutobuyerState(),
   dilationUpgrade: DilationUpgradeAutobuyerState.createAccessor(),
   dimboost: new DimBoostAutobuyerState(),
+  divineDimension: DivineDimensionAutobuyerState.createAccessor(),
   dualityUpgrade: DualityUpgradeAutobuyerState.createAccessor(),
   endgame: new EndgameAutobuyerState(),
   eternity: new EternityAutobuyerState(),
@@ -79,8 +81,9 @@ export const Autobuyers = (function() {
   const infinityDimensions = Autobuyer.infinityDimension.zeroIndexed;
   const timeDimensions = Autobuyer.timeDimension.zeroIndexed;
   const celestialDimensions = Autobuyer.celestialDimension.zeroIndexed;
+  const divineDimensions = Autobuyer.divineDimension.zeroIndexed;
 
-  const dimensions = [antimatterDimensions, infinityDimensions, timeDimensions, celestialDimensions];
+  const dimensions = [antimatterDimensions, infinityDimensions, timeDimensions, celestialDimensions, divineDimensions];
 
   const prestige = [
     Autobuyer.bigCrunch,

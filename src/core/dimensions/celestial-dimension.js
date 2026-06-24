@@ -106,6 +106,7 @@ class CelestialDimensionState extends DimensionState {
     mult = mult.pow(CelestialDimensions.alphaDecayRemnant);
     mult = mult.times(CelestialDimBoost.multiplierToCDTier());
     mult = mult.timesEffectOf(CelestialInfinityUpgrade.antimatterCelestialDimBuff);
+    mult = mult.powEffectOf(ResurgenceUpgrade.synergy2);
     return mult;
   }
 
@@ -1228,6 +1229,10 @@ class CelestialEternityPlusUpgradeState extends SetPurchasableMechanicState {
 
   get isEffectActive() {
     return !player.disablePostReality && this.isBought;
+  }
+
+  onPurchased() {
+    this.config.onPurchased?.();
   }
 }
 

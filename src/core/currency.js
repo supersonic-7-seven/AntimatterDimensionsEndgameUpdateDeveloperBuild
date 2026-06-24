@@ -734,8 +734,9 @@ Currency.divineMatter = new class extends DecimalCurrency {
     const newValue = Decimal.min(value, DivineDimensions.HARDCAP);
     player.celestials.pelle.divinity.divineMatter = newValue;
     player.records.thisCondense.maxVM = player.records.thisCondense.maxVM.max(newValue);
+    player.records.thisSupernova.maxVM = player.records.thisSupernova.maxVM.max(newValue);
     player.records.totalDivineMatter = player.records.totalDivineMatter.max(newValue);
-    player.records.totalCondenseDivineMatter = player.records.totalCondenseDivineMatter.max(newValue);
+    player.records.totalSupernovaDivineMatter = player.records.totalSupernovaDivineMatter.max(newValue);
   }
 
   get startingValue() {
@@ -745,6 +746,7 @@ Currency.divineMatter = new class extends DecimalCurrency {
   reset() {
     super.reset();
     player.records.thisCondense.maxVM = this.startingValue;
+    player.records.thisSupernova.maxVM = this.startingValue;
   }
 }();
 
@@ -777,6 +779,7 @@ Currency.divineStars = new class extends DecimalCurrency {
   set value(value) {
     const newValue = new Decimal(value);
     player.celestials.pelle.divinity.divineStars = newValue;
+    player.records.thisSupernova.maxVS = player.records.thisSupernova.maxVS.max(value);
   }
 }();
 
@@ -793,5 +796,22 @@ Currency.nullParticles = new class extends DecimalCurrency {
   set value(value) {
     const newValue = new Decimal(value);
     player.endgame.largeHadronCollider.void.nullParticles = newValue;
+  }
+}();
+
+Currency.supernovae = new class extends DecimalCurrency {
+  get value() { return player.celestials.pelle.divinity.supernovae; }
+  set value(value) {
+    const newValue = new Decimal(value);
+    player.celestials.pelle.divinity.supernovae = newValue;
+  }
+}();
+
+Currency.nebulae = new class extends DecimalCurrency {
+  get value() { return player.celestials.pelle.divinity.nebulae; }
+  set value(value) {
+    const newValue = new Decimal(value);
+    player.celestials.pelle.divinity.nebulae = newValue;
+    player.records.bestSupernova.maxNeb = player.records.bestSupernova.maxNeb.max(value);
   }
 }();

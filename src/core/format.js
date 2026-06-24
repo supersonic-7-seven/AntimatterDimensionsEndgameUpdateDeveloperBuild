@@ -172,6 +172,7 @@ const pluralDatabase = new Map([
   ["Celestial Matter", "Celestial Matter"],
   ["Divine Matter", "Divine Matter"],
   ["Divine Energy", "Divine Energy"],
+  ["Supernova", "Supernovae"],
   ["Nebula", "Nebulae"],
   ["Null Matter", "Null Matter"]
 ]);

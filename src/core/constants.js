@@ -8,7 +8,9 @@ window.PRESTIGE_EVENT = {
   REALITY: 4,
   ENDGAME: 5,
   CELESTIAL_INFINITY: 6,
-  CELESTIAL_ETERNITY: 7
+  CELESTIAL_ETERNITY: 7,
+  CONDENSE: 8,
+  SUPERNOVA: 9
 };
 
 function deepFreeze(obj) {
