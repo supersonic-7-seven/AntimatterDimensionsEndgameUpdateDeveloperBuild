@@ -2026,15 +2026,15 @@ export const celestialNavigation = {
             "Layers of Alpha's Reality."
           ];
         },
-        angle: 285,
-        diagonal: 150,
+        angle: 105,
+        diagonal: 180,
         horizontal: 16,
       },
       bgDrawOrder: CELESTIAL_NAV_DRAW_ORDER.NODE_BG + 750,
     },
     connector: (function() {
       const pathStart = 0.5 * Math.PI;
-      const pathEnd = pathStart + 4 * Math.PI;
+      const pathEnd = pathStart + 6 * Math.PI;
       const path = LogarithmicSpiral.fromPolarEndpoints(Positions.alphaUnlock,
         pathStart, 10, pathEnd, 100);
       return {
