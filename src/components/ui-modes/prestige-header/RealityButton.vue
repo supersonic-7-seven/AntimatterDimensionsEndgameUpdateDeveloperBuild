@@ -86,7 +86,7 @@ export default {
       this.canReality = isRealityAvailable();
       this.showSpecialEffect = this.hasSpecialReward();
       this.beatingAlpha = Alpha.isRunning && Currency.eternityPoints.value.add(1).log10().gt(4000);
-      this.readyToWarp = Currency.celestialEternityPoints.value.add(1).log10().gt(4000);
+      this.readyToWarp = CelestialEternityPlusUpgrade.oldStoneSlabAndSteelDrill.isBought;
       if (!this.canReality) {
         this.sGained = new Decimal(0);
         return;
