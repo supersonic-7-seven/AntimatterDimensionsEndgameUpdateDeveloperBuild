@@ -198,7 +198,7 @@ export class DarkMatterDimensionState extends DimensionState {
     const isBought = this.data.intervalUpgrades;
     const canBuyTotal = Currency.darkMatter.value.div(INTERVAL_START_COST).div(this.adjustedStartingCost).times(
       this.intervalCostIncrease.sub(1)).add(1).log(this.intervalCostIncrease).floor();
-    const gained = new Decimal(x).min(canBuyTotal.sub(isBought));
+    const gained = new Decimal(x).min(canBuyTotal.sub(isBought)).max(0);
     const cost = new Decimal(INTERVAL_START_COST).times(this.adjustedStartingCost).times(
       Decimal.pow(this.intervalCostIncrease, canBuyTotal).minus(1)).div(this.intervalCostIncrease.sub(1)).floor();
     if (!Currency.darkMatter.purchase(cost)) return false;
@@ -212,7 +212,7 @@ export class DarkMatterDimensionState extends DimensionState {
     const isBought = this.data.powerDMUpgrades;
     const canBuyTotal = Currency.darkMatter.value.div(POWER_DM_START_COST).div(this.adjustedStartingCost).times(
       this.powerDMCostIncrease.sub(1)).add(1).log(this.powerDMCostIncrease).floor();
-    const gained = new Decimal(x).min(canBuyTotal.sub(isBought));
+    const gained = new Decimal(x).min(canBuyTotal.sub(isBought)).max(0);
     const cost = new Decimal(POWER_DM_START_COST).times(this.adjustedStartingCost).times(
       Decimal.pow(this.powerDMCostIncrease, canBuyTotal).minus(1)).div(this.powerDMCostIncrease.sub(1)).floor();
     if (!Currency.darkMatter.purchase(cost)) return false;
@@ -226,7 +226,7 @@ export class DarkMatterDimensionState extends DimensionState {
     const isBought = this.data.powerDEUpgrades;
     const canBuyTotal = Currency.darkMatter.value.div(POWER_DE_START_COST).div(this.adjustedStartingCost).times(
       this.powerDECostIncrease.sub(1)).add(1).log(this.powerDECostIncrease).floor();
-    const gained = new Decimal(x).min(canBuyTotal.sub(isBought));
+    const gained = new Decimal(x).min(canBuyTotal.sub(isBought)).max(0);
     const cost = new Decimal(POWER_DE_START_COST).times(this.adjustedStartingCost).times(
       Decimal.pow(this.powerDECostIncrease, canBuyTotal).minus(1)).div(this.powerDECostIncrease.sub(1)).floor();
     if (!Currency.darkMatter.purchase(cost)) return false;
