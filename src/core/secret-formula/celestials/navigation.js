@@ -1863,7 +1863,7 @@ export const celestialNavigation = {
       if (Pelle.isDoomed) return 1;
       const achievements = Achievements.prePelleRows.countWhere(r => r.every(a => a.isUnlocked)) /
         Achievements.prePelleRows.length;
-      const alchemy = AlchemyResources.all.countWhere(r => r.capped) / AlchemyResources.all.length;
+      const alchemy = AlchemyResources.all.countWhere(r => r.amount >= 25000) / AlchemyResources.all.length;
       return (emphasizeEnd(achievements) + emphasizeEnd(alchemy)) / 2;
     },
     node: {
@@ -1882,7 +1882,7 @@ export const celestialNavigation = {
           if (complete >= 1) return Pelle.isDoomed ? "Doomed Reality" : "Doom your Reality";
           const achievements = [Achievements.prePelleRows.countWhere(r => r.every(a => a.isUnlocked)),
             Achievements.prePelleRows.length];
-          const alchemy = [AlchemyResources.all.countWhere(r => r.capped), AlchemyResources.all.length];
+          const alchemy = [AlchemyResources.all.countWhere(r => r.amount >= 25000), AlchemyResources.all.length];
           return [
             `Complete ${formatInt(achievements[0])} / ${formatInt(achievements[1])} rows of Achievements`,
             `Fill ${formatInt(alchemy[0])} / ${formatInt(alchemy[1])} Alchemy Resources`,
