@@ -21,7 +21,8 @@ export default {
       hardcap: new Decimal(0),
       creditsClosed: false,
       canProduceEnergy: false,
-      isProducingEnergy: false
+      isProducingEnergy: false,
+      isAnyAutobuyerUnlocked: false
     };
   },
   computed: {
@@ -50,12 +51,16 @@ export default {
       this.creditsClosed = GameEnd.creditsEverClosed;
       this.canProduceEnergy = DivinityUpgrade.divineL1U5.isBought;
       this.isProducingEnergy = player.celestials.pelle.divinity.isProducingEnergy;
+      this.isAnyAutobuyerUnlocked = Autobuyer.celestialDimension(1).isUnlocked;
     },
     maxAll() {
       DivineDimensions.buyMax();
     },
     shiftProd() {
       player.celestials.pelle.divinity.isProducingEnergy = !player.celestials.pelle.divinity.isProducingEnergy;
+    },
+    toggleAllAutobuyers() {
+      toggleAllDivDims();
     }
   }
 };
@@ -69,6 +74,13 @@ export default {
         @click="maxAll"
       >
         Max all
+      </PrimaryButton>
+      <PrimaryButton
+        v-if="isAnyAutobuyerUnlocked"
+        class="o-primary-btn--subtab-option"
+        @click="toggleAllAutobuyers"
+      >
+        Toggle all autobuyers
       </PrimaryButton>
     </div>
     <div v-if="canProduceEnergy">

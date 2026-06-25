@@ -135,6 +135,7 @@ export const Autobuyers = (function() {
     Autobuyer.infinityDimension,
     Autobuyer.timeDimension,
     Autobuyer.celestialDimension,
+    Autobuyer.divineDimension,
     Autobuyer.replicantiUpgrade,
     Autobuyer.dilationUpgrade,
     Autobuyer.pelleDilationUpgrade,

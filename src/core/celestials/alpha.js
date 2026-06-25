@@ -521,7 +521,7 @@ export const Alpha = {
       }
       for (let dts = 0; dts < 7; dts++) {
         if (player.celestials.alpha.records.dilation.studies.includes(dts)) {
-          player.timestudy.theorem = player.timestudy.theorem.add(DilationTimeStudyState.studies[dts].cost);
+          Currency.timeTheorems.add(DilationTimeStudyState.studies[dts].cost);
           DilationTimeStudyState.studies[dts].purchase();
         }
       }
@@ -541,11 +541,13 @@ export const Alpha = {
       player.dilation.lastEP = player.celestials.alpha.records.dilation.lastEP;
       for (let sts = 0; sts < 305; sts++) {
         if (player.celestials.alpha.records.timestudy.studies.includes(sts) && !TimeStudy(sts).isBought) {
+          player.timestudy.theorem = player.timestudy.theorem.add(TimeStudy(sts).cost);
           TimeStudy(sts).purchase();
         }
       }
       for (let sdts = 0; sdts < 7; sdts++) {
         if (player.celestials.alpha.records.dilation.studies.includes(sdts) && !DilationTimeStudyState.studies[sdts].isBought) {
+          Currency.timeTheorems.add(DilationTimeStudyState.studies[sdts].cost);
           DilationTimeStudyState.studies[sdts].purchase();
         }
       }

@@ -108,6 +108,8 @@ html {
 
   --color-alpha--base: #00ea00;
 
+  --color-slabdrill--base: #952ba8;
+
   --color-elemental--base: #800000;
 }
 
@@ -1085,6 +1087,14 @@ button:focus {
   animation: a-celstial-reward-glow 3s infinite;
 }
 
+.c-reality-button--alpha {
+  animation: a-alpha-glow 3s infinite;
+}
+
+.c-reality-button--warp {
+  animation: a-warp-glow 3s infinite;
+}
+
 .c-reality-reminder {
   display: flex;
   width: calc(100% - 1rem);
@@ -1100,6 +1110,18 @@ button:focus {
   0% { box-shadow: inset 0 0 4rem var(--color-celestials); }
   50% { box-shadow: inset 0 0 0; }
   100% { box-shadow: inset 0 0 4rem var(--color-celestials); }
+}
+
+@keyframes a-alpha-glow {
+  0% { box-shadow: inset 0 0 4rem white; }
+  50% { box-shadow: inset 0 0 0; }
+  100% { box-shadow: inset 0 0 4rem white; }
+}
+
+@keyframes a-warp-glow {
+  0% { box-shadow: inset 0 0 4rem var(--color-slabdrill--base); }
+  50% { box-shadow: inset 0 0 0; }
+  100% { box-shadow: inset 0 0 4rem var(--color-slabdrill--base); }
 }
 
 .t-s6 .c-reality-button,

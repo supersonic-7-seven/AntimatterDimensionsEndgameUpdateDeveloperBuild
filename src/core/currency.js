@@ -736,6 +736,7 @@ Currency.divineMatter = new class extends DecimalCurrency {
     player.records.thisCondense.maxVM = player.records.thisCondense.maxVM.max(newValue);
     player.records.thisSupernova.maxVM = player.records.thisSupernova.maxVM.max(newValue);
     player.records.totalDivineMatter = player.records.totalDivineMatter.max(newValue);
+    player.records.totalCondenseDivineMatter = player.records.totalCondenseDivineMatter.max(newValue);
     player.records.totalSupernovaDivineMatter = player.records.totalSupernovaDivineMatter.max(newValue);
   }
 
@@ -813,5 +814,10 @@ Currency.nebulae = new class extends DecimalCurrency {
     const newValue = new Decimal(value);
     player.celestials.pelle.divinity.nebulae = newValue;
     player.records.bestSupernova.maxNeb = player.records.bestSupernova.maxNeb.max(value);
+  }
+
+  add(amount) {
+    super.add(amount);
+    player.records.bestSupernova.totalNeb = player.records.bestSupernova.totalNeb.plus(amount);
   }
 }();

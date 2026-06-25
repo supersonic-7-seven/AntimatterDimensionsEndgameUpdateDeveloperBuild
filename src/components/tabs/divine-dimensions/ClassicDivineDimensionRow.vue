@@ -25,6 +25,8 @@ export default {
       rateOfChange: new Decimal(0),
       cost: new Decimal(0),
       isAvailableForPurchase: false,
+      isAutobuyerUnlocked: false,
+      isAutobuyerOn: false
     };
   },
   computed: {
@@ -44,6 +46,11 @@ export default {
       return this.cost.log10().lt(1e5);
     }
   },
+  watch: {
+    isAutobuyerOn(newValue) {
+      Autobuyer.divineDimension(this.tier).isActive = newValue;
+    }
+  },
   methods: {
     update() {
       const tier = this.tier;
@@ -55,6 +62,8 @@ export default {
       this.rateOfChange.copyFrom(dimension.rateOfChange);
       this.cost.copyFrom(dimension.cost);
       this.isAvailableForPurchase = dimension.isAvailableForPurchase;
+      this.isAutobuyerUnlocked = Autobuyer.divineDimension(tier).isUnlocked;
+      this.isAutobuyerOn = Autobuyer.divineDimension(tier).isActive;
     },
     buySingleDivineDimension() {
       DivineDimension(this.tier).buySingle();
@@ -87,7 +96,14 @@ export default {
           {{ purchaseTooltip }}
         </div>
       </PrimaryButton>
+      <PrimaryToggleButton
+        v-if="isAutobuyerUnlocked"
+        v-model="isAutobuyerOn"
+        class="o-primary-btn--vd-auto"
+        label="Auto:"
+      />
       <PrimaryButton
+        v-else
         :enabled="isAvailableForPurchase && isUnlocked"
         class="o-primary-btn--vd-auto"
         @click="buyMaxDivineDimension"

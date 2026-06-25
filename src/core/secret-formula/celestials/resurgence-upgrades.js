@@ -110,7 +110,7 @@ export const resurgenceUpgrades = {
     id: "synergy2",
     cost: new Decimal("1e2400"),
     description: "Celestial Dimensions gain a power based on total Antimatter generated outside Pelle",
-    effect: () => Decimal.log10(Decimal.log10(Decimal.log10(player.records.totalAntimatterOutsideDoom).add(1)).add(1)).div(10).add(1),
+    effect: () => Decimal.log10(Decimal.log10(Decimal.log10(player.records.totalAntimatterOutsideDoom).add(1)).add(1)).div(15).add(1),
     formatEffect: value => formatPow(value, 2, 3)
   },
   synergy3: {

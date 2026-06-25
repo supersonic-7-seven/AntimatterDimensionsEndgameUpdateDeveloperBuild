@@ -11,6 +11,13 @@ export function divineDimensionCommonMultiplier() {
   return mult;
 }
 
+export function toggleAllDivDims() {
+  const areEnabled = Autobuyer.divineDimension(1).isActive;
+  for (let i = 1; i < 9; i++) {
+    Autobuyer.divineDimension(i).isActive = !areEnabled;
+  }
+}
+
 class DivineDimensionState extends DimensionState {
   constructor(tier) {
     super(() => player.dimensions.divine, tier);

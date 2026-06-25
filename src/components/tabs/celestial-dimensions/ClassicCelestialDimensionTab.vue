@@ -27,6 +27,7 @@ export default {
       showLockedDimCostNote: true,
       isEffectActive: false,
       isExpanded: false,
+      isAnyAutobuyerUnlocked: false,
     };
   },
   methods: {
@@ -41,12 +42,16 @@ export default {
       this.creditsClosed = GameEnd.creditsEverClosed;
       this.isEffectActive = player.endgame.celestialMatterMultiplier.isActive;
       this.isExpanded = Achievement(221).isUnlocked;
+      this.isAnyAutobuyerUnlocked = Autobuyer.celestialDimension(1).isUnlocked;
     },
     maxAll() {
       CelestialDimensions.buyMax();
     },
     toggleCelestialMatterMultiplier() {
       toggleCelestialMatter();
+    },
+    toggleAllAutobuyers() {
+      toggleAllCelDims();
     }
   }
 };
@@ -66,6 +71,13 @@ export default {
         @click="toggleCelestialMatterMultiplier"
       >
         Toggle Celestial Matter
+      </PrimaryButton>
+      <PrimaryButton
+        v-if="isAnyAutobuyerUnlocked"
+        class="o-primary-btn--subtab-option"
+        @click="toggleAllAutobuyers"
+      >
+        Toggle all autobuyers
       </PrimaryButton>
     </div>
     <div>

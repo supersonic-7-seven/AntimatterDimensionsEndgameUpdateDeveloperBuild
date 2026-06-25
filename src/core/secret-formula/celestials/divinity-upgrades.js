@@ -257,11 +257,12 @@ export const divinityUpgrades = {
     layer: 4,
     cost: new Decimal(1),
     description: () => `Gain a multiplier to Divine Energy and Divine Stars and a power to Divine Dimensions,
-      all based on highest Nebulae`,
+      all based on total Nebulae`,
     effects: {
-      energy: () => player.records.bestSupernova.maxNeb.div(10).add(1).pow(777),
-      matter: () => Decimal.log10(player.records.bestSupernova.maxNeb.add(1)).add(1).pow(0.2),
-      stars: () => player.records.bestSupernova.maxNeb.add(1)
+      energy: () => player.records.bestSupernova.totalNeb.div(DivinityUpgrade.divineL4U4.isBought ? 7 : 10).add(1).pow(777),
+      matter: () => Decimal.log10(player.records.bestSupernova.totalNeb.add(1)).add(1).pow(
+        DivinityUpgrade.divineL4U4.isBought ? 0.25 : 0.2),
+      stars: () => player.records.bestSupernova.totalNeb.add(1).pow(DivinityUpgrade.divineL4U4.isBought ? 2 : 1)
     }
   },
   divineL4U2: {
@@ -277,7 +278,7 @@ export const divinityUpgrades = {
     layer: 4,
     cost: new Decimal(10),
     description: "Divine Dimensions gain a power effect based on real time spent in this Supernova",
-    effect: () => Time.thisSupernovaRealTime.totalHours.div(12).add(1).pow(0.5),
+    effect: () => Time.thisSupernovaRealTime.totalMinutes.div(10).add(1).pow(0.1),
     formatEffect: value => formatPow(value, 2, 3)
   },
   divineL4U4: {
@@ -285,7 +286,7 @@ export const divinityUpgrades = {
     id: "divineL4U4",
     layer: 4,
     cost: new Decimal(30),
-    description: "Keep the other five Layer Two Upgrades on Supernova"
+    description: "Keep the other five Layer Two Upgrades on Supernova and improve all effects of Power Grab"
   },
   divineL4U5: {
     name: "No More Limitations",
