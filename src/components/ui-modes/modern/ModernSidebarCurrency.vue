@@ -200,4 +200,25 @@ export default {
 
   -webkit-text-fill-color: transparent;
 }
+
+.o-sidebar-currency--celestial-eternity {
+  background: linear-gradient(var(--color-eternity), var(--color-celestials));
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+.o-sidebar-currency--condense {
+  background: linear-gradient(red, yellow, cyan);
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
+
+.o-sidebar-currency--supernova {
+  background: linear-gradient(cyan, blue, indigo, purple);
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+}
 </style>
