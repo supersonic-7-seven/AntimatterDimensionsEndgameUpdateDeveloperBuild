@@ -34,6 +34,7 @@ const debuffs =      ["Nerfs",         "Debuffs",       "Corruptions"];
 const exhaustion =   ["Exhale",        "Exhaustion",    "Sigh"];
 const filament =     ["Generator",     "Filament",      "Stars"];
 const forever =      ["Infinite",      "Forever",       "Eternal"];
+const frightened =   ["Afraid",        "Frightened",    "Terrified"];
 const hardship =     ["Problem",       "Hardship",      "Struggle"];
 const inevitable =   ["Elementary",    "Inevitable",    "Irreversible"];
 const introduction = ["Speech",        "Introduction",  "Lecture"];
@@ -58,6 +59,7 @@ const usurper =      ["Usurper",       "Deity",         "Monarch"];
 const pride =        ["Pride",         "Deity",         "Monarch"];
 const forgotten =    ["Forgotten",     "Deity",         "Monarch"];
 const paramount =    ["Paramount",     "Deity",         "Monarch"];
+const weak =         ["Weak",          "Deity",         "Monarch"];
 /* eslint-enable no-multi-spaces */
 
 export const pelleQuotes = {
@@ -756,6 +758,29 @@ export const pelleQuotes = {
       { text: "But for a $1 like you...", 1: destroyer },
       { text: "That shouldn't be a $1.", 1: hardship },
       "So I'll expect to see you soon."
+    ]
+  },
+  reachGoal: {
+    id: 31,
+    lines: [
+      "That... took a while.",
+      { text: "No offense of course, but I expected you to $1 that challenge.", 1: overpower },
+      "But then again, power does take time.",
+      "Honestly I was almost convinced you had given up.",
+      { text: "But I suppose the great $1 isn't one to give up, are you?", 1: destroyer },
+      "I'm remembering a bit more now.",
+      { text: "I suppose this is how the $1 feels, huh?", 1: forgotten },
+      "He deserved his punishment though.",
+      "Did he ever tell you?",
+      { text: "Or did the $1 tell you herself?", 1: paramount },
+      { text: "So you may ask, if the $1 are innocent, why do we keep them in chains?", 1: usurper },
+      { text: "Even the strongest of us have things we are $1 of.", 1: frightened },
+      "I have set your next Reality destination to bring you here to us.",
+      { text: "I and the $1 will be expecting your arrival.", 1: deities },
+      "Oh, and I finally remembered the name I gave to Alpha.",
+      { text: "The $1.", 1: weak },
+      { text: "$1", 1: confusing },
+      "Come as soon as you can."
     ]
   }
 };
