@@ -159,5 +159,52 @@ export const effarigQuotes = {
       "You will no longer have to deal with your Relic Shards resetting.",
       "This will help you attain the rest of my stocks."
     ]
+  },
+  betterGeneration: {
+    id: 15,
+    lines: [
+      "This purchase is pretty handy.",
+      "It prevents you from immediately needing to Reality to reach higher Rarities.",
+      "Purely QoL of course, but then again most of my items are."
+    ]
+  },
+  maxMomentum: {
+    id: 16,
+    lines: [
+      "This purchase is a lifesaver.",
+      "It saves hours of grinding for every Endgame.",
+      "Speaking of which, have you met the Elemental yet?."
+    ]
+  },
+  moreRarityCap: {
+    id: 17,
+    lines: [
+      "This purchase is dangerous.",
+      "One of the few that is not purely QoL.",
+      "Use it wisely."
+    ]
+  },
+  effEndgame: {
+    id: 18,
+    lines: [
+      "...",
+      "You weren't supposed to find that.",
+      "Mate, just... be careful. If you destroy my home again I swear-"
+    ]
+  },
+  beatEndgame: {
+    id: 19,
+    lines: [
+      "A Dual Reality?",
+      "Yes, now I remember...",
+      "I got Pelle to reinforce that layer.",
+      "And somehow you still beat it?",
+      "Well at least my home is still intact.",
+      "Partially.",
+      "Look, I like having you around, but you're dangerous.",
+      "So here, take the rest of my stock and go on your way.",
+      "Perhaps we'll meet again someday.",
+      "See you around, %name."
+    ]
   }
 };
