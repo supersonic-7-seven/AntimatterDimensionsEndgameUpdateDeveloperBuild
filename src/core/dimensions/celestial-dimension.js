@@ -9,6 +9,10 @@ export function celestialDimensionCommonMultiplier() {
 }
 
 export function toggleCelestialMatter() {
+  if (DualityUpgrade(24).isLockingMechanics && !player.endgame.celestialMatterMultiplier.isActive) {
+    DualityUpgrade(24).tryShowWarningModal();
+    return;
+  }
   const isEnabled = player.endgame.celestialMatterMultiplier.isActive;
   player.endgame.celestialMatterMultiplier.isActive = !isEnabled;
 }
