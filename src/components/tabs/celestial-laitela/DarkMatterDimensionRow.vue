@@ -98,7 +98,16 @@ export default {
       return `Interval is capped at ${formatInt(DarkMatterDimension(this.tier).intervalPurchaseCap)}ms.
         Ascension multiplies interval by ${formatInt(this.intervalAscensionBump)},
         DM by ${formatHybridSmall(this.powerDMPerAscension, 3)}, and DE by ${formatInt(POWER_DE_PER_ASCENSION)}.`;
-    }
+    },
+    hasLongIntText() {
+      return this.intervalText.length >= 20;
+    },
+    hasLongDMText() {
+      return this.darkMatterText.length >= 20;
+    },
+    hasLongDEText() {
+      return this.darkEnergyText.length >= 20;
+    },
   },
   methods: {
     update() {
@@ -153,16 +162,7 @@ export default {
     hoverState(state) {
       if (!this.isIntervalCapped) return;
       this.hoverOverAscension = state;
-    },
-    hasLongIntText() {
-      return this.intervalText.length >= 20;
-    },
-    hasLongDMText() {
-      return this.darkMatterText.length >= 20;
-    },
-    hasLongDEText() {
-      return this.darkEnergyText.length >= 20;
-    },
+    }
   }
 };
 </script>
