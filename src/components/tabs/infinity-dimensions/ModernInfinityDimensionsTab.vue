@@ -34,7 +34,11 @@ export default {
       isEndgameUnlocked: false,
       infinityDimCompressionMagnitude: 0,
       infinityDimOverflow: 0,
+      infinityDimCompressionMagnitude2: 0,
+      infinityDimOverflow2: 0,
       infinityDimStart: new Decimal(0),
+      infinityDimStart2: new Decimal(0),
+      hasSecond: false,
       freeTesseractSoftcap: 0,
       freeTesseractHardcap: 0,
       isAutoUnlocked: false,
@@ -86,6 +90,10 @@ export default {
       this.infinityDimCompressionMagnitude = InfinityDimensions.compressionMagnitude;
       this.infinityDimOverflow = 1 / this.infinityDimCompressionMagnitude;
       this.infinityDimStart = InfinityDimensions.OVERFLOW;
+      this.infinityDimCompressionMagnitude2 = InfinityDimensions.compressionMag2;
+      this.infinityDimOverflow2 = 1 / this.infinityDimCompressionMag2;
+      this.infinityDimStart2 = InfinityDimensions.OVERFLOW_SQUARED;
+      this.hasSecond = Currency.infinityPower.gte(DC.ENUMMAX);
       this.freeTesseractSoftcap = Tesseracts.freeSoftcapStart;
       this.freeTesseractHardcap = this.freeTesseractSoftcap * 2;
       const auto = Autobuyer.tesseract;
@@ -151,6 +159,18 @@ export default {
     <div>
       <p>
         <span v-if="isEndgameUnlocked">
+          Your Infinity Dimension Compression^2 Magnitude is
+          <span class="c-infinity-dim-compression-description__accent">{{ format(infinityDimCompressionMagnitude2, 2, 3) }}</span>,
+          which raises all Infinity Dimension Multipliers to the power of
+          <span class="c-infinity-dim-compression-description__accent">{{ format(infinityDimOverflow2, 2, 3) }}</span>
+          while above
+          <span>{{ formatPostBreak(infinityDimStart2, 2, 1) }}</span>.
+        </span>
+      </p>
+    </div>
+    <div>
+      <p>
+        <span v-if="hasSecond">
           Your Infinity Dimension Compression Magnitude is
           <span class="c-infinity-dim-compression-description__accent">{{ format(infinityDimCompressionMagnitude, 2, 3) }}</span>,
           which raises all Infinity Dimension Multipliers to the power of
