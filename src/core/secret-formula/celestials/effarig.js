@@ -74,22 +74,34 @@ export const effarigUnlocks = {
     get description() {
       return `Effarig Level ${formatInt(100)} affects Glyphs generated on Doom and Endgame`;
     },
-    cost: new Decimal("1e4400")
+    cost: new Decimal("1e4400"),
+    onPurchased: () => {
+      Effarig.quotes.betterGeneration.show();
+    }
   },
   maxMomentum: {
     id: 9,
     description: "Momentum is always maxed",
-    cost: new Decimal("1e4550")
+    cost: new Decimal("1e4550"),
+    onPurchased: () => {
+      Effarig.quotes.maxMomentum.show();
+    }
   },
   maxRarityBoost: {
     id: 10,
     description: "Relic Shards boost Glyph Rarity cap at a reduced rate",
-    cost: new Decimal("1e4750")
+    cost: new Decimal("1e4750"),
+    onPurchased: () => {
+      Effarig.quotes.moreRarityCap.show();
+    }
   },
   extendRun: {
     id: 11,
     description: "Unlock Effarig’s Endgame",
-    cost: new Decimal("1e5000")
+    cost: new Decimal("1e5000"),
+    onPurchased: () => {
+      Effarig.quotes.effEndgame.show();
+    }
   },
   endgame: {
     id: 12,
