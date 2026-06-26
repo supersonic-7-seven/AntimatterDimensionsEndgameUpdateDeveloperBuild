@@ -122,7 +122,7 @@ export const endgameUpgrades = [
     hasFailed: () => ImaginaryUpgrade(15).isBought,
     checkRequirement: () => !ImaginaryUpgrade(15).isBought && ImaginaryUpgrade(16).isBought && ImaginaryUpgrade(17).isBought &&
       ImaginaryUpgrade(18).isBought && ImaginaryUpgrade(19).isBought && ImaginaryUpgrade(20).isBought,
-    checkEvent: GAME_EVENT.REALITY_RESET_BEFORE,
+    checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     canLock: true,
     lockEvent: "purchase Fabrication of Ideals",
     description: "You keep all Imaginary Upgrades on Endgame"
