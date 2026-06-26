@@ -216,6 +216,8 @@ class InfinityDimensionState extends DimensionState {
 
     if (mult.gte(InfinityDimensions.OVERFLOW)) mult = Decimal.pow(10, Decimal.pow(mult.log10().div(Decimal.log10(InfinityDimensions.OVERFLOW)), 1 / InfinityDimensions.compressionMagnitude).times(Decimal.log10(InfinityDimensions.OVERFLOW)));
 
+    if (mult.gte(InfinityDimensions.OVERFLOW_SQUARED)) mult = Decimal.pow(10, Decimal.pow(mult.log10().div(Decimal.log10(InfinityDimensions.OVERFLOW_SQUARED)), 1 / InfinityDimensions.compressionMag2).times(Decimal.log10(InfinityDimensions.OVERFLOW_SQUARED)));
+
     return mult;
   }
 
@@ -406,10 +408,19 @@ export const InfinityDimensions = {
     return DC.E1E15.powEffectsOf(EndgameMastery(92));
   },
 
+  get OVERFLOW_SQUARED() {
+    return DC.ENUMMAX;
+  },
+
   get compressionMagnitude() {
     const extraReduction = (ExpansionPack.enslavedPack.isBought && !player.disablePostReality) ? Math.pow(1 / Math.log10(Tesseracts.effectiveCount + 1), 0.2) : 1;
     let reduction = Effects.product(EndgameMastery(82), EndgameUpgrade(2)) * extraReduction;
     if (!player.disablePostReality) reduction *= AlphaUnlocks.infinityChallenges.effects.buff.effectOrDefault(1);
+    return Math.max(10 * reduction, 2) - Math.max((0.2 - reduction) * 5, 0);
+  },
+
+  get compressionMag2() {
+    let reduction = 1;
     return Math.max(10 * reduction, 2) - Math.max((0.2 - reduction) * 5, 0);
   },
 
