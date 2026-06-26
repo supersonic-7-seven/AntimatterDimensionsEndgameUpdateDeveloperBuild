@@ -491,6 +491,10 @@ function keyboardToggleContinuum() {
     ImaginaryUpgrade(21).tryShowWarningModal();
     return;
   }
+  if (DualityUpgrade(21).isLockingMechanics && player.auto.disableContinuum) {
+    DualityUpgrade(21).tryShowWarningModal();
+    return;
+  }
   // This is a toggle despite the lack of !, because player.auto.disableContinuum
   // is negated compared to whether continuum is on.
   Laitela.setContinuum(player.auto.disableContinuum);
