@@ -803,5 +803,5 @@ export function divinityReset() {
     player.celestials.laitela.hadrons.dark = player.celestials.laitela.hadrons.total;
   }
   player.records.bestDoomedAntimatterThisDivinity = DC.E1;
-  if (player.celestials.pelle.divinities === 1) Quotes.pelle.divinity.show();
+  if (player.celestials.pelle.divinities === 1) Pelle.quotes.divinity.show();
 }
