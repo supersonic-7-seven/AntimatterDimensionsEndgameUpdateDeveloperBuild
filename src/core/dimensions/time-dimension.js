@@ -328,6 +328,8 @@ class TimeDimensionState extends DimensionState {
 
     if (mult.gte(TimeDimensions.OVERFLOW)) mult = Decimal.pow(10, Decimal.pow(mult.log10().div(Decimal.log10(TimeDimensions.OVERFLOW)), 1 / TimeDimensions.compressionMagnitude).times(Decimal.log10(TimeDimensions.OVERFLOW)));
 
+    if (mult.gte(TimeDimensions.OVERFLOW_SQUARED)) mult = Decimal.pow(10, Decimal.pow(mult.log10().div(Decimal.log10(TimeDimensions.OVERFLOW_SQUARED)), 1 / TimeDimensions.compressionMag2).times(Decimal.log10(TimeDimensions.OVERFLOW_SQUARED)));
+
     return mult;
   }
 
@@ -466,9 +468,18 @@ export const TimeDimensions = {
     return DC.E1E15.powEffectsOf(EndgameMastery(93));
   },
 
+  get OVERFLOW_SQUARED() {
+    return DC.ENUMMAX;
+  },
+
   get compressionMagnitude() {
     let reduction = Effects.product(EndgameMastery(83), EndgameUpgrade(3));
     if (!player.disablePostReality) reduction *= AlphaUnlocks.ecCompletion1.effects.buff.effectOrDefault(1);
+    return Math.max(10 * reduction, 2) - Math.max((0.2 - reduction) * 5, 0);
+  },
+
+  get compressionMag2() {
+    let reduction = 1;
     return Math.max(10 * reduction, 2) - Math.max((0.2 - reduction) * 5, 0);
   },
 
