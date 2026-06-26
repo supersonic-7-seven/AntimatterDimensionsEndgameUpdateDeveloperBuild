@@ -336,6 +336,11 @@ class InfinityDimensionState extends DimensionState {
       ImaginaryUpgrade(15).tryShowWarningModal(lockString);
       return false;
     }
+    if (DualityUpgrade(15).isLockingMechanics) {
+      const lockString = "purchase an Infinity Dimension";
+      DualityUpgrade(15).tryShowWarningModal(lockString);
+      return false;
+    }
 
     Currency.infinityPoints.purchase(this.cost);
     this.cost = Decimal.round(this.cost.times(this.costMultiplier));
@@ -358,6 +363,11 @@ class InfinityDimensionState extends DimensionState {
         ? "purchase a 1st Infinity Dimension"
         : "purchase a Dimension which will produce 1st IDs";
       if (!auto) ImaginaryUpgrade(15).tryShowWarningModal(lockString);
+      return false;
+    }
+    if (DualityUpgrade(15).isLockingMechanics) {
+      const lockString = "purchase an Infinity Dimension";
+      DualityUpgrade(15).tryShowWarningModal(lockString);
       return false;
     }
 
