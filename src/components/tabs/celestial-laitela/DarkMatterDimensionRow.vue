@@ -46,24 +46,21 @@ export default {
       return {
         "o-dark-matter-dimension-button": true,
         "o-dark-matter-dimension-button--available": this.canBuyInterval,
-        "o-dark-matter-dimension-button--ascend": this.isIntervalCapped,
-        "l-dmd-interval-small-text": this.hasLongIntText
+        "o-dark-matter-dimension-button--ascend": this.isIntervalCapped
       };
     },
     darkMatterClassObject() {
       return {
         "o-dark-matter-dimension-button": true,
         "o-dark-matter-dimension-button--available": this.hoverOverAscension || this.canBuyPowerDM,
-        "o-dark-matter-dimension-button--accent": this.hoverOverAscension,
-        "l-dmd-dm-small-text": this.hasLongDMText
+        "o-dark-matter-dimension-button--accent": this.hoverOverAscension
       };
     },
     darkEnergyClassObject() {
       return {
         "o-dark-matter-dimension-button": true,
         "o-dark-matter-dimension-button--available": this.hoverOverAscension || this.canBuyPowerDE,
-        "o-dark-matter-dimension-button--accent": this.hoverOverAscension,
-        "l-dmd-de-small-text": this.hasLongDEText
+        "o-dark-matter-dimension-button--accent": this.hoverOverAscension
       };
     },
     intervalText() {
@@ -195,19 +192,19 @@ export default {
         >
           <i class="fas fa-question-circle" />
         </span>
-        <span v-html="intervalText" />
+        <span :class="{ 'l-dmd-interval-small-text': hasLongIntText }" v-html="intervalText" />
       </button>
       <button
         :class="darkMatterClassObject"
         @click="buyPowerDM"
       >
-        <span v-html="darkMatterText" />
+        <span :class="{ 'l-dmd-dm-small-text': hasLongDMText }" v-html="darkMatterText" />
       </button>
       <button
         :class="darkEnergyClassObject"
         @click="buyPowerDE"
       >
-        <span v-html="darkEnergyText" />
+        <span :class="{ 'l-dmd-de-small-text': hasLongDEText }" v-html="darkEnergyText" />
       </button>
     </div>
     <div v-if="interval.gt(200)">
