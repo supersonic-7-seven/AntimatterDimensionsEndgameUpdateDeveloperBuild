@@ -41,7 +41,8 @@ export default {
         {
           name: () => "a Doomed Reality",
           isActive: token => token,
-          activityToken: () => Pelle.isDoomed
+          activityToken: () => Pelle.isDoomed,
+          tabName: () => "pelle",
         },
         celestialReality(Alpha, "Alpha's", "alpha"),
         {
