@@ -110,7 +110,8 @@ export const pelleRifts = {
         .div(1e5)
         .plus(Decimal.pow(10, fill / 10 + 0.1))
         .times(Decimal.pow(6, Decimal.pow(6, Decimal.log10(Math.max(fill - 9, 1)).pow(6)).sub(1))), Decimal.pow10(Decimal.pow(
-        DC.NUMMAX, Decimal.pow(2, player.celestials.pelle.divinities))));
+        DC.NUMMAX, Decimal.pow(2, Math.min(player.celestials.pelle.divinities, 8)).times(
+        Decimal.pow(1.5, Math.max(player.celestials.pelle.divinities - 8, 0))))));
     },
     currency: () => ({
       get value() {
