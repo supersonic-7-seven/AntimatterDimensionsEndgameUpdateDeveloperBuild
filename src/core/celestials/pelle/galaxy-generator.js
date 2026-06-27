@@ -213,6 +213,7 @@ export class GalaxyGeneratorUpgrade extends RebuyableMechanicState {
       }
     }
     let price;
+    let clicked = false;
     let logC = [3, 10, 10, 100, 1000, 1e10, 1e100, 10, 1e100, 2];
     let exD = [1/3, 0.1, 1e7, 20000, 10, 1e90, 1, 1, 1, 50];
     let superScale = DC.E10000.div(exD[i]);
@@ -226,8 +227,17 @@ export class GalaxyGeneratorUpgrade extends RebuyableMechanicState {
          : Decimal.log(currV, logC[i])));
     if (bulk) {
       pending = Decimal.floor(currW).sub(player.celestials.pelle.rebuyables[this.id]);
-      player.celestials.pelle.rebuyables[this.id] += pending.toNumber();
-      price = player.celestials.pelle.rebuyables[this.id];
+      player.celestials.pelle.rebuyables[this.id] +=
+        (i === 6 ? Math.min(Math.max(20000 - player.celestials.pelle.rebuyables["galaxyGeneratorDTMult"], 0), pending.toNumber()) : pending.toNumber());
+      if (player.celestials.pelle.rebuyables["galaxyGeneratorDTMult"] >= 20000) clicked = true;
+      if (i === 6 && clicked) {
+        let cos = upg.currency.value.max(1).log10().div(2e10);
+        let purs = Decimal.log(cos, 1.001);
+        let xs = purs.add(20000).toNumber();
+        let gain = xs - player.celestials.pelle.rebuyables[this.id];
+        player.celestials.pelle.rebuyables[this.id] += gain;
+      }
+      price = (i === 6 ? Math.min(player.celestials.pelle.rebuyables[this.id], 20000) : player.celestials.pelle.rebuyables[this.id]);
       price = (i === 1
         ? (new Decimal(price).gte(Decimal.log(superScale, logC[i]))
            ? Decimal.pow(logC[i], new Decimal(price).sub(Decimal.log(superScale, logC[i])).add(0.5).pow(2).sub(0.25).div(2)).times(superScale)
@@ -236,6 +246,9 @@ export class GalaxyGeneratorUpgrade extends RebuyableMechanicState {
            ? Decimal.pow(logC[i], new Decimal(price).add(0.5).pow(2).sub(0.25).div(2))
            : Decimal.pow(logC[i], price)));
       price = ((i >= 2 && i <= 4) || i === 9 ? Decimal.pow10(price.times(exD[i])) : price.times(exD[i]));
+      if (i === 6 && clicked) {
+        price = Decimal.pow10(2e10 * Math.pow(1.001, Math.max(player.celestials.pelle.rebuyables[this.id] - 20000, 0)));
+      }
       upg.currency.value = upg.currency.value.sub(price);
     } else {
       upg.currency.value = upg.currency.value.sub(upg.cost);
