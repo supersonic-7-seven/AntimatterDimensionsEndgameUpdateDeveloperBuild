@@ -218,6 +218,7 @@ export const Endgame = {
     let rowProtect = 0;
     rowProtect = player.reality.glyphs.protectedRows;
     let isAutoWeighed = player.celestials.effarig.autoAdjustGlyphWeights;
+    Enslaved.autoReleaseSpeed = DC.D0;
     player.isGameEnd = false;
     Tab.dimensions.antimatter.show();
     AchievementTimers.marathon2.reset();
