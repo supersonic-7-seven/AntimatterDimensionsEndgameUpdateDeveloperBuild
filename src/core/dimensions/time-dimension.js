@@ -479,7 +479,7 @@ export const TimeDimensions = {
   },
 
   get OVERFLOW_SQUARED() {
-    return Pelle.isDoomed ? Decimal.pow10(Decimal.pow(DC.NUMMAX, Decimal.pow(2, player.celestials.pelle.divinities))) : DC.ENUMMAX;
+    return Pelle.isDoomed ? Decimal.pow10(Decimal.pow(DC.NUMMAX, Decimal.pow(2, player.celestials.pelle.divinities - 1))) : DC.ENUMMAX;
   },
 
   get compressionMagnitude() {
