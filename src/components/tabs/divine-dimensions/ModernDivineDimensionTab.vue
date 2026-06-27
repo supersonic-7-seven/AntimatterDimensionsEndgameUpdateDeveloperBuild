@@ -51,7 +51,7 @@ export default {
       this.creditsClosed = GameEnd.creditsEverClosed;
       this.canProduceEnergy = DivinityUpgrade.divineL1U5.isBought;
       this.isProducingEnergy = player.celestials.pelle.divinity.isProducingEnergy;
-      this.isAnyAutobuyerUnlocked = Autobuyer.celestialDimension(1).isUnlocked;
+      this.isAnyAutobuyerUnlocked = Autobuyer.divineDimension(1).isUnlocked;
     },
     maxAll() {
       DivineDimensions.buyMax();
