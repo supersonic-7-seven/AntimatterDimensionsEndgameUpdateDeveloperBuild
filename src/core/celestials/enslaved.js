@@ -84,7 +84,7 @@ export const Enslaved = {
     return 1000 * 3600 * 8 + addedCap;
   },
   get isAutoReleasing() {
-    return player.celestials.enslaved.isAutoReleasing && !BlackHoles.areNegative && (!Pelle.isDoomed || PelleCelestialUpgrade.raNameless3.canBeApplied);
+    return player.celestials.enslaved.isAutoReleasing && !BlackHoles.areNegative && (!Pelle.isDoomed || player.records.realTimeDoomed > 5000) && (!Pelle.isDoomed || PelleCelestialUpgrade.raNameless3.canBeApplied);
   },
   storeRealTime() {
     if (Pelle.isDoomed && !PelleDestructionUpgrade.blackHole.canBeApplied) return;
