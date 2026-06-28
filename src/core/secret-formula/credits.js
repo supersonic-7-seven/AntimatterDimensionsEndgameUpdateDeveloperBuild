@@ -269,7 +269,7 @@ export const credits = {
     }, {
       name: "epic_ducks",
       name2: "Elys",
-      roles: [18, 21]
+      roles: [18, 21, 13]
     }, {
       name: "Error404",
       roles: [18, 21]
@@ -316,7 +316,7 @@ export const credits = {
     }, {
       name: "Sumi",
       name2: "Lilly",
-      roles: [18, 21]
+      roles: [18, 21, 13]
     }, {
       name: "SwordPunk",
       roles: 18
